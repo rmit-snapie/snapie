@@ -12,3 +12,4 @@ git push -u origin <new branch>
 
 - basic
   create-react-native-app HelloWorld
+- todo app

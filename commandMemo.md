@@ -9,3 +9,6 @@ git checkout -b <new branch>
 git add .
 git commit -m "some message"
 git push -u origin <new branch>
+
+- basic
+  create-react-native-app HelloWorld

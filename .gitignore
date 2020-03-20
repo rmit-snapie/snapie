@@ -67,4 +67,4 @@ node_modules/
 #exclude node modules
 ./client/node_modules
 ./cloud-functions/functions/node_modules
-
+.idea

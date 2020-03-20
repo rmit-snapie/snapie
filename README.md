@@ -1,2 +1,3 @@
-# sepm
-sepm project semA 2020 RMIT
+# Software Engineering Project Management 2020A
+
+React Native Application

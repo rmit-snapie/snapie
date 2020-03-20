@@ -68,4 +68,3 @@ node_modules/
 ./client/node_modules
 ./cloud-functions/functions/node_modules
 .idea
-

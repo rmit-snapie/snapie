@@ -31,3 +31,4 @@
   VoiceNative
   App.js
 - Voice.start("VI") for vietnamese, us for english...
+  - [] nav app

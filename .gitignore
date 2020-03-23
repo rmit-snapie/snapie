@@ -65,7 +65,12 @@ node_modules/
 .env
 
 #exclude node modules
+.idea
 ./client/node_modules
 ./cloud-functions/functions/node_modules
-.idea
 ./cloud-functions/functions/environments/
+./client/environments/
+./client/yarn.lock
+./cloud-functions/functions/package-lock.json
+
+

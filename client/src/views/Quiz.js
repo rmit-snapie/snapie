@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import {goToFirstScreenInStack} from '../helpers/NavigateHelper';
+import PropTypes from 'prop-types';
 
 class Quiz extends Component {
+  static propTypes = {
+    navigation: PropTypes.object.isRequired,
+  };
+
   render() {
     const {navigation} = this.props;
     return (

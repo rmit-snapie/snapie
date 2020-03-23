@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import {goToFirstScreenInStack, navigateTo} from '../helpers/NavigateHelper';
+import PropTypes from 'prop-types';
+import {QUIZ_SCREEN} from '../../environments/Routes';
 
 class Review extends Component {
+  static propTypes = {
+    navigation: PropTypes.object.isRequired,
+  };
+
   render() {
     const {navigation} = this.props;
     return (
@@ -11,7 +17,7 @@ class Review extends Component {
         <View style={styles.buttonWrapper1}>
           <Button
             title="Go to Quiz"
-            onPress={() => navigateTo(navigation, 'Quiz')}
+            onPress={() => navigateTo(navigation, QUIZ_SCREEN)}
           />
           <Button
             title="Go back Home"

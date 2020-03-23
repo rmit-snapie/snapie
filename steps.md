@@ -32,3 +32,9 @@
   App.js
 - Voice.start("VI") for vietnamese, us for english...
   - [] nav app
+
+* [] react native text to speech
+
+- npm install --save react-native-tts
+  react-native link react-native-tts
+  ios => pod install

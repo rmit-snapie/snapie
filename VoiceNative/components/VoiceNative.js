@@ -61,6 +61,9 @@ export default class VoiceNative extends React.Component {
     console.log("state: ", this.state);
     return (
       <View>
+        <Text style={styles.title}>
+          React native voice native speech to text:
+        </Text>
         <Text style={styles.transcript}>Transcript</Text>
         {this.state.results.map((result, index) => (
           <Text key={index} style={styles.transcript}>
@@ -85,8 +88,13 @@ const styles = StyleSheet.create({
   transcript: {
     textAlign: "center",
     color: "#B0171F",
-    marginBottom: 1,
-    top: "400%"
+    marginBottom: 1
+    // top: "400%"
+  },
+  title: {
+    fontSize: 20,
+    textAlign: "center",
+    margin: 10
   }
 });
 AppRegistry.registerComponent("VoiceNative", () => VoiceNative);

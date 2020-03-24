@@ -22,6 +22,7 @@ import Home from './src/views/Home';
 import Explore from './src/views/Explore';
 import Quiz from './src/views/Quiz';
 import Review from './src/views/Review';
+import VoiceNative from './src/components/VoiceNative';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,7 @@ export default function App() {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName={HOME_SCREEN}>
+            {/* <Stack.Screen name={HOME_SCREEN} component={VoiceNative} /> */}
             <Stack.Screen name={HOME_SCREEN} component={Home} />
             <Stack.Screen name={EXPLORE_SCREEN} component={Explore} />
             <Stack.Screen name={REVIEW_SCREEN} component={Review} />

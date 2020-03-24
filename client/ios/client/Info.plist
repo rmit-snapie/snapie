@@ -53,5 +53,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allow VoiceNative to access your microphone</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Give VoiceNative periences permission to access your photos</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+ 	<string>Give VoiceNative periences permission to access the speech recognition</string>
+
+
 </dict>
 </plist>

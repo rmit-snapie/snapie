@@ -56,5 +56,6 @@ buck-out/
 *.jsbundle
 
 */ios/build/
-*/ios/Podfile.lock
+*.lock
+ios/Podfile.lock
 */yarn.lock

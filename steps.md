@@ -61,6 +61,8 @@
   "version": "0.0.1"
   }
   "detox": {
+  "test-runner": "jest",
+  "runner-config":"e2e/config.json",
   "configurations": {
   "ios.sim.debug": {
   "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/example.app",
@@ -73,15 +75,35 @@
   }
   }
   use -workspace ios/example.xcworkspace instead of -project.
-- write function with export module
-- write funcition.test.js that import module and test
-- run yarn test
-- edit test logic in e2e/fistTest.spec.js
-- run the simulator first
-- check package.json
-- detox build
-- detox test
-- gitignore
+
+  - Applying jest-circus
+    npm install --save-dev jest-circus
+  - Update jest's config
+    // e2e/config.json
+
+{
+
+<!-- "testEnvironment": "node" -->
+
+- "testEnvironment": "detox/runners/jest/JestCircusEnvironment",
+- "testRunner": "jest-circus/runner"
+
+* Update init script
+  <!-- -jasmine.getEnv().addReporter(adapter);
+  -jasmine.getEnv().addReporter(specReporter);
+  -jasmine.getEnv().addReporter(assignReporter); -->
+  +detoxCircus.getEnv().addEventsListener(adapter);
+  +detoxCircus.getEnv().addEventsListener(specReporter);
+  +detoxCircus.getEnv().addEventsListener(assignReporter);
+* write function with export module
+* write funcition.test.js that import module and test
+* run yarn test
+* edit test logic in e2e/fistTest.spec.js
+* run the simulator first
+* check package.json
+* detox build
+* detox test
+* gitignore
 
 # Xcode
 

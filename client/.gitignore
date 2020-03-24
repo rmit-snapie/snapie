@@ -56,4 +56,7 @@ buck-out/
 *.jsbundle
 
 # CocoaPods
-/ios/Pods/
+*/ios/Pods/
+*/ios/build/
+*/ios/Podfile.lock
+yarn.lock

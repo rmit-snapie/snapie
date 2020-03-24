@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 
-const app = require('express')('cors');
+const app = require('express')();
 const cors = require('cors');
 const {searchImageByKeyword} = require('./unsplash');
 const {getImageLabels} = require('./cloud-vision/index');

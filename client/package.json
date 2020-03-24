@@ -32,12 +32,28 @@
     "@babel/runtime": "^7.8.7",
     "@react-native-community/eslint-config": "^0.0.7",
     "babel-jest": "^25.1.0",
+    "detox": "^16.0.1",
     "eslint": "^6.8.0",
     "jest": "^25.1.0",
+    "jest-circus": "^25.1.0",
     "metro-react-native-babel-preset": "^0.59.0",
     "react-test-renderer": "16.9.0"
   },
   "jest": {
     "preset": "react-native"
+  },
+  "detox": {
+    "test-runner": "jest",
+    "runner-config": "e2e/config.json",
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/client.app",
+        "build": "xcodebuild -workspace ios/client.xcworkspace  -scheme client -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "device": {
+          "type": "iPhone 11 Pro"
+        }
+      }
+    }
   }
 }

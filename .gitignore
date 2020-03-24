@@ -74,3 +74,9 @@ node_modules/
 ./cloud-functions/functions/package-lock.json
 
 
+# CocoaPods
+# client/ios/Pods
+*/ios/build/
+*/ios/Podfile.lock
+*/yarn.lock
+*/package-lock.json

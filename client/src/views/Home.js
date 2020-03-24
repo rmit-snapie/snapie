@@ -16,7 +16,7 @@ class Home extends Component {
   render() {
     const {navigation} = this.props;
     return (
-      <View style={styles.container}>
+      <View testID="home-screen" style={styles.container}>
         <Text style={styles.text}>We are at home screen.</Text>
         <View style={styles.buttonWrapper1}>
           <Button

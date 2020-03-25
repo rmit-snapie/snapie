@@ -80,3 +80,5 @@ node_modules/
 */ios/Podfile.lock
 */yarn.lock
 */package-lock.json
+.DS_Store
+client/ios/Pods/

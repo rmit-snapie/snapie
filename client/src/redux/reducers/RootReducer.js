@@ -6,3 +6,4 @@ const rootReducer = combineReducers({
 });
 
 export default rootReducer;
+// todo: add more reducers here if required

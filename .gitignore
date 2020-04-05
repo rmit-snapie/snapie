@@ -75,10 +75,14 @@ node_modules/
 
 
 # CocoaPods
-# client/ios/Pods
+/client/ios/Pods
+/client/ios/build
 */ios/build/
 */ios/Podfile.lock
 */yarn.lock
 */package-lock.json
 .DS_Store
 client/ios/Pods/
+
+# APIDemo
+APIDemo/ios/Pods/

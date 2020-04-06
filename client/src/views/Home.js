@@ -7,7 +7,8 @@ import {
   QUIZ_SCREEN,
   REVIEW_SCREEN,
 } from '../../environments/Routes';
-
+// import MultipleChoiceQuiz from '../domainModels/MultipleChoiceQuiz';
+// import multipleChoiceQuizData from '../domainModels/MultipleChoiceQuiz.json';
 class Home extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
@@ -18,6 +19,7 @@ class Home extends Component {
     return (
       <View testID="home-screen" style={styles.container}>
         <Text style={styles.text}>We are at home screen.</Text>
+        {/* <MultipleChoiceQuiz quizData={multipleChoiceQuizData} /> */}
         <View style={styles.buttonWrapper1}>
           <Button
             title="Go to Explore"

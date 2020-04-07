@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
-import {goToFirstScreenInStack} from '../helpers/NavigateHelper';
+import {goToFirstScreenInStack, navigateTo} from '../helpers/NavigateHelper';
 import PropTypes from 'prop-types';
-import MultipleChoiceQuiz from '../domainModels/MultipleChoiceQuiz';
-import multipleChoiceQuizData from '../domainModels/MultipleChoiceQuiz.json';
-class Quiz extends Component {
+import {MULTIPLE_CHOICE} from '../../environments/Routes';
+class Lesson extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   };
@@ -13,10 +12,11 @@ class Quiz extends Component {
     const {navigation} = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>This is Quiz.</Text>
-        {multipleChoiceQuizData.type === 'multipleChoice' && (
-          <MultipleChoiceQuiz quizData={multipleChoiceQuizData} />
-        )}
+        <Text style={styles.text}>This is Lesson.</Text>
+        <Button
+          title="Multiple choice"
+          onPress={() => navigateTo(navigation, MULTIPLE_CHOICE)}
+        />
         <Button
           title="Go back Home"
           onPress={() => goToFirstScreenInStack(navigation)}
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Quiz;
+export default Lesson;

@@ -76,6 +76,7 @@ node_modules/
 
 # CocoaPods
 /client/ios/Pods
+client/yarn.lock
 /client/ios/build
 */ios/build/
 */ios/Podfile.lock

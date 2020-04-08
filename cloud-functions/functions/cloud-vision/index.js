@@ -1,7 +1,10 @@
 const vision = require('@google-cloud/vision');
 const client = new vision.ImageAnnotatorClient({keyFilename: './environments/vision-api-key.json'});
-const {cloudVisionQueryParams, cloudVisionQueryOptioptions} = require('../environments/constants');
+const {cloudVisionQueryParams, cloudVisionQueryOptions} = require('../environments/constants');
 
+/* this function accepts a base 64 encoded string of an image and returns names of objects inside that image
+add rawResult field as true in order to get raw result, otherwise, return label and confidence score
+*/
 exports.getImageLabels = async (req, res) => {
   const expressRequest = req.body;
 
@@ -11,7 +14,7 @@ exports.getImageLabels = async (req, res) => {
     },
     features: [
       {
-        type: cloudVisionQueryOptioptions.LABEL_DETECTION,
+        type: cloudVisionQueryOptions.LABEL_DETECTION,
         maxResults: expressRequest[cloudVisionQueryParams.MAX_RESULTS]
       },
     ]
@@ -24,7 +27,7 @@ exports.getImageLabels = async (req, res) => {
     response.forEach((res) => {
       labels.push({label: res.description, score: res.score});
     });
-    return expressRequest[cloudVisionQueryParams.RAW_RESULT] === "true" ? res.send(response) : res.send(labels);
+    return expressRequest[cloudVisionQueryParams.RAW_RESULT] === 'true' ? res.send(response) : res.send(labels);
   } catch (err) {
     console.error(err);
     return res.send(err);

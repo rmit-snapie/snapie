@@ -18,4 +18,23 @@ export const questions = [
     imagesAsset: ['catURI', 'dogURI', 'windowURI', 'houseURI'],
     correctAnswerCount: 1,
   },
+  {
+    id: 'q2',
+    level: 'level-1',
+    stage: 'stage-1',
+    status: 'new',
+    attemptCount: 0,
+    createdAt: '08-04-2020',
+    updatedAt: '08-04-2020',
+
+    type: 'fillTheBlank',
+    interactType: 'radioButton',
+
+    questionContent: 'This is a',
+    possibleAnswersCount: 4,
+    answers: ['grape', 'watermelon', 'banana', 'citrus'],
+    correctAnswer: 'banana',
+    imagesAsset: ['grapeURI', 'watermelonURI', 'bananaURI', 'citrusURI'],
+    correctAnswerCount: 1,
+  },
 ];

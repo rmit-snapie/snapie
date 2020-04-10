@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './MultipleChoiceStyle';
-import {questions} from '../../domainModels/MultipleChoiceQuestions';
+import {questions} from '../../domainModels/Questions';
 import MultipleChoiceModal from './MultipleChoiceModal';
 
 const multipleChoiceQuestion = questions.filter(

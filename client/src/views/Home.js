@@ -4,7 +4,7 @@ import {View, Text, Button, StyleSheet} from 'react-native';
 import {navigateTo} from '../helpers/NavigateHelper';
 import {
   EXPLORE_SCREEN,
-  QUIZ_SCREEN,
+  LESSON_SCREEN,
   REVIEW_SCREEN,
 } from '../../environments/Routes';
 // import MultipleChoiceQuiz from '../domainModels/MultipleChoiceQuiz';
@@ -31,8 +31,8 @@ class Home extends Component {
           />
         </View>
         <Button
-          title="Go to Quiz"
-          onPress={() => navigateTo(navigation, QUIZ_SCREEN)}
+          title="Go to Lesson"
+          onPress={() => navigateTo(navigation, LESSON_SCREEN)}
         />
       </View>
     );

@@ -16,7 +16,6 @@ import {
   REVIEW_SCREEN,
   LESSON_SCREEN,
   MULTIPLE_CHOICE,
-  FILL_THE_BLANK,
 } from './environments/Routes';
 
 //views
@@ -26,8 +25,7 @@ import Lesson from './src/views/Lesson';
 import Review from './src/views/Review';
 
 //components
-import MultipleChoice from './src/components/MultipleChoice/MultipleChoice';
-import FillTheBlank from './src/components/FillTheBlank/FillTheBlank';
+import MultipleChoice from './src/components/multiple-choice/MultipleChoice';
 
 const Stack = createStackNavigator();
 
@@ -36,13 +34,12 @@ export default function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName={FILL_THE_BLANK}>
+          <Stack.Navigator initialRouteName={MULTIPLE_CHOICE}>
             <Stack.Screen name={HOME_SCREEN} component={Home} />
             <Stack.Screen name={EXPLORE_SCREEN} component={Explore} />
             <Stack.Screen name={REVIEW_SCREEN} component={Review} />
             <Stack.Screen name={LESSON_SCREEN} component={Lesson} />
             <Stack.Screen name={MULTIPLE_CHOICE} component={MultipleChoice} />
-            <Stack.Screen name={FILL_THE_BLANK} component={FillTheBlank} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

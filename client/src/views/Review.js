@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import {goToFirstScreenInStack, navigateTo} from '../helpers/NavigateHelper';
 import PropTypes from 'prop-types';
-import {QUIZ_SCREEN} from '../../environments/Routes';
+import {LESSON_SCREEN} from '../../environments/Routes';
 
 class Review extends Component {
   static propTypes = {
@@ -16,8 +16,8 @@ class Review extends Component {
         <Text style={styles.text}>This is Review.</Text>
         <View style={styles.buttonWrapper1}>
           <Button
-            title="Go to Quiz"
-            onPress={() => navigateTo(navigation, QUIZ_SCREEN)}
+            title="Go to Lesson"
+            onPress={() => navigateTo(navigation, LESSON_SCREEN)}
           />
           <Button
             title="Go back Home"

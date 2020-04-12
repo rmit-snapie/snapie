@@ -13,18 +13,17 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {
   HOME_SCREEN,
   EXPLORE_SCREEN,
-  QUIZ_SCREEN,
+  LESSON_SCREEN,
   REVIEW_SCREEN,
 } from './environments/Routes';
 
 //views
 import Home from './src/views/Home';
 import Explore from './src/views/Explore';
-import Quiz from './src/views/Quiz';
+import Lesson from './src/views/Lesson';
 import Review from './src/views/Review';
 
 const Stack = createStackNavigator();
-
 export default function App() {
   return (
     <Provider store={store}>
@@ -34,7 +33,7 @@ export default function App() {
             <Stack.Screen name={HOME_SCREEN} component={Home} />
             <Stack.Screen name={EXPLORE_SCREEN} component={Explore} />
             <Stack.Screen name={REVIEW_SCREEN} component={Review} />
-            <Stack.Screen name={QUIZ_SCREEN} component={Quiz} />
+            <Stack.Screen name={LESSON_SCREEN} component={Lesson} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

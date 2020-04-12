@@ -73,10 +73,11 @@ node_modules/
 ./client/yarn.lock
 ./cloud-functions/functions/package-lock.json
 
+# package-lock and yarn.lock
+
 
 # CocoaPods
 /client/ios/Pods
-client/yarn.lock
 /client/ios/build
 */ios/build/
 */ios/Podfile.lock
@@ -84,6 +85,7 @@ client/yarn.lock
 */package-lock.json
 .DS_Store
 client/ios/Pods/
+client/ios/client.xcworkspace
 
 # APIDemo
 APIDemo/ios/Pods/

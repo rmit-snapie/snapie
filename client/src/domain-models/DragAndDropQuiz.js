@@ -1,21 +1,11 @@
 import React, {Component} from 'react';
-import {Animated, View, StyleSheet, PanResponder, Text} from 'react-native';
-// import {goToFirstScreenInStack} from '../helpers/NavigateHelper';
+import {Animated, View, StyleSheet, PanResponder} from 'react-native';
 import PropTypes from 'prop-types';
 
 class DragAndDropQuiz extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    // this.onGestureEvent = Animated.event([
-    //   {
-    //     nativeEvent: {
-    //       translationX: this.dragX,
-    //       translationY: this.dragY,
-    //       state: this.gestureState,
-    //     },
-    //   },
-    // ]);
   }
   static propTypes = {
     quizData: PropTypes.object.isRequired,

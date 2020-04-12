@@ -1,51 +1,59 @@
-import React from 'react';
-//must have for react-navigation
-import 'react-native-gesture-handler';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import styles from './FillTheBlankStyle';
+import {questions} from '../../domainModels/Questions';
 
-//redux, redux-persist
-import {PersistGate} from 'redux-persist/integration/react';
-import {Provider} from 'react-redux';
-import {persistor, store} from './src/redux/store';
+const fillTheBlankQuestion = questions.filter(
+  question => question.type === 'fillTheBlank',
+)[0];
 
-//react-navigation
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {
-  HOME_SCREEN,
-  EXPLORE_SCREEN,
-  REVIEW_SCREEN,
-  LESSON_SCREEN,
-  MULTIPLE_CHOICE,
-  FILL_THE_BLANK,
-} from './environments/Routes';
-
-//views
-import Home from './src/views/Home';
-import Explore from './src/views/Explore';
-import Lesson from './src/views/Lesson';
-import Review from './src/views/Review';
-
-//components
-import MultipleChoice from './src/components/MultipleChoice/MultipleChoice';
-import FillTheBlank from './src/components/FillTheBlank/FillTheBlank';
-
-const Stack = createStackNavigator();
-
-export default function App() {
-  return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName={FILL_THE_BLANK}>
-            <Stack.Screen name={HOME_SCREEN} component={Home} />
-            <Stack.Screen name={EXPLORE_SCREEN} component={Explore} />
-            <Stack.Screen name={REVIEW_SCREEN} component={Review} />
-            <Stack.Screen name={LESSON_SCREEN} component={Lesson} />
-            <Stack.Screen name={MULTIPLE_CHOICE} component={MultipleChoice} />
-            <Stack.Screen name={FILL_THE_BLANK} component={FillTheBlank} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PersistGate>
-    </Provider>
-  );
+const {questionContent, answers, correctAnswer} = fillTheBlankQuestion;
+let blanks = '';
+for (let i = 0; i < correctAnswer.length; i++) {
+  blanks += '_';
 }
+console.log(blanks);
+
+const FillTheBlank = () => {
+  const [currentAnswerIndex, setCurrentAnswerIndex] = useState(null);
+
+  const handleAnswerPressed = index => {
+    if (index === currentAnswerIndex) {
+      setCurrentAnswerIndex(null);
+    } else {
+      setCurrentAnswerIndex(index);
+    }
+  };
+  return (
+    <View style={styles.container}>
+      <View style={styles.child1}>
+        <Text>Child 1</Text>
+      </View>
+      <View style={styles.child2}>
+        <Text style={styles.questionContent}>
+          {questionContent} {blanks}
+        </Text>
+      </View>
+      <View style={styles.child3}>
+        {answers.map((answer, index) => (
+          <TouchableOpacity
+            onPress={() => handleAnswerPressed(index)}
+            activeOpacity={0}
+            key={answer}
+            style={
+              index === currentAnswerIndex
+                ? [styles.answer, styles.chosenAnswer]
+                : [styles.answer, styles.notChosenAnswer]
+            }>
+            <Text>{answer}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+      <View style={styles.child4}>
+        <Text>Child 4</Text>
+      </View>
+    </View>
+  );
+};
+
+export default FillTheBlank;

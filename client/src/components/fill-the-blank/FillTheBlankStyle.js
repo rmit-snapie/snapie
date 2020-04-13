@@ -11,6 +11,12 @@ export default StyleSheet.create({
   },
   child2: {
     flex: 2,
+    justifyContent: 'flex-end',
+  },
+  questionContent: {
+    fontSize: 32,
+    fontFamily: 'Amiko-bold',
+    marginBottom: 20,
   },
   child3: {
     flex: 2,
@@ -19,11 +25,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexWrap: 'wrap',
   },
-  questionContent: {
-    fontSize: 32,
-    fontFamily: 'Amiko-bold',
-  },
   answer: {
+    marginTop: 20,
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 6,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -38,22 +45,57 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 16,
-    marginRight: 10,
+    marginRight: 12,
   },
   notChosenAnswer: {
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 2,
-    borderBottomWidth: 6,
     borderColor: 'rgb(229, 229, 229)',
     shadowColor: 'rgba(120,114,120,0.64)', // IOS
   },
   chosenAnswer: {
-    borderColor: '#e5e5e5',
-    shadowColor: 'rgba(120,114,120,0.64)', // IOS
+    borderColor: '#afafaf',
     backgroundColor: '#afafaf',
+  },
+  answerTitle: {
+    fontSize: 16,
   },
   child4: {
     flex: 2,
+  },
+  confirmButton: {
+    marginTop: 15,
+    borderBottomWidth: 5,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+    paddingTop: 13,
+    paddingBottom: 13,
+    paddingRight: 16,
+    paddingLeft: 16,
+    height: 50,
+    width: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderRadius: 16,
+  },
+  confirmAnswer: {
+    borderBottomColor: '#58a700',
+    borderColor: 'rgb(229, 229, 229)',
+    shadowColor: 'rgba(120,114,120,0.64)', // IOS
+    backgroundColor: '#78c800',
+  },
+  disabledConfirm: {
+    borderBottomColor: 'rgba(120,114,120,0.64)',
+    backgroundColor: '#afafaf',
+  },
+  confirmTitle: {
+    fontSize: 18,
+    color: '#ffffff',
+    fontWeight: 'bold',
+    letterSpacing: 1,
   },
 });

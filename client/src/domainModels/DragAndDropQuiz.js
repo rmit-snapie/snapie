@@ -18,6 +18,13 @@ const object2 = {
   height: 100,
   width: 100,
 };
+const object3 = {
+  name: 'object 3',
+  origin: {x: 290 - haftDeviceWidth, y: 500},
+  target: {x: 290 - haftDeviceWidth, y: 150},
+  height: 100,
+  width: 100,
+};
 
 class DragAndDropQuiz extends Component {
   render() {
@@ -27,6 +34,7 @@ class DragAndDropQuiz extends Component {
       <View>
         <DragObject object={object1} />
         <DragObject object={object2} />
+        <DragObject object={object3} />
       </View>
     );
   }

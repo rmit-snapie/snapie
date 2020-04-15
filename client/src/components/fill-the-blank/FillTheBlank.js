@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './FillTheBlankStyle';
-import {questions} from '../../domainModels/Questions';
+import {questions} from '../../domain-models/Questions';
 
 const fillTheBlankQuestion = questions.filter(
   question => question.type === 'fillTheBlank',

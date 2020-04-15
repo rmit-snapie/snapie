@@ -13,13 +13,24 @@ class Quiz extends Component {
   render() {
     const {navigation} = this.props;
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}>This is Quiz.</Text>
+      <View>
+        <Text
+          style={styles.text}
+          onLayout={event => {
+            const layout = event.nativeEvent.layout;
+            console.info('quiz text layout', layout);
+          }}>
+          This is Quiz.
+        </Text>
         {/* {multipleChoiceQuizData.type === 'multipleChoice' && (
           <MultipleChoiceQuiz quizData={multipleChoiceQuizData} />
         )} */}
         <DragAndDropQuiz />
         <Button
+          onLayout={event => {
+            const layout = event.nativeEvent.layout;
+            console.info('quiz button layout', layout);
+          }}
           title="Go back Home"
           onPress={() => goToFirstScreenInStack(navigation)}
         />
@@ -30,9 +41,11 @@ class Quiz extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    // position: 'absolute',
+    // top: 0,
+    // left: 0,
   },
   text: {
     fontSize: 20,

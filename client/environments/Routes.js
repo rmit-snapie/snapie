@@ -4,3 +4,4 @@ export const REVIEW_SCREEN = 'REVIEW';
 export const LESSON_SCREEN = 'LESSON SCREEN';
 export const MULTIPLE_CHOICE = 'MULTIPLE CHOICE';
 export const FILL_THE_BLANK = 'FILL THE BLANK';
+export const SPELLING_ORDER = 'SPELLING ORDER';

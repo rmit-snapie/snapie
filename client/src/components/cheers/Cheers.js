@@ -18,7 +18,6 @@ const Cheers = ({cheers, sad}) => {
       useNativeDriver: true,
     }).start();
   };
-  console.log('render');
   return (
     <View style={styles.container}>
       <Animated.Image

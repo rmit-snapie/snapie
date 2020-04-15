@@ -20,7 +20,28 @@ export default StyleSheet.create({
   questionContent: {
     fontSize: 32,
     fontFamily: 'Amiko-bold',
-    marginBottom: 20,
+  },
+  blanksWrapper: {
+    marginTop: 75,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  blanks: {
+    fontSize: 28,
+    fontFamily: 'Amiko-bold',
+  },
+  clear: {
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 2,
+    backgroundColor: '#fff',
+    padding: 7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderRadius: 6,
   },
   answersWrapper: {
     flex: 2,
@@ -28,9 +49,9 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     flexWrap: 'wrap',
+    marginTop: 75,
   },
   answer: {
-    marginTop: 20,
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 2,
@@ -43,21 +64,13 @@ export default StyleSheet.create({
     elevation: 4,
     backgroundColor: '#fff',
     padding: 10,
-    marginBottom: 20,
+
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 16,
-    marginRight: 12,
-  },
-  notChosenAnswer: {
-    borderColor: 'rgb(229, 229, 229)',
-    shadowColor: 'rgba(120,114,120,0.64)', // IOS
-  },
-  chosenAnswer: {
-    borderColor: '#afafaf',
-    backgroundColor: '#afafaf',
+    marginRight: 20,
   },
   answerTitle: {
     fontSize: 16,

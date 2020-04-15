@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './MultipleChoiceStyle';
-import {questions} from '../../domain-models/Questions';
 import Cheers from '../cheers/Cheers';
+import {getQuestions} from '../../helpers/QuestionHelper';
 
-const multipleChoiceQuestion = questions.filter(
-  question => question.type === 'multipleChoice',
-)[0];
+const multipleChoiceQuestion = getQuestions('multipleChoice')[0];
 const {questionContent, answers, correctAnswer} = multipleChoiceQuestion;
 
 const MultipleChoice = () => {
@@ -47,7 +45,7 @@ const MultipleChoice = () => {
       {!cheers.display && (
         <>
           <View style={styles.assetsWrapper}>
-            <Text>Box</Text>
+            <Text>Box 1</Text>
             <Text>Box 2</Text>
           </View>
           <View style={styles.questionWrapper}>

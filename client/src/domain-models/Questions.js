@@ -37,4 +37,23 @@ export const questions = [
     imagesAsset: ['grapeURI', 'watermelonURI', 'bananaURI', 'citrusURI'],
     correctAnswerCount: 1,
   },
+  {
+    id: 'q3',
+    level: 'level-1',
+    stage: 'stage-1',
+    status: 'new',
+    attemptCount: 0,
+    createdAt: '14-04-2020',
+    updatedAt: '14-04-2020',
+
+    type: 'spellingOrder',
+    interactType: 'radioButton',
+
+    questionContent: 'Spell this word',
+    possibleAnswersCount: 4,
+    answers: ['e', 'r', 'g', 'e', 'n'],
+    correctAnswer: 'green',
+    imagesAsset: ['greenURI'],
+    correctAnswerCount: 1,
+  },
 ];

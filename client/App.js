@@ -17,6 +17,7 @@ import {
   LESSON_SCREEN,
   MULTIPLE_CHOICE,
   FILL_THE_BLANK,
+  SPELLING_ORDER,
 } from './environments/Routes';
 
 //views
@@ -28,6 +29,7 @@ import Review from './src/views/Review';
 //components
 import MultipleChoice from './src/components/multiple-choice/MultipleChoice';
 import FillTheBlank from './src/components/fill-the-blank/FillTheBlank';
+import SpellingOrder from './src/components/spelling-order/SpellingOrder';
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -35,13 +37,14 @@ export default function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName={FILL_THE_BLANK}>
+          <Stack.Navigator initialRouteName={SPELLING_ORDER}>
             <Stack.Screen name={HOME_SCREEN} component={Home} />
             <Stack.Screen name={EXPLORE_SCREEN} component={Explore} />
             <Stack.Screen name={REVIEW_SCREEN} component={Review} />
             <Stack.Screen name={LESSON_SCREEN} component={Lesson} />
             <Stack.Screen name={MULTIPLE_CHOICE} component={MultipleChoice} />
             <Stack.Screen name={FILL_THE_BLANK} component={FillTheBlank} />
+            <Stack.Screen name={SPELLING_ORDER} component={SpellingOrder} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

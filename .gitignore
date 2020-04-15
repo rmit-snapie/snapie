@@ -66,24 +66,20 @@ node_modules/
 
 #exclude node modules
 .idea
-./client/node_modules
-./cloud-functions/functions/node_modules
-./cloud-functions/functions/environments/
-./client/environments/
-./client/yarn.lock
-./cloud-functions/functions/package-lock.json
-
+**/node_modules
+**/environments
+# ./cloud-functions/functions/environments/
+# ./client/environments/
 
 # CocoaPods
-/client/ios/Pods
-client/yarn.lock
-/client/ios/build
-*/ios/build/
-*/ios/Podfile.lock
-*/yarn.lock
-*/package-lock.json
+**/Pods
+**/yarn.lock
+**/build
+**/Podfile.lock
+**/yarn.lock
+**/package-lock.json
 .DS_Store
-client/ios/Pods/
 
-# APIDemo
-APIDemo/ios/Pods/
+
+
+

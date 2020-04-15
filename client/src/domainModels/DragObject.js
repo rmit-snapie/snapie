@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
-import {Animated, View, StyleSheet, PanResponder, Text} from 'react-native';
+import {
+  Animated,
+  View,
+  StyleSheet,
+  PanResponder,
+  Text,
+  Dimensions,
+} from 'react-native';
 import PropTypes from 'prop-types';
-
+const deviceWidth = Dimensions.get('window').width;
 class DragObject extends Component {
   constructor(props) {
     super(props);

@@ -20,10 +20,6 @@ class Lesson extends Component {
         )} */}
         <DragAndDropQuiz />
         <Button
-          onLayout={event => {
-            const layout = event.nativeEvent.layout;
-            console.info('quiz button layout', layout);
-          }}
           title="Go back Home"
           onPress={() => goToFirstScreenInStack(navigation)}
         />

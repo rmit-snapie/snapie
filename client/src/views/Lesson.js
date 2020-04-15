@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import MultipleChoiceQuiz from '../domainModels/MultipleChoiceQuiz';
 import multipleChoiceQuizData from '../domainModels/MultipleChoiceQuiz.json';
 import DragAndDropQuiz from '../domainModels/DragAndDropQuiz';
-class Quiz extends Component {
+class Lesson extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   };
@@ -13,15 +13,8 @@ class Quiz extends Component {
   render() {
     const {navigation} = this.props;
     return (
-      <View>
-        <Text
-          style={styles.text}
-          onLayout={event => {
-            const layout = event.nativeEvent.layout;
-            console.info('quiz text layout', layout);
-          }}>
-          This is Quiz.
-        </Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>This is Lesson.</Text>
         {/* {multipleChoiceQuizData.type === 'multipleChoice' && (
           <MultipleChoiceQuiz quizData={multipleChoiceQuizData} />
         )} */}
@@ -53,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Quiz;
+export default Lesson;

@@ -2,7 +2,9 @@ const {unsplashClientId} = require('../environments/keys');
 const {unsplashApi, unsplashApiParams} = require('../environments/constants');
 const axios = require('axios').default;
 
-exports.searchImageByKeyword = async (req,res) => {
+/* this function sends a request with a keyword to Unsplash and returns an array of objects
+containing urls of an image related to that keyword */
+exports.searchImageByKeyword = async (req, res) => {
   const keyword = req.body[unsplashApiParams.KEYWORD];
 
   try {
@@ -15,8 +17,7 @@ exports.searchImageByKeyword = async (req,res) => {
     });
 
     return res.send(urls);
-  }
-  catch (err) {
+  } catch (err) {
     return res.send(err);
   }
 };

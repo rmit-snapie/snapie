@@ -17,18 +17,14 @@ const MultipleChoice = () => {
   const [cheers, setCheers] = useState({display: false, sad: false});
 
   const resetAnswerState = () => {
-    setCurrentAnswer(prevState => ({...prevState, answer: null, index: null}));
+    setCurrentAnswer({answer: null, index: null});
   };
 
   const handleAnswerPressed = (index, answer) => {
     if (currentAnswer.index === index) {
       resetAnswerState();
     } else {
-      setCurrentAnswer(prevState => ({
-        ...prevState,
-        answer: answer,
-        index: index,
-      }));
+      setCurrentAnswer({answer: answer, index: index});
     }
   };
 

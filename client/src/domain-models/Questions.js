@@ -70,8 +70,24 @@ export const questions = [
 
     questionContent: 'Choose the pairs',
     answers: ['apple', 'banana', 'orange', 'lemon'],
-    correctAnswer: {apple: 1, banana: 2, orange: 3, lemon: 4},
-    imagesAsset: ['greenURI'],
+    imagesAsset: [
+      {
+        name: 'apple',
+        asset: require('../components/pair-selection/assets/apple.jpeg'),
+      },
+      {
+        name: 'banana',
+        asset: require('../components/pair-selection/assets/banana.jpg'),
+      },
+      {
+        name: 'orange',
+        asset: require('../components/pair-selection/assets/orange.jpg'),
+      },
+      {
+        name: 'lemon',
+        asset: require('../components/pair-selection/assets/lemon.jpg'),
+      },
+    ],
     correctAnswerCount: 1,
   },
 ];

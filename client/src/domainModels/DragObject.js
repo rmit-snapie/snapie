@@ -24,31 +24,60 @@ class DragObject extends Component {
     object: PropTypes.object.isRequired,
   };
   checkReachTarget = pan => {
+    // note: target lays at the upper part of the original object.
+    // otherwise: use the formular of checkReachOriginal
     return (
-      pan.x._value > this.props.object.target.x - this.props.object.origin.x &&
+      // (this formular is for the relative position)
+      // it is because pan uses dx:dy from the origin touch position for measuring, hence comes the adapted formular below
+      // top-left corner reach the left edge of target , expanded to the left by 4/5 width
+      pan.x._value >
+        this.props.object.target.x -
+          this.props.object.origin.x -
+          this.props.object.width * 0.9 &&
+      // top-left corner not out-range the right edge of target
       pan.x._value <
         this.props.object.target.x -
           this.props.object.origin.x +
           this.props.object.width &&
+      // top-left corner reach the bottom edge of target
+      pan.y._value >
+        this.props.object.target.y -
+          this.props.object.origin.y -
+          this.props.object.height &&
+      // top-left corner not out-range the upper edge of target , expanded to the upper by 4/5 height
       pan.y._value <
         this.props.object.target.y -
           this.props.object.origin.y +
-          this.props.object.height &&
-      pan.y._value > this.props.object.target.y - this.props.object.origin.y
+          this.props.object.height * 0.9
     );
   };
   checkReachOrigin = pan => {
+    // note: target lays at the lower part of the original object.
+    // otherwise: use the formular of checkReachTarget
     return (
-      pan.x._value > -this.props.object.target.x + this.props.object.origin.x &&
+      // (this formular is for the relative position)
+      // it is because pan uses dx:dy from the origin touch position for measuring, hence comes the adapted formular below
+      // top-left corner reach the left edge of origin , expanded to the left by 4/5 width
+      // now, values are most of the time minor (-), hence:
+      pan.x._value >
+        -this.props.object.target.x +
+          this.props.object.origin.x -
+          this.props.object.width * 0.9 &&
+      // top-left corner not out-range the right edge of origin
       pan.x._value <
         -this.props.object.target.x +
           this.props.object.origin.x +
           this.props.object.width &&
+      // top-left corner reach the bottom edge of target
+      pan.y._value >
+        -this.props.object.target.y +
+          this.props.object.origin.y -
+          this.props.object.height &&
+      // top-left corner not out-range the upper edge of target , expanded to the upper by 4/5 height
       pan.y._value <
         -this.props.object.target.y +
           this.props.object.origin.y +
-          this.props.object.height &&
-      pan.y._value > -this.props.object.target.y + this.props.object.origin.y
+          this.props.object.height * 0.9
     );
   };
 

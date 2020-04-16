@@ -56,4 +56,22 @@ export const questions = [
     imagesAsset: ['greenURI'],
     correctAnswerCount: 1,
   },
+  {
+    id: 'q4',
+    level: 'level-1',
+    stage: 'stage-1',
+    status: 'new',
+    attemptCount: 0,
+    createdAt: '14-04-2020',
+    updatedAt: '14-04-2020',
+
+    type: 'pairSelection',
+    interactType: 'radioButton',
+
+    questionContent: 'Choose the pairs',
+    answers: ['apple', 'banana', 'orange', 'lemon'],
+    correctAnswer: {apple: 1, banana: 2, orange: 3, lemon: 4},
+    imagesAsset: ['greenURI'],
+    correctAnswerCount: 1,
+  },
 ];

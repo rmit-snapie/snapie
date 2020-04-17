@@ -12,6 +12,10 @@ import PropTypes from 'prop-types';
 class DragObject extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      originLayout: {},
+      targetLayout: {},
+    };
     this.panOrigin = this.panOrigin;
     this.panOriginResponder = this.panOriginResponder;
     this.checkReachTarget = this.checkReachTarget;
@@ -143,7 +147,7 @@ class DragObject extends Component {
     const {object} = this.props;
     console.log('render DragObject component > props data:', object);
     return (
-      <View>
+      <View style={styles.constainer}>
         <Animated.View
           style={{
             transform: [
@@ -154,22 +158,23 @@ class DragObject extends Component {
           {...this.panTargetResponder.panHandlers}>
           <View
             style={{
-              position: 'absolute',
-              top: this.props.object.target.y,
-              left: this.props.object.target.x,
+              // position: 'absolute',
+              // top: this.props.object.target.y,
+              // left: this.props.object.target.x,
               height: this.props.object.height,
               width: this.props.object.width,
               backgroundColor: 'grey',
-              borderRadius: 5,
+              borderRadius: 25,
             }}
             onLayout={event => {
               const layout = event.nativeEvent.layout;
               console.info(this.props.object.name, ' target layout', layout);
+              this.setState({targetLayout: layout});
             }}>
             <Text style={styles.text}>target {this.props.object.name}</Text>
           </View>
         </Animated.View>
-
+        <View style={{height: 50}} />
         <Animated.View
           style={{
             transform: [
@@ -180,17 +185,18 @@ class DragObject extends Component {
           {...this.panOriginResponder.panHandlers}>
           <View
             style={{
-              position: 'absolute',
-              top: this.props.object.origin.y,
-              left: this.props.object.origin.x,
+              // position: 'absolute',
+              // top: this.props.object.origin.y,
+              // left: this.props.object.origin.x,
               height: this.props.object.height,
               width: this.props.object.width,
               backgroundColor: 'red',
-              borderRadius: 5,
+              borderRadius: 25,
             }}
             onLayout={event => {
               const layout = event.nativeEvent.layout;
               console.info(this.props.object.name, ' layout', layout);
+              this.setState({originLayout: layout});
             }}>
             <Text style={styles.text}>{this.props.object.name}</Text>
           </View>
@@ -201,10 +207,18 @@ class DragObject extends Component {
 }
 
 const styles = StyleSheet.create({
+  constainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignSelf: 'center',
+    alignContent: 'space-around',
+    alignItems: 'center',
+  },
+  box: {},
   text: {
     fontSize: 20,
     paddingBottom: 15,
-    alignSelf: 'center',
+    // alignSelf: 'center',
   },
 });
 

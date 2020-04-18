@@ -10,12 +10,6 @@ const object1 = {
   name: '1',
   target: '2',
   type: 'image',
-  origin: {x: 38, y: 0},
-  // target: {x: 150 - haftDeviceWidth, y: 150},
-  // origin: {x: 150, y: 500},
-  // target: {x: 150, y: 150},
-  // origin: {x: 0, y: 0},
-
   height: 100,
   width: 100,
 };
@@ -25,7 +19,6 @@ const object8 = {
   type: 'answer',
   height: 20,
   width: 100,
-  origin: {x: 226, y: 0},
 };
 const object3 = {
   name: '3',
@@ -33,7 +26,6 @@ const object3 = {
   type: 'image',
   height: 100,
   width: 100,
-  origin: {x: 38, y: 0},
 };
 const object7 = {
   name: '7',
@@ -41,7 +33,6 @@ const object7 = {
   type: 'answer',
   height: 20,
   width: 100,
-  origin: {x: 226, y: 150},
 };
 const object4 = {
   name: '4',
@@ -49,7 +40,6 @@ const object4 = {
   type: 'image',
   height: 100,
   width: 100,
-  origin: {x: 38, y: 0},
 };
 
 const object6 = {
@@ -58,7 +48,6 @@ const object6 = {
   type: 'answer',
   height: 20,
   width: 100,
-  origin: {x: 226, y: 300},
 };
 
 const object5 = {
@@ -67,7 +56,6 @@ const object5 = {
   type: 'image',
   height: 100,
   width: 100,
-  origin: {x: 38, y: 0},
 };
 const object2 = {
   name: '2',
@@ -75,13 +63,6 @@ const object2 = {
   type: 'answer',
   height: 20,
   width: 100,
-  origin: {x: 226, y: 350},
-  // origin: {x: 120, y: 100},
-  // target: {x: 10, y: 150},
-  // origin: {x: 100, y: 0},
-  // target: {x: 100, y: 150},
-  // height: 80,
-  // width: 80,
 };
 const questions = [object1, object3, object4, object5];
 const answers = [object2, object6, object7, object8];
@@ -94,52 +75,52 @@ class DragAndDropQuiz extends Component {
       objects: objectArray,
     };
   }
-  calculatePosition = objectA => {
-    let currentPosition = objectA.currentPosition;
-    let originPosition = objectA.origin;
-    let columnPosition =
-      objectA.column === 'layoutLeft'
-        ? this.state.layoutLeft
-        : this.state.layoutRight;
-    if (columnPosition == undefined || originPosition == undefined) {
-      return undefined;
-    }
-    currentPosition == undefined
-      ? (currentPosition = {x: {_value: 0}, y: {_value: 0}})
-      : (currentPosition = currentPosition);
-    const x = currentPosition.x._value + originPosition.x + columnPosition.x;
-    const y = currentPosition.y._value + originPosition.y + columnPosition.y;
+  // calculatePosition = objectA => {
+  //   let currentPosition = objectA.currentPosition;
+  //   let originPosition = objectA.origin;
+  //   let columnPosition =
+  //     objectA.column === 'layoutLeft'
+  //       ? this.state.layoutLeft
+  //       : this.state.layoutRight;
+  //   if (columnPosition == undefined || originPosition == undefined) {
+  //     return undefined;
+  //   }
+  //   currentPosition == undefined
+  //     ? (currentPosition = {x: {_value: 0}, y: {_value: 0}})
+  //     : (currentPosition = currentPosition);
+  //   const x = currentPosition.x._value + originPosition.x + columnPosition.x;
+  //   const y = currentPosition.y._value + originPosition.y + columnPosition.y;
 
-    console.log(objectA.name, ' is at position: ', x, ' - ', y);
-    return {x: x, y: y};
-  };
+  //   console.log(objectA.name, ' is at position: ', x, ' - ', y);
+  //   return {x: x, y: y};
+  // };
 
-  checkReachTarget = object => {
-    let targetObject = this.state.objects.filter(
-      objectA => objectA.name === object.target,
-    )[0];
-    console.log('checking reach target: ');
-    console.info('object: ', object);
-    console.info('target: ', targetObject);
-    const objectPosition = this.calculatePosition(object);
-    const targetPosition = this.calculatePosition(targetObject);
-    if (objectPosition == undefined || targetPosition == undefined) {
-      return false;
-    }
-    if (
-      this.checkOverLapping(
-        objectPosition,
-        targetPosition,
-        object,
-        targetObject,
-      )
-    ) {
-      return {
-        dx: targetPosition.x - objectPosition.x,
-        dy: targetPosition.y - objectPosition.y,
-      };
-    } else return false;
-  };
+  // checkReachTarget = object => {
+  //   let targetObject = this.state.objects.filter(
+  //     objectA => objectA.name === object.target,
+  //   )[0];
+  //   console.log('checking reach target: ');
+  //   console.info('object: ', object);
+  //   console.info('target: ', targetObject);
+  //   const objectPosition = this.calculatePosition(object);
+  //   const targetPosition = this.calculatePosition(targetObject);
+  //   if (objectPosition == undefined || targetPosition == undefined) {
+  //     return false;
+  //   }
+  //   if (
+  //     this.checkOverLapping(
+  //       objectPosition,
+  //       targetPosition,
+  //       object,
+  //       targetObject,
+  //     )
+  //   ) {
+  //     return {
+  //       dx: targetPosition.x - objectPosition.x,
+  //       dy: targetPosition.y - objectPosition.y,
+  //     };
+  //   } else return false;
+  // };
   checkOverLapping = (objectPosition, targetPosition, object, target) => {
     return (
       objectPosition.x > targetPosition.x + 25 &&
@@ -159,8 +140,14 @@ class DragAndDropQuiz extends Component {
     if (typeof targetPosition.x !== typeof 3) {
       targetPosition = {x: targetPosition.x._value, y: targetPosition.y._value};
     }
-    console.info('object position: ', moveX, moveY);
-    console.info('target position: ', targetPosition);
+    let objectPosition = object.currentPosition
+      ? object.currentPosition
+      : object.origin;
+    if (typeof objectPosition.x !== typeof 3) {
+      objectPosition = {x: objectPosition.x._value, y: objectPosition.y._value};
+    }
+    console.info('object position: ', moveX, moveY, object);
+    console.info('target position: ', targetPosition, targetObject);
     if (
       this.checkOverLapping(
         {x: moveX, y: moveY},
@@ -174,7 +161,7 @@ class DragAndDropQuiz extends Component {
         y: targetPosition.y + targetObject.height,
       };
       console.log('need to go to:', gotoPosition);
-      return {x: -haftDeviceWidth, y: 0};
+      return {x: -haftDeviceWidth, y: targetPosition.y - objectPosition.y};
     } else return false;
   };
   checkReachTargetRight = (object, gestureState) => {
@@ -188,12 +175,18 @@ class DragAndDropQuiz extends Component {
     if (typeof targetPosition.x !== typeof 3) {
       targetPosition = {x: targetPosition.x._value, y: targetPosition.y._value};
     }
+    let objectPosition = object.currentPosition
+      ? object.currentPosition
+      : object.origin;
+    if (typeof objectPosition.x !== typeof 3) {
+      objectPosition = {x: objectPosition.x._value, y: objectPosition.y._value};
+    }
     targetPosition = {
       x: targetPosition.x + haftDeviceWidth,
       y: targetPosition.y,
     };
-    console.info('object position: ', moveX, moveY);
-    console.info('target position: ', targetPosition);
+    console.info('object position: ', moveX, moveY, object);
+    console.info('target position: ', targetPosition, targetObject);
     if (
       this.checkOverLapping(
         {x: moveX, y: moveY},
@@ -207,7 +200,7 @@ class DragAndDropQuiz extends Component {
         y: targetPosition.y + targetObject.height,
       };
       console.log('need to go to:', gotoPosition);
-      return {x: haftDeviceWidth, y: 0};
+      return {x: haftDeviceWidth, y: targetPosition.y - objectPosition.y};
     } else return false;
   };
   setOrigin = object => {
@@ -216,35 +209,22 @@ class DragAndDropQuiz extends Component {
     );
     this.setState({objects: this.state.objects});
   };
-  updatePosition = object => {
-    // console.log('update for: ', object);
-    if (this.checkReachTarget(object) === false) {
-      this.state.objects = this.state.objects.map(objectA =>
-        objectA.name === object.name ? object : objectA,
-      );
-      // console.log('update ', this.state.objects);
-      this.setState({objects: this.state.objects});
-      return false;
-    } else {
-      return true;
-    }
-    // this.state.name = object;
-    // this.setState(
-    //   this.state.objects.map(objectA =>
-    //     objectA.name === object.name ? object : objectA,
-    //   ),
-    // );
-  };
+  // updatePosition = object => {
+  //   // console.log('update for: ', object);
+  //   if (this.checkReachTarget(object) === false) {
+  //     this.state.objects = this.state.objects.map(objectA =>
+  //       objectA.name === object.name ? object : objectA,
+  //     );
+  //     // console.log('update ', this.state.objects);
+  //     this.setState({objects: this.state.objects});
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // };
 
   render() {
-    // const {quizData} = this.props;
-    console.info('draganddropquiz render state: ', this.state);
-    // console.info(
-    //   'render state:  columns left:',
-    //   this.state.layoutLeft,
-    //   ' ---- columns right: ',
-    //   this.state.layoutRight,
-    // );
+    // console.info('draganddropquiz render state: ', this.state);
     return (
       <View
         style={{
@@ -279,48 +259,6 @@ class DragAndDropQuiz extends Component {
               column="layoutLeft"
             />
           ))}
-          {/* <Object
-          object={object1}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object3}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object2}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object2}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object2}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object2}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object2}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object2}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        /> */}
-          {/* <Object object={object2} setPosition={this.updatePosition} /> */}
-          {/* <Object object={object2} /> */}
         </View>
         <View
           style={{
@@ -346,66 +284,21 @@ class DragAndDropQuiz extends Component {
               column="layoutRight"
             />
           ))}
-          {/* <Object
-          object={object1}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object3}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object2}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object2}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object2}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object2}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object2}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        />
-        <Object
-          object={object2}
-          setPosition={this.updatePosition}
-          column="layoutLeft"
-        /> */}
-          {/* <Object object={object2} setPosition={this.updatePosition} /> */}
-          {/* <Object object={object2} /> */}
         </View>
       </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // flexDirection: 'column',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-    paddingBottom: 15,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     // flexDirection: 'column',
+//     // justifyContent: 'center',
+//     // alignItems: 'center',
+//   },
+//   text: {
+//     fontSize: 20,
+//     paddingBottom: 15,
+//   },
+// });
 export default DragAndDropQuiz;
-//  {/* <DragObject object={object1} />
-//         <DragObject object={object2} />
-//         <DragObject object={object3} /> */}

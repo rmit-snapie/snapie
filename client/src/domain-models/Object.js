@@ -23,13 +23,21 @@ const ObjectA = props => {
         });
       },
       onPanResponderMove: (e, gesture) => {
-        // console.log('panresponder move event: ', e),
-        // console.log('panresponder move gesture: ', gesture);
-        // todo: update position?
         Animated.event([null, {dx: pan.x, dy: pan.y}])(e, gesture);
       },
       onPanResponderTerminate: (evt, gestureState) => {
         console.log('panresponsder terminated for android: ', pan);
+        console.log('release at :', pan, evt.nativeEvent);
+        pan.flattenOffset();
+        let reachReturn = props.checkReachTarget(props.object, gestureState);
+        if (reachReturn === false) {
+          console.log('not reach');
+          pan.setValue({x: 0, y: 0});
+        } else {
+          console.log('reach');
+          pan.setValue(reachReturn);
+          // pan.setValue({x: -DeviceWidth / 2, y: 0});
+        }
       },
       onPanResponderRelease: (evt, gestureState) => {
         console.log('release at :', pan, evt.nativeEvent);
@@ -43,47 +51,9 @@ const ObjectA = props => {
           pan.setValue(reachReturn);
           // pan.setValue({x: -DeviceWidth / 2, y: 0});
         }
-        // props.object.currentPosition = pan;
-        // console.log(props.object);
-        // props.setPosition(props.object);
-        // reachTarget === true
-        // let reachTarget = props.setPosition(props.object);
-        // if (reachTarget == false) {
-        //   pan.setValue({x: 0, y: 0});
-        // } else {
-        //   console.log('reach', typeof pan.x);
-        //   pan.setValue({
-        //     x: pan.x._value + reachTarget.x,
-        //     y: pan.y._value,
-        //   });
-        //   pan.setValue({
-        //     x: pan.x._value + reachTarget.dx,
-        //     y: pan.y._value + reachTarget.dy,
-        //   });
-        // }
       },
     }),
   ).current;
-  //   const panTarget = useRef(new Animated.ValueXY()).current;
-
-  //   const panTargetResponder = useRef(
-  //     PanResponder.create({
-  //       onMoveShouldSetPanResponder: () => true,
-  //       onPanResponderGrant: () => {
-  //         console.log('grant at :', pan);
-  //         pan.setOffset({
-  //           x: pan.x._value,
-  //           y: pan.y._value,
-  //         });
-  //       },
-  //       onPanResponderMove: Animated.event([null, {dx: pan.x, dy: pan.y}]),
-  //       onPanResponderRelease: () => {
-  //         console.log('release at :', pan);
-  //         pan.flattenOffset();
-  //       },
-  //     }),
-  //   ).current;
-
   return (
     <View
       // style={{top: props.object.origin.y, left: props.object.origin.x}}
@@ -105,20 +75,13 @@ const ObjectA = props => {
         <View
           style={
             {
-              top: 0,
-              left: 0,
-              // top: props.object.origin.y,
-              // left: props.object.origin.x,
               height: parseInt(`${props.object.type === 'image' ? 100 : 20}`),
-              // width: `${props.object.type === 'image' ? 100 : 100}`,
               width: 100,
               backgroundColor: `${
-                props.object.type === 'image' ? 'blue' : 'grey'
+                props.object.type === 'image' ? 'blue' : 'red'
               }`,
               borderRadius: 15,
-              // padding: 5,
               paddingLeft: 5,
-
               margin: 25,
               marginBottom: parseInt(
                 `${props.object.type === 'image' ? 25 : 105}`,
@@ -149,13 +112,5 @@ const styles = StyleSheet.create({
     // lineHeight: 24,
     fontWeight: 'bold',
   },
-  // box: {
-  //   top: 20,
-  //   left: 20,
-  //   height: 100,
-  //   width: 100,
-  //   backgroundColor: 'blue',
-  //   borderRadius: 5,
-  // },
 });
 export default ObjectA;

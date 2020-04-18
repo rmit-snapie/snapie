@@ -3,6 +3,9 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './MultipleChoiceStyle';
 import {questions} from '../../domain-models/Questions';
 import Cheers from '../cheers/Cheers';
+import {readText} from '../../helpers/TextToSpeechFunction';
+
+// import TTS from 'react-native-tts';
 
 const multipleChoiceQuestion = questions.filter(
   question => question.type === 'multipleChoice',
@@ -34,9 +37,12 @@ const MultipleChoice = () => {
     } else {
       setCheers({display: true, sad: false});
     }
-    resetAnswerState();
+    resetAnswerState(questionContent);
   };
-
+  // TTS.getInitStatus().then(() => {
+  //   TTS.speak('hello tam');
+  // });
+  readText(questionContent);
   return (
     <View style={styles.container}>
       {cheers.display && <Cheers cheers={cheers.display} sad={cheers.sad} />}

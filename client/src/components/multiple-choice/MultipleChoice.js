@@ -1,13 +1,24 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity} from 'react-native';
+import _ from 'lodash';
 import styles from './MultipleChoiceStyle';
 import Cheers from '../cheers/Cheers';
-import {getQuestions} from '../../helpers/QuestionHelper';
+import {MULTIPLE_CHOICE} from '../../../environments/Routes';
+import {resetRoute} from '../../helpers/NavigateHelper';
+import {popCurrentStack} from '../../redux/actions/QuestionTypeActions';
+import {testCompleted} from '../../redux/actions/ProgressActions';
 
-const multipleChoiceQuestion = getQuestions('multipleChoice')[0];
-const {questionContent, answers, correctAnswer} = multipleChoiceQuestion;
-
-const MultipleChoice = () => {
+const MultipleChoice = ({
+  handlePopCurrentStack,
+  currentStack,
+  handleTestCompleted,
+  route: {
+    params: {question},
+  },
+  navigation,
+}) => {
+  const {questionContent, answers, correctAnswer} = question;
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
     index: null,
@@ -35,8 +46,15 @@ const MultipleChoice = () => {
       setCheers({display: true, sad: true});
     } else {
       setCheers({display: true, sad: false});
+      // setTimeout(() => navigateTo(navigation, HOME_SCREEN), 1000);
     }
-    resetAnswerState();
+    if (currentStack.length !== 1) {
+      handlePopCurrentStack(MULTIPLE_CHOICE);
+      const tempStack = currentStack.filter(stack => stack !== MULTIPLE_CHOICE);
+      setTimeout(() => resetRoute(navigation, _.sample(tempStack)), 1000);
+    } else {
+      setTimeout(() => handleTestCompleted(2), 1000);
+    }
   };
 
   return (
@@ -91,4 +109,7 @@ const MultipleChoice = () => {
   );
 };
 
-export default MultipleChoice;
+export default connect(
+  state => ({currentStack: state.questionTypeStackReducer.currentStack}),
+  {handlePopCurrentStack: popCurrentStack, handleTestCompleted: testCompleted},
+)(MultipleChoice);

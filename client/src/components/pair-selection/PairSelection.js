@@ -1,70 +1,185 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Animated} from 'react-native';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {View, Text, TouchableOpacity, Animated, Easing} from 'react-native';
+import _ from 'lodash';
 import styles from './PairSelectionStyle';
-import {getQuestions, shuffle} from '../../helpers/QuestionHelper';
+import Cheers from '../cheers/Cheers';
+import {PAIR_SELECTION} from '../../../environments/Routes';
+import {shuffle} from '../../helpers/QuestionHelper';
+import {resetRoute} from '../../helpers/NavigateHelper';
+import {popCurrentStack} from '../../redux/actions/QuestionTypeActions';
+import {testCompleted} from '../../redux/actions/ProgressActions';
 
-const pairSelectionQuestion = getQuestions('pairSelection')[0];
-const {
-  questionContent,
-  answers,
-  imagesAsset,
-  correctAnswer,
-} = pairSelectionQuestion;
+class PairSelection extends Component {
+  constructor(props) {
+    super(props);
+    const {
+      route: {
+        params: {question},
+      },
+    } = props;
+    const {questionContent, answers, imagesAsset} = question;
 
-const PairSelection = () => {
-  const [currentAnswer, setCurrentAnswer] = useState({
-    answer: null,
-    index: null,
-  });
+    this.state = {
+      pictures: shuffle(imagesAsset),
+      possibleAnswers: shuffle(answers),
+      currentQuestion: questionContent,
+      currentAnswer: {answer: null, index: null},
+      cheers: {display: false, sad: false},
+      shakeAnimation: new Animated.Value(0),
+    };
+  }
 
-  const [pictureShakeAnimation, setPictureShakeAnimation] = useState(
-    new Animated.Value(0),
-  );
+  render() {
+    const handleAnswerPressed = (index, answer) => {
+      const {currentAnswer} = this.state;
+      if (currentAnswer.index === index) {
+        this.setState(prevState => ({
+          ...prevState,
+          currentAnswer: {answer: null, index: null},
+        }));
+      } else {
+        this.setState(prevState => ({
+          ...prevState,
+          currentAnswer: {answer: answer, index: index},
+        }));
+      }
+    };
 
-  const handleAnswerPressed = (index, answer) => {
-    console.log(index, answer);
-  };
-  return (
-    <View style={styles.container}>
-      <View style={styles.questionWrapper}>
-        <Text style={styles.questionContent}>{questionContent}</Text>
-      </View>
-      <View style={styles.answersWrapper}>
-        <View style={styles.column1}>
-          {answers.map((ans, index) => (
-            <TouchableOpacity
-              activeOpacity={0}
-              onPress={() => handleAnswerPressed(index, ans)}
-              style={
-                currentAnswer.index === index
-                  ? [styles.answer, styles.chosenAnswer]
-                  : [styles.answer, styles.notChosenAnswer]
-              }
-              key={ans}>
-              <Text
-                style={
-                  currentAnswer.index === index
-                    ? styles.chosenAnswerTitle
-                    : styles.answerTitle
-                }>
-                {ans}
-              </Text>
-            </TouchableOpacity>
-          ))}
+    const handlePicturePressed = asset => {
+      const {currentAnswer, possibleAnswers, pictures} = this.state;
+      const {
+        currentStack,
+        handlePopCurrentStack,
+        handleTestCompleted,
+      } = this.props;
+      if (currentAnswer.answer === asset.name) {
+        const tempAnswers = possibleAnswers.filter(
+          answer => answer !== asset.name,
+        );
+        const tempPictures = pictures.filter(picture => picture !== asset);
+        this.setState(prevState => ({
+          ...prevState,
+          pictures: tempPictures,
+          possibleAnswers: tempAnswers,
+          currentAnswer: {answer: null, index: null},
+        }));
+      } else {
+        triggerShake();
+        this.setState(prevState => ({
+          ...prevState,
+          currentAnswer: {answer: null, index: null},
+        }));
+      }
+      if (possibleAnswers.length === 1) {
+        this.setState(prevState => ({
+          ...prevState,
+          cheers: {display: true, sad: false},
+        }));
+        if (currentStack.length !== 1) {
+          handlePopCurrentStack(PAIR_SELECTION);
+          const tempStack = currentStack.filter(
+            stack => stack !== PAIR_SELECTION,
+          );
+          setTimeout(
+            () => resetRoute(this.props.navigation, _.sample(tempStack)),
+            1000,
+          );
+        } else {
+          setTimeout(() => handleTestCompleted(2), 1000);
+        }
+      }
+    };
+
+    const interpolated = this.state.shakeAnimation.interpolate({
+      inputRange: [0, 0.5, 1, 1.5, 2, 2.5, 3],
+      outputRange: [0, -15, 0, -15, 0, -15, 0],
+    });
+
+    const shakeStyle = {
+      transform: [
+        {
+          translateX: interpolated,
+        },
+      ],
+    };
+
+    const triggerShake = () => {
+      Animated.timing(this.state.shakeAnimation, {
+        duration: 400,
+        toValue: 3,
+        easing: Easing.bounce,
+      }).start(() => {
+        this.setState(prevState => ({
+          ...prevState,
+          shakeAnimation: new Animated.Value(0),
+        }));
+      });
+    };
+
+    const {
+      currentAnswer,
+      currentQuestion,
+      pictures,
+      possibleAnswers,
+      cheers: {sad, display},
+    } = this.state;
+
+    if (display) {
+      return <Cheers cheers={display} sad={sad} />;
+    } else {
+      return (
+        <View style={styles.container}>
+          <View style={styles.questionWrapper}>
+            <Text style={styles.questionContent}>{currentQuestion}</Text>
+          </View>
+          <View style={styles.answersWrapper}>
+            <Animated.View style={[shakeStyle, styles.column1]}>
+              {possibleAnswers.map((ans, index) => (
+                <TouchableOpacity
+                  activeOpacity={0}
+                  onPress={() => handleAnswerPressed(index, ans)}
+                  style={
+                    currentAnswer.index === index
+                      ? [styles.answer, styles.chosenAnswer]
+                      : [styles.answer, styles.notChosenAnswer]
+                  }
+                  key={ans}>
+                  <Text
+                    style={
+                      currentAnswer.index === index
+                        ? styles.chosenAnswerTitle
+                        : styles.answerTitle
+                    }>
+                    {ans}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </Animated.View>
+            <Animated.View style={[shakeStyle, styles.column2]}>
+              {pictures.map((picture, index) => (
+                <TouchableOpacity
+                  onPress={() => handlePicturePressed(picture)}
+                  style={styles.assetWrapper}
+                  key={index}>
+                  <Animated.Image
+                    style={[styles.asset]}
+                    source={picture.asset}
+                  />
+                </TouchableOpacity>
+              ))}
+            </Animated.View>
+          </View>
+          <View style={styles.child3}>
+            <Text>Child 3</Text>
+          </View>
         </View>
-        <View style={styles.column2}>
-          {shuffle(imagesAsset).map((asset, index) => (
-            <TouchableOpacity style={styles.assetWrapper} key={index}>
-              <Animated.Image style={[styles.asset]} source={asset.asset} />
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
-      <View style={styles.child3}>
-        <Text>Child 3</Text>
-      </View>
-    </View>
-  );
-};
+      );
+    }
+  }
+}
 
-export default PairSelection;
+export default connect(
+  state => ({currentStack: state.questionTypeStackReducer.currentStack}),
+  {handlePopCurrentStack: popCurrentStack, handleTestCompleted: testCompleted},
+)(PairSelection);

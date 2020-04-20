@@ -7,6 +7,16 @@ export function navigateTo(
   navigationProp.navigate(screenName, propParams);
 }
 
+export function replaceTo(navigationProp: Object, screenName: string) {
+  navigationProp.replace(screenName);
+}
+
+export function resetRoute(navigationProp: Object, screenName: string) {
+  navigationProp.reset({
+    routes: [{name: screenName}],
+  });
+}
+
 //push to a new screen
 export function pushTo(
   navigationProp: Object,

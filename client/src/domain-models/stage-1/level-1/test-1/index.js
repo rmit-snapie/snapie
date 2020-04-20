@@ -1,4 +1,4 @@
-export const questions = [
+export const LEVEL_ONE_TEST_ONE_QUESTIONS = [
   {
     id: 'q1',
     level: 'level-1',
@@ -73,19 +73,19 @@ export const questions = [
     imagesAsset: [
       {
         name: 'apple',
-        asset: require('./stage-1/level-1/assets/apple.png'),
+        asset: require('../assets/apple.png'),
       },
       {
         name: 'banana',
-        asset: require('./stage-1/level-1/assets/banana.png'),
+        asset: require('../assets/banana.png'),
       },
       {
         name: 'orange',
-        asset: require('./stage-1/level-1/assets/orange.png'),
+        asset: require('../assets/orange.png'),
       },
       {
         name: 'lemon',
-        asset: require('./stage-1/level-1/assets/lemon.png'),
+        asset: require('../assets/lemon.png'),
       },
     ],
     correctAnswerCount: 1,

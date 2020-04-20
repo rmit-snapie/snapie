@@ -36,7 +36,7 @@ export default StyleSheet.create({
     elevation: 4,
     backgroundColor: '#fff',
     padding: 10,
-    marginBottom: 35,
+    marginBottom: 40,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
@@ -52,6 +52,10 @@ export default StyleSheet.create({
   },
   chosenAnswer: {
     borderColor: '#e5e5e5',
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 6,
     shadowColor: 'rgba(120,114,120,0.64)', // IOS
     backgroundColor: '#afafaf',
   },

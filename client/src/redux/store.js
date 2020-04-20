@@ -8,8 +8,8 @@ import rootReducer from './reducers';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['userReducer', 'progressReducer'],
-  blacklist: [''],
+  whitelist: [''],
+  blacklist: ['userReducer', 'progressReducer', 'questionTypeStackReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

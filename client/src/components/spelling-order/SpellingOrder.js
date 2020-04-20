@@ -1,30 +1,40 @@
 import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity} from 'react-native';
+import _ from 'lodash';
 import styles from './SpellingOrderStyle';
 import Cheers from '../cheers/Cheers';
-import {createBlanks, getQuestions} from '../../helpers/QuestionHelper';
+import {SPELLING_ORDER} from '../../../environments/Routes';
+import {createBlanks} from '../../helpers/QuestionHelper';
+import {popCurrentStack} from '../../redux/actions/QuestionTypeActions';
+import {resetRoute} from '../../helpers/NavigateHelper';
+import {testCompleted} from '../../redux/actions/ProgressActions';
 
-const spellingOrderQuestion = getQuestions('spellingOrder')[0];
-const {questionContent, answers, correctAnswer} = spellingOrderQuestion;
-const initialBlanks = createBlanks(answers);
-
-const SpellingOrder = () => {
-  //word is the combination of current order + blanks, default is blanks
+const SpellingOrder = ({
+  currentStack,
+  handlePopCurrentStack,
+  handleTestCompleted,
+  route: {
+    params: {question},
+  },
+  navigation,
+}) => {
+  const {questionContent, answers, correctAnswer} = question;
+  const initialBlanks = createBlanks(correctAnswer);
   const [word, setWord] = useState([]);
-  //blanks is for setting blanks
   const [blanks, setBlanks] = useState([]);
-  //current order is to save the order of which user enter the characters
   const [currentOrder, setCurrentOrder] = useState([]);
-  //characters is for the answers, by choosing a character, that character will disappear
   const [characters, setCharacters] = useState([]);
 
   const [cheers, setCheers] = useState({display: false, sad: false});
 
   useEffect(() => {
-    setWord([...initialBlanks]);
-    setBlanks([...initialBlanks]);
-    setCharacters([...answers]);
-  }, []);
+    if (word.length === 0 && blanks.length === 0) {
+      setWord([...initialBlanks]);
+      setBlanks([...initialBlanks]);
+      setCharacters([...answers]);
+    }
+  }, [answers, blanks.length, word.length, initialBlanks]);
 
   const handleAnswerPressed = (index, answer) => {
     const tempCurrentOrder = currentOrder;
@@ -49,10 +59,17 @@ const SpellingOrder = () => {
   };
 
   const handleAnswerCheck = () => {
-    if (correctAnswer === currentOrder.join('')) {
-      setCheers({display: true, sad: false});
-    } else {
+    if (correctAnswer !== currentOrder.join('')) {
       setCheers({display: true, sad: true});
+    } else {
+      setCheers({display: true, sad: false});
+    }
+    if (currentStack.length !== 1) {
+      handlePopCurrentStack(SPELLING_ORDER);
+      const tempStack = currentStack.filter(stack => stack !== SPELLING_ORDER);
+      setTimeout(() => resetRoute(navigation, _.sample(tempStack)), 1000);
+    } else {
+      setTimeout(() => handleTestCompleted(2), 1000);
     }
   };
 
@@ -112,4 +129,7 @@ const SpellingOrder = () => {
   );
 };
 
-export default SpellingOrder;
+export default connect(
+  state => ({currentStack: state.questionTypeStackReducer.currentStack}),
+  {handlePopCurrentStack: popCurrentStack, handleTestCompleted: testCompleted},
+)(SpellingOrder);

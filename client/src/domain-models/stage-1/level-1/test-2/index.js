@@ -1,4 +1,4 @@
-export const questions = [
+export const LEVEL_ONE_TEST_TWO_QUESTIONS = [
   {
     id: 'q1',
     level: 'level-1',
@@ -13,8 +13,8 @@ export const questions = [
 
     questionContent: 'What is this ?',
     possibleAnswersCount: 4,
-    answers: ['rulers', 'papers', 'pencils', 'erasers'],
-    correctAnswer: 'rulers',
+    answers: ['spoon', 'fork', 'chopsticks', 'cup'],
+    correctAnswer: 'cup',
     imagesAsset: ['catURI', 'dogURI', 'windowURI', 'houseURI'],
     correctAnswerCount: 1,
   },
@@ -32,8 +32,8 @@ export const questions = [
 
     questionContent: 'This is a',
     possibleAnswersCount: 4,
-    answers: ['grape', 'watermelon', 'banana', 'citrus'],
-    correctAnswer: 'banana',
+    answers: ['phone', 'laptop', 'keyboard', 'mouse'],
+    correctAnswer: 'laptop',
     imagesAsset: ['grapeURI', 'watermelonURI', 'bananaURI', 'citrusURI'],
     correctAnswerCount: 1,
   },
@@ -51,8 +51,8 @@ export const questions = [
 
     questionContent: 'Spell this word',
     possibleAnswersCount: 4,
-    answers: ['e', 'r', 'g', 'e', 'n'],
-    correctAnswer: 'green',
+    answers: ['g', 'r', 'a', 'p', 'e'],
+    correctAnswer: 'grape',
     imagesAsset: ['greenURI'],
     correctAnswerCount: 1,
   },
@@ -73,19 +73,19 @@ export const questions = [
     imagesAsset: [
       {
         name: 'apple',
-        asset: require('./stage-1/level-1/assets/apple.png'),
+        asset: require('../assets/apple.png'),
       },
       {
         name: 'banana',
-        asset: require('./stage-1/level-1/assets/banana.png'),
+        asset: require('../assets/banana.png'),
       },
       {
         name: 'orange',
-        asset: require('./stage-1/level-1/assets/orange.png'),
+        asset: require('../assets/orange.png'),
       },
       {
         name: 'lemon',
-        asset: require('./stage-1/level-1/assets/lemon.png'),
+        asset: require('../assets/lemon.png'),
       },
     ],
     correctAnswerCount: 1,

@@ -8,8 +8,8 @@ const Cheers = ({cheers, sad}) => {
   const [opacity] = useState(new Animated.Value(0));
 
   const imagePath = sad
-    ? require('../../domain-models/assets/sad.png')
-    : require('../../domain-models/assets/confetti.png');
+    ? require('../../domain-models/assets/cheers/sad.png')
+    : require('../../domain-models/assets/cheers/confetti.png');
 
   const onLoad = () => {
     Animated.timing(opacity, {

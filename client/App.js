@@ -9,46 +9,15 @@ import {persistor, store} from './src/redux/store';
 
 //react-navigation
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {
-  HOME_SCREEN,
-  EXPLORE_SCREEN,
-  REVIEW_SCREEN,
-  LESSON_SCREEN,
-  MULTIPLE_CHOICE,
-  FILL_THE_BLANK,
-  SPELLING_ORDER,
-  PAIR_SELECTION,
-} from './environments/Routes';
 
-//views
-import Home from './src/views/Home';
-import Explore from './src/views/Explore';
-import Lesson from './src/views/Lesson';
-import Review from './src/views/Review';
+import StagesWrapper from './src/navigation';
 
-//components
-import MultipleChoice from './src/components/multiple-choice/MultipleChoice';
-import FillTheBlank from './src/components/fill-the-blank/FillTheBlank';
-import SpellingOrder from './src/components/spelling-order/SpellingOrder';
-import PairSelection from './src/components/pair-selection/PairSelection';
-
-const Stack = createStackNavigator();
 export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName={PAIR_SELECTION}>
-            <Stack.Screen name={HOME_SCREEN} component={Home} />
-            <Stack.Screen name={EXPLORE_SCREEN} component={Explore} />
-            <Stack.Screen name={REVIEW_SCREEN} component={Review} />
-            <Stack.Screen name={LESSON_SCREEN} component={Lesson} />
-            <Stack.Screen name={MULTIPLE_CHOICE} component={MultipleChoice} />
-            <Stack.Screen name={FILL_THE_BLANK} component={FillTheBlank} />
-            <Stack.Screen name={SPELLING_ORDER} component={SpellingOrder} />
-            <Stack.Screen name={PAIR_SELECTION} component={PairSelection} />
-          </Stack.Navigator>
+          <StagesWrapper />
         </NavigationContainer>
       </PersistGate>
     </Provider>

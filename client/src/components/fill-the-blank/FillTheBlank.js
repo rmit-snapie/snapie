@@ -1,14 +1,26 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './FillTheBlankStyle';
 import Cheers from '../cheers/Cheers';
-import {createBlanks, getQuestions} from '../../helpers/QuestionHelper';
+import {createBlanks} from '../../helpers/QuestionHelper';
+import {popCurrentStack} from '../../redux/actions/QuestionTypeActions';
+import {FILL_THE_BLANK} from '../../../environments/Routes';
+import {resetRoute} from '../../helpers/NavigateHelper';
+import _ from 'lodash';
+import {testCompleted} from '../../redux/actions/ProgressActions';
 
-const fillTheBlankQuestion = getQuestions('fillTheBlank')[0];
-const {questionContent, answers, correctAnswer} = fillTheBlankQuestion;
-let blanks = createBlanks(answers);
-
-const FillTheBlank = () => {
+const FillTheBlank = ({
+  currentStack,
+  handlePopCurrentStack,
+  handleTestCompleted,
+  route: {
+    params: {question},
+  },
+  navigation,
+}) => {
+  const {questionContent, answers, correctAnswer} = question;
+  const blanks = createBlanks(answers);
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
     index: null,
@@ -33,10 +45,17 @@ const FillTheBlank = () => {
   };
 
   const handleAnswerCheck = () => {
-    if (currentAnswer.answer === correctAnswer) {
-      setCheers({display: true, sad: false});
-    } else {
+    if (currentAnswer.answer !== correctAnswer) {
       setCheers({display: true, sad: true});
+    } else {
+      setCheers({display: true, sad: false});
+    }
+    if (currentStack.length !== 1) {
+      handlePopCurrentStack(FILL_THE_BLANK);
+      const tempStack = currentStack.filter(stack => stack !== FILL_THE_BLANK);
+      setTimeout(() => resetRoute(navigation, _.sample(tempStack)), 1000);
+    } else {
+      setTimeout(() => handleTestCompleted(2), 1000);
     }
   };
 
@@ -88,4 +107,7 @@ const FillTheBlank = () => {
   );
 };
 
-export default FillTheBlank;
+export default connect(
+  state => ({currentStack: state.questionTypeStackReducer.currentStack}),
+  {handlePopCurrentStack: popCurrentStack, handleTestCompleted: testCompleted},
+)(FillTheBlank);

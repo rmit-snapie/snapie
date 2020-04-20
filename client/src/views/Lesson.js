@@ -1,21 +1,22 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import {goToFirstScreenInStack, navigateTo} from '../helpers/NavigateHelper';
 import PropTypes from 'prop-types';
-import {MULTIPLE_CHOICE} from '../../environments/Routes';
+
 class Lesson extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   };
 
   render() {
-    const {navigation} = this.props;
+    const {navigation, currentStack} = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.text}>This is Lesson.</Text>
         <Button
-          title="Multiple choice"
-          onPress={() => navigateTo(navigation, MULTIPLE_CHOICE)}
+          title="Play"
+          onPress={() => navigateTo(navigation, currentStack[0])}
         />
         <Button
           title="Go back Home"
@@ -38,4 +39,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Lesson;
+export default connect(
+  state => ({currentStack: state.questionTypeStackReducer.currentStack}),
+  null,
+)(Lesson);

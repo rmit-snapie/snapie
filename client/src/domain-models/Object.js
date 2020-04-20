@@ -7,7 +7,9 @@ import {
   Text,
   Dimensions,
 } from 'react-native';
+
 const DeviceWidth = Dimensions.get('window').width;
+
 const ObjectA = props => {
   // console.log('object render: ', props.object);
   const pan = useRef(new Animated.ValueXY()).current;
@@ -17,13 +19,16 @@ const ObjectA = props => {
       onMoveShouldSetPanResponder: () => true,
       onPanResponderGrant: () => {
         console.log('grant at :', pan);
+
         pan.setOffset({
           x: pan.x._value,
           y: pan.y._value,
         });
       },
       onPanResponderMove: (e, gesture) => {
-        Animated.event([null, {dx: pan.x, dy: pan.y}])(e, gesture);
+        Animated.event([null, {dx: pan.x, dy: pan.y, useNativeDriver: true}], {
+          config: {useNativeDriver: true},
+        })(e, gesture);
       },
       onPanResponderTerminate: (evt, gestureState) => {
         console.log('panresponsder terminated for android: ', pan);

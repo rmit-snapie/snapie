@@ -32,23 +32,10 @@ export const setSpeechPitch = async rate => {
 };
 defaultTTSConfig();
 export const readText = async text => {
-  //   TTS.stop();
-  // const tts = new TTS();
-  // await defaultTTSConfig();
   // TTS.stop();
   TTS.getInitStatus().then(() => {
     TTS.speak(text);
   });
-  //   TTS.speak(this.state.text);
-  //   Tts.speak('Hello, world!', {iosVoiceId: 'com.apple.ttsbundle.Moira-compact'});
-  //   Tts.speak('Hello, world!', {
-  //     androidParams: {
-  //       KEY_PARAM_PAN: -1,
-  //       KEY_PARAM_VOLUME: 0.5,
-  //       KEY_PARAM_STREAM: 'STREAM_MUSIC',
-  //     },
-  //   });
-  //   TTS.stop();
 };
 export const cleanup = async () => {
   TTS.removeAllListeners(['tts-start', 'tts-finish', 'tts-cancel']);

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import {goToFirstScreenInStack, navigateTo} from '../helpers/NavigateHelper';
-import PropTypes from 'prop-types';
 
 class Lesson extends Component {
   static propTypes = {
@@ -38,6 +38,11 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
 });
+
+Lesson.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  currentStack: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default connect(
   state => ({currentStack: state.questionTypeStackReducer.currentStack}),

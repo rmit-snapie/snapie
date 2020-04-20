@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity, Animated, Easing} from 'react-native';
 import _ from 'lodash';
@@ -178,6 +179,14 @@ class PairSelection extends Component {
     }
   }
 }
+
+PairSelection.propTypes = {
+  route: PropTypes.object.isRequired,
+  currentStack: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handlePopCurrentStack: PropTypes.func.isRequired,
+  handleTestCompleted: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired,
+};
 
 export default connect(
   state => ({currentStack: state.questionTypeStackReducer.currentStack}),

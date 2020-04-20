@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {setCurrentStack} from '../../../../redux/actions/QuestionTypeActions';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -28,9 +29,7 @@ import {LEVEL_ONE_TEST_ONE_QUESTIONS} from '../../../../domain-models/stage-1/le
 const firstTest = LEVEL_ONE_TEST_ONE_QUESTIONS;
 const FirstTestStack = createStackNavigator();
 
-function FirstTestStackNavigator(props) {
-  const {handleSetCurrentStack} = props;
-
+function FirstTestStackNavigator({handleSetCurrentStack}) {
   useEffect(() => {
     handleSetCurrentStack([
       FILL_THE_BLANK,
@@ -80,6 +79,10 @@ function FirstTestStackNavigator(props) {
     </FirstTestStack.Navigator>
   );
 }
+
+FirstTestStackNavigator.propTypes = {
+  handleSetCurrentStack: PropTypes.func.isRequired,
+};
 
 export default connect(
   null,

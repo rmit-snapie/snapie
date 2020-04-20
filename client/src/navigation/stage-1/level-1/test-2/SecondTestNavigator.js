@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {setCurrentStack} from '../../../../redux/actions/QuestionTypeActions';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -27,13 +28,11 @@ import PairSelection from '../../../../components/pair-selection/PairSelection';
 
 //Question Content
 import {LEVEL_ONE_TEST_TWO_QUESTIONS} from '../../../../domain-models/stage-1/level-1/test-2';
-const secondTest = LEVEL_ONE_TEST_TWO_QUESTIONS
+const secondTest = LEVEL_ONE_TEST_TWO_QUESTIONS;
 
 const SecondTestStack = createStackNavigator();
 
-function SecondTestNavigator(props) {
-  const {handleSetCurrentStack} = props;
-
+function SecondTestNavigator({handleSetCurrentStack}) {
   useEffect(() => {
     handleSetCurrentStack([
       SPELLING_ORDER,
@@ -64,7 +63,6 @@ function SecondTestNavigator(props) {
         component={MultipleChoice}
         initialParams={{
           question: secondTest[0],
-          docker: 'doc doc doc',
         }}
       />
       <SecondTestStack.Screen
@@ -84,6 +82,10 @@ function SecondTestNavigator(props) {
     </SecondTestStack.Navigator>
   );
 }
+
+SecondTestNavigator.propTypes = {
+  handleSetCurrentStack: PropTypes.func.isRequired,
+};
 
 export default connect(
   null,

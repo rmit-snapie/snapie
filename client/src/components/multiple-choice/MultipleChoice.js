@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import Proptypes from 'prop-types';
 import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity} from 'react-native';
 import _ from 'lodash';
@@ -107,6 +108,14 @@ const MultipleChoice = ({
       )}
     </View>
   );
+};
+
+MultipleChoice.propTypes = {
+  handlePopCurrentStack: Proptypes.func.isRequired,
+  currentStack: Proptypes.arrayOf(Proptypes.string).isRequired,
+  handleTestCompleted: Proptypes.func.isRequired,
+  route: Proptypes.object.isRequired,
+  navigation: Proptypes.object.isRequired,
 };
 
 export default connect(

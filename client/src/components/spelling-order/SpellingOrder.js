@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity} from 'react-native';
 import _ from 'lodash';
@@ -127,6 +128,14 @@ const SpellingOrder = ({
       )}
     </View>
   );
+};
+
+SpellingOrder.propTypes = {
+  currentStack: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handlePopCurrentStack: PropTypes.func.isRequired,
+  handleTestCompleted: PropTypes.func.isRequired,
+  route: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default connect(

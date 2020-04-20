@@ -9,7 +9,6 @@ export default StyleSheet.create({
   questionWrapper: {
     flex: 1,
     justifyContent: 'flex-end',
-    borderWidth: 1,
   },
   questionContent: {
     fontFamily: 'Amiko-Bold',
@@ -20,7 +19,6 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
-    borderWidth: 1,
   },
   column1: {
     flex: 1,
@@ -81,6 +79,5 @@ export default StyleSheet.create({
   },
   child3: {
     flex: 1,
-    borderWidth: 1,
   },
 });

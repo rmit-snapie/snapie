@@ -109,10 +109,6 @@ class DragAndDropQuiz extends Component {
         targetObject,
       )
     ) {
-      let gotoPosition = {
-        x: targetPosition.x,
-        y: targetPosition.y + targetObject.height,
-      };
       // console.log('need to go to:', gotoPosition);
       return {x: -haftDeviceWidth, y: targetPosition.y - objectPosition.y};
     } else return false;

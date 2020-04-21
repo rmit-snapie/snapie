@@ -1,14 +1,5 @@
 import React, {useRef} from 'react';
-import {
-  Animated,
-  View,
-  StyleSheet,
-  PanResponder,
-  Text,
-  Dimensions,
-} from 'react-native';
-
-const DeviceWidth = Dimensions.get('window').width;
+import {Animated, View, StyleSheet, PanResponder, Text} from 'react-native';
 
 const ObjectA = props => {
   // console.log('object render: ', props.object);
@@ -41,7 +32,6 @@ const ObjectA = props => {
         } else {
           // console.log('reach');
           pan.setValue(reachReturn);
-          // pan.setValue({x: -DeviceWidth / 2, y: 0});
         }
       },
       onPanResponderRelease: (evt, gestureState) => {
@@ -54,14 +44,12 @@ const ObjectA = props => {
         } else {
           // console.log('reach');
           pan.setValue(reachReturn);
-          // pan.setValue({x: -DeviceWidth / 2, y: 0});
         }
       },
     }),
   ).current;
   return (
     <View
-      // style={{top: props.object.origin.y, left: props.object.origin.x}}
       onLayout={event => {
         const layout = event.nativeEvent.layout;
         // console.info(props.object.name, ' object layout', layout);
@@ -102,12 +90,9 @@ const ObjectA = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   titleText: {
     fontSize: 60,
-    // lineHeight: 24,
     fontWeight: 'bold',
   },
 });

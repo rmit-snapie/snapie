@@ -18,7 +18,7 @@ const ObjectA = props => {
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
       onPanResponderGrant: () => {
-        console.log('grant at :', pan);
+        // console.log('grant at :', pan);
 
         pan.setOffset({
           x: pan.x._value,
@@ -31,28 +31,28 @@ const ObjectA = props => {
         })(e, gesture);
       },
       onPanResponderTerminate: (evt, gestureState) => {
-        console.log('panresponsder terminated for android: ', pan);
-        console.log('release at :', pan, evt.nativeEvent);
+        // console.log('panresponsder terminated for android: ', pan);
+        // console.log('release at :', pan, evt.nativeEvent);
         pan.flattenOffset();
         let reachReturn = props.checkReachTarget(props.object, gestureState);
         if (reachReturn === false) {
-          console.log('not reach');
+          // console.log('not reach');
           pan.setValue({x: 0, y: 0});
         } else {
-          console.log('reach');
+          // console.log('reach');
           pan.setValue(reachReturn);
           // pan.setValue({x: -DeviceWidth / 2, y: 0});
         }
       },
       onPanResponderRelease: (evt, gestureState) => {
-        console.log('release at :', pan, evt.nativeEvent);
+        // console.log('release at :', pan, evt.nativeEvent);
         pan.flattenOffset();
         let reachReturn = props.checkReachTarget(props.object, gestureState);
         if (reachReturn === false) {
-          console.log('not reach');
+          // console.log('not reach');
           pan.setValue({x: 0, y: 0});
         } else {
-          console.log('reach');
+          // console.log('reach');
           pan.setValue(reachReturn);
           // pan.setValue({x: -DeviceWidth / 2, y: 0});
         }
@@ -64,12 +64,9 @@ const ObjectA = props => {
       // style={{top: props.object.origin.y, left: props.object.origin.x}}
       onLayout={event => {
         const layout = event.nativeEvent.layout;
-        console.info(props.object.name, ' object layout', layout);
+        // console.info(props.object.name, ' object layout', layout);
         props.object.origin = layout;
         props.setOrigin(props.object);
-        // props.object.column = props.column;
-        // console.log(props.object);
-        // props.setPosition(props.object);
       }}>
       <Animated.View
         style={{
@@ -78,23 +75,19 @@ const ObjectA = props => {
         }}
         {...panResponder.panHandlers}>
         <View
-          style={
-            {
-              height: parseInt(`${props.object.type === 'image' ? 100 : 20}`),
-              width: 100,
-              backgroundColor: `${
-                props.object.type === 'image' ? 'blue' : 'red'
-              }`,
-              borderRadius: 15,
-              paddingLeft: 5,
-              margin: 25,
-              marginBottom: parseInt(
-                `${props.object.type === 'image' ? 25 : 105}`,
-              ),
-            }
-            // styles.box
-            // {left: props.object.origin.x, top: props.object.origin.y}
-          }>
+          style={{
+            height: parseInt(`${props.object.type === 'image' ? 100 : 20}`),
+            width: 100,
+            backgroundColor: `${
+              props.object.type === 'image' ? 'blue' : 'red'
+            }`,
+            borderRadius: 15,
+            paddingLeft: 5,
+            margin: 25,
+            marginBottom: parseInt(
+              `${props.object.type === 'image' ? 25 : 105}`,
+            ),
+          }}>
           <Text>
             {props.object.type === 'image'
               ? 'image - ' + props.object.name

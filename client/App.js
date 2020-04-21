@@ -27,7 +27,7 @@ import Review from './src/views/Review';
 
 //components
 import MultipleChoice from './src/components/multiple-choice/MultipleChoice';
-import DragAndDropQuiz from './src/domain-models/DragAndDropQuiz';
+import DragAndDropQuiz from './src/components/DragAndDrop/DragAndDropQuiz';
 
 const Stack = createStackNavigator();
 export default function App() {

@@ -3,7 +3,6 @@ import {View, Dimensions, StyleSheet} from 'react-native';
 import Object from './Object';
 // import {goToFirstScreenInStack} from '../helpers/NavigateHelper';
 import PropTypes from 'prop-types';
-import DragObject from './DragObject';
 
 const haftDeviceWidth = Dimensions.get('window').width / 2.0;
 const object1 = {
@@ -75,52 +74,6 @@ class DragAndDropQuiz extends Component {
       objects: objectArray,
     };
   }
-  // calculatePosition = objectA => {
-  //   let currentPosition = objectA.currentPosition;
-  //   let originPosition = objectA.origin;
-  //   let columnPosition =
-  //     objectA.column === 'layoutLeft'
-  //       ? this.state.layoutLeft
-  //       : this.state.layoutRight;
-  //   if (columnPosition == undefined || originPosition == undefined) {
-  //     return undefined;
-  //   }
-  //   currentPosition == undefined
-  //     ? (currentPosition = {x: {_value: 0}, y: {_value: 0}})
-  //     : (currentPosition = currentPosition);
-  //   const x = currentPosition.x._value + originPosition.x + columnPosition.x;
-  //   const y = currentPosition.y._value + originPosition.y + columnPosition.y;
-
-  //   console.log(objectA.name, ' is at position: ', x, ' - ', y);
-  //   return {x: x, y: y};
-  // };
-
-  // checkReachTarget = object => {
-  //   let targetObject = this.state.objects.filter(
-  //     objectA => objectA.name === object.target,
-  //   )[0];
-  //   console.log('checking reach target: ');
-  //   console.info('object: ', object);
-  //   console.info('target: ', targetObject);
-  //   const objectPosition = this.calculatePosition(object);
-  //   const targetPosition = this.calculatePosition(targetObject);
-  //   if (objectPosition == undefined || targetPosition == undefined) {
-  //     return false;
-  //   }
-  //   if (
-  //     this.checkOverLapping(
-  //       objectPosition,
-  //       targetPosition,
-  //       object,
-  //       targetObject,
-  //     )
-  //   ) {
-  //     return {
-  //       dx: targetPosition.x - objectPosition.x,
-  //       dy: targetPosition.y - objectPosition.y,
-  //     };
-  //   } else return false;
-  // };
   checkOverLapping = (objectPosition, targetPosition, object, target) => {
     return (
       objectPosition.x > targetPosition.x + 25 &&
@@ -146,8 +99,8 @@ class DragAndDropQuiz extends Component {
     if (typeof objectPosition.x !== typeof 3) {
       objectPosition = {x: objectPosition.x._value, y: objectPosition.y._value};
     }
-    console.info('object position: ', moveX, moveY, object);
-    console.info('target position: ', targetPosition, targetObject);
+    // console.info('object position: ', moveX, moveY, object);
+    // console.info('target position: ', targetPosition, targetObject);
     if (
       this.checkOverLapping(
         {x: moveX, y: moveY},
@@ -160,15 +113,17 @@ class DragAndDropQuiz extends Component {
         x: targetPosition.x,
         y: targetPosition.y + targetObject.height,
       };
-      console.log('need to go to:', gotoPosition);
+      // console.log('need to go to:', gotoPosition);
       return {x: -haftDeviceWidth, y: targetPosition.y - objectPosition.y};
     } else return false;
   };
   checkReachTargetRight = (object, gestureState) => {
     let {moveX, moveY, ...gesture} = gestureState;
+    // console.log(this.state.objects);
     let targetObject = this.state.objects.filter(
       objectA => objectA.name === object.target,
     )[0];
+    // console.log(targetObject);
     let targetPosition = targetObject.currentPosition
       ? targetObject.currentPosition
       : targetObject.origin;
@@ -185,8 +140,8 @@ class DragAndDropQuiz extends Component {
       x: targetPosition.x + haftDeviceWidth,
       y: targetPosition.y,
     };
-    console.info('object position: ', moveX, moveY, object);
-    console.info('target position: ', targetPosition, targetObject);
+    // console.info('object position: ', moveX, moveY, object);
+    // console.info('target position: ', targetPosition, targetObject);
     if (
       this.checkOverLapping(
         {x: moveX, y: moveY},
@@ -199,7 +154,7 @@ class DragAndDropQuiz extends Component {
         x: targetPosition.x,
         y: targetPosition.y + targetObject.height,
       };
-      console.log('need to go to:', gotoPosition);
+      // console.log('need to go to:', gotoPosition);
       return {x: haftDeviceWidth, y: targetPosition.y - objectPosition.y};
     } else return false;
   };
@@ -209,49 +164,28 @@ class DragAndDropQuiz extends Component {
     );
     this.setState({objects: this.state.objects});
   };
-  // updatePosition = object => {
-  //   // console.log('update for: ', object);
-  //   if (this.checkReachTarget(object) === false) {
-  //     this.state.objects = this.state.objects.map(objectA =>
-  //       objectA.name === object.name ? object : objectA,
-  //     );
-  //     // console.log('update ', this.state.objects);
-  //     this.setState({objects: this.state.objects});
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // };
 
   render() {
-    // console.info('draganddropquiz render state: ', this.state);
+    // console.info('draganddropquiz render state: ', this.state.objects);
     return (
       <View
         style={{
           flex: 1,
           flexDirection: 'row',
-          // flexWrap: 'wrap',
           alignItems: 'flex-start',
-          // justifyContent: 'space-evenly',
-          // padding: 25,
         }}>
         <View
           style={{
             flex: 1,
-            // flexDirection: 'column',
-            // flexWrap: 'wrap',
-            // alignItems: 'center',
-            // justifyContent: 'space-evenly',
-            // padding: 25,
           }}
           onLayout={event => {
             const layout = event.nativeEvent.layout;
-            console.info(' component layout', layout);
+            // console.info(' component layout', layout);
             this.setState({layoutLeft: layout});
-            // this.rowLeft = layout;
           }}>
           {questions.map(object => (
             <Object
+              key={object.name}
               object={object}
               setOrigin={this.setOrigin}
               setPosition={this.updatePosition}
@@ -263,20 +197,15 @@ class DragAndDropQuiz extends Component {
         <View
           style={{
             flex: 1,
-            // flexDirection: 'column',
-            // flexWrap: 'wrap',
-            // alignItems: 'center',
-            // justifyContent: 'space-evenly',
-            // padding: 25,
           }}
           onLayout={event => {
             const layout = event.nativeEvent.layout;
-            console.info(' component layout', layout);
+            // console.info(' component layout', layout);
             this.setState({layoutRight: layout});
-            // this.rowLeft = layout;
           }}>
           {answers.map(object => (
             <Object
+              key={object.name}
               object={object}
               setOrigin={this.setOrigin}
               setPosition={this.updatePosition}
@@ -289,16 +218,5 @@ class DragAndDropQuiz extends Component {
     );
   }
 }
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     // flexDirection: 'column',
-//     // justifyContent: 'center',
-//     // alignItems: 'center',
-//   },
-//   text: {
-//     fontSize: 20,
-//     paddingBottom: 15,
-//   },
-// });
+
 export default DragAndDropQuiz;

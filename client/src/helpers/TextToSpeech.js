@@ -31,17 +31,14 @@ export const setSpeechPitch = (rate: number) => {
   TTS.setDefaultPitch(rate);
 };
 
-export const readText = async (text: string) => {
+export const readText = (text: string) => {
+  cleanup();
   TTS.getInitStatus().then(() => {
     TTS.speak(text);
   });
-
-  // added this setTimeout because if we allow user to enter repeatedly, the voice will read it quite a lot and we
-  // can't stop it
-  setTimeout(() => cleanup(), 1000);
 };
 
-export const cleanup = async () => {
+export const cleanup = () => {
   TTS.removeAllListeners(['tts-start', 'tts-finish', 'tts-cancel']);
   TTS.stop();
 };

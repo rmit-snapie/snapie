@@ -25,7 +25,7 @@ const defaultTTSConfig = () => {
   // this.initTts();
 };
 
-defaultTTSConfig();
+// defaultTTSConfig();
 
 export const setLanguage = (languageName: string) => {
   TTS.setDefaultLanguage(languageName);
@@ -39,7 +39,8 @@ export const setSpeechPitch = (rate: number) => {
 };
 
 export const readText = (text: string) => {
-  cleanup();
+  // cleanup();
+  TTS.stop();
   TTS.getInitStatus().then(() => {
     TTS.speak(text);
   });

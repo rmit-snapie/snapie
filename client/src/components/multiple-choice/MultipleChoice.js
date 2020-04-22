@@ -21,7 +21,7 @@ const MultipleChoice = () => {
   useEffect(() => {
     //it's async so I have to add then (() => {}) otherwise eslint will complain
     readText(questionContent);
-    return cleanup();
+    // return cleanup();
   }, []);
 
   const resetAnswerState = () => {

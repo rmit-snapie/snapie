@@ -1,51 +1,43 @@
 // https://www.npmjs.com/package/react-native-tts
-import TTS from 'react-native-tts';
+import Tts from 'react-native-tts';
 import {Platform} from 'react-native';
 
 const defaultTTSConfig = () => {
-  TTS.getInitStatus().then(() => {
-    console.log('TTS init...');
-  });
-  TTS.setDefaultLanguage('en-IE');
+  Tts.setDefaultLanguage('en-IE');
   if (Platform.OS === 'ios') {
-    TTS.setDefaultVoice('com.apple.ttsbundle.Moira-compact');
+    Tts.setDefaultVoice('com.apple.ttsbundle.Moira-compact');
   }
-  if (Platform.OS === 'android') {
-    //TODO find correct voice package for Android
-    console.log('add android package here');
-  }
-  TTS.setDefaultRate(0.35, true);
-  TTS.setDefaultPitch(1.3);
-  TTS.setIgnoreSilentSwitch('ignore');
-  // TTS.voices().then(voices => console.log('voices :', voices));
-  TTS.addEventListener('tts-start');
-  TTS.addEventListener('tts-finish');
-  TTS.addEventListener('tts-cancel');
-  //  run below to manually config
-  // this.initTts();
+  //TODO find correct voice package for Android
+  Tts.setDefaultRate(0.35, true);
+  Tts.setDefaultPitch(1.3);
+  Tts.setIgnoreSilentSwitch('ignore');
+  // list all voices packages
+  // Tts.voices().then(voices => console.log('voices :', voices));
+  Tts.addEventListener('tts-start');
+  Tts.addEventListener('tts-finish');
+  Tts.addEventListener('tts-cancel');
 };
 
 defaultTTSConfig();
 
 export const setLanguage = (languageName: string) => {
-  TTS.setDefaultLanguage(languageName);
+  Tts.setDefaultLanguage(languageName);
 };
 export const setSpeechRate = (rate: number) => {
-  TTS.setDefaultRate(rate);
+  Tts.setDefaultRate(rate);
 };
 
 export const setSpeechPitch = (rate: number) => {
-  TTS.setDefaultPitch(rate);
+  Tts.setDefaultPitch(rate);
 };
 
 export const readText = (text: string) => {
-  cleanup();
-  TTS.getInitStatus().then(() => {
-    TTS.speak(text);
-  });
+  Tts.stop();
+  Tts.speak(text);
 };
 
+// in case remove listeners is needed in the future
 export const cleanup = () => {
-  TTS.removeAllListeners(['tts-start', 'tts-finish', 'tts-cancel']);
-  TTS.stop();
+  Tts.removeAllListeners(['tts-start', 'tts-finish', 'tts-cancel']);
+  Tts.stop();
 };

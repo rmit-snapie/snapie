@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './MultipleChoiceStyle';
 import {questions} from '../../domain-models/Questions';
 import Cheers from '../cheers/Cheers';
-import {cleanup, readText} from '../../helpers/TextToSpeech';
+import {readText} from '../../helpers/TextToSpeech';
 
 const multipleChoiceQuestion = questions.filter(
   question => question.type === 'multipleChoice',
@@ -19,9 +19,7 @@ const MultipleChoice = () => {
 
   // only read once when screen is rendered
   useEffect(() => {
-    //it's async so I have to add then (() => {}) otherwise eslint will complain
     readText(questionContent);
-    return cleanup();
   }, []);
 
   const resetAnswerState = () => {

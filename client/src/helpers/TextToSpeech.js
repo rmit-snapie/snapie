@@ -1,47 +1,43 @@
 // https://www.npmjs.com/package/react-native-tts
-import TTS from 'react-native-tts';
+import Tts from 'react-native-tts';
+import {Platform} from 'react-native';
 
 const defaultTTSConfig = () => {
-  TTS.getInitStatus().then(() => {
-    console.log('TTS init...');
-  });
-  TTS.setDefaultLanguage('en-IE');
-  TTS.setDefaultVoice('com.apple.ttsbundle.Moira-compact');
-  TTS.setDefaultRate(0.35, true);
-  TTS.setDefaultPitch(1.3);
-  TTS.setIgnoreSilentSwitch('ignore');
-  // TTS.voices().then(voices => console.log('voices :', voices));
-  TTS.addEventListener('tts-start');
-  TTS.addEventListener('tts-finish');
-  TTS.addEventListener('tts-cancel');
-  //  run below to manually config
-  // this.initTts();
+  Tts.setDefaultLanguage('en-IE');
+  if (Platform.OS === 'ios') {
+    Tts.setDefaultVoice('com.apple.ttsbundle.Moira-compact');
+  }
+  //TODO find correct voice package for Android
+  Tts.setDefaultRate(0.35, true);
+  Tts.setDefaultPitch(1.3);
+  Tts.setIgnoreSilentSwitch('ignore');
+  // list all voices packages
+  // Tts.voices().then(voices => console.log('voices :', voices));
+  Tts.addEventListener('tts-start');
+  Tts.addEventListener('tts-finish');
+  Tts.addEventListener('tts-cancel');
 };
 
 defaultTTSConfig();
 
 export const setLanguage = (languageName: string) => {
-  TTS.setDefaultLanguage(languageName);
+  Tts.setDefaultLanguage(languageName);
 };
 export const setSpeechRate = (rate: number) => {
-  TTS.setDefaultRate(rate);
+  Tts.setDefaultRate(rate);
 };
 
 export const setSpeechPitch = (rate: number) => {
-  TTS.setDefaultPitch(rate);
+  Tts.setDefaultPitch(rate);
 };
 
-export const readText = async (text: string) => {
-  TTS.getInitStatus().then(() => {
-    TTS.speak(text);
-  });
-
-  // added this setTimeout because if we allow user to enter repeatedly, the voice will read it quite a lot and we
-  // can't stop it
-  setTimeout(() => cleanup(), 1000);
+export const readText = (text: string) => {
+  Tts.stop();
+  Tts.speak(text);
 };
 
-export const cleanup = async () => {
-  TTS.removeAllListeners(['tts-start', 'tts-finish', 'tts-cancel']);
-  TTS.stop();
+// in case remove listeners is needed in the future
+export const cleanup = () => {
+  Tts.removeAllListeners(['tts-start', 'tts-finish', 'tts-cancel']);
+  Tts.stop();
 };

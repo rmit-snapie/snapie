@@ -19,8 +19,7 @@ const MultipleChoice = () => {
 
   // only read once when screen is rendered
   useEffect(() => {
-    //it's async so I have to add then (() => {}) otherwise eslint will complain
-    readText(questionContent).then(() => {});
+    readText(questionContent);
   }, []);
 
   const resetAnswerState = () => {

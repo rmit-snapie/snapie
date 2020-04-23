@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity, Animated, Easing} from 'react-native';
 import _ from 'lodash';
-// import styles from './PairSelectionStyle';
-// import Cheers from '../cheers/Cheers';
-// import {PAIR_SELECTION} from '../../../environments/Routes';
-// import {shuffle} from '../../helpers/QuestionHelper';
-// import {resetRoute} from '../../helpers/NavigateHelper';
-// import {popCurrentStack} from '../../redux/actions/QuestionTypeActions';
-// import {testCompleted} from '../../redux/actions/ProgressActions';
+import styles from './PairSelectionStyle';
+import Cheers from '../cheers/Cheers';
+import {PAIR_SELECTION} from '../../../environments/Routes';
+import {shuffle} from '../../helpers/QuestionHelper';
+import {resetRoute} from '../../helpers/NavigateHelper';
+import {popCurrentStack} from '../../redux/actions/QuestionTypeActions';
+import {testCompleted} from '../../redux/actions/ProgressActions';
 
-export default class PairSelection extends Component {
+class PairSelection_copy extends Component {
   constructor(props) {
     super(props);
-    const {
-      route: {
-        params: {question},
-      },
-    } = props;
-    const {questionContent, answers, imagesAsset} = question;
+    // const {
+    //   route: {
+    //     params: {question},
+    //   },
+    // } = props;
+    const {questionContent, answers, imagesAsset} = props.questionData;
 
     this.state = {
       pictures: shuffle(imagesAsset),
@@ -77,18 +77,18 @@ export default class PairSelection extends Component {
           ...prevState,
           cheers: {display: true, sad: false},
         }));
-        if (currentStack.length !== 1) {
-          handlePopCurrentStack(PAIR_SELECTION);
-          const tempStack = currentStack.filter(
-            stack => stack !== PAIR_SELECTION,
-          );
-          setTimeout(
-            () => resetRoute(this.props.navigation, _.sample(tempStack)),
-            1000,
-          );
-        } else {
-          setTimeout(() => handleTestCompleted(2), 1000);
-        }
+        // if (currentStack.length !== 1) {
+        //   handlePopCurrentStack(PAIR_SELECTION);
+        //   const tempStack = currentStack.filter(
+        //     stack => stack !== PAIR_SELECTION,
+        //   );
+        //   setTimeout(
+        //     () => resetRoute(this.props.navigation, _.sample(tempStack)),
+        //     1000,
+        //   );
+        // } else {
+        //   setTimeout(() => handleTestCompleted(2), 1000);
+        // }
       }
     };
 
@@ -124,10 +124,17 @@ export default class PairSelection extends Component {
       pictures,
       possibleAnswers,
       cheers: {sad, display},
+      ...states
     } = this.state;
 
     if (display) {
-      return <Cheers cheers={display} sad={sad} />;
+      return (
+        <Cheers
+          cheers={display}
+          sad={sad}
+          nextQuestion={this.props.nextQuestion}
+        />
+      );
     } else {
       return (
         <View style={styles.container}>
@@ -179,6 +186,7 @@ export default class PairSelection extends Component {
     }
   }
 }
+export default PairSelection_copy;
 
 // PairSelection.propTypes = {
 //   route: PropTypes.object.isRequired,

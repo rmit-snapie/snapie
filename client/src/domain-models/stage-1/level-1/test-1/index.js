@@ -8,7 +8,7 @@ export const LEVEL_ONE_TEST_ONE_QUESTIONS = [
     createdAt: '03-04-2020',
     updatedAt: '03-04-2020',
 
-    type: 'multipleChoice',
+    type: 'MULTIPLE CHOICE',
     interactType: 'radioButton',
 
     questionContent: 'What is this ?',
@@ -27,7 +27,7 @@ export const LEVEL_ONE_TEST_ONE_QUESTIONS = [
     createdAt: '08-04-2020',
     updatedAt: '08-04-2020',
 
-    type: 'fillTheBlank',
+    type: 'FILL THE BLANK',
     interactType: 'radioButton',
 
     questionContent: 'This is a',
@@ -46,7 +46,7 @@ export const LEVEL_ONE_TEST_ONE_QUESTIONS = [
     createdAt: '14-04-2020',
     updatedAt: '14-04-2020',
 
-    type: 'spellingOrder',
+    type: 'SPELLING ORDER',
     interactType: 'radioButton',
 
     questionContent: 'Spell this word',
@@ -65,7 +65,7 @@ export const LEVEL_ONE_TEST_ONE_QUESTIONS = [
     createdAt: '14-04-2020',
     updatedAt: '14-04-2020',
 
-    type: 'pairSelection',
+    type: 'PAIR SELECTION',
     interactType: 'radioButton',
 
     questionContent: 'Choose the pairs',

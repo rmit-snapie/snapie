@@ -48,7 +48,7 @@ function FirstTestStackNavigator({handleSetCurrentStack}) {
       <FirstTestStack.Screen name={LESSON_SCREEN} component={Lesson} />
       <FirstTestStack.Screen name={REVIEW_SCREEN} component={Review} />
       <FirstTestStack.Screen name={EXPLORE_SCREEN} component={Explore} />
-      <FirstTestStack.Screen
+      {/* <FirstTestStack.Screen
         name={MULTIPLE_CHOICE}
         component={MultipleChoice}
         initialParams={{
@@ -75,7 +75,7 @@ function FirstTestStackNavigator({handleSetCurrentStack}) {
         initialParams={{
           question: firstTest[3],
         }}
-      />
+      /> */}
     </FirstTestStack.Navigator>
   );
 }

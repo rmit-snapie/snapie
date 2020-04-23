@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {Animated, StyleSheet, Dimensions, View} from 'react-native';
+import {Animated, StyleSheet, Dimensions, View, Button} from 'react-native';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-const Cheers = ({cheers, sad}) => {
+const Cheers = ({cheers, sad, ...props}) => {
   const [opacity] = useState(new Animated.Value(0));
 
   const imagePath = sad
@@ -38,6 +38,9 @@ const Cheers = ({cheers, sad}) => {
           cheers ? styles.image : styles.hidden,
         ]}
       />
+      <Button title="next" onPress={() => props.nextQuestion()}>
+        next
+      </Button>
     </View>
   );
 };

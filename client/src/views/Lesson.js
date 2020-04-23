@@ -4,10 +4,11 @@ import {connect} from 'react-redux';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import {goToFirstScreenInStack, navigateTo} from '../helpers/NavigateHelper';
 // components that possibly being used here
-import MultipleChoice from '../components/multiple-choice/MultipleChoice';
-import FillTheBlank from '../components/fill-the-blank/FillTheBlank';
-import SpellingOrder from '../components/spelling-order/SpellingOrder';
-import PairSelection from '../../PairSelection';
+import MultipleChoice from '../components/multiple-choice/MultipleChoice_copy';
+import FillTheBlank from '../components/fill-the-blank/FillTheBlank_copy';
+import SpellingOrder from '../components/spelling-order/SpellingOrder_copy';
+import PairSelection from '../components/pair-selection/PairSelection_copy';
+
 // consts:
 import {
   FILL_THE_BLANK,
@@ -22,9 +23,6 @@ import {
 import {LEVEL_ONE_TEST_ONE_QUESTIONS} from '../domain-models/stage-1/level-1/test-1/index';
 
 class Lesson extends Component {
-  static propTypes = {
-    navigation: PropTypes.object.isRequired,
-  };
   constructor(props) {
     super(props);
     // persist in state so that when reload this component, user go back to last working
@@ -32,7 +30,7 @@ class Lesson extends Component {
       currentLevel: 1,
       currentTest: 1,
       questionBank: null,
-      currentQuestion: 1,
+      currentQuestion: 0,
     };
   }
   // todo: have redux props of current answer questions or level of user
@@ -44,64 +42,92 @@ class Lesson extends Component {
     this.setState({questionBank: myQuestions});
   };
   componentDidMount() {
+    // todo: get current question from props using redux, from storage
     this.getQuestions(this.state.currentLevel, this.state.currentTest);
   }
-
+  nextQuestion = () => {
+    let nextQuestion = this.state.currentQuestion + 1;
+    if (nextQuestion < this.state.questionBank.length) {
+      this.setState({currentQuestion: nextQuestion});
+    }
+    //todo: load next level
+    else {
+      console.log('load next level data....');
+      this.setState({currentQuestion: nextQuestion});
+    }
+  };
   renderQuestion = currentQuestion => {
+    if (!this.state.questionBank || this.state.questionBank.length < 1) {
+      // empty data
+      return <Text>empty</Text>;
+    }
+    if (
+      currentQuestion < 0 ||
+      currentQuestion > this.state.questionBank.length - 1
+    ) {
+      // out of range
+      return (
+        <View>
+          <Text>todo: load more data</Text>
+          <Button
+            title="Go back Home"
+            onPress={() => goToFirstScreenInStack(this.props.navigation)}
+          />
+        </View>
+      );
+    }
     let data = this.state.questionBank[currentQuestion];
     console.log('current question data: ', data);
     switch (data.type) {
       case FILL_THE_BLANK:
-        console.log('type : ', data.type);
-        return <Text>{data.type}</Text>;
+        console.log('type blank: ', data.type);
+
+        return (
+          <FillTheBlank questionData={data} nextQuestion={this.nextQuestion} />
+        );
         break;
       case MULTIPLE_CHOICE:
-        console.log('type : ', data.type);
-        return <Text>{data.type}</Text>;
-        // code block
+        console.log('type choice: ', data.type);
+        return (
+          <MultipleChoice
+            questionData={data}
+            nextQuestion={this.nextQuestion}
+          />
+        );
+
         break;
       case PAIR_SELECTION:
-        console.log('type : ', data.type);
-        return <Text>{data.type}</Text>;
-        // code block
+        console.log('type pair: ', data.type);
+        return (
+          <PairSelection questionData={data} nextQuestion={this.nextQuestion} />
+        );
+
         break;
       case SPELLING_ORDER:
-        console.log('type : ', data.type);
-        return <Text>{data.type}</Text>;
-        // code block
+        console.log('type spell: ', data.type);
+        // return <Text>{data.type}</Text>;
+        return (
+          <SpellingOrder questionData={data} nextQuestion={this.nextQuestion} />
+        );
+
         break;
       default:
-        console.log('type : ', data.type);
-        return <Text>{data.type}</Text>;
-      // code block
+        console.log('type default: ', data.type);
+        return (
+          <Button
+            title="Go back Home"
+            onPress={() => goToFirstScreenInStack(this.props.navigation)}
+          />
+        );
     }
   };
   render() {
-    const {navigation, currentStack} = this.props;
     // todo: change stage to props here when using redux
     console.log('lesson stage: ', this.state);
-    // console.log('lesson props: ', this.props);
-    // if (this.state.questionBank.length > 0) {
-    //   this.renderQuestion(this.state.currentQuestion);
-    // }
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>This is Lesson.</Text>
         {this.state.questionBank &&
           this.renderQuestion(this.state.currentQuestion)}
-        {/* {this.renderQuestion(this.state.currentQuestion)} */}
-
-        {/* <Button
-          // todo: not use navigation here, use user answer stage to render question components
-          // actually, don't need this button, just render the questions
-          title="Play"
-          onPress={() => navigateTo(navigation, currentStack[0])}
-        /> */}
-
-        <Button
-          title="Go back Home"
-          onPress={() => goToFirstScreenInStack(navigation)}
-        />
       </View>
     );
   }
@@ -123,7 +149,6 @@ Lesson.propTypes = {
   navigation: PropTypes.object.isRequired,
   currentStack: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
-
 export default connect(
   state => ({currentStack: state.questionTypeStackReducer.currentStack}),
   null,

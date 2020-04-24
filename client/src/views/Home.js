@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, Text, Button, StyleSheet, Image} from 'react-native';
 import {navigateTo} from '../helpers/NavigateHelper';
 import {
   EXPLORE_SCREEN,
@@ -18,7 +18,12 @@ class Home extends Component {
     const {navigation} = this.props;
     return (
       <View testID="home-screen" style={styles.container}>
-        <Text style={styles.text}>We are at home screen.</Text>
+        <Image
+        style={styles.tinyLogo}
+        source={require('./../assets/250.png')}
+      />
+      
+        <Text style={styles.text}>We are at home screennnn.</Text>
         {/* <MultipleChoiceQuiz quizData={multipleChoiceQuizData} /> */}
         <View style={styles.buttonWrapper1}>
           <Button
@@ -53,6 +58,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  tinyLogo: {
+    resizeMode: "contain",
+    width: 200,
+    height: 200,
   },
 });
 

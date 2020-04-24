@@ -1,59 +1,49 @@
+import ColorRed from '../assets/red.png';
+import ColorYellow from '../assets/yellow.png';
+import ColorBlue from '../assets/blue.png';
+import ColorGreen from '../assets/green.png';
+import ColorOrange from '../assets/orange.png';
+
 export const LEVEL_ONE_TEST_ONE_QUESTIONS = [
   {
     id: 'q1',
     level: 'level-1',
     stage: 'stage-1',
-    status: 'new',
-    attemptCount: 0,
     createdAt: '03-04-2020',
     updatedAt: '03-04-2020',
-
     type: 'multipleChoice',
-    interactType: 'radioButton',
-
-    questionContent: 'What is this ?',
+    questionContent: 'What color is this ?',
     possibleAnswersCount: 4,
-    answers: ['rulers', 'papers', 'pencils', 'erasers'],
-    correctAnswer: 'rulers',
-    imagesAsset: ['catURI', 'dogURI', 'windowURI', 'houseURI'],
+    answers: ['red', 'yellow', 'black', 'white'],
+    correctAnswer: 'red',
+    imagesAsset: ColorRed,
     correctAnswerCount: 1,
   },
   {
     id: 'q2',
     level: 'level-1',
     stage: 'stage-1',
-    status: 'new',
-    attemptCount: 0,
     createdAt: '08-04-2020',
     updatedAt: '08-04-2020',
-
     type: 'fillTheBlank',
-    interactType: 'radioButton',
-
-    questionContent: 'This is a',
+    questionContent: 'This color is ',
     possibleAnswersCount: 4,
-    answers: ['grape', 'watermelon', 'banana', 'citrus'],
-    correctAnswer: 'banana',
-    imagesAsset: ['grapeURI', 'watermelonURI', 'bananaURI', 'citrusURI'],
+    answers: ['yellow', 'blue', 'black', 'white'],
+    correctAnswer: 'yellow',
+    imagesAsset: ColorYellow,
     correctAnswerCount: 1,
   },
   {
     id: 'q3',
     level: 'level-1',
     stage: 'stage-1',
-    status: 'new',
-    attemptCount: 0,
     createdAt: '14-04-2020',
     updatedAt: '14-04-2020',
-
-    type: 'spellingOrder',
-    interactType: 'radioButton',
-
-    questionContent: 'Spell this word',
+    questionContent: 'Spell this color',
     possibleAnswersCount: 4,
-    answers: ['e', 'r', 'g', 'e', 'n'],
-    correctAnswer: 'green',
-    imagesAsset: ['greenURI'],
+    answers: ['r', 'o', 'a', 'e', 'n', 'g'],
+    correctAnswer: 'orange',
+    imagesAsset: ColorOrange,
     correctAnswerCount: 1,
   },
   {
@@ -69,23 +59,23 @@ export const LEVEL_ONE_TEST_ONE_QUESTIONS = [
     interactType: 'radioButton',
 
     questionContent: 'Choose the pairs',
-    answers: ['apple', 'banana', 'orange', 'lemon'],
+    answers: ['yellow', 'red', 'green', 'blue'],
     imagesAsset: [
       {
-        name: 'apple',
-        asset: require('../assets/apple.png'),
+        name: 'yellow',
+        asset: require(ColorYellow),
       },
       {
-        name: 'banana',
-        asset: require('../assets/banana.png'),
+        name: 'red',
+        asset: require(ColorRed),
       },
       {
-        name: 'orange',
-        asset: require('../assets/orange.png'),
+        name: 'green',
+        asset: require(ColorGreen),
       },
       {
-        name: 'lemon',
-        asset: require('../assets/lemon.png'),
+        name: 'blue',
+        asset: require(ColorBlue),
       },
     ],
     correctAnswerCount: 1,

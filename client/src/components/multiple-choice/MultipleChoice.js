@@ -47,7 +47,6 @@ const MultipleChoice = ({
       setCheers({display: true, sad: true});
     } else {
       setCheers({display: true, sad: false});
-      // setTimeout(() => navigateTo(navigation, HOME_SCREEN), 1000);
     }
     if (currentStack.length !== 1) {
       handlePopCurrentStack(MULTIPLE_CHOICE);

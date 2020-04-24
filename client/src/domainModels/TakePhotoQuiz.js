@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, Button, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
+import { ActivityIndicator, View, Text, Button, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
 // import {goToFirstScreenInStack} from '../helpers/NavigateHelper';
 import PropTypes from 'prop-types';
 import { RNCamera } from 'react-native-camera';
@@ -13,7 +13,8 @@ class TakePhotoQuiz extends Component {
         this.state = {
             imageUri: '',
             base64encoded: '',
-            visionAPIresult: []
+            visionAPIresult: [],
+            loading: false
         };
     }
 
@@ -27,6 +28,7 @@ class TakePhotoQuiz extends Component {
                         source={{ uri: imageUri }}
                     />
                     <View style={styles.result}>
+                    <ActivityIndicator animating = {this.state.loading} size="large" color="#0000ff" />
                         {this.state.visionAPIresult.map((item, key) => (
                             <View style={{
                                 paddingVertical: 15,
@@ -102,6 +104,7 @@ class TakePhotoQuiz extends Component {
     };
 
     analyze() {
+        this.setState({ loading: true })
         axios.post('https://asia-northeast1-rmit-sepm.cloudfunctions.net/getImageLabels', {
             image: this.state.base64encoded,
             rawResult: 'false',
@@ -109,7 +112,7 @@ class TakePhotoQuiz extends Component {
         })
             .then(response => {
                 // console.warn(response.data)
-                this.setState({ visionAPIresult: response.data })
+                this.setState({ visionAPIresult: response.data, loading: false })
             })
     }
 }

@@ -15,7 +15,7 @@ export default StyleSheet.create({
     fontSize: 32,
   },
   answersWrapper: {
-    flex: 5,
+    flex: 4,
     justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
@@ -34,7 +34,7 @@ export default StyleSheet.create({
     elevation: 4,
     backgroundColor: '#fff',
     padding: 10,
-    marginBottom: 40,
+    marginBottom: 70,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
@@ -66,18 +66,15 @@ export default StyleSheet.create({
     color: '#3c3c3c',
   },
   assetWrapper: {
-    marginBottom: 25,
+    marginBottom: 35,
   },
   asset: {
+    height: 100,
     width: 75,
-    height: 75,
   },
   column2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  child3: {
-    flex: 1,
   },
 });

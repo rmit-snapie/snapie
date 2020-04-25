@@ -10,6 +10,7 @@ import {shuffle} from '../../helpers/QuestionHelper';
 import {resetRoute} from '../../helpers/NavigateHelper';
 import {popCurrentStack} from '../../redux/actions/QuestionTypeActions';
 import {testCompleted} from '../../redux/actions/ProgressActions';
+import {readText} from '../../helpers/TextToSpeech';
 
 class PairSelection extends Component {
   constructor(props) {
@@ -31,19 +32,22 @@ class PairSelection extends Component {
     };
   }
 
+  componentDidMount() {
+    readText(this.state.currentQuestion);
+  }
+
   render() {
     const handleAnswerPressed = (index, answer) => {
       const {currentAnswer} = this.state;
       if (currentAnswer.index === index) {
-        this.setState(prevState => ({
-          ...prevState,
+        this.setState({
           currentAnswer: {answer: null, index: null},
-        }));
+        });
       } else {
-        this.setState(prevState => ({
-          ...prevState,
+        readText(answer);
+        this.setState({
           currentAnswer: {answer: answer, index: index},
-        }));
+        });
       }
     };
 
@@ -59,24 +63,21 @@ class PairSelection extends Component {
           answer => answer !== asset.name,
         );
         const tempPictures = pictures.filter(picture => picture !== asset);
-        this.setState(prevState => ({
-          ...prevState,
+        this.setState({
           pictures: tempPictures,
           possibleAnswers: tempAnswers,
           currentAnswer: {answer: null, index: null},
-        }));
+        });
       } else {
         triggerShake();
-        this.setState(prevState => ({
-          ...prevState,
+        this.setState({
           currentAnswer: {answer: null, index: null},
-        }));
+        });
       }
       if (possibleAnswers.length === 1) {
-        this.setState(prevState => ({
-          ...prevState,
+        this.setState({
           cheers: {display: true, sad: false},
-        }));
+        });
         if (currentStack.length !== 1) {
           handlePopCurrentStack(PAIR_SELECTION);
           const tempStack = currentStack.filter(
@@ -110,6 +111,7 @@ class PairSelection extends Component {
         duration: 400,
         toValue: 3,
         easing: Easing.bounce,
+        useNativeDriver: true,
       }).start(() => {
         this.setState(prevState => ({
           ...prevState,
@@ -132,27 +134,31 @@ class PairSelection extends Component {
       return (
         <View style={styles.container}>
           <View style={styles.questionWrapper}>
-            <Text style={styles.questionContent}>{currentQuestion}</Text>
+            <Text
+              onPress={() => readText(currentQuestion)}
+              style={styles.questionContent}>
+              {currentQuestion}
+            </Text>
           </View>
           <View style={styles.answersWrapper}>
             <Animated.View style={[shakeStyle, styles.column1]}>
-              {possibleAnswers.map((ans, index) => (
+              {possibleAnswers.map((answer, index) => (
                 <TouchableOpacity
                   activeOpacity={0}
-                  onPress={() => handleAnswerPressed(index, ans)}
+                  onPress={() => handleAnswerPressed(index, answer)}
                   style={
                     currentAnswer.index === index
                       ? [styles.answer, styles.chosenAnswer]
                       : [styles.answer, styles.notChosenAnswer]
                   }
-                  key={ans}>
+                  key={answer}>
                   <Text
                     style={
                       currentAnswer.index === index
                         ? styles.chosenAnswerTitle
                         : styles.answerTitle
                     }>
-                    {ans}
+                    {answer}
                   </Text>
                 </TouchableOpacity>
               ))}
@@ -165,14 +171,11 @@ class PairSelection extends Component {
                   key={index}>
                   <Animated.Image
                     style={[styles.asset]}
-                    source={picture.asset}
+                    source={{uri: picture.asset}}
                   />
                 </TouchableOpacity>
               ))}
             </Animated.View>
-          </View>
-          <View style={styles.child3}>
-            <Text>Child 3</Text>
           </View>
         </View>
       );

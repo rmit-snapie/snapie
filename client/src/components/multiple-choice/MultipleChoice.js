@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Proptypes from 'prop-types';
 import {connect} from 'react-redux';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import _ from 'lodash';
 import styles from './MultipleChoiceStyle';
 import Cheers from '../cheers/Cheers';
@@ -9,6 +9,7 @@ import {MULTIPLE_CHOICE} from '../../../environments/Routes';
 import {resetRoute} from '../../helpers/NavigateHelper';
 import {popCurrentStack} from '../../redux/actions/QuestionTypeActions';
 import {testCompleted} from '../../redux/actions/ProgressActions';
+import {readText} from '../../helpers/TextToSpeech';
 
 const MultipleChoice = ({
   handlePopCurrentStack,
@@ -19,26 +20,30 @@ const MultipleChoice = ({
   },
   navigation,
 }) => {
-  const {questionContent, answers, correctAnswer} = question;
+  const {questionContent, answers, correctAnswer, imageAsset} = question;
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
     index: null,
   });
   const [cheers, setCheers] = useState({display: false, sad: false});
 
+  useEffect(() => {
+    readText(questionContent);
+  }, [questionContent]);
+
   const resetAnswerState = () => {
-    setCurrentAnswer(prevState => ({...prevState, answer: null, index: null}));
+    setCurrentAnswer({answer: null, index: null});
   };
 
   const handleAnswerPressed = (index, answer) => {
     if (currentAnswer.index === index) {
       resetAnswerState();
     } else {
-      setCurrentAnswer(prevState => ({
-        ...prevState,
+      readText(answer);
+      setCurrentAnswer({
         answer: answer,
         index: index,
-      }));
+      });
     }
   };
 
@@ -47,7 +52,6 @@ const MultipleChoice = ({
       setCheers({display: true, sad: true});
     } else {
       setCheers({display: true, sad: false});
-      // setTimeout(() => navigateTo(navigation, HOME_SCREEN), 1000);
     }
     if (currentStack.length !== 1) {
       handlePopCurrentStack(MULTIPLE_CHOICE);
@@ -64,30 +68,33 @@ const MultipleChoice = ({
       {!cheers.display && (
         <>
           <View style={styles.assetsWrapper}>
-            <Text>Box 1</Text>
-            <Text>Box 2</Text>
+            <Image style={styles.image} source={{uri: imageAsset}} />
           </View>
           <View style={styles.questionWrapper}>
-            <Text style={styles.questionContent}>{questionContent}</Text>
+            <Text
+              onPress={() => readText(questionContent)}
+              style={styles.questionContent}>
+              {questionContent}
+            </Text>
           </View>
           <View style={styles.answersWrapper}>
-            {answers.map((ans, index) => (
+            {answers.map((answer, index) => (
               <TouchableOpacity
                 activeOpacity={0}
-                onPress={() => handleAnswerPressed(index, ans)}
+                onPress={() => handleAnswerPressed(index, answer)}
                 style={
                   currentAnswer.index === index
                     ? [styles.answer, styles.chosenAnswer]
                     : [styles.answer, styles.notChosenAnswer]
                 }
-                key={ans}>
+                key={answer}>
                 <Text
                   style={
                     currentAnswer.index === index
                       ? styles.chosenAnswerTitle
                       : styles.answerTitle
                   }>
-                  {ans}
+                  {answer}
                 </Text>
               </TouchableOpacity>
             ))}

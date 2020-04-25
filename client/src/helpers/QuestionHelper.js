@@ -1,8 +1,6 @@
-import {questions} from '../domain-models/Questions';
-
-export const getQuestions = type => {
-  return questions.filter(question => question.type === type);
-};
+// export const getQuestions = type => {
+//   return questions.filter(question => question.type === type);
+// };
 
 export const createBlanks = answer => {
   let blanks = [];

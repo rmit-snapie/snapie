@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
+    fontFamily: 'Amiko-Bold',
     fontSize: 20,
     paddingBottom: 15,
   },
@@ -148,8 +149,12 @@ const styles = StyleSheet.create({
 Lesson.propTypes = {
   navigation: PropTypes.object.isRequired,
   currentStack: PropTypes.arrayOf(PropTypes.string).isRequired,
+  progress: PropTypes.object.isRequired,
 };
 export default connect(
-  state => ({currentStack: state.questionTypeStackReducer.currentStack}),
+  state => ({
+    currentStack: state.questionTypeStackReducer.currentStack,
+    progress: state.progressReducer,
+  }),
   null,
 )(Lesson);

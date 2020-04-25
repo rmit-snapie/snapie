@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import _ from 'lodash';
 import styles from './SpellingOrderStyle';
 import Cheers from '../cheers/Cheers';
@@ -10,6 +10,7 @@ import {createBlanks} from '../../helpers/QuestionHelper';
 import {popCurrentStack} from '../../redux/actions/QuestionTypeActions';
 import {resetRoute} from '../../helpers/NavigateHelper';
 import {testCompleted} from '../../redux/actions/ProgressActions';
+import {readText} from '../../helpers/TextToSpeech';
 
 const SpellingOrder = ({
   currentStack,
@@ -20,7 +21,7 @@ const SpellingOrder = ({
   },
   navigation,
 }) => {
-  const {questionContent, answers, correctAnswer} = question;
+  const {questionContent, answers, correctAnswer, imageAsset} = question;
   const initialBlanks = createBlanks(correctAnswer);
   const [word, setWord] = useState([]);
   const [blanks, setBlanks] = useState([]);
@@ -28,6 +29,10 @@ const SpellingOrder = ({
   const [characters, setCharacters] = useState([]);
 
   const [cheers, setCheers] = useState({display: false, sad: false});
+
+  useEffect(() => {
+    readText(questionContent);
+  }, [questionContent]);
 
   useEffect(() => {
     if (word.length === 0 && blanks.length === 0) {
@@ -80,8 +85,7 @@ const SpellingOrder = ({
       {!cheers.display && (
         <>
           <View style={styles.mediaWrapper}>
-            <Text>Box 1</Text>
-            <Text>Box 1</Text>
+            <Image style={styles.image} source={{uri: imageAsset}} />
           </View>
           <View style={styles.questionWrapper}>
             <Text style={styles.questionContent}>{questionContent}</Text>

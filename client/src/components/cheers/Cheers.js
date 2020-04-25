@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {Animated, StyleSheet, Dimensions, View} from 'react-native';
+import {renderImage} from '../../helpers/sadBase64';
+import {sadbase64image} from '../../domain-models/assets/sadBase64';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -21,6 +23,7 @@ const Cheers = ({cheers, sad}) => {
   console.log('render');
   return (
     <View style={styles.container}>
+      {renderImage(sadbase64image)}
       <Animated.Image
         onLoad={() => onLoad()}
         source={imagePath}

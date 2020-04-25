@@ -117,6 +117,6 @@ const FillTheBlank_copy = props => {
 export default FillTheBlank_copy;
 
 // export default connect(
-//   state => ({currentStack: state.questionTypeStackReducer.currentStack}),
+//   state => ({currentStack: state.questionsTypeStackReducer.currentStack}),
 //   {handlePopCurrentStack: popCurrentStack, handleTestCompleted: testCompleted},
 // )(FillTheBlank);

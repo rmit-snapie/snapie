@@ -1,6 +1,12 @@
-// export const getQuestions = type => {
-//   return questions.filter(question => question.type === type);
-// };
+import {STAGE_ONE_LEVEL_ONE} from '../domain-models/stage-1/level-1';
+
+export const getLocalTestQuestions = (stage, level, test) => {
+  if (stage === 1) {
+    if (level === 1) {
+      return STAGE_ONE_LEVEL_ONE[test - 1];
+    }
+  }
+};
 
 export const createBlanks = answer => {
   let blanks = [];

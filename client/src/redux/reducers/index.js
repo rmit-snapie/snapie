@@ -1,12 +1,14 @@
 import {combineReducers} from 'redux';
 import userReducer from './UserReducer';
 import progressReducer from './ProgressReducer';
-import questionTypeStackReducer from './QuestionTypeStackReducer';
+import questionsTypeStackReducer from './QuestionsTypeStackReducer';
+import questionsContentReducer from './QuestionsContentReducer';
 
 const rootReducer = combineReducers({
   userReducer,
   progressReducer,
-  questionTypeStackReducer,
+  questionsTypeStackReducer,
+  questionsContentReducer,
 });
 
 export default rootReducer;

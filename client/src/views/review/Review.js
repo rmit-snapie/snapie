@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
-import {goToFirstScreenInStack, navigateTo} from '../helpers/NavigateHelper';
+import {goToFirstScreenInStack, navigateTo} from '../../helpers/NavigateHelper';
 import PropTypes from 'prop-types';
-import {REVIEW_SCREEN} from '../../environments/Routes';
+import {LESSON_SCREEN} from '../../../environments/Routes';
 
-class Explore extends Component {
+class Review extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   };
@@ -13,11 +13,11 @@ class Explore extends Component {
     const {navigation} = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>This is Explore.</Text>
+        <Text style={styles.text}>This is Review.</Text>
         <View style={styles.buttonWrapper1}>
           <Button
-            title="Go to Review"
-            onPress={() => navigateTo(navigation, REVIEW_SCREEN)}
+            title="Go to Lesson"
+            onPress={() => navigateTo(navigation, LESSON_SCREEN)}
           />
           <Button
             title="Go back Home"
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Explore;
+export default Review;

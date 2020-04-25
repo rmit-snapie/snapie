@@ -1,16 +1,8 @@
-import {
-  GET_CURRENT_STACK,
-  POP_CURRENT_STACK,
-  SET_CURRENT_STACK,
-} from '../types';
-
-const initialState = {
-  currentStack: [],
-};
+import {POP_CURRENT_STACK, SET_CURRENT_STACK} from '../types';
 
 let updatedStack = [];
 
-const questionTypeStackReducer = (state = initialState, action) => {
+const questionsTypeStackReducer = (state = [], action) => {
   switch (action.type) {
     case SET_CURRENT_STACK:
       return {...state, currentStack: action.payload};
@@ -24,4 +16,4 @@ const questionTypeStackReducer = (state = initialState, action) => {
   }
 };
 
-export default questionTypeStackReducer;
+export default questionsTypeStackReducer;

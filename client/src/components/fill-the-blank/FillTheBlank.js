@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import styles from './FillTheBlankStyle';
 import Cheers from '../cheers/Cheers';
 import {createBlanks} from '../../helpers/QuestionHelper';
@@ -10,6 +10,7 @@ import {FILL_THE_BLANK} from '../../../environments/Routes';
 import {resetRoute} from '../../helpers/NavigateHelper';
 import _ from 'lodash';
 import {testCompleted} from '../../redux/actions/ProgressActions';
+import {readText} from '../../helpers/TextToSpeech';
 
 const FillTheBlank = ({
   currentStack,
@@ -20,28 +21,31 @@ const FillTheBlank = ({
   },
   navigation,
 }) => {
-  const {questionContent, answers, correctAnswer} = question;
+  const {questionContent, answers, correctAnswer, imageAsset} = question;
   const blanks = createBlanks(answers);
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
     index: null,
   });
-
   const [cheers, setCheers] = useState({display: false, sad: false});
+
+  useEffect(() => {
+    readText(questionContent);
+  }, [questionContent]);
+
+  const resetAnswerState = () => {
+    setCurrentAnswer({answer: null, index: null});
+  };
 
   const handleAnswerPressed = (index, answer) => {
     if (currentAnswer.index === index) {
-      setCurrentAnswer(prevState => ({
-        ...prevState,
-        answer: null,
-        index: null,
-      }));
+      resetAnswerState();
     } else {
-      setCurrentAnswer(prevState => ({
-        ...prevState,
+      readText(answer);
+      setCurrentAnswer({
         answer: answer,
         index: index,
-      }));
+      });
     }
   };
 
@@ -66,11 +70,12 @@ const FillTheBlank = ({
       {!cheers.display && (
         <>
           <View style={styles.mediaWrapper}>
-            <Text>Box 1</Text>
-            <Text>Box 1</Text>
+            <Image style={styles.image} source={{uri: imageAsset}} />
           </View>
           <View style={styles.questionWrapper}>
-            <Text style={styles.questionContent}>
+            <Text
+              onPress={() => readText(questionContent)}
+              style={styles.questionContent}>
               {questionContent}{' '}
               {currentAnswer.answer ? currentAnswer.answer : blanks}
             </Text>

@@ -1,8 +1,8 @@
-import ColorRed from '../assets/red.png';
-import ColorYellow from '../assets/yellow.png';
-import ColorBlue from '../assets/blue.png';
-import ColorGreen from '../assets/green.png';
-import ColorOrange from '../assets/orange.png';
+import {ColorRed} from '../assets/Base64Assets';
+import {ColorBlue} from '../assets/Base64Assets';
+import {ColorGreen} from '../assets/Base64Assets';
+import {ColorYellow} from '../assets/Base64Assets';
+import {ColorOrange} from '../assets/Base64Assets';
 
 export const LEVEL_ONE_TEST_TWO_QUESTIONS = [
   {
@@ -57,19 +57,19 @@ export const LEVEL_ONE_TEST_TWO_QUESTIONS = [
     imagesAsset: [
       {
         name: 'yellow',
-        asset: require(ColorYellow),
+        asset: ColorYellow,
       },
       {
         name: 'red',
-        asset: require(ColorRed),
+        asset: ColorRed,
       },
       {
         name: 'green',
-        asset: require(ColorGreen),
+        asset: ColorGreen,
       },
       {
         name: 'blue',
-        asset: require(ColorBlue),
+        asset: ColorBlue,
       },
     ],
     correctAnswerCount: 1,

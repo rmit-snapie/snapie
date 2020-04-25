@@ -7,11 +7,15 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   mediaWrapper: {
-    flex: 2,
+    flex: 4,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: 200,
+  },
+  image: {
+    height: 250,
+    width: 175,
   },
   questionWrapper: {
     flex: 2,

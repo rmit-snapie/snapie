@@ -41,6 +41,7 @@ function FirstTestStackNavigator({handleSetCurrentStack}) {
 
   return (
     <FirstTestStack.Navigator
+      initialRouteName={HOME_SCREEN}
       screenOptions={{
         headerShown: false,
       }}>

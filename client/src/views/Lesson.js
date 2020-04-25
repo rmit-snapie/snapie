@@ -10,10 +10,14 @@ class Lesson extends Component {
   };
 
   render() {
-    const {navigation, currentStack} = this.props;
+    const {navigation, currentStack, progress} = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.text}>This is Lesson.</Text>
+        <Text style={styles.text}>
+          Stage: {progress.stage} - Level: {progress.level} - Test:{' '}
+          {progress.test}
+        </Text>
         <Button
           title="Play"
           onPress={() => navigateTo(navigation, currentStack[0])}
@@ -34,6 +38,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
+    fontFamily: 'Amiko-Bold',
     fontSize: 20,
     paddingBottom: 15,
   },
@@ -42,9 +47,13 @@ const styles = StyleSheet.create({
 Lesson.propTypes = {
   navigation: PropTypes.object.isRequired,
   currentStack: PropTypes.arrayOf(PropTypes.string).isRequired,
+  progress: PropTypes.object.isRequired,
 };
 
 export default connect(
-  state => ({currentStack: state.questionTypeStackReducer.currentStack}),
+  state => ({
+    currentStack: state.questionTypeStackReducer.currentStack,
+    progress: state.progressReducer,
+  }),
   null,
 )(Lesson);

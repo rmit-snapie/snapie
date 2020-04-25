@@ -1,8 +1,8 @@
-import ColorRed from '../assets/red.png';
-import ColorYellow from '../assets/yellow.png';
-import ColorBlue from '../assets/blue.png';
-import ColorGreen from '../assets/green.png';
-import ColorOrange from '../assets/orange.png';
+import {ColorRed} from '../assets/Base64Assets';
+import {ColorBlue} from '../assets/Base64Assets';
+import {ColorGreen} from '../assets/Base64Assets';
+import {ColorYellow} from '../assets/Base64Assets';
+import {ColorOrange} from '../assets/Base64Assets';
 
 export const LEVEL_ONE_TEST_ONE_QUESTIONS = [
   {
@@ -16,7 +16,7 @@ export const LEVEL_ONE_TEST_ONE_QUESTIONS = [
     possibleAnswersCount: 4,
     answers: ['red', 'yellow', 'black', 'white'],
     correctAnswer: 'red',
-    imagesAsset: ColorRed,
+    imageAsset: ColorRed,
     correctAnswerCount: 1,
   },
   {
@@ -26,11 +26,11 @@ export const LEVEL_ONE_TEST_ONE_QUESTIONS = [
     createdAt: '08-04-2020',
     updatedAt: '08-04-2020',
     type: 'fillTheBlank',
-    questionContent: 'This color is ',
+    questionContent: 'This color is',
     possibleAnswersCount: 4,
     answers: ['yellow', 'blue', 'black', 'white'],
     correctAnswer: 'yellow',
-    imagesAsset: ColorYellow,
+    imageAsset: ColorYellow,
     correctAnswerCount: 1,
   },
   {
@@ -43,7 +43,7 @@ export const LEVEL_ONE_TEST_ONE_QUESTIONS = [
     possibleAnswersCount: 4,
     answers: ['r', 'o', 'a', 'e', 'n', 'g'],
     correctAnswer: 'orange',
-    imagesAsset: ColorOrange,
+    imageAsset: ColorOrange,
     correctAnswerCount: 1,
   },
   {
@@ -63,19 +63,19 @@ export const LEVEL_ONE_TEST_ONE_QUESTIONS = [
     imagesAsset: [
       {
         name: 'yellow',
-        asset: require(ColorYellow),
+        asset: ColorYellow,
       },
       {
         name: 'red',
-        asset: require(ColorRed),
+        asset: ColorRed,
       },
       {
         name: 'green',
-        asset: require(ColorGreen),
+        asset: ColorGreen,
       },
       {
         name: 'blue',
-        asset: require(ColorBlue),
+        asset: ColorBlue,
       },
     ],
     correctAnswerCount: 1,

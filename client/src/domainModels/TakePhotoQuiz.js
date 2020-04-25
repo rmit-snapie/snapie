@@ -13,13 +13,14 @@ class TakePhotoQuiz extends Component {
         this.state = {
             imageUri: '',
             base64encoded: '',
-            visionAPIresult: [],
-            loading: false
+            loading: false,
+            result: []
         };
     }
 
     render() {
         const { imageUri } = this.state;
+        // console.warn(this.state.result)
         if (imageUri) {
             return (
                 <View style={styles.backgroundContainer}>
@@ -28,14 +29,15 @@ class TakePhotoQuiz extends Component {
                         source={{ uri: imageUri }}
                     />
                     <View style={styles.result}>
-                    <ActivityIndicator animating = {this.state.loading} size="large" color="#0000ff" />
-                        {this.state.visionAPIresult.map((item, key) => (
+                        <ActivityIndicator animating={this.state.loading} size="large" color="#0000ff" />
+                        {this.state.result.map((item, key) => (
                             <View style={{
                                 paddingVertical: 15,
                                 paddingHorizontal: 10,
                                 flexDirection: "row",
                                 justifyContent: "space-between",
                             }}>
+                                <Image style={{width: 50, height: 50,}} source={{ uri: item.image }}/>
                                 <Text style={{ fontSize: 20, backgroundColor: 'white' }} key={key}>{item.label}</Text>
                                 <View style={{ flexDirection: "row", }}>
                                     <Button style={{ fontSize: 20 }} title='listen' />
@@ -109,11 +111,21 @@ class TakePhotoQuiz extends Component {
             image: this.state.base64encoded,
             rawResult: 'false',
             maxResults: 3
+        }).then(response => {
+            for (let i = 0; i < response.data.length; i++) {
+                axios.post('https://asia-northeast1-rmit-sepm.cloudfunctions.net/searchImageByKeyword', {
+                    keyword: response.data[i].label
+                }).then(response1 => {
+                    const obj ={label: response.data[i].label, image: response1.data[i].small}
+                    // console.warn(obj)
+                    this.setState({
+                        result: [...this.state.result, obj]
+                    })
+                })  
+            }
+        }).then(response => {
+            this.setState({loading: false})
         })
-            .then(response => {
-                // console.warn(response.data)
-                this.setState({ visionAPIresult: response.data, loading: false })
-            })
     }
 }
 

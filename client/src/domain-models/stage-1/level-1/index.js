@@ -1,8 +1,8 @@
-const ColorRed = require('./assets/red.png');
-const ColorYellow = require('./assets/yellow.png');
-const ColorGreen = require('./assets/green.png');
-const ColorBlue = require('./assets/blue.png');
-const ColorOrange = require('./assets/orange.png');
+const ColorRed = require('../assets/red.png');
+const ColorYellow = require('../assets/yellow.png');
+const ColorGreen = require('../assets/green.png');
+const ColorBlue = require('../assets/blue.png');
+const ColorOrange = require('../assets/orange.png');
 
 import {
   FILL_THE_BLANK,
@@ -132,7 +132,7 @@ export const STAGE_ONE_LEVEL_ONE = [
       possibleAnswersCount: 4,
       answers: ['g', 'e', 'r', 'e', 'n'],
       correctAnswer: 'green',
-      imageAsset: ColorOrange,
+      imageAsset: ColorGreen,
       correctAnswerCount: 1,
     },
     {

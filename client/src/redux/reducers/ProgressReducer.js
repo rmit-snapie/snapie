@@ -26,7 +26,7 @@ const progressReducer = (state = initialState, action) => {
     case COMPLETED_A_TEST:
       return {...state, test: state.test + 1};
     case COMPLETED_A_LEVEL:
-      return {...state, level: action.payload};
+      return {...state, level: state.level + 1};
     case COMPLETED_A_STAGE:
       return {...state, stage: action.payload};
     default:

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Button, Text} from 'react-native';
+import {Button} from 'react-native';
 import {
   FILL_THE_BLANK,
   MULTIPLE_CHOICE,
@@ -15,22 +15,23 @@ import SpellingOrder from '../../../components/spelling-order/SpellingOrder';
 import {stop, testCompleted} from '../../../redux/actions/ProgressActions';
 import {setLocalQuestions} from '../../../redux/actions/QuestionsContentActions';
 
-const TempLesson = ({
+const LessonContent = ({
   questions,
   progress,
   handleStop,
   handleTestCompleted,
   handleSetLocalQuestions,
 }) => {
+  const {stage, level, test} = progress;
   if (progress.question === questions.length) {
     handleTestCompleted();
     handleSetLocalQuestions({
-      stage: 1,
-      level: 1,
-      test: 2,
+      stage: stage,
+      level: level,
+      test: test,
     });
     handleStop();
-    return <Text>Stop here</Text>;
+    return null;
   }
 
   const question = questions[progress.question];
@@ -48,7 +49,7 @@ const TempLesson = ({
   }
 };
 
-TempLesson.propTypes = {
+LessonContent.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object).isRequired,
   progress: PropTypes.object.isRequired,
   handleStop: PropTypes.func.isRequired,
@@ -66,4 +67,4 @@ export default connect(
     handleStop: stop,
     handleSetLocalQuestions: setLocalQuestions,
   },
-)(TempLesson);
+)(LessonContent);

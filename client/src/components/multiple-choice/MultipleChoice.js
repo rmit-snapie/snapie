@@ -50,7 +50,7 @@ const MultipleChoice = ({question, handleQuestionCompleted}) => {
       {!cheers.display && (
         <>
           <View style={styles.assetsWrapper}>
-            <Image style={styles.image} source={{uri: imageAsset}} />
+            <Image style={styles.image} source={imageAsset} />
           </View>
           <View style={styles.questionWrapper}>
             <Text

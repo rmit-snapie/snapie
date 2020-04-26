@@ -1,8 +1,9 @@
-import {ColorRed} from './assets/Base64Assets';
-import {ColorBlue} from './assets/Base64Assets';
-import {ColorGreen} from './assets/Base64Assets';
-import {ColorYellow} from './assets/Base64Assets';
-import {ColorOrange} from './assets/Base64Assets';
+const ColorRed = require('./assets/red.png');
+const ColorYellow = require('./assets/yellow.png');
+const ColorGreen = require('./assets/green.png');
+const ColorBlue = require('./assets/blue.png');
+const ColorOrange = require('./assets/orange.png');
+
 import {
   FILL_THE_BLANK,
   MULTIPLE_CHOICE,

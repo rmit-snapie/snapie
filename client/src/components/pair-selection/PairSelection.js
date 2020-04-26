@@ -145,7 +145,7 @@ class PairSelection extends Component {
                   key={index}>
                   <Animated.Image
                     style={[styles.asset]}
-                    source={{uri: picture.asset}}
+                    source={picture.asset}
                   />
                 </TouchableOpacity>
               ))}

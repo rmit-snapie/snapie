@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStyle';
 import {View} from 'react-native';
-import TempLesson from './temp-lesson/TempLesson';
-import LessonStages from './LessonStages';
+import LessonContent from './lesson-content/LessonContent';
+import LessonStages from './lesson-stages/LessonStages';
 
 const Lesson = ({progress: {play}}) => {
   return (
     <View style={styles.container}>
       {!play && <LessonStages />}
-      {play && <TempLesson />}
+      {play && <LessonContent />}
     </View>
   );
 };

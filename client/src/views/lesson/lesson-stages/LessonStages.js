@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Button, View} from 'react-native';
-import {play} from '../../redux/actions/ProgressActions';
+import {play} from '../../../redux/actions/ProgressActions';
 
 const LessonStages = ({handlePlay}) => {
   return (

@@ -67,7 +67,7 @@ const SpellingOrder = ({question, handleQuestionCompleted}) => {
       {!cheers.display && (
         <>
           <View style={styles.mediaWrapper}>
-            <Image style={styles.image} source={{uri: imageAsset}} />
+            <Image style={styles.image} source={imageAsset} />
           </View>
           <View style={styles.questionWrapper}>
             <Text style={styles.questionContent}>{questionContent}</Text>

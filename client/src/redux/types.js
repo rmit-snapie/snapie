@@ -3,6 +3,9 @@ export const LOG_IN = 'LOG_IN';
 export const LOGGING_IN = 'LOGGING_IN';
 
 //progress reducer
+export const PLAY = 'PLAY';
+export const STOP = 'STOP';
+export const COMPLETED_A_QUESTION = 'COMPLETED_A_QUESTION';
 export const COMPLETED_A_TEST = 'COMPLETED_A_TEST';
 export const COMPLETED_A_LEVEL = 'COMPLETED_A_LEVEL';
 export const COMPLETED_A_STAGE = 'COMPLETED_A_STAGE';

@@ -1,27 +1,17 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {View, Text, TouchableOpacity, Animated, Easing} from 'react-native';
-import _ from 'lodash';
 import styles from './PairSelectionStyle';
 import Cheers from '../cheers/Cheers';
-import {PAIR_SELECTION} from '../../../environments/Routes';
 import {shuffle} from '../../helpers/QuestionHelper';
-import {resetRoute} from '../../helpers/NavigateHelper';
-import {popCurrentStack} from '../../redux/actions/QuestionTypeActions';
-import {testCompleted} from '../../redux/actions/ProgressActions';
 import {readText} from '../../helpers/TextToSpeech';
+import {questionCompleted} from '../../redux/actions/ProgressActions';
 
 class PairSelection extends Component {
   constructor(props) {
     super(props);
-    const {
-      route: {
-        params: {question},
-      },
-    } = props;
-    const {questionContent, answers, imagesAsset} = question;
-
+    const {questionContent, answers, imagesAsset} = props.question;
     this.state = {
       pictures: shuffle(imagesAsset),
       possibleAnswers: shuffle(answers),
@@ -53,11 +43,6 @@ class PairSelection extends Component {
 
     const handlePicturePressed = asset => {
       const {currentAnswer, possibleAnswers, pictures} = this.state;
-      const {
-        currentStack,
-        handlePopCurrentStack,
-        handleTestCompleted,
-      } = this.props;
       if (currentAnswer.answer === asset.name) {
         const tempAnswers = possibleAnswers.filter(
           answer => answer !== asset.name,
@@ -78,18 +63,7 @@ class PairSelection extends Component {
         this.setState({
           cheers: {display: true, sad: false},
         });
-        if (currentStack.length !== 1) {
-          handlePopCurrentStack(PAIR_SELECTION);
-          const tempStack = currentStack.filter(
-            stack => stack !== PAIR_SELECTION,
-          );
-          setTimeout(
-            () => resetRoute(this.props.navigation, _.sample(tempStack)),
-            1000,
-          );
-        } else {
-          setTimeout(() => handleTestCompleted(2), 1000);
-        }
+        setTimeout(() => this.props.handleQuestionCompleted(), 1500);
       }
     };
 
@@ -183,15 +157,16 @@ class PairSelection extends Component {
   }
 }
 
+PairSelection.defaultProps = {
+  question: {},
+};
+
 PairSelection.propTypes = {
-  route: PropTypes.object.isRequired,
-  currentStack: PropTypes.arrayOf(PropTypes.string).isRequired,
-  handlePopCurrentStack: PropTypes.func.isRequired,
-  handleTestCompleted: PropTypes.func.isRequired,
-  navigation: PropTypes.object.isRequired,
+  question: PropTypes.object.isRequired,
+  handleQuestionCompleted: PropTypes.func.isRequired,
 };
 
 export default connect(
-  state => ({currentStack: state.questionsTypeStackReducer.currentStack}),
-  {handlePopCurrentStack: popCurrentStack, handleTestCompleted: testCompleted},
+  null,
+  {handleQuestionCompleted: questionCompleted},
 )(PairSelection);

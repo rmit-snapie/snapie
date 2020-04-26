@@ -1,26 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import _ from 'lodash';
 import styles from './SpellingOrderStyle';
 import Cheers from '../cheers/Cheers';
-import {SPELLING_ORDER} from '../../../environments/Routes';
 import {createBlanks} from '../../helpers/QuestionHelper';
-import {popCurrentStack} from '../../redux/actions/QuestionTypeActions';
-import {resetRoute} from '../../helpers/NavigateHelper';
-import {testCompleted} from '../../redux/actions/ProgressActions';
 import {readText} from '../../helpers/TextToSpeech';
+import {questionCompleted} from '../../redux/actions/ProgressActions';
 
-const SpellingOrder = ({
-  currentStack,
-  handlePopCurrentStack,
-  handleTestCompleted,
-  route: {
-    params: {question},
-  },
-  navigation,
-}) => {
+const SpellingOrder = ({question, handleQuestionCompleted}) => {
   const {questionContent, answers, correctAnswer, imageAsset} = question;
   const initialBlanks = createBlanks(correctAnswer);
   const [word, setWord] = useState([]);
@@ -70,13 +58,7 @@ const SpellingOrder = ({
     } else {
       setCheers({display: true, sad: false});
     }
-    if (currentStack.length !== 1) {
-      handlePopCurrentStack(SPELLING_ORDER);
-      const tempStack = currentStack.filter(stack => stack !== SPELLING_ORDER);
-      setTimeout(() => resetRoute(navigation, _.sample(tempStack)), 1000);
-    } else {
-      setTimeout(() => handleTestCompleted(2), 1000);
-    }
+    setTimeout(() => handleQuestionCompleted(), 1500);
   };
 
   return (
@@ -134,15 +116,16 @@ const SpellingOrder = ({
   );
 };
 
+SpellingOrder.defaultProps = {
+  question: {},
+};
+
 SpellingOrder.propTypes = {
-  currentStack: PropTypes.arrayOf(PropTypes.string).isRequired,
-  handlePopCurrentStack: PropTypes.func.isRequired,
-  handleTestCompleted: PropTypes.func.isRequired,
-  route: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired,
+  question: PropTypes.object.isRequired,
+  handleQuestionCompleted: PropTypes.func.isRequired,
 };
 
 export default connect(
-  state => ({currentStack: state.questionsTypeStackReducer.currentStack}),
-  {handlePopCurrentStack: popCurrentStack, handleTestCompleted: testCompleted},
+  null,
+  {handleQuestionCompleted: questionCompleted},
 )(SpellingOrder);

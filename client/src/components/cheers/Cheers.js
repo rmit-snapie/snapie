@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {Animated, StyleSheet, Dimensions, View, Button} from 'react-native';
+import PropTypes from 'prop-types';
+import {Animated, StyleSheet, Dimensions, View} from 'react-native';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-const Cheers = ({cheers, sad, ...props}) => {
+const Cheers = ({cheers, sad}) => {
   const [opacity] = useState(new Animated.Value(0));
 
   const imagePath = sad
@@ -38,9 +39,6 @@ const Cheers = ({cheers, sad, ...props}) => {
           cheers ? styles.image : styles.hidden,
         ]}
       />
-      <Button title="next" onPress={() => props.nextQuestion()}>
-        next
-      </Button>
     </View>
   );
 };
@@ -61,5 +59,10 @@ const styles = StyleSheet.create({
     display: 'none',
   },
 });
+
+Cheers.propTypes = {
+  cheers: PropTypes.bool.isRequired,
+  sad: PropTypes.bool.isRequired,
+};
 
 export default Cheers;

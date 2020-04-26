@@ -12,15 +12,6 @@ import {connect} from 'react-redux';
 import {setLocalQuestions} from '../../redux/actions/QuestionsContentActions';
 
 class Home extends Component {
-  componentDidMount() {
-    const {stage, level, test} = this.props.progress;
-    this.props.handleSetLocalQuestions({
-      stage: stage,
-      level: level,
-      test: test,
-    });
-  }
-
   render() {
     const {navigation} = this.props;
     return (

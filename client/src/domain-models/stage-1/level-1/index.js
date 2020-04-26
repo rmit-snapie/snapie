@@ -3,6 +3,12 @@ import {ColorBlue} from './assets/Base64Assets';
 import {ColorGreen} from './assets/Base64Assets';
 import {ColorYellow} from './assets/Base64Assets';
 import {ColorOrange} from './assets/Base64Assets';
+import {
+  FILL_THE_BLANK,
+  MULTIPLE_CHOICE,
+  PAIR_SELECTION,
+  SPELLING_ORDER,
+} from '../../../../environments/Routes';
 
 export const STAGE_ONE_LEVEL_ONE = [
   [
@@ -13,7 +19,7 @@ export const STAGE_ONE_LEVEL_ONE = [
       test: 'test-1',
       createdAt: '03-04-2020',
       updatedAt: '03-04-2020',
-      type: 'multipleChoice',
+      type: MULTIPLE_CHOICE,
       questionContent: 'What color is this ?',
       possibleAnswersCount: 4,
       answers: ['red', 'yellow', 'black', 'white'],
@@ -28,7 +34,7 @@ export const STAGE_ONE_LEVEL_ONE = [
       test: 'test-1',
       createdAt: '08-04-2020',
       updatedAt: '08-04-2020',
-      type: 'fillTheBlank',
+      type: FILL_THE_BLANK,
       questionContent: 'This color is',
       possibleAnswersCount: 4,
       answers: ['yellow', 'blue', 'black', 'white'],
@@ -43,7 +49,7 @@ export const STAGE_ONE_LEVEL_ONE = [
       test: 'test-1',
       createdAt: '14-04-2020',
       updatedAt: '14-04-2020',
-      type: 'spellingOrder',
+      type: SPELLING_ORDER,
       questionContent: 'Spell this color',
       possibleAnswersCount: 4,
       answers: ['r', 'o', 'a', 'e', 'n', 'g'],
@@ -58,7 +64,7 @@ export const STAGE_ONE_LEVEL_ONE = [
       test: 'test-1',
       createdAt: '14-04-2020',
       updatedAt: '14-04-2020',
-      type: 'pairSelection',
+      type: PAIR_SELECTION,
       questionContent: 'Choose the pairs',
       answers: ['yellow', 'red', 'green', 'blue'],
       imagesAsset: [
@@ -90,12 +96,12 @@ export const STAGE_ONE_LEVEL_ONE = [
       test: 'test-2',
       createdAt: '03-04-2020',
       updatedAt: '03-04-2020',
-      type: 'multipleChoice',
+      type: MULTIPLE_CHOICE,
       questionContent: 'What color is this ?',
       possibleAnswersCount: 4,
       answers: ['red', 'yellow', 'black', 'white'],
       correctAnswer: 'yellow',
-      imagesAsset: ColorYellow,
+      imageAsset: ColorYellow,
       correctAnswerCount: 1,
     },
     {
@@ -105,12 +111,12 @@ export const STAGE_ONE_LEVEL_ONE = [
       test: 'test-2',
       createdAt: '08-04-2020',
       updatedAt: '08-04-2020',
-      type: 'fillTheBlank',
+      type: FILL_THE_BLANK,
       questionContent: 'This color is ',
       possibleAnswersCount: 4,
       answers: ['blue', 'yellow', 'black', 'white'],
       correctAnswer: 'blue',
-      imagesAsset: ColorBlue,
+      imageAsset: ColorBlue,
       correctAnswerCount: 1,
     },
     {
@@ -120,11 +126,12 @@ export const STAGE_ONE_LEVEL_ONE = [
       test: 'test-2',
       createdAt: '14-04-2020',
       updatedAt: '14-04-2020',
+      type: SPELLING_ORDER,
       questionContent: 'Spell this color',
       possibleAnswersCount: 4,
       answers: ['g', 'e', 'r', 'e', 'n'],
       correctAnswer: 'green',
-      imagesAsset: ColorOrange,
+      imageAsset: ColorOrange,
       correctAnswerCount: 1,
     },
     {
@@ -134,6 +141,7 @@ export const STAGE_ONE_LEVEL_ONE = [
       test: 'test-2',
       createdAt: '14-04-2020',
       updatedAt: '14-04-2020',
+      type: PAIR_SELECTION,
       questionContent: 'Choose the pairs',
       answers: ['red', 'green', 'blue', 'yellow'],
       imagesAsset: [

@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {View, Text, TouchableOpacity, Animated, Easing} from 'react-native';
 import styles from './PairSelectionStyle';
 import Cheers from '../cheers/Cheers';
 import {shuffle} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
-import {questionCompleted} from '../../redux/actions/ProgressActions';
 
 class PairSelection extends Component {
   constructor(props) {
@@ -63,7 +61,6 @@ class PairSelection extends Component {
         this.setState({
           cheers: {display: true, sad: false},
         });
-        setTimeout(() => this.props.handleQuestionCompleted(), 1500);
       }
     };
 
@@ -157,16 +154,8 @@ class PairSelection extends Component {
   }
 }
 
-PairSelection.defaultProps = {
-  question: {},
-};
-
 PairSelection.propTypes = {
   question: PropTypes.object.isRequired,
-  handleQuestionCompleted: PropTypes.func.isRequired,
 };
 
-export default connect(
-  null,
-  {handleQuestionCompleted: questionCompleted},
-)(PairSelection);
+export default PairSelection;

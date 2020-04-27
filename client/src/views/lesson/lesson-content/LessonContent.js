@@ -25,11 +25,13 @@ const LessonContent = ({
   const {stage, level, test} = progress;
   if (progress.question === questions.length) {
     handleTestCompleted();
-    handleSetLocalQuestions({
-      stage: stage,
-      level: level,
-      test: test,
-    });
+    if (progress.test < 2) {
+      handleSetLocalQuestions({
+        stage: stage,
+        level: level,
+        test: test,
+      });
+    }
     handleStop();
     return null;
   }

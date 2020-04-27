@@ -1,14 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import styles from './FillTheBlankStyle';
 import Cheers from '../cheers/Cheers';
 import {createBlanks} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
-import {questionCompleted} from '../../redux/actions/ProgressActions';
 
-const FillTheBlank = ({question, handleQuestionCompleted}) => {
+const FillTheBlank = ({question}) => {
   const {questionContent, answers, correctAnswer, imageAsset} = question;
   const blanks = createBlanks(answers);
   const [currentAnswer, setCurrentAnswer] = useState({
@@ -43,12 +41,17 @@ const FillTheBlank = ({question, handleQuestionCompleted}) => {
     } else {
       setCheers({display: true, sad: false});
     }
-    setTimeout(() => handleQuestionCompleted(), 1500);
   };
 
   return (
     <View style={styles.container}>
-      {cheers.display && <Cheers cheers={cheers.display} sad={cheers.sad} />}
+      {cheers.display && (
+        <Cheers
+          cheers={cheers.display}
+          sad={cheers.sad}
+          correctAnswer={correctAnswer}
+        />
+      )}
       {!cheers.display && (
         <>
           <View style={styles.mediaWrapper}>
@@ -95,16 +98,8 @@ const FillTheBlank = ({question, handleQuestionCompleted}) => {
   );
 };
 
-FillTheBlank.defaultProps = {
-  question: {},
-};
-
 FillTheBlank.propTypes = {
   question: PropTypes.object,
-  handleQuestionCompleted: PropTypes.func.isRequired,
 };
 
-export default connect(
-  null,
-  {handleQuestionCompleted: questionCompleted},
-)(FillTheBlank);
+export default FillTheBlank;

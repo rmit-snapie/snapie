@@ -1,14 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './SpellingOrderStyle';
 import Cheers from '../cheers/Cheers';
 import {createBlanks} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
-import {questionCompleted} from '../../redux/actions/ProgressActions';
 
-const SpellingOrder = ({question, handleQuestionCompleted}) => {
+const SpellingOrder = ({question}) => {
   const {questionContent, answers, correctAnswer, imageAsset} = question;
   const initialBlanks = createBlanks(correctAnswer);
   const [word, setWord] = useState([]);
@@ -58,12 +56,17 @@ const SpellingOrder = ({question, handleQuestionCompleted}) => {
     } else {
       setCheers({display: true, sad: false});
     }
-    setTimeout(() => handleQuestionCompleted(), 1500);
   };
 
   return (
     <View style={styles.container}>
-      {cheers.display && <Cheers cheers={cheers.display} sad={cheers.sad} />}
+      {cheers.display && (
+        <Cheers
+          cheers={cheers.display}
+          sad={cheers.sad}
+          correctAnswer={correctAnswer}
+        />
+      )}
       {!cheers.display && (
         <>
           <View style={styles.mediaWrapper}>
@@ -116,16 +119,8 @@ const SpellingOrder = ({question, handleQuestionCompleted}) => {
   );
 };
 
-SpellingOrder.defaultProps = {
-  question: {},
-};
-
 SpellingOrder.propTypes = {
   question: PropTypes.object.isRequired,
-  handleQuestionCompleted: PropTypes.func.isRequired,
 };
 
-export default connect(
-  null,
-  {handleQuestionCompleted: questionCompleted},
-)(SpellingOrder);
+export default SpellingOrder;

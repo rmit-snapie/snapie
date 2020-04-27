@@ -1,13 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
 import Proptypes from 'prop-types';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './MultipleChoiceStyle';
 import Cheers from '../cheers/Cheers';
 import {readText} from '../../helpers/TextToSpeech';
-import {questionCompleted} from '../../redux/actions/ProgressActions';
 
-const MultipleChoice = ({question, handleQuestionCompleted}) => {
+const MultipleChoice = ({question}) => {
   const {questionContent, answers, correctAnswer, imageAsset} = question;
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
@@ -41,12 +39,17 @@ const MultipleChoice = ({question, handleQuestionCompleted}) => {
     } else {
       setCheers({display: true, sad: false});
     }
-    setTimeout(() => handleQuestionCompleted(), 1500);
   };
 
   return (
     <View style={styles.container}>
-      {cheers.display && <Cheers cheers={cheers.display} sad={cheers.sad} />}
+      {cheers.display && (
+        <Cheers
+          cheers={cheers.display}
+          sad={cheers.sad}
+          correctAnswer={correctAnswer}
+        />
+      )}
       {!cheers.display && (
         <>
           <View style={styles.assetsWrapper}>
@@ -99,16 +102,8 @@ const MultipleChoice = ({question, handleQuestionCompleted}) => {
   );
 };
 
-MultipleChoice.defaultProps = {
-  question: {},
-};
-
 MultipleChoice.propTypes = {
   question: Proptypes.object.isRequired,
-  handleQuestionCompleted: Proptypes.func.isRequired,
 };
 
-export default connect(
-  null,
-  {handleQuestionCompleted: questionCompleted},
-)(MultipleChoice);
+export default MultipleChoice;

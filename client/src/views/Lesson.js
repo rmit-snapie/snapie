@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
-import {goToFirstScreenInStack, navigateTo} from '../helpers/NavigateHelper';
+import {navigateTo} from '../helpers/NavigateHelper';
 import PropTypes from 'prop-types';
-import MultipleChoiceQuiz from '../domainModels/MultipleChoiceQuiz';
-import multipleChoiceQuizData from '../domainModels/MultipleChoiceQuiz.json';
-import DragAndDropQuiz from '../domainModels/DragAndDropQuiz';
-import TakePhotoQuiz from '../domainModels/TakePhotoQuiz'
-import {MULTIPLE_CHOICE} from '../../environments/Routes';
+import {MULTIPLE_CHOICE, TAKE_PICTURE} from '../../environments/Routes';
 class Lesson extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
@@ -22,15 +18,9 @@ class Lesson extends Component {
           onPress={() => navigateTo(navigation, MULTIPLE_CHOICE)}
         />
         <Button
-        {/* <Text style={styles.text}>This is Lesson.</Text> */}
-        {/* {multipleChoiceQuizData.type === 'multipleChoice' && (
-          <MultipleChoiceQuiz quizData={multipleChoiceQuizData} />
-        )} */}
-        <TakePhotoQuiz />
-        {/* <Button
-          title="Go back Home"
-          onPress={() => goToFirstScreenInStack(navigation)}
-        /> */}
+          title="Photo Quiz"
+          onPress={() => navigateTo(navigation, TAKE_PICTURE)}
+        />
       </View>
     );
   }

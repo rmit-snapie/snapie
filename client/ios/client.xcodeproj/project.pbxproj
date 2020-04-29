@@ -18,8 +18,11 @@
 		2DCD954D1E0B4F2C00145EB5 /* clientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* clientTests.m */; };
 		400E1324E52D0527BEB0A305 /* libPods-client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B51A8A56864B0429FD93962F /* libPods-client.a */; };
 		477ADF16A8419C7B9DB09984 /* libPods-client-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E6B4CB581757E4664E5A44 /* libPods-client-tvOS.a */; };
+		730AFA4E05C44B7A9F7566A6 /* Amiko-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F13AAD5A13334A7E85CA1DFB /* Amiko-SemiBold.ttf */; };
 		7D2C36DD88428A06815E96C8 /* libPods-clientTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E956FEF2FB7EA819AA43D260 /* libPods-clientTests.a */; };
+		94A23D8388864A53AE940D50 /* Amiko-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F97A2C5307F4D32976EDCF8 /* Amiko-Regular.ttf */; };
 		A35A9A93D30271C49BD85763 /* libPods-client-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCA73530554279F1E56077C /* libPods-client-tvOSTests.a */; };
+		BD4DE5DBCEA7435FB3FEAD9B /* Amiko-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9845EDF9E98B4C1181AFA6DB /* Amiko-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,16 +59,19 @@
 		2CCA73530554279F1E56077C /* libPods-client-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-client-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* client-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "client-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* client-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "client-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F97A2C5307F4D32976EDCF8 /* Amiko-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Amiko-Regular.ttf"; path = "../assets/fonts/Amiko-Regular.ttf"; sourceTree = "<group>"; };
 		43E6B4CB581757E4664E5A44 /* libPods-client-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-client-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F9CB070DE259AB4E0F30916 /* Pods-clientTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clientTests.release.xcconfig"; path = "Target Support Files/Pods-clientTests/Pods-clientTests.release.xcconfig"; sourceTree = "<group>"; };
 		59B4AC2DAF1892336C5DBD96 /* Pods-client-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-client-tvOSTests/Pods-client-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		69AC983FEAC7461E194AF087 /* Pods-clientTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clientTests.debug.xcconfig"; path = "Target Support Files/Pods-clientTests/Pods-clientTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9845EDF9E98B4C1181AFA6DB /* Amiko-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Amiko-Bold.ttf"; path = "../assets/fonts/Amiko-Bold.ttf"; sourceTree = "<group>"; };
 		A7D9FBADAD42EEB21A49C9F9 /* Pods-client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client.release.xcconfig"; path = "Target Support Files/Pods-client/Pods-client.release.xcconfig"; sourceTree = "<group>"; };
 		B51A8A56864B0429FD93962F /* libPods-client.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-client.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D10ABB65D6DD68AA95495F96 /* Pods-client-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client-tvOS.release.xcconfig"; path = "Target Support Files/Pods-client-tvOS/Pods-client-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		E956FEF2FB7EA819AA43D260 /* libPods-clientTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clientTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		F13AAD5A13334A7E85CA1DFB /* Amiko-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Amiko-SemiBold.ttf"; path = "../assets/fonts/Amiko-SemiBold.ttf"; sourceTree = "<group>"; };
 		FFB7F9286CC5CB64AB0398FB /* Pods-client-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-client-tvOSTests/Pods-client-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,6 +128,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		133CBA5BFF8E484B8FB994CD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9845EDF9E98B4C1181AFA6DB /* Amiko-Bold.ttf */,
+				2F97A2C5307F4D32976EDCF8 /* Amiko-Regular.ttf */,
+				F13AAD5A13334A7E85CA1DFB /* Amiko-SemiBold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* client */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,7 +177,6 @@
 				69AC983FEAC7461E194AF087 /* Pods-clientTests.debug.xcconfig */,
 				4F9CB070DE259AB4E0F30916 /* Pods-clientTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -181,6 +196,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				73C1FDDFF938FFE7BD41AA8D /* Pods */,
+				133CBA5BFF8E484B8FB994CD /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -285,7 +301,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -308,6 +324,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -338,6 +355,9 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				BD4DE5DBCEA7435FB3FEAD9B /* Amiko-Bold.ttf in Resources */,
+				94A23D8388864A53AE940D50 /* Amiko-Regular.ttf in Resources */,
+				730AFA4E05C44B7A9F7566A6 /* Amiko-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

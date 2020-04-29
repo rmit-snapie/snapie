@@ -4,7 +4,6 @@ import { ActivityIndicator, View, Text, Button, StyleSheet, TouchableOpacity, Im
 import PropTypes from 'prop-types';
 import { RNCamera } from 'react-native-camera';
 import axios from 'axios';
-import { readFile as read, writeFile as write } from "react-native-fs";
 
 class TakePhotoQuiz extends Component {
 
@@ -52,29 +51,23 @@ class TakePhotoQuiz extends Component {
                             onPress={() => this.analyze()}
                         />
                     </View>
-
-
                 </View>
 
             )
         }
         return (
-            <View
-            // style={styles.container}
-            >
+            <View>
                 <RNCamera
-                    ref={ref => {
-                        this.camera = ref;
-                    }}
+                    ref={ref => {this.camera = ref;}}
                     style={styles.preview}
                     type={RNCamera.Constants.Type.back}
-                // flashMode={RNCamera.Constants.FlashMode.on}
-                // androidCameraPermissionOptions={{
-                //     title: 'Permission to use camera',
-                //     message: 'We need your permission to use your camera',
-                //     buttonPositive: 'Ok',
-                //     buttonNegative: 'Cancel',
-                // }}
+                flashMode={RNCamera.Constants.FlashMode.auto}
+                androidCameraPermissionOptions={{
+                    title: 'Permission to use camera',
+                    message: 'We need your permission to use your camera',
+                    buttonPositive: 'Ok',
+                    buttonNegative: 'Cancel',
+                }}
                 // androidRecordAudioPermissionOptions={{
                 //     title: 'Permission to use audio recording',
                 //     message: 'We need your permission to use your audio',
@@ -165,7 +158,6 @@ const styles = StyleSheet.create({
         flex: 1,
         position: 'absolute',
         justifyContent: 'center',
-        // alignItems: 'center',
     }
 });
 

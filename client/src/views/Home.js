@@ -18,12 +18,7 @@ class Home extends Component {
     const {navigation} = this.props;
     return (
       <View testID="home-screen" style={styles.container}>
-        <Image
-        style={styles.tinyLogo}
-        source={require('./../assets/250.png')}
-      />
-      
-        <Text style={styles.text}>We are at home screennnn.</Text>
+        <Text style={styles.text}>We are at home screen.</Text>
         {/* <MultipleChoiceQuiz quizData={multipleChoiceQuizData} /> */}
         <View style={styles.buttonWrapper1}>
           <Button

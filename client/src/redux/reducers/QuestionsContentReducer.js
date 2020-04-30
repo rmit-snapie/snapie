@@ -10,6 +10,8 @@ const questionsContentReducer = (state = initialState, action) => {
     case INITIALIZE_LOCAL_QUESTIONS:
       ({stage, level, test} = action.payload);
       questions = getLocalTestQuestions(stage, level, test);
+      console.log(stage, level, test);
+      console.log(questions);
       state = questions;
       return state;
     default:

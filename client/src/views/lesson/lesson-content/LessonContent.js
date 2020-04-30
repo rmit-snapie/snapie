@@ -13,24 +13,9 @@ import FillTheBlank from '../../../components/fill-the-blank/FillTheBlank';
 import MultipleChoice from '../../../components/multiple-choice/MultipleChoice';
 import PairSelection from '../../../components/pair-selection/PairSelection';
 import SpellingOrder from '../../../components/spelling-order/SpellingOrder';
-//redux actions
-import {stop, testCompleted} from '../../../redux/actions/ProgressActions';
-import {setLocalQuestions} from '../../../redux/actions/QuestionsContentActions';
 
-const LessonContent = ({
-  questions,
-  progress,
-  handleStop,
-  handleTestCompleted,
-  handleSetLocalQuestions,
-}) => {
-  const {stage, level, test} = progress;
+const LessonContent = ({questions, progress}) => {
   if (progress.question === questions.length) {
-    handleSetLocalQuestions({
-      stage: stage,
-      level: level,
-      test: test,
-    });
     return null;
   }
 
@@ -62,9 +47,5 @@ export default connect(
     questions: state.questionsContentReducer,
     progress: state.progressReducer,
   }),
-  {
-    handleTestCompleted: testCompleted,
-    handleStop: stop,
-    handleSetLocalQuestions: setLocalQuestions,
-  },
+  null,
 )(LessonContent);

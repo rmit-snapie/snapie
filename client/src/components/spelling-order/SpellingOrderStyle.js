@@ -8,13 +8,12 @@ export default StyleSheet.create({
   },
   mediaWrapper: {
     flex: 4,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     width: 200,
   },
   image: {
-    height: 250,
+    height: 260,
     width: 175,
   },
   questionWrapper: {
@@ -26,7 +25,7 @@ export default StyleSheet.create({
     fontFamily: 'Amiko-bold',
   },
   blanksWrapper: {
-    marginTop: 75,
+    marginTop: 40,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',

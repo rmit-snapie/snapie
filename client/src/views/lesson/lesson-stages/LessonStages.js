@@ -5,15 +5,15 @@ import styles from './LessonStagesStyle';
 import {Button, View} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
 import {play} from '../../../redux/actions/ProgressActions';
-import LevelButton from '../../level-button/LevelButton';
+import ImageButton from '../../image-button/ImageButton';
 
-const LessonStages = ({handlePlay, progress: {stage, level, test}}) => {
+const LessonStages = ({handlePlay, progress: {stage}}) => {
   return (
     <View style={styles.container}>
       <View style={styles.stageWrapper}>
         <View style={styles.stageLevels}>
           {LEVELS_ICONS.stageOne.map((icon, index) => (
-            <LevelButton
+            <ImageButton
               key={index}
               handlePress={() => handlePlay(true)}
               source={icon}

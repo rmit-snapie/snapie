@@ -2,10 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {TouchableOpacity, Image, StyleSheet} from 'react-native';
 
-const LevelButton = ({source, handlePress}) => {
+const ImageButton = ({screen, source, handlePress}) => {
   return (
     <TouchableOpacity style={styles.container} onPress={() => handlePress()}>
-      <Image style={styles.image} source={source} />
+      <Image
+        style={screen ? styles.mainScreen : styles.lessonScreen}
+        source={source}
+      />
     </TouchableOpacity>
   );
 };
@@ -14,15 +17,24 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: '10%',
   },
-  image: {
+  mainScreen: {
+    width: 250,
+    height: 97,
+  },
+  lessonScreen: {
     width: 75,
     height: 75,
   },
 });
 
-LevelButton.propTypes = {
-  source: PropTypes.number.isRequired,
-  handlePress: PropTypes.func.isRequired,
+ImageButton.defaultProps = {
+  screen: false,
 };
 
-export default LevelButton;
+ImageButton.propTypes = {
+  source: PropTypes.number.isRequired,
+  handlePress: PropTypes.func.isRequired,
+  screen: PropTypes.bool,
+};
+
+export default ImageButton;

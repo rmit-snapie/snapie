@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import styles from './HomeStyle';
-import {View, Text, Button} from 'react-native';
-import {navigateTo, replaceTo} from '../../helpers/NavigateHelper';
+import {View, Text, Image, ImageBackground} from 'react-native';
+import {navigateTo} from '../../helpers/NavigateHelper';
 import {
   EXPLORE_SCREEN,
   LESSON_SCREEN,
@@ -10,30 +10,41 @@ import {
 } from '../../../environments/Routes';
 import {connect} from 'react-redux';
 import {setLocalQuestions} from '../../redux/actions/QuestionsContentActions';
-import {STAGE_ONE} from '../../domain-models/stage-1';
+import DefaultAvatar from '../assets/home-screen-icons/DefaultAvatar.png';
+import HomeScreen from '../assets/home-screen-icons/HomeScreen.png';
+import LessonButton from '../assets/home-screen-icons/Lesson.png';
+import ExploreButton from '../assets/home-screen-icons/Explore.png';
+import ReviewButton from '../assets/home-screen-icons/Book.png';
+import ImageButton from '../image-button/ImageButton';
 
 class Home extends Component {
   render() {
-    console.log(STAGE_ONE[0][0].length);
     const {navigation} = this.props;
     return (
-      <View testID="home-screen" style={styles.container}>
-        <Text style={styles.text}>We are at home screen.</Text>
-        <View style={styles.buttonWrapper1}>
-          <Button
-            title="Go to Explore"
-            onPress={() => navigateTo(navigation, EXPLORE_SCREEN)}
+      <ImageBackground style={styles.background} source={HomeScreen}>
+        <View style={styles.profileWrapper}>
+          <Text style={styles.profileText}>Hello</Text>
+          <Text style={styles.profileText}>User 123</Text>
+          <Image source={DefaultAvatar} style={styles.avatar} />
+        </View>
+        <View style={styles.buttonsWrapper}>
+          <ImageButton
+            screen
+            handlePress={() => navigateTo(navigation, LESSON_SCREEN)}
+            source={LessonButton}
           />
-          <Button
-            title="Go to Review"
-            onPress={() => navigateTo(navigation, REVIEW_SCREEN)}
+          <ImageButton
+            screen
+            handlePress={() => navigateTo(navigation, EXPLORE_SCREEN)}
+            source={ExploreButton}
+          />
+          <ImageButton
+            screen
+            handlePress={() => navigateTo(navigation, REVIEW_SCREEN)}
+            source={ReviewButton}
           />
         </View>
-        <Button
-          title="Go to Lesson"
-          onPress={() => replaceTo(navigation, LESSON_SCREEN)}
-        />
-      </View>
+      </ImageBackground>
     );
   }
 }

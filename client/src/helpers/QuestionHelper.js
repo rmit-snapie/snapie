@@ -5,7 +5,7 @@ export const getLocalTestQuestions = (
   level: number,
   test: number,
 ) => {
-  if (stage === 1) {
+  if (stage === 0) {
     return STAGE_ONE[level][test];
   }
 };

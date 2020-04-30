@@ -28,7 +28,10 @@ export default function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <ApplicationStack.Navigator>
+          <ApplicationStack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}>
             <ApplicationStack.Screen name={HOME_SCREEN} component={Home} />
             <ApplicationStack.Screen name={LESSON_SCREEN} component={Lesson} />
             <ApplicationStack.Screen name={REVIEW_SCREEN} component={Review} />

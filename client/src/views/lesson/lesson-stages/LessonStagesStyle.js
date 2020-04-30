@@ -24,7 +24,7 @@ export default StyleSheet.create({
   },
   stageLevels: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignContent: 'center',
     alignItems: 'center',
     flexWrap: 'wrap',

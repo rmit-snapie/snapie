@@ -10,9 +10,11 @@ import {
 } from '../../../environments/Routes';
 import {connect} from 'react-redux';
 import {setLocalQuestions} from '../../redux/actions/QuestionsContentActions';
+import {STAGE_ONE} from '../../domain-models/stage-1';
 
 class Home extends Component {
   render() {
+    console.log(STAGE_ONE[0][0].length);
     const {navigation} = this.props;
     return (
       <View testID="home-screen" style={styles.container}>

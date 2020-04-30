@@ -8,10 +8,12 @@ import {
   PAIR_SELECTION,
   SPELLING_ORDER,
 } from '../../../../environments/Routes';
+//components
 import FillTheBlank from '../../../components/fill-the-blank/FillTheBlank';
 import MultipleChoice from '../../../components/multiple-choice/MultipleChoice';
 import PairSelection from '../../../components/pair-selection/PairSelection';
 import SpellingOrder from '../../../components/spelling-order/SpellingOrder';
+//redux actions
 import {stop, testCompleted} from '../../../redux/actions/ProgressActions';
 import {setLocalQuestions} from '../../../redux/actions/QuestionsContentActions';
 
@@ -24,15 +26,11 @@ const LessonContent = ({
 }) => {
   const {stage, level, test} = progress;
   if (progress.question === questions.length) {
-    handleTestCompleted();
-    if (progress.test < 2) {
-      handleSetLocalQuestions({
-        stage: stage,
-        level: level,
-        test: test,
-      });
-    }
-    handleStop();
+    handleSetLocalQuestions({
+      stage: stage,
+      level: level,
+      test: test,
+    });
     return null;
   }
 

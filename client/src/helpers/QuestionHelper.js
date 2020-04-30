@@ -1,9 +1,4 @@
-import {STAGE_ONE_LEVEL_ONE} from '../domain-models/stage-1/level-1';
-import {STAGE_ONE_LEVEL_TWO} from '../domain-models/stage-1/level-2';
-import {STAGE_ONE_LEVEL_THREE} from '../domain-models/stage-1/level-3';
-import {STAGE_TWO_LEVEL_ONE} from '../domain-models/stage-2/level-1';
-import {STAGE_TWO_LEVEL_TWO} from '../domain-models/stage-2/level-2';
-import {STAGE_TWO_LEVEL_THREE} from '../domain-models/stage-2/level-3';
+import {STAGE_ONE} from '../domain-models/stage-1';
 
 export const getLocalTestQuestions = (
   stage: number,
@@ -11,19 +6,17 @@ export const getLocalTestQuestions = (
   test: number,
 ) => {
   if (stage === 1) {
-    if (level === 1) {
-      return STAGE_ONE_LEVEL_ONE[test];
-    } else if (level === 2) {
-      return STAGE_ONE_LEVEL_TWO[test];
-    }
-    return STAGE_ONE_LEVEL_THREE[test];
-  } else if (stage === 2) {
-    if (level === 1) {
-      return STAGE_TWO_LEVEL_ONE[test];
-    } else if (level === 2) {
-      return STAGE_TWO_LEVEL_TWO[test];
-    }
-    return STAGE_TWO_LEVEL_THREE[test];
+    return STAGE_ONE[level][test];
+  }
+};
+
+export const getTestsQuestionsLength = (
+  stage: number,
+  level: number,
+  test: number,
+) => {
+  if (stage === 0) {
+    return STAGE_ONE[level][test].length;
   }
 };
 

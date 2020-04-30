@@ -3,16 +3,22 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStagesStyle';
 import {Button, View} from 'react-native';
+import {LEVELS_ICONS} from '../../assets/levels-icons';
 import {play} from '../../../redux/actions/ProgressActions';
+import LevelButton from '../../level-button/LevelButton';
 
 const LessonStages = ({handlePlay, progress: {stage, level, test}}) => {
   return (
     <View style={styles.container}>
       <View style={styles.stageWrapper}>
         <View style={styles.stageLevels}>
-          <Button title="Level 1" onPress={() => handlePlay(true)} />
-          <Button title="Level 2" onPress={() => handlePlay(true)} />
-          <Button title="Level 3" onPress={() => handlePlay(true)} />
+          {LEVELS_ICONS.stageOne.map((icon, index) => (
+            <LevelButton
+              key={index}
+              handlePress={() => handlePlay(true)}
+              source={icon}
+            />
+          ))}
         </View>
       </View>
       <View

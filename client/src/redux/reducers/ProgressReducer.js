@@ -8,9 +8,9 @@ import {
 } from '../types';
 
 const initialState = {
-  stage: 1,
-  level: 1,
-  test: 1,
+  stage: 0,
+  level: 0,
+  test: 0,
   question: 0,
   play: false,
 };
@@ -24,9 +24,9 @@ const progressReducer = (state = initialState, action) => {
     case COMPLETED_A_QUESTION:
       return {...state, question: state.question + 1};
     case COMPLETED_A_TEST:
-      return {...state, test: state.test + 1};
+      return {...state, test: state.test + 1, question: 0};
     case COMPLETED_A_LEVEL:
-      return {...state, level: state.level + 1};
+      return {...state, level: state.level + 1, test: 0, question: 0};
     case COMPLETED_A_STAGE:
       return {...state, stage: action.payload};
     default:

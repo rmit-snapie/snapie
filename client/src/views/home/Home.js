@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, Button, StyleSheet} from 'react-native';
-import {navigateTo} from '../helpers/NavigateHelper';
+import styles from './HomeStyle';
+import {View, Text, Button} from 'react-native';
+import {navigateTo, replaceTo} from '../../helpers/NavigateHelper';
 import {
   EXPLORE_SCREEN,
   LESSON_SCREEN,
   REVIEW_SCREEN,
-} from '../../environments/Routes';
-class Home extends Component {
-  static propTypes = {
-    navigation: PropTypes.object.isRequired,
-  };
+} from '../../../environments/Routes';
+import {connect} from 'react-redux';
+import {setLocalQuestions} from '../../redux/actions/QuestionsContentActions';
 
+class Home extends Component {
   render() {
     const {navigation} = this.props;
     return (
@@ -29,28 +29,22 @@ class Home extends Component {
         </View>
         <Button
           title="Go to Lesson"
-          onPress={() => navigateTo(navigation, LESSON_SCREEN)}
+          onPress={() => replaceTo(navigation, LESSON_SCREEN)}
         />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-    paddingBottom: 15,
-  },
-  buttonWrapper1: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+Home.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  progress: PropTypes.object.isRequired,
+  handleSetLocalQuestions: PropTypes.func.isRequired,
+};
 
-export default Home;
+export default connect(
+  state => ({
+    progress: state.progressReducer,
+  }),
+  {handleSetLocalQuestions: setLocalQuestions},
+)(Home);

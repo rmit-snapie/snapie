@@ -6,10 +6,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  assetsWrapper: {
+  mediaWrapper: {
     flex: 4,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   image: {
@@ -18,12 +18,12 @@ export default StyleSheet.create({
   },
   questionWrapper: {
     flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   questionContent: {
-    fontSize: 20,
-    fontFamily: 'Amiko-Bold',
+    fontSize: 32,
+    fontFamily: 'Amiko-bold',
+    marginBottom: 20,
   },
   answersWrapper: {
     flex: 2,
@@ -32,10 +32,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexWrap: 'wrap',
   },
-  buttonWrapper: {
-    flex: 2,
-  },
   answer: {
+    marginTop: 20,
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 6,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -43,35 +45,28 @@ export default StyleSheet.create({
     shadowRadius: 2.62,
     elevation: 4,
     backgroundColor: '#fff',
-    padding: 5,
+    padding: 10,
     marginBottom: 20,
     height: 50,
-    width: 175,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 16,
+    marginRight: 12,
   },
   notChosenAnswer: {
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 2,
-    borderBottomWidth: 6,
     borderColor: 'rgb(229, 229, 229)',
     shadowColor: 'rgba(120,114,120,0.64)', // IOS
   },
   chosenAnswer: {
-    borderColor: '#e5e5e5',
-    shadowColor: 'rgba(120,114,120,0.64)', // IOS
+    borderColor: '#afafaf',
     backgroundColor: '#afafaf',
   },
   answerTitle: {
-    fontSize: 24,
-    color: 'rgb(28, 176, 246)',
+    fontSize: 16,
   },
-  chosenAnswerTitle: {
-    fontSize: 24,
-    color: '#3c3c3c',
+  confirmButtonWrapper: {
+    flex: 2,
   },
   confirmButton: {
     marginTop: 15,

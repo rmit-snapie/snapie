@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import Proptypes from 'prop-types';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
-import styles from './MultipleChoiceStyle';
+import PropTypes from 'prop-types';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
+import styles from './FillTheBlankStyle';
 import Cheers from '../cheers/Cheers';
+import {createBlanks} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
-const MultipleChoice = ({question}) => {
+const FillTheBlank = ({question}) => {
   const {questionContent, answers, correctAnswer, imageAsset} = question;
+  const blanks = createBlanks(answers);
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
     index: null,
@@ -33,8 +35,8 @@ const MultipleChoice = ({question}) => {
     }
   };
 
-  const handleAnswerCheck = answer => {
-    if (correctAnswer !== answer) {
+  const handleAnswerCheck = () => {
+    if (currentAnswer.answer !== correctAnswer) {
       setCheers({display: true, sad: true});
     } else {
       setCheers({display: true, sad: false});
@@ -52,39 +54,33 @@ const MultipleChoice = ({question}) => {
       )}
       {!cheers.display && (
         <>
-          <View style={styles.assetsWrapper}>
+          <View style={styles.mediaWrapper}>
             <Image style={styles.image} source={imageAsset} />
           </View>
           <View style={styles.questionWrapper}>
             <Text
               onPress={() => readText(questionContent)}
               style={styles.questionContent}>
-              {questionContent}
+              {questionContent}{' '}
+              {currentAnswer.answer ? currentAnswer.answer : blanks}
             </Text>
           </View>
           <View style={styles.answersWrapper}>
             {answers.map((answer, index) => (
               <TouchableOpacity
-                activeOpacity={0}
                 onPress={() => handleAnswerPressed(index, answer)}
+                activeOpacity={0}
+                key={answer}
                 style={
-                  currentAnswer.index === index
+                  index === currentAnswer.index
                     ? [styles.answer, styles.chosenAnswer]
                     : [styles.answer, styles.notChosenAnswer]
-                }
-                key={answer}>
-                <Text
-                  style={
-                    currentAnswer.index === index
-                      ? styles.chosenAnswerTitle
-                      : styles.answerTitle
-                  }>
-                  {answer}
-                </Text>
+                }>
+                <Text style={styles.answerTitle}>{answer}</Text>
               </TouchableOpacity>
             ))}
           </View>
-          <View style={styles.buttonWrapper}>
+          <View style={styles.confirmButtonWrapper}>
             <TouchableOpacity
               style={
                 currentAnswer.answer === null
@@ -102,8 +98,8 @@ const MultipleChoice = ({question}) => {
   );
 };
 
-MultipleChoice.propTypes = {
-  question: Proptypes.object.isRequired,
+FillTheBlank.propTypes = {
+  question: PropTypes.object,
 };
 
-export default MultipleChoice;
+export default FillTheBlank;

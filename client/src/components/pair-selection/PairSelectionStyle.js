@@ -49,23 +49,26 @@ export default StyleSheet.create({
     shadowColor: 'rgba(120,114,120,0.64)', // IOS
   },
   chosenAnswer: {
-    borderColor: '#e5e5e5',
+    borderColor: '#1cb0f6',
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 2,
-    borderBottomWidth: 6,
-    shadowColor: 'rgba(120,114,120,0.64)', // IOS
-    backgroundColor: '#afafaf',
+    borderBottomWidth: 2,
   },
   answerTitle: {
     fontSize: 24,
     color: 'rgb(28, 176, 246)',
+    fontWeight: '600',
   },
   chosenAnswerTitle: {
     fontSize: 24,
     color: '#3c3c3c',
   },
-  assetWrapper: {
+  chosenAsset: {
+    marginBottom: 35,
+    borderWidth: 1,
+  },
+  notChosenAsset: {
     marginBottom: 35,
   },
   asset: {

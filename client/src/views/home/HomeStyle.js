@@ -34,7 +34,7 @@ export default StyleSheet.create({
     borderRadius: 75,
   },
   buttonsWrapper: {
-    flex: 4,
+    flex: 5.5,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },

@@ -1,12 +1,18 @@
-import {STAGE_ONE} from '../domain-models/stage-1';
+import {STAGE_ONE} from '../domain-models/stage-1/StageOneQuestions';
+import {STAGE_TWO} from '../domain-models/stage-2/StageTwoQuestions';
 
 export const getLocalTestQuestions = (
   stage: number,
   level: number,
   test: number,
 ) => {
+  console.log(stage, level, test);
   if (stage === 0) {
     return STAGE_ONE[level][test];
+  } else if (stage === 1) {
+    return STAGE_TWO[level][test];
+  } else {
+    return [];
   }
 };
 
@@ -21,11 +27,7 @@ export const getTestsQuestionsLength = (
 };
 
 export const createBlanks = answer => {
-  let blanks = [];
-  for (let i = 0; i < answer.length; i++) {
-    blanks.push('_');
-  }
-  return blanks;
+  return answer.split('').map(_ => '_');
 };
 
 export const shuffle = array => {

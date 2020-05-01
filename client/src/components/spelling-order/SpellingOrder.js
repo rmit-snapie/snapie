@@ -85,7 +85,7 @@ const SpellingOrder = ({question}) => {
                   onPress={() => clearWord()}
                   style={styles.clear}
                   activeOpacity={0}>
-                  <Text style={styles.answerTitle}>X</Text>
+                  <Text>X</Text>
                 </TouchableOpacity>
               )}
             </View>

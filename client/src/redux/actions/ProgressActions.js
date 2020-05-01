@@ -1,6 +1,7 @@
 import {
   COMPLETED_A_LEVEL,
   COMPLETED_A_QUESTION,
+  COMPLETED_A_STAGE,
   COMPLETED_A_TEST,
   PLAY,
   STOP,
@@ -24,7 +25,6 @@ export function questionCompleted(stage, level, test, question) {
   return function(dispatch) {
     if (question === getTestsQuestionsLength(stage, level, test) - 1) {
       if (test < 2) {
-        console.log('1 called');
         dispatch(testCompleted());
         dispatch(
           setLocalQuestions({
@@ -34,7 +34,6 @@ export function questionCompleted(stage, level, test, question) {
           }),
         );
       } else if (test === 2) {
-        console.log('2 called');
         dispatch(levelCompleted());
         dispatch(
           setLocalQuestions({
@@ -72,5 +71,7 @@ export function levelCompleted() {
 }
 
 export function stageCompleted() {
-  return null;
+  return function(dispatch) {
+    dispatch({type: COMPLETED_A_STAGE});
+  };
 }

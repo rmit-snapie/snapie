@@ -4,7 +4,7 @@ import {TouchableOpacity, Image, StyleSheet} from 'react-native';
 
 const ImageButton = ({screen, source, handlePress}) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => handlePress()}>
+    <TouchableOpacity onPress={() => handlePress()}>
       <Image
         style={screen ? styles.mainScreen : styles.lessonScreen}
         source={source}
@@ -14,12 +14,10 @@ const ImageButton = ({screen, source, handlePress}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: '10%',
-  },
   mainScreen: {
-    width: 250,
-    height: 97,
+    width: 356,
+    height: 136,
+    resizeMode: 'contain',
   },
   lessonScreen: {
     width: 75,

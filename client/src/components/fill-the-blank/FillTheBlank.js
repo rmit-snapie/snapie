@@ -8,7 +8,7 @@ import {readText} from '../../helpers/TextToSpeech';
 
 const FillTheBlank = ({question}) => {
   const {questionContent, answers, correctAnswer, imageAsset} = question;
-  const blanks = createBlanks(answers);
+  const blanks = createBlanks(correctAnswer);
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
     index: null,

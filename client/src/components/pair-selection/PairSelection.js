@@ -15,13 +15,81 @@ class PairSelection extends Component {
       possibleAnswers: shuffle(answers),
       currentQuestion: questionContent,
       currentAnswer: {answer: null, index: null},
+      currentPicture: {asset: null, index: null},
       cheers: {display: false, sad: false},
       shakeAnimation: new Animated.Value(0),
     };
+    this.triggerShake = this.triggerShake.bind(this);
+    this.resetAnswerState = this.resetAnswerState.bind(this);
+    this.removeCorrectPair = this.removeCorrectPair.bind(this);
+    this.openCheers = this.openCheers.bind(this);
   }
+
+  resetAnswerState = () => {
+    const tempAnswer = {answer: null, index: null};
+    const tempPicture = {asset: null, index: null};
+    this.setState({
+      currentAnswer: tempAnswer,
+      currentPicture: tempPicture,
+    });
+  };
+
+  removeCorrectPair = (answer, asset) => {
+    const {possibleAnswers, pictures} = this.state;
+    const tempAnswers = possibleAnswers.filter(
+      filterAnswer => filterAnswer !== answer,
+    );
+    const tempPictures = pictures.filter(picture => picture !== asset);
+    this.setState({
+      possibleAnswers: tempAnswers,
+      pictures: tempPictures,
+    });
+  };
+
+  triggerShake = () => {
+    Animated.timing(this.state.shakeAnimation, {
+      duration: 400,
+      toValue: 3,
+      easing: Easing.bounce,
+      useNativeDriver: true,
+    }).start();
+
+    setTimeout(() => {
+      this.setState({
+        shakeAnimation: new Animated.Value(0),
+      });
+    }, 1000);
+  };
+
+  openCheers = () => {
+    this.setState({
+      cheers: {display: true, sad: false},
+    });
+    this.setState({possibleAnswers: ['lol']});
+  };
 
   componentDidMount() {
     readText(this.state.currentQuestion);
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {
+      possibleAnswers,
+      currentAnswer,
+      currentPicture: {asset},
+    } = this.state;
+    if (currentAnswer.answer && asset) {
+      if (currentAnswer.answer === asset.name) {
+        this.removeCorrectPair(currentAnswer.answer, asset);
+      } else {
+        this.triggerShake();
+      }
+      this.resetAnswerState();
+    }
+
+    if (possibleAnswers.length === 0) {
+      return this.openCheers();
+    }
   }
 
   render() {
@@ -39,27 +107,15 @@ class PairSelection extends Component {
       }
     };
 
-    const handlePicturePressed = asset => {
-      const {currentAnswer, possibleAnswers, pictures} = this.state;
-      if (currentAnswer.answer === asset.name) {
-        const tempAnswers = possibleAnswers.filter(
-          answer => answer !== asset.name,
-        );
-        const tempPictures = pictures.filter(picture => picture !== asset);
+    const handlePicturePressed = (asset, index) => {
+      const {currentPicture} = this.state;
+      if (currentPicture.index === index) {
         this.setState({
-          pictures: tempPictures,
-          possibleAnswers: tempAnswers,
-          currentAnswer: {answer: null, index: null},
+          currentPicture: {asset: null, index: null},
         });
       } else {
-        triggerShake();
         this.setState({
-          currentAnswer: {answer: null, index: null},
-        });
-      }
-      if (possibleAnswers.length === 1) {
-        this.setState({
-          cheers: {display: true, sad: false},
+          currentPicture: {asset: asset, index: index},
         });
       }
     };
@@ -77,22 +133,9 @@ class PairSelection extends Component {
       ],
     };
 
-    const triggerShake = () => {
-      Animated.timing(this.state.shakeAnimation, {
-        duration: 400,
-        toValue: 3,
-        easing: Easing.bounce,
-        useNativeDriver: true,
-      }).start(() => {
-        this.setState(prevState => ({
-          ...prevState,
-          shakeAnimation: new Animated.Value(0),
-        }));
-      });
-    };
-
     const {
       currentAnswer,
+      currentPicture,
       currentQuestion,
       pictures,
       possibleAnswers,
@@ -137,8 +180,12 @@ class PairSelection extends Component {
             <Animated.View style={[shakeStyle, styles.column2]}>
               {pictures.map((picture, index) => (
                 <TouchableOpacity
-                  onPress={() => handlePicturePressed(picture)}
-                  style={styles.assetWrapper}
+                  onPress={() => handlePicturePressed(picture, index)}
+                  style={
+                    currentPicture.index === index
+                      ? styles.chosenAsset
+                      : styles.notChosenAsset
+                  }
                   key={index}>
                   <Animated.Image
                     style={[styles.asset]}

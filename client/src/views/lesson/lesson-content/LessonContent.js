@@ -11,14 +11,10 @@ import {
 //components
 import FillTheBlank from '../../../components/fill-the-blank/FillTheBlank';
 import MultipleChoice from '../../../components/multiple-choice/MultipleChoice';
-import PairSelection from '../../../components/pair-selection/PairSelection';
 import SpellingOrder from '../../../components/spelling-order/SpellingOrder';
+import PairSelection from '../../../components/pair-selection/PairSelection';
 
 const LessonContent = ({questions, progress}) => {
-  if (progress.question === questions.length) {
-    return null;
-  }
-
   const question = questions[progress.question];
   switch (question.type) {
     case FILL_THE_BLANK:
@@ -37,9 +33,6 @@ const LessonContent = ({questions, progress}) => {
 LessonContent.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object).isRequired,
   progress: PropTypes.object.isRequired,
-  handleStop: PropTypes.func.isRequired,
-  handleTestCompleted: PropTypes.func.isRequired,
-  handleSetLocalQuestions: PropTypes.func.isRequired,
 };
 
 export default connect(

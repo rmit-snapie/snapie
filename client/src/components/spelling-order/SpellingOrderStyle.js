@@ -10,7 +10,6 @@ export default StyleSheet.create({
     flex: 4,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    width: 200,
   },
   image: {
     height: 260,
@@ -55,6 +54,7 @@ export default StyleSheet.create({
     marginTop: 75,
   },
   answer: {
+    marginTop: 20,
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 2,
@@ -67,16 +67,19 @@ export default StyleSheet.create({
     elevation: 4,
     backgroundColor: '#fff',
     padding: 10,
-
-    height: 50,
+    width: 40,
+    marginBottom: 20,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 16,
-    marginRight: 20,
+    marginRight: 12,
+    borderColor: 'rgb(229, 229, 229)',
   },
   answerTitle: {
-    fontSize: 16,
+    fontSize: 22,
+    color: 'rgb(28, 176, 246)',
+    fontWeight: '600',
   },
   confirmButtonWrapper: {
     flex: 2,

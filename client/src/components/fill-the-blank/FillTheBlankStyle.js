@@ -8,7 +8,6 @@ export default StyleSheet.create({
   },
   mediaWrapper: {
     flex: 4,
-    flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
@@ -59,11 +58,16 @@ export default StyleSheet.create({
     shadowColor: 'rgba(120,114,120,0.64)', // IOS
   },
   chosenAnswer: {
-    borderColor: '#afafaf',
-    backgroundColor: '#afafaf',
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 2,
+    borderColor: '#1cb0f6',
   },
   answerTitle: {
-    fontSize: 16,
+    fontSize: 18,
+    color: 'rgb(28, 176, 246)',
+    fontWeight: '600',
   },
   confirmButtonWrapper: {
     flex: 2,

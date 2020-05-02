@@ -7,6 +7,7 @@ import {
   MULTIPLE_CHOICE,
   MULTIPLE_CHOICE_IMAGES,
   PAIR_SELECTION,
+  PRONOUNCE_THE_WORD,
   SPELLING_ORDER,
 } from '../../../../environments/Routes';
 //components
@@ -14,6 +15,7 @@ import FillTheBlank from '../../../components/fill-the-blank/FillTheBlank';
 import MultipleChoice from '../../../components/multiple-choice/MultipleChoice';
 import SpellingOrder from '../../../components/spelling-order/SpellingOrder';
 import PairSelection from '../../../components/pair-selection/PairSelection';
+import Pronounce from '../../../components/pronounce/Pronounce';
 
 const LessonContent = ({questions, progress}) => {
   const question = questions[progress.question];
@@ -30,8 +32,10 @@ const LessonContent = ({questions, progress}) => {
       return <PairSelection question={question} />;
     case SPELLING_ORDER:
       return <SpellingOrder question={question} />;
+    case PRONOUNCE_THE_WORD:
+      return <Pronounce question={question} />;
     default:
-      return <Button title="Go back Home" />;
+      return <Button title="Something went wrong." />;
   }
 };
 

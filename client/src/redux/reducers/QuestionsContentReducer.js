@@ -3,7 +3,7 @@ import {getLocalTestQuestions} from '../../helpers/QuestionHelper';
 import {STAGE_ONE} from '../../domain-models/stage-1/StageOneQuestions';
 
 let questions, stage, level, test;
-const initialState = STAGE_ONE[0][0];
+const initialState = STAGE_ONE[0][2];
 
 const questionsContentReducer = (state = initialState, action) => {
   switch (action.type) {

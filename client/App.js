@@ -20,6 +20,7 @@ import Home from './src/views/home/Home';
 import Explore from './src/views/explore/Explore';
 import Review from './src/views/review/Review';
 import Lesson from './src/views/lesson/Lesson';
+import Pronounce from './src/components/pronounce/Pronounce';
 
 const ApplicationStack = createStackNavigator();
 
@@ -39,6 +40,7 @@ export default function App() {
               name={EXPLORE_SCREEN}
               component={Explore}
             />
+            <ApplicationStack.Screen name="VOICE" component={Pronounce} />
           </ApplicationStack.Navigator>
         </NavigationContainer>
       </PersistGate>

@@ -14,6 +14,7 @@ import {
   MULTIPLE_CHOICE,
   MULTIPLE_CHOICE_IMAGES,
   PAIR_SELECTION,
+  PRONOUNCE_THE_WORD,
   SPELLING_ORDER,
 } from '../../../environments/Routes';
 
@@ -96,7 +97,7 @@ export const STAGE_ONE = [
         possibleAnswersCount: 4,
         answers: ['red', 'yellow', 'green', 'purple'],
         correctAnswer: 'green',
-        imageAsset: ColorYellow,
+        imageAsset: ColorGreen,
         correctAnswerCount: 1,
       },
       {
@@ -141,7 +142,7 @@ export const STAGE_ONE = [
             asset: SmallOrange,
           },
         ],
-        correctAnswer: 'yellow',
+        correctAnswer: 'orange',
         imageAsset: null,
         correctAnswerCount: 1,
       },
@@ -170,7 +171,7 @@ export const STAGE_ONE = [
         createdAt: '02-05-2020',
         updatedAt: '02-05-2020',
         type: MULTIPLE_CHOICE_IMAGES,
-        questionContent: 'What color is blue',
+        questionContent: 'Which color is blue',
         answers: [
           {
             name: 'green',
@@ -215,27 +216,10 @@ export const STAGE_ONE = [
         test: 'test-3',
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Match the pairs',
-        answers: ['red', 'green', 'blue', 'yellow'],
-        imagesAsset: [
-          {
-            name: 'yellow',
-            asset: ColorYellow,
-          },
-          {
-            name: 'red',
-            asset: ColorRed,
-          },
-          {
-            name: 'green',
-            asset: ColorGreen,
-          },
-          {
-            name: 'blue',
-            asset: ColorBlue,
-          },
-        ],
+        type: PRONOUNCE_THE_WORD,
+        questionContent: 'Read this color',
+        imageAsset: ColorBlue,
+        correctAnswer: 'blue',
         correctAnswerCount: 1,
       },
     ],

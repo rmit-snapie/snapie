@@ -23,6 +23,7 @@ export default StyleSheet.create({
   questionContent: {
     fontSize: 24,
     fontFamily: 'Amiko-Bold',
+    textAlign: 'center',
   },
   answersWrapper: {
     flex: 2,
@@ -30,6 +31,13 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     flexWrap: 'wrap',
+  },
+  imageAnswersWrapper: {
+    flex: 4,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   buttonWrapper: {
     flex: 2,
@@ -70,6 +78,33 @@ export default StyleSheet.create({
     fontSize: 24,
     color: 'rgb(28, 176, 246)',
     fontWeight: '600',
+  },
+  answerImage: {
+    width: 175,
+    height: 135,
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: 20,
+    marginRight: 10,
+    borderRadius: 16,
+  },
+  notChosenAnswerImage: {
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 6,
+    borderColor: 'rgb(229, 229, 229)',
+    shadowColor: 'rgba(120,114,120,0.64)',
+    backgroundColor: '#ffffff',
+  },
+  chosenAnswerImage: {
+    borderWidth: 1,
+    borderColor: 'rgb(28, 176, 246)',
+    backgroundColor: '#ffffff',
+  },
+  imageContent: {
+    height: 100,
+    width: 69,
   },
   chosenAnswerTitle: {
     fontSize: 24,

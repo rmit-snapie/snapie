@@ -5,6 +5,7 @@ import {Button} from 'react-native';
 import {
   FILL_THE_BLANK,
   MULTIPLE_CHOICE,
+  MULTIPLE_CHOICE_IMAGES,
   PAIR_SELECTION,
   SPELLING_ORDER,
 } from '../../../../environments/Routes';
@@ -20,7 +21,11 @@ const LessonContent = ({questions, progress}) => {
     case FILL_THE_BLANK:
       return <FillTheBlank question={question} />;
     case MULTIPLE_CHOICE:
-      return <MultipleChoice question={question} />;
+      return <MultipleChoice question={question} type={MULTIPLE_CHOICE} />;
+    case MULTIPLE_CHOICE_IMAGES:
+      return (
+        <MultipleChoice question={question} type={MULTIPLE_CHOICE_IMAGES} />
+      );
     case PAIR_SELECTION:
       return <PairSelection question={question} />;
     case SPELLING_ORDER:

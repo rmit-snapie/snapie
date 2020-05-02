@@ -65,6 +65,7 @@ class PairSelection extends Component {
     this.setState({
       cheers: {display: true, sad: false},
     });
+    // I have to include this to prevent an infinite loop inside componentDidUpdate
     this.setState({possibleAnswers: ['lol']});
   };
 
@@ -183,8 +184,8 @@ class PairSelection extends Component {
                   onPress={() => handlePicturePressed(picture, index)}
                   style={
                     currentPicture.index === index
-                      ? styles.chosenAsset
-                      : styles.notChosenAsset
+                      ? [styles.answerImage, styles.chosenAnswerImage]
+                      : [styles.answerImage, styles.notChosenAnswerImage]
                   }
                   key={index}>
                   <Animated.Image

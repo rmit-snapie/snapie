@@ -20,9 +20,10 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
   },
   questionContent: {
-    fontSize: 32,
+    fontSize: 28,
     fontFamily: 'Amiko-bold',
     marginBottom: 20,
+    textAlign: 'center',
   },
   answersWrapper: {
     flex: 2,

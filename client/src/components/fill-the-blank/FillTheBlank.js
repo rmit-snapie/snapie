@@ -17,15 +17,15 @@ const FillTheBlank = ({question}) => {
 
   useEffect(() => {
     readText(questionContent);
-  }, [questionContent]);
+  }, [question, questionContent]);
 
-  const resetAnswerState = () => {
-    setCurrentAnswer({answer: null, index: null});
+  const resetCurrentAnswer = () => {
+    setCheers({display: false, sad: false});
   };
 
   const handleAnswerPressed = (index, answer) => {
     if (currentAnswer.index === index) {
-      resetAnswerState();
+      resetCurrentAnswer();
     } else {
       readText(answer);
       setCurrentAnswer({

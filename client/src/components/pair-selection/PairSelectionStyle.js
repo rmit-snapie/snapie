@@ -64,12 +64,28 @@ export default StyleSheet.create({
     fontSize: 24,
     color: '#3c3c3c',
   },
-  chosenAsset: {
-    marginBottom: 35,
-    borderWidth: 1,
+  answerImage: {
+    width: 150,
+    height: 135,
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: 15,
+    marginRight: 10,
+    borderRadius: 16,
   },
-  notChosenAsset: {
-    marginBottom: 35,
+  chosenAnswerImage: {
+    borderWidth: 1,
+    backgroundColor: '#ffffff',
+    borderColor: 'rgb(28, 176, 246)',
+  },
+  notChosenAnswerImage: {
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 6,
+    borderColor: 'rgb(229, 229, 229)',
+    shadowColor: 'rgba(120,114,120,0.64)',
+    backgroundColor: '#ffffff',
   },
   asset: {
     height: 100,

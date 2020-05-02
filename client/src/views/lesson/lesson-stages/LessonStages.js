@@ -7,10 +7,10 @@ import {LEVELS_ICONS} from '../../assets/levels-icons';
 import {play} from '../../../redux/actions/ProgressActions';
 import ImageButton from '../../image-button/ImageButton';
 
-const LessonStages = ({handlePlay, progress: {stage}}) => {
+const LessonStages = ({handlePlay, progress: {stage, level, test}}) => {
   return (
-  <View style={styles.container}>
-    <ScrollView contentContainerStyle={styles.contentcontainer}>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.stageWrapper}>
           <View style={styles.stageLevels}>
             {LEVELS_ICONS.stageOne.map((icon, index) => (
@@ -18,6 +18,7 @@ const LessonStages = ({handlePlay, progress: {stage}}) => {
                 key={index}
                 handlePress={() => handlePlay(true)}
                 source={icon}
+                disabled={stage === 0 && level !== index}
               />
             ))}
           </View>
@@ -30,9 +31,14 @@ const LessonStages = ({handlePlay, progress: {stage}}) => {
               : styles.stageWrapper
           }>
           <View style={styles.stageLevels}>
-            <Button title="Level 1" onPress={() => handlePlay(true)} />
-            <Button title="Level 2" onPress={() => handlePlay(true)} />
-            <Button title="Level 3" onPress={() => handlePlay(true)} />
+            {LEVELS_ICONS.stageOne.map((icon, index) => (
+              <ImageButton
+                key={index}
+                handlePress={() => handlePlay(true)}
+                source={icon}
+                disabled={stage === 1 && level !== index}
+              />
+            ))}
           </View>
         </View>
         <View
@@ -49,8 +55,7 @@ const LessonStages = ({handlePlay, progress: {stage}}) => {
           </View>
         </View>
       </ScrollView>
-  </View>
-
+    </View>
   );
 };
 

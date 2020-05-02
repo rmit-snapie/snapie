@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {TouchableOpacity, Image, StyleSheet} from 'react-native';
 
-const ImageButton = ({screen, source, handlePress}) => {
+const ImageButton = ({screen, source, handlePress, disabled}) => {
   return (
-    <TouchableOpacity onPress={() => handlePress()}>
+    <TouchableOpacity onPress={() => handlePress()} disabled={disabled}>
       <Image
         style={screen ? styles.mainScreen : styles.lessonScreen}
         source={source}
@@ -22,19 +22,20 @@ const styles = StyleSheet.create({
   lessonScreen: {
     width: 133,
     height: 133,
-    marginBottom: 15
-//        height: 133,
+    marginBottom: 15,
   },
 });
 
 ImageButton.defaultProps = {
   screen: false,
+  disabled: false,
 };
 
 ImageButton.propTypes = {
   source: PropTypes.number.isRequired,
   handlePress: PropTypes.func.isRequired,
   screen: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default ImageButton;

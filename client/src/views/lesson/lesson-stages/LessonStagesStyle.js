@@ -5,9 +5,9 @@ export default StyleSheet.create({
     flex: 1,
     width: '100%',
     paddingTop: 45,
-    paddingBottom: 45
+    paddingBottom: 45,
   },
-  contentcontainer: {
+  contentContainer: {
     flexGrow: 1,
     alignItems: 'center',
   },

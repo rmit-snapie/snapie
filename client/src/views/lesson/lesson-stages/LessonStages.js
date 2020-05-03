@@ -13,7 +13,7 @@ const LessonStages = ({handlePlay, progress: {stage, level, test}}) => {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.stageWrapper}>
           <View style={styles.stageLevels}>
-            {LEVELS_ICONS.stageOne.map((icon, index) => (
+            {LEVELS_ICONS.stageOneC.map((icon, index) => (
               <ImageButton
                 key={index}
                 handlePress={() => handlePlay(true)}
@@ -30,16 +30,30 @@ const LessonStages = ({handlePlay, progress: {stage, level, test}}) => {
               ? [styles.stageWrapper, styles.lockedStage]
               : styles.stageWrapper
           }>
-          <View style={styles.stageLevels}>
-            {LEVELS_ICONS.stageOne.map((icon, index) => (
-              <ImageButton
-                key={index}
-                handlePress={() => handlePlay(true)}
-                source={icon}
-                disabled={stage === 1 && level !== index}
-              />
-            ))}
-          </View>
+          {stage < 2
+                    ?
+                      <View style={styles.stageLevels}>
+                        { LEVELS_ICONS.stageTwoG.map((icon, index) => (
+                           <ImageButton
+                             key={index}
+                             handlePress={() => handlePlay(true)}
+                             source={icon}
+                             disabled={stage === 1 && level !== index}
+                           />
+                         ))}
+                      </View>
+                    :
+                    <View style={styles.stageLevels}>
+                       { LEVELS_ICONS.stageTwoC.map((icon, index) => (
+                                             <ImageButton
+                                               key={index}
+                                               handlePress={() => handlePlay(true)}
+                                               source={icon}
+                                               disabled={stage === 1 && level !== index}
+                                             />
+                                           ))}
+                    </View>
+                    }
         </View>
         <View
           pointerEvents={stage < 3 ? 'none' : 'auto'}
@@ -48,11 +62,30 @@ const LessonStages = ({handlePlay, progress: {stage, level, test}}) => {
               ? [styles.stageWrapper, styles.lockedStage]
               : styles.stageWrapper
           }>
+          {stage < 3
+          ?
+            <View style={styles.stageLevels}>
+              { LEVELS_ICONS.stageThreeG.map((icon, index) => (
+                 <ImageButton
+                   key={index}
+                   handlePress={() => handlePlay(true)}
+                   source={icon}
+                   disabled={stage === 2 && level !== index}
+                 />
+               ))}
+            </View>
+          :
           <View style={styles.stageLevels}>
-            <Button title="Level 1" onPress={() => handlePlay(true)} />
-            <Button title="Level 2" onPress={() => handlePlay(true)} />
-            <Button title="Level 3" onPress={() => handlePlay(true)} />
+             { LEVELS_ICONS.stageThreeC.map((icon, index) => (
+                                   <ImageButton
+                                     key={index}
+                                     handlePress={() => handlePlay(true)}
+                                     source={icon}
+                                     disabled={stage === 2 && level !== index}
+                                   />
+                                 ))}
           </View>
+          }
         </View>
       </ScrollView>
     </View>

@@ -20,9 +20,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   lessonScreen: {
-    width: 133,
-    height: 133,
-    marginBottom: 15,
+    width: 130,
+    height: 172,
+    marginTop: 15,
+    marginBottom: 15
   },
 });
 

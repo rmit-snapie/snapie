@@ -24,7 +24,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: 300,
     borderRadius: 10,
-    marginBottom: 12,
+    marginBottom: 15,
+    paddingTop: 20
   },
   stageLevels: {
     flexDirection: 'row',
@@ -36,6 +37,6 @@ export default StyleSheet.create({
   },
   unlockedStage: {},
   lockedStage: {
-    backgroundColor: '#AFAFAF',
+    backgroundColor: '#dddddd',
   },
 });

@@ -40,7 +40,7 @@ class Home extends Component {
           />
           <ImageButton
             screen
-            handlePress={() => navigateTo(navigation, 'VOICE')}
+            handlePress={() => navigateTo(navigation, REVIEW_SCREEN)}
             source={ReviewButton}
           />
         </View>

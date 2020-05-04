@@ -25,7 +25,7 @@ export default StyleSheet.create({
     width: 300,
     borderRadius: 10,
     marginBottom: 15,
-    paddingTop: 20
+    paddingTop: 20,
   },
   stageLevels: {
     flexDirection: 'row',

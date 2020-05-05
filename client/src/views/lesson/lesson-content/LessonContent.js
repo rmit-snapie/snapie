@@ -18,7 +18,9 @@ import PairSelection from '../../../components/pair-selection/PairSelection';
 import Pronounce from '../../../components/pronounce/Pronounce';
 
 const LessonContent = ({questions, progress}) => {
-  const question = questions[progress.question];
+  const question = !progress.replay.start
+    ? questions[progress.question]
+    : questions[progress.replay.question];
   switch (question.type) {
     case FILL_THE_BLANK:
       return <FillTheBlank question={question} />;

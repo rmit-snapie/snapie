@@ -6,7 +6,6 @@ export const getLocalTestQuestions = (
   level: number,
   test: number,
 ) => {
-  console.log(stage, level, test);
   if (stage === 0) {
     return STAGE_ONE[level][test];
   } else if (stage === 1) {

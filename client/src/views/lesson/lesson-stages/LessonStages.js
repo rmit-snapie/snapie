@@ -4,10 +4,21 @@ import {connect} from 'react-redux';
 import styles from './LessonStagesStyle';
 import {View, ScrollView} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
-import {play} from '../../../redux/actions/ProgressActions';
+import {play, replay} from '../../../redux/actions/ProgressActions';
 import ImageButton from '../../image-button/ImageButton';
 
-const LessonStages = ({handlePlay, progress: {stage, level}}) => {
+const LessonStages = ({
+  handlePlay,
+  handleReplay,
+  progress: {stage, level, test},
+}) => {
+  const handlePress = (currentStage, levelIndex) => {
+    if (currentStage <= stage && levelIndex < level) {
+      handleReplay(currentStage, levelIndex, 0);
+    } else {
+      handlePlay(stage, level, test);
+    }
+  };
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -16,9 +27,8 @@ const LessonStages = ({handlePlay, progress: {stage, level}}) => {
             {LEVELS_ICONS.stageOneC.map((icon, index) => (
               <ImageButton
                 key={index}
-                handlePress={() => handlePlay(true)}
+                handlePress={() => handlePress(stage, index)}
                 source={icon}
-                disabled={stage === 0 && level !== index}
               />
             ))}
           </View>
@@ -92,10 +102,11 @@ const LessonStages = ({handlePlay, progress: {stage, level}}) => {
 
 LessonStages.propTypes = {
   handlePlay: PropTypes.func.isRequired,
+  handleReplay: PropTypes.func.isRequired,
   progress: PropTypes.object.isRequired,
 };
 
 export default connect(
   state => ({progress: state.progressReducer}),
-  {handlePlay: play},
+  {handlePlay: play, handleReplay: replay},
 )(LessonStages);

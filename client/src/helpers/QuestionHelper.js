@@ -6,15 +6,19 @@ export const getLocalTestQuestions = (
   level: number,
   test: number,
 ) => {
-  if (stage === 0) {
-    return STAGE_ONE[level][test];
-  } else if (stage === 1) {
-    return STAGE_TWO[level][test];
-  } else {
-    return [];
+  // TODO this only handles two stages, from stage three and further, the import will a downloadable content
+  // TODO must adapt to this
+  switch (stage) {
+    case 0:
+      return STAGE_ONE[level][test];
+    case 1:
+      return STAGE_TWO[level][test];
+    default:
+      return [];
   }
 };
 
+// TODO these two functions are also hard coded, have to fix
 export const getTestsQuestionsLength = (
   stage: number,
   level: number,
@@ -22,6 +26,16 @@ export const getTestsQuestionsLength = (
 ) => {
   if (stage === 0) {
     return STAGE_ONE[level][test].length;
+  } else if (stage === 1) {
+    return STAGE_TWO[level][test].length;
+  }
+};
+
+export const getStageLevelsLength = (stage: number, level: number) => {
+  if (stage === 0) {
+    return STAGE_ONE[level].length;
+  } else if (stage === 1) {
+    return STAGE_TWO[level].length;
   }
 };
 

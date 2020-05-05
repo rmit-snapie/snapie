@@ -12,7 +12,7 @@ import {
 const initialState = {
   play: false,
   stage: 0,
-  level: 1,
+  level: 0,
   test: 0,
   question: 0,
   replay: {

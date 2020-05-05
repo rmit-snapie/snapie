@@ -21,16 +21,14 @@ const Cheers = ({sad, correctAnswer, handleQuestionCompleted, progress}) => {
 
   const handleContinue = () => {
     if (progress.replay.start) {
-      console.log('replay invoke', progress.replay.start);
       handleQuestionCompleted(
         progress.replay.stage,
         progress.replay.level,
         progress.replay.test,
         progress.replay.question,
-        progress.replay.start,
+        true,
       );
     } else {
-      console.log('play invoke');
       handleQuestionCompleted(stage, level, test, question, false);
     }
   };

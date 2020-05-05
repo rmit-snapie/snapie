@@ -12,9 +12,9 @@ const LessonStages = ({
   handleReplay,
   progress: {stage, level, test},
 }) => {
-  const handlePress = (currentStage, levelIndex) => {
-    if (currentStage <= stage && levelIndex < level) {
-      handleReplay(currentStage, levelIndex, 0);
+  const handlePress = (replayStage, replayLevel) => {
+    if (replayStage <= stage && replayLevel < level) {
+      handleReplay(replayStage, replayLevel);
     } else {
       handlePlay(stage, level, test);
     }
@@ -29,6 +29,7 @@ const LessonStages = ({
                 key={index}
                 handlePress={() => handlePress(stage, index)}
                 source={icon}
+                disabled={stage === 0 && index > level}
               />
             ))}
           </View>

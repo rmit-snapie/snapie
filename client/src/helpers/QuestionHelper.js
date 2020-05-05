@@ -19,23 +19,31 @@ export const getLocalTestQuestions = (
 };
 
 // TODO these two functions are also hard coded, have to fix
-export const getTestsQuestionsLength = (
+export const getNumberOfQuestions = (
   stage: number,
   level: number,
   test: number,
 ) => {
   if (stage === 0) {
-    return STAGE_ONE[level][test].length;
+    return STAGE_ONE[level][test].length - 1;
   } else if (stage === 1) {
     return STAGE_TWO[level][test].length;
   }
 };
 
-export const getStageLevelsLength = (stage: number, level: number) => {
+export const getNumberOfTests = (stage: number, level: number) => {
   if (stage === 0) {
-    return STAGE_ONE[level].length;
+    return STAGE_ONE[level].length - 1;
   } else if (stage === 1) {
-    return STAGE_TWO[level].length;
+    return STAGE_TWO[level].length - 1;
+  }
+};
+
+export const getNumberOfLevels = (stage: number) => {
+  if (stage === 0) {
+    return STAGE_ONE.length - 1;
+  } else if (stage === 1) {
+    return STAGE_TWO.length - 1;
   }
 };
 

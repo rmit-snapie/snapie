@@ -1,38 +1,46 @@
-import {STAGE_ONE_LEVEL_ONE} from '../domain-models/stage-1/level-1';
-import {STAGE_ONE_LEVEL_TWO} from '../domain-models/stage-1/level-2';
-import {STAGE_ONE_LEVEL_THREE} from '../domain-models/stage-1/level-3';
-import {STAGE_TWO_LEVEL_ONE} from '../domain-models/stage-2/level-1';
-import {STAGE_TWO_LEVEL_TWO} from '../domain-models/stage-2/level-2';
-import {STAGE_TWO_LEVEL_THREE} from '../domain-models/stage-2/level-3';
+import {STAGE_ONE} from '../domain-models/stage-1/StageOneQuestions';
+import {STAGE_TWO} from '../domain-models/stage-2/StageTwoQuestions';
 
 export const getLocalTestQuestions = (
   stage: number,
   level: number,
   test: number,
 ) => {
-  if (stage === 1) {
-    if (level === 1) {
-      return STAGE_ONE_LEVEL_ONE[test];
-    } else if (level === 2) {
-      return STAGE_ONE_LEVEL_TWO[test];
-    }
-    return STAGE_ONE_LEVEL_THREE[test];
-  } else if (stage === 2) {
-    if (level === 1) {
-      return STAGE_TWO_LEVEL_ONE[test];
-    } else if (level === 2) {
-      return STAGE_TWO_LEVEL_TWO[test];
-    }
-    return STAGE_TWO_LEVEL_THREE[test];
+  // TODO this only handles two stages, from stage three and further, the import will a downloadable content
+  // TODO must adapt to this
+  switch (stage) {
+    case 0:
+      return STAGE_ONE[level][test];
+    case 1:
+      return STAGE_TWO[level][test];
+    default:
+      return [];
+  }
+};
+
+// TODO these two functions are also hard coded, have to fix
+export const getTestsQuestionsLength = (
+  stage: number,
+  level: number,
+  test: number,
+) => {
+  if (stage === 0) {
+    return STAGE_ONE[level][test].length;
+  } else if (stage === 1) {
+    return STAGE_TWO[level][test].length;
+  }
+};
+
+export const getStageLevelsLength = (stage: number, level: number) => {
+  if (stage === 0) {
+    return STAGE_ONE[level].length;
+  } else if (stage === 1) {
+    return STAGE_TWO[level].length;
   }
 };
 
 export const createBlanks = answer => {
-  let blanks = [];
-  for (let i = 0; i < answer.length; i++) {
-    blanks.push('_');
-  }
-  return blanks;
+  return answer.split('').map(_ => '_');
 };
 
 export const shuffle = array => {

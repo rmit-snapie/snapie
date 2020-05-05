@@ -3,8 +3,13 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 45,
+    width: '100%',
     paddingTop: 45,
+    paddingBottom: 45,
+  },
+  contentContainer: {
+    flexGrow: 1,
+    alignItems: 'center',
   },
   text: {
     fontFamily: 'Amiko-Bold',
@@ -18,13 +23,13 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: 300,
-    height: 150,
     borderRadius: 10,
-    marginBottom: 12,
+    marginBottom: 15,
+    paddingTop: 20,
   },
   stageLevels: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignContent: 'center',
     alignItems: 'center',
     flexWrap: 'wrap',
@@ -32,6 +37,6 @@ export default StyleSheet.create({
   },
   unlockedStage: {},
   lockedStage: {
-    backgroundColor: '#AFAFAF',
+    backgroundColor: '#dddddd',
   },
 });

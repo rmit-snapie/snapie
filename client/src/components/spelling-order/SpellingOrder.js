@@ -18,7 +18,7 @@ const SpellingOrder = ({question}) => {
 
   useEffect(() => {
     readText(questionContent);
-  }, [questionContent]);
+  }, [question, questionContent]);
 
   useEffect(() => {
     if (word.length === 0 && blanks.length === 0) {
@@ -85,7 +85,7 @@ const SpellingOrder = ({question}) => {
                   onPress={() => clearWord()}
                   style={styles.clear}
                   activeOpacity={0}>
-                  <Text style={styles.answerTitle}>X</Text>
+                  <Text>X</Text>
                 </TouchableOpacity>
               )}
             </View>

@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Animated, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {questionCompleted} from '../../redux/actions/ProgressActions';
 
-const Cheers = ({sad, correctAnswer, handleContinue}) => {
+const Cheers = ({sad, correctAnswer, handleContinue, progress}) => {
   const [opacity] = useState(new Animated.Value(0));
-
+  const {stage, level, test, question} = progress;
   const imagePath = sad
     ? require('./assets/sad.gif')
     : require('./assets/cheers.gif');
@@ -50,7 +50,7 @@ const Cheers = ({sad, correctAnswer, handleContinue}) => {
       </View>
       <View style={styles.continueButtonWrapper}>
         <TouchableOpacity
-          onPress={() => handleContinue()}
+          onPress={() => handleContinue(stage, level, test, question)}
           style={styles.continueButton}>
           <Text style={styles.continueTitle}> Continue </Text>
         </TouchableOpacity>
@@ -131,9 +131,10 @@ Cheers.propTypes = {
   sad: PropTypes.bool.isRequired,
   correctAnswer: PropTypes.string,
   handleContinue: PropTypes.func.isRequired,
+  progress: PropTypes.object.isRequired,
 };
 
 export default connect(
-  null,
+  state => ({progress: state.progressReducer}),
   {handleContinue: questionCompleted},
 )(Cheers);

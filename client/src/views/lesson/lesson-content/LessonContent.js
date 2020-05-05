@@ -5,58 +5,43 @@ import {Button} from 'react-native';
 import {
   FILL_THE_BLANK,
   MULTIPLE_CHOICE,
+  MULTIPLE_CHOICE_IMAGES,
   PAIR_SELECTION,
+  PRONOUNCE_THE_WORD,
   SPELLING_ORDER,
 } from '../../../../environments/Routes';
+//components
 import FillTheBlank from '../../../components/fill-the-blank/FillTheBlank';
 import MultipleChoice from '../../../components/multiple-choice/MultipleChoice';
-import PairSelection from '../../../components/pair-selection/PairSelection';
 import SpellingOrder from '../../../components/spelling-order/SpellingOrder';
-import {stop, testCompleted} from '../../../redux/actions/ProgressActions';
-import {setLocalQuestions} from '../../../redux/actions/QuestionsContentActions';
+import PairSelection from '../../../components/pair-selection/PairSelection';
+import Pronounce from '../../../components/pronounce/Pronounce';
 
-const LessonContent = ({
-  questions,
-  progress,
-  handleStop,
-  handleTestCompleted,
-  handleSetLocalQuestions,
-}) => {
-  const {stage, level, test} = progress;
-  if (progress.question === questions.length) {
-    handleTestCompleted();
-    if (progress.test < 2) {
-      handleSetLocalQuestions({
-        stage: stage,
-        level: level,
-        test: test,
-      });
-    }
-    handleStop();
-    return null;
-  }
-
+const LessonContent = ({questions, progress}) => {
   const question = questions[progress.question];
   switch (question.type) {
     case FILL_THE_BLANK:
       return <FillTheBlank question={question} />;
     case MULTIPLE_CHOICE:
-      return <MultipleChoice question={question} />;
+      return <MultipleChoice question={question} type={MULTIPLE_CHOICE} />;
+    case MULTIPLE_CHOICE_IMAGES:
+      return (
+        <MultipleChoice question={question} type={MULTIPLE_CHOICE_IMAGES} />
+      );
     case PAIR_SELECTION:
       return <PairSelection question={question} />;
     case SPELLING_ORDER:
       return <SpellingOrder question={question} />;
+    case PRONOUNCE_THE_WORD:
+      return <Pronounce question={question} />;
     default:
-      return <Button title="Go back Home" />;
+      return <Button title="Something went wrong." />;
   }
 };
 
 LessonContent.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object).isRequired,
   progress: PropTypes.object.isRequired,
-  handleStop: PropTypes.func.isRequired,
-  handleTestCompleted: PropTypes.func.isRequired,
-  handleSetLocalQuestions: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -64,9 +49,5 @@ export default connect(
     questions: state.questionsContentReducer,
     progress: state.progressReducer,
   }),
-  {
-    handleTestCompleted: testCompleted,
-    handleStop: stop,
-    handleSetLocalQuestions: setLocalQuestions,
-  },
+  null,
 )(LessonContent);

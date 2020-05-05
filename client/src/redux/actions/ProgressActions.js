@@ -8,7 +8,10 @@ import {
   REPLAY,
   STOP,
 } from '../types';
-import {getTestsQuestionsLength} from '../../helpers/QuestionHelper';
+import {
+  getStageLevelsLength,
+  getTestsQuestionsLength,
+} from '../../helpers/QuestionHelper';
 import {setLocalQuestions} from './QuestionsContentActions';
 
 export function play(stage, level, test) {
@@ -71,7 +74,7 @@ export function questionCompleted(stage, level, test, question, doneReplay) {
               test: 0,
             }),
           );
-        } else if (level === 3) {
+        } else if (level === getStageLevelsLength(stage, level) - 1) {
           dispatch(stageCompleted());
           dispatch(
             setLocalQuestions({

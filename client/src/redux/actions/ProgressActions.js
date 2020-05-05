@@ -6,7 +6,10 @@ import {
   PLAY,
   STOP,
 } from '../types';
-import {getTestsQuestionsLength} from '../../helpers/QuestionHelper';
+import {
+  getStageLevelsLength,
+  getTestsQuestionsLength,
+} from '../../helpers/QuestionHelper';
 import {setLocalQuestions} from './QuestionsContentActions';
 
 export function play() {
@@ -42,7 +45,7 @@ export function questionCompleted(stage, level, test, question) {
             test: 0,
           }),
         );
-      } else if (level === 3) {
+      } else if (level === getStageLevelsLength(stage, level)) {
         dispatch(stageCompleted());
         dispatch(
           setLocalQuestions({

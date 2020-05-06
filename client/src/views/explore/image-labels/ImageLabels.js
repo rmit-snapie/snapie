@@ -11,16 +11,15 @@ import {
   Dimensions,
 } from 'react-native';
 import {readText} from '../../../helpers/TextToSpeech';
+import {replaceTo} from '../../../helpers/NavigateHelper';
+import {EXPLORE_SCREEN} from '../../../../environments/Routes';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const ImageLabels = ({imageUri, loading, results, analyze}) => {
+const ImageLabels = ({imageUri, loading, results, analyze, navigation}) => {
   return (
-    <ImageBackground
-      blurRadius={90}
-      style={styles.previewImage}
-      source={{uri: imageUri}}>
+    <ImageBackground style={styles.previewImage} source={{uri: imageUri}}>
       <View style={styles.resultsWrapper}>
         {loading && (
           <ActivityIndicator animating={loading} size="large" color="#ffffff" />
@@ -44,6 +43,12 @@ const ImageLabels = ({imageUri, loading, results, analyze}) => {
       </View>
       <View style={styles.lookUpButtonWrapper}>
         <Button title="Analyze" onPress={analyze} />
+        {results.length !== 0 && (
+          <Button
+            title="Back"
+            onPress={() => replaceTo(navigation, EXPLORE_SCREEN)}
+          />
+        )}
       </View>
     </ImageBackground>
   );
@@ -58,7 +63,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   resultsWrapper: {
-    flex: 5,
+    flex: 6,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -113,7 +118,9 @@ const styles = StyleSheet.create({
 ImageLabels.propTypes = {
   imageUri: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
+  analyze: PropTypes.func.isRequired,
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default ImageLabels;

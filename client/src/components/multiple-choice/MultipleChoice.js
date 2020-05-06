@@ -1,57 +1,80 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import Proptypes from 'prop-types';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './MultipleChoiceStyle';
-import {questions} from '../../domain-models/Questions';
 import Cheers from '../cheers/Cheers';
 import {readText} from '../../helpers/TextToSpeech';
+import {
+  MULTIPLE_CHOICE,
+  MULTIPLE_CHOICE_IMAGES,
+} from '../../../environments/Routes';
 
-const multipleChoiceQuestion = questions.filter(
-  question => question.type === 'multipleChoice',
-)[0];
-const {questionContent, answers, correctAnswer} = multipleChoiceQuestion;
-
-const MultipleChoice = () => {
+const MultipleChoice = ({question, type}) => {
+  const {questionContent, answers, correctAnswer, imageAsset} = question;
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
     index: null,
   });
   const [cheers, setCheers] = useState({display: false, sad: false});
 
-  // only read once when screen is rendered
   useEffect(() => {
+    resetCurrentAnswer();
     readText(questionContent);
-  }, []);
+  }, [question, questionContent]);
 
-  const resetAnswerState = () => {
+  const resetCurrentAnswer = () => {
     setCurrentAnswer({answer: null, index: null});
+    setCheers({display: null, sad: false});
   };
 
   const handleAnswerPressed = (index, answer) => {
-    if (currentAnswer.index === index) {
-      resetAnswerState();
+    if (type === MULTIPLE_CHOICE) {
+      if (currentAnswer.index === index) {
+        resetCurrentAnswer();
+      } else {
+        readText(answer);
+        setCurrentAnswer({
+          answer: answer,
+          index: index,
+        });
+      }
     } else {
-      setCurrentAnswer({answer: answer, index: index});
+      if (currentAnswer.index === index) {
+        resetCurrentAnswer();
+      } else {
+        readText(answer.name);
+        setCurrentAnswer({
+          answer: answer.name,
+          index: index,
+        });
+      }
     }
   };
 
-  const handleAnswerCheck = answer => {
-    if (correctAnswer !== answer) {
+  const handleAnswerCheck = () => {
+    if (correctAnswer !== currentAnswer.answer) {
       setCheers({display: true, sad: true});
     } else {
       setCheers({display: true, sad: false});
     }
-    resetAnswerState();
   };
 
   return (
     <View style={styles.container}>
-      {cheers.display && <Cheers cheers={cheers.display} sad={cheers.sad} />}
+      {cheers.display && (
+        <Cheers
+          cheers={cheers.display}
+          sad={cheers.sad}
+          correctAnswer={correctAnswer}
+        />
+      )}
       {!cheers.display && (
         <>
-          <View style={styles.assetsWrapper}>
-            <Text>Box</Text>
-            <Text>Box 2</Text>
-          </View>
+          {type === MULTIPLE_CHOICE && (
+            <View style={styles.assetsWrapper}>
+              <Image style={styles.image} source={imageAsset} />
+            </View>
+          )}
           <View style={styles.questionWrapper}>
             <Text
               onPress={() => readText(questionContent)}
@@ -59,27 +82,46 @@ const MultipleChoice = () => {
               {questionContent}
             </Text>
           </View>
-          <View style={styles.answersWrapper}>
-            {answers.map((ans, index) => (
-              <TouchableOpacity
-                activeOpacity={0}
-                onPress={() => handleAnswerPressed(index, ans)}
-                style={
-                  currentAnswer.index === index
-                    ? [styles.answer, styles.chosenAnswer]
-                    : [styles.answer, styles.notChosenAnswer]
-                }
-                key={ans}>
-                <Text
+          <View
+            style={
+              type === MULTIPLE_CHOICE
+                ? styles.answersWrapper
+                : styles.imageAnswersWrapper
+            }>
+            {type === MULTIPLE_CHOICE &&
+              answers.map((answer, index) => (
+                <TouchableOpacity
+                  activeOpacity={0}
+                  onPress={() => handleAnswerPressed(index, answer)}
                   style={
                     currentAnswer.index === index
-                      ? styles.chosenAnswerTitle
-                      : styles.answerTitle
-                  }>
-                  {ans}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                      ? [styles.answer, styles.chosenAnswer]
+                      : [styles.answer, styles.notChosenAnswer]
+                  }
+                  key={answer}>
+                  <Text
+                    style={
+                      currentAnswer.index === index
+                        ? styles.chosenAnswerTitle
+                        : styles.answerTitle
+                    }>
+                    {answer}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            {type === MULTIPLE_CHOICE_IMAGES &&
+              answers.map((answer, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={
+                    currentAnswer.index === index
+                      ? [styles.answerImage, styles.chosenAnswerImage]
+                      : [styles.answerImage, styles.notChosenAnswerImage]
+                  }
+                  onPress={() => handleAnswerPressed(index, answer)}>
+                  <Image style={styles.imageContent} source={answer.asset} />
+                </TouchableOpacity>
+              ))}
           </View>
           <View style={styles.buttonWrapper}>
             <TouchableOpacity
@@ -89,7 +131,7 @@ const MultipleChoice = () => {
                   : [styles.confirmButton, styles.confirmAnswer]
               }
               disabled={currentAnswer.answer === null}
-              onPress={() => handleAnswerCheck(currentAnswer.answer)}>
+              onPress={() => handleAnswerCheck()}>
               <Text style={styles.confirmTitle}> Confirm </Text>
             </TouchableOpacity>
           </View>
@@ -97,6 +139,11 @@ const MultipleChoice = () => {
       )}
     </View>
   );
+};
+
+MultipleChoice.propTypes = {
+  question: Proptypes.object.isRequired,
+  type: Proptypes.string.isRequired,
 };
 
 export default MultipleChoice;

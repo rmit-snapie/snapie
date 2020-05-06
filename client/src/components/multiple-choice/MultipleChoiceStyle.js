@@ -7,11 +7,13 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   assetsWrapper: {
-    flex: 2,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flex: 4,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    width: 200,
+  },
+  image: {
+    height: 250,
+    width: 175,
   },
   questionWrapper: {
     flex: 2,
@@ -19,8 +21,9 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   questionContent: {
-    fontSize: 20,
+    fontSize: 24,
     fontFamily: 'Amiko-Bold',
+    textAlign: 'center',
   },
   answersWrapper: {
     flex: 2,
@@ -28,6 +31,13 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     flexWrap: 'wrap',
+  },
+  imageAnswersWrapper: {
+    flex: 4,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   buttonWrapper: {
     flex: 2,
@@ -55,23 +65,53 @@ export default StyleSheet.create({
     borderRightWidth: 2,
     borderBottomWidth: 6,
     borderColor: 'rgb(229, 229, 229)',
-    shadowColor: 'rgba(120,114,120,0.64)', // IOS
+    shadowColor: 'rgba(120,114,120,0.64)',
   },
   chosenAnswer: {
-    borderColor: '#e5e5e5',
-    shadowColor: 'rgba(120,114,120,0.64)', // IOS
-    backgroundColor: '#afafaf',
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 2,
+    borderColor: '#1cb0f6',
   },
   answerTitle: {
     fontSize: 24,
     color: 'rgb(28, 176, 246)',
+    fontWeight: '600',
+  },
+  answerImage: {
+    width: 175,
+    height: 135,
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: 20,
+    marginRight: 10,
+    borderRadius: 16,
+  },
+  notChosenAnswerImage: {
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 6,
+    borderColor: 'rgb(229, 229, 229)',
+    shadowColor: 'rgba(120,114,120,0.64)',
+    backgroundColor: '#ffffff',
+  },
+  chosenAnswerImage: {
+    borderWidth: 1,
+    borderColor: 'rgb(28, 176, 246)',
+    backgroundColor: '#ffffff',
+  },
+  imageContent: {
+    height: 100,
+    width: 69,
   },
   chosenAnswerTitle: {
     fontSize: 24,
-    color: '#3c3c3c',
+    color: 'rgb(28, 176, 246)',
+    fontWeight: '600',
   },
   confirmButton: {
-    marginTop: 15,
     borderBottomWidth: 5,
     shadowOffset: {
       width: 0,
@@ -93,8 +133,6 @@ export default StyleSheet.create({
   },
   confirmAnswer: {
     borderBottomColor: '#58a700',
-    borderColor: 'rgb(229, 229, 229)',
-    shadowColor: 'rgba(120,114,120,0.64)', // IOS
     backgroundColor: '#78c800',
   },
   disabledConfirm: {

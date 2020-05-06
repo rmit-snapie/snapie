@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
-import {goToFirstScreenInStack, navigateTo} from '../helpers/NavigateHelper';
+import {goToFirstScreenInStack, navigateTo} from '../../helpers/NavigateHelper';
 import PropTypes from 'prop-types';
-import {LESSON_SCREEN} from '../../environments/Routes';
+import {LESSON_SCREEN} from '../../../environments/Routes';
 
 class Review extends Component {
   static propTypes = {

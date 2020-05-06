@@ -8,7 +8,7 @@ const defaultTTSConfig = () => {
     Tts.setDefaultVoice('com.apple.ttsbundle.Moira-compact');
   }
   //TODO find correct voice package for Android
-  Tts.setDefaultRate(0.35, true);
+  Tts.setDefaultRate(0.4, true);
   Tts.setDefaultPitch(1.3);
   Tts.setIgnoreSilentSwitch('ignore');
   // list all voices packages

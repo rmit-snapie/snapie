@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
-import {goToFirstScreenInStack, navigateTo} from '../helpers/NavigateHelper';
+import {goToFirstScreenInStack, navigateTo} from '../../helpers/NavigateHelper';
 import PropTypes from 'prop-types';
+import {REVIEW_SCREEN} from '../../../environments/Routes';
 import {REVIEW_SCREEN} from '../../environments/Routes';
 import TakePhoto from '../components/take-photo/TakePhoto';
 

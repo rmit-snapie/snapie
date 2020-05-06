@@ -192,6 +192,8 @@ PODS:
     - React
   - react-native-safe-area-context (0.7.3):
     - React
+  - react-native-voice (1.1.4):
+    - React
   - React-RCTActionSheet (0.62.2):
     - React-Core/RCTActionSheetHeaders (= 0.62.2)
   - React-RCTAnimation (0.62.2):
@@ -284,6 +286,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - "react-native-voice (from `../node_modules/@react-native-community/voice`)"
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -340,6 +343,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-voice:
+    :path: "../node_modules/@react-native-community/voice"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -393,6 +398,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 512e560d0e985d0e8c479a54a4e5c147a9c83493
   react-native-camera: 1b52abea404d04e040edb3e74b7c5523c01a3089
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
+  react-native-voice: 5dccfb17f7086b3d4a2622b754467d7a365a981a
   React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
   React-RCTAnimation: 49ab98b1c1ff4445148b72a3d61554138565bad0
   React-RCTBlob: a332773f0ebc413a0ce85942a55b064471587a71
@@ -411,6 +417,6 @@ SPEC CHECKSUMS:
   TextToSpeech: 4e2fc50c7495416c6da5a1662ad3f750c58d3c85
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
 
-PODFILE CHECKSUM: 83dff148a9fc133426bee3ab7da5f15aca5a6270
+PODFILE CHECKSUM: cde26b9aec162ea39cdc7508d93b911fcc2ad3a5
 
 COCOAPODS: 1.9.1

@@ -19,6 +19,14 @@ const LessonStages = ({
       handlePlay(stage, level, test);
     }
   };
+
+  const isDisabled = (iconStage, iconLevel) => {
+    if (iconStage > stage) {
+      return true;
+    }
+    return iconStage === stage && iconLevel > level;
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -29,7 +37,7 @@ const LessonStages = ({
                 key={index}
                 handlePress={() => handlePress(stage, index)}
                 source={icon}
-                disabled={stage === 0 && index > level}
+                disabled={isDisabled(0, index)}
               />
             ))}
           </View>
@@ -48,7 +56,7 @@ const LessonStages = ({
                   key={index}
                   handlePress={() => handlePlay(true)}
                   source={icon}
-                  disabled={stage === 1 && level !== index}
+                  disabled={isDisabled(1, index)}
                 />
               ))}
             </View>
@@ -59,7 +67,7 @@ const LessonStages = ({
                   key={index}
                   handlePress={() => handlePlay(true)}
                   source={icon}
-                  disabled={stage === 1 && level !== index}
+                  disabled={isDisabled(2, index)}
                 />
               ))}
             </View>

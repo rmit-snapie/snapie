@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import styles from './ImageLabelsStyle';
 import {
@@ -8,15 +8,38 @@ import {
   ImageBackground,
   Text,
   View,
+  ScrollView,
 } from 'react-native';
 import {readText} from '../../../helpers/TextToSpeech';
 import {replaceTo} from '../../../helpers/NavigateHelper';
 import {EXPLORE_SCREEN} from '../../../../environments/Routes';
 
-const ImageLabels = ({imageUri, loading, results, analyze, navigation}) => {
+const ImageLabels = ({
+  imageUri,
+  loading,
+  results,
+  analyze,
+  analyzed,
+  navigation,
+}) => {
+  const [displayResults, setDisplayResults] = useState([]);
+  const [displayMore, setDisplayMore] = useState(false);
+  useEffect(() => {
+    setDisplayMore(false);
+    if (results.length !== 0) {
+      setDisplayResults([results[0]]);
+    }
+  }, [results]);
+
   const emptyResults = () => {
     return results.length === 0;
   };
+
+  const seeMore = () => {
+    setDisplayMore(true);
+    setDisplayResults(results);
+  };
+
   return (
     <ImageBackground
       blurRadius={!emptyResults() || loading ? 90 : 0}
@@ -29,30 +52,40 @@ const ImageLabels = ({imageUri, loading, results, analyze, navigation}) => {
         />
       </View>
       <View style={styles.resultsWrapper}>
-        {loading && (
+        {loading ? (
           <ActivityIndicator animating={loading} size="large" color="#ffffff" />
-        )}
-        {!emptyResults() &&
-          results.map((item, index) => (
-            <View style={styles.resultWrapper} key={index}>
-              <View key={index} style={styles.labelWrapper}>
-                <Image style={styles.image} source={{uri: item.image}} />
-                <Text style={styles.label}>{item.label}</Text>
-              </View>
-              <View style={styles.actionButtonsWrapper}>
-                <Button
-                  onPress={() => readText(item.label)}
-                  style={styles.actionButton}
-                  title="Listen"
-                />
-                <Button style={styles.actionButton} title="Save" />
-              </View>
-            </View>
-          ))}
-        {emptyResults() && (
-          <Text style={styles.noResultText}>
-            No result is found :( try again
-          </Text>
+        ) : (
+          <ScrollView>
+            {!emptyResults() &&
+              displayResults.map((item, index) => (
+                <View style={styles.resultWrapper} key={index}>
+                  <View key={index} style={styles.labelWrapper}>
+                    <Image style={styles.image} source={{uri: item.urls[0]}} />
+                    <Text style={styles.label}>{item.description}</Text>
+                  </View>
+                  <View style={styles.actionButtonsWrapper}>
+                    <Button
+                      onPress={() => readText(item.label)}
+                      style={styles.actionButton}
+                      title="Listen"
+                    />
+                    <Button style={styles.actionButton} title="Save" />
+                    {results.length > 1 && !displayMore && (
+                      <Button
+                        onPress={() => seeMore()}
+                        style={styles.actionButton}
+                        title="See More"
+                      />
+                    )}
+                  </View>
+                </View>
+              ))}
+            {emptyResults() && analyzed && (
+              <Text style={styles.noResultText}>
+                No result is found :( try again
+              </Text>
+            )}
+          </ScrollView>
         )}
       </View>
       <View style={styles.lookUpButtonWrapper}>
@@ -66,6 +99,7 @@ ImageLabels.propTypes = {
   imageUri: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   analyze: PropTypes.func.isRequired,
+  analyzed: PropTypes.bool.isRequired,
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
   navigation: PropTypes.object.isRequired,
 };

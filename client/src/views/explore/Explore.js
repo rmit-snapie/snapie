@@ -5,7 +5,7 @@ import styles from './ExploreStyle';
 import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
 import ImageLabels from './image-labels/ImageLabels';
-import {LABELS_API, UNSPLASH_FETCH_IMAGES} from './constants';
+import {LABELS_API} from './constants';
 
 class Explore extends Component {
   constructor(props) {
@@ -16,11 +16,12 @@ class Explore extends Component {
       loading: false,
       doneAnalyze: false,
       results: [],
+      analyzed: false,
     };
   }
 
   takePicture = async () => {
-    this.setState({loading: true});
+    this.setState({loading: true, analyzed: false});
     if (this.camera) {
       const options = {quality: 0.5, base64: true};
       const data = await this.camera.takePictureAsync(options);
@@ -35,32 +36,18 @@ class Explore extends Component {
       .post(LABELS_API, {
         image: this.state.base64encoded,
         rawResult: 'false',
-        maxResults: 3,
+        maxResults: 5,
       })
       .then(response => {
-        for (let i = 0; i < response.data.length; i++) {
-          axios
-            .post(UNSPLASH_FETCH_IMAGES, {
-              keyword: response.data[i].label,
-            })
-            .then(response1 => {
-              const obj = {
-                label: response.data[i].label,
-                image: response1.data[i].small,
-              };
-              this.setState({
-                results: [...this.state.results, obj],
-              });
-            });
-        }
+        this.setState({results: [...response.data]});
       })
       .then(() => {
-        this.setState({loading: false, doneAnalyze: true});
+        this.setState({loading: false, analyzed: true});
       });
   };
 
   render() {
-    const {imageUri, loading, results, doneAnalyze} = this.state;
+    const {imageUri, loading, results, analyzed} = this.state;
     const {navigation} = this.props;
 
     if (imageUri) {
@@ -70,8 +57,8 @@ class Explore extends Component {
           loading={loading}
           results={results}
           analyze={() => this.analyze()}
-          doneAnalyze={doneAnalyze}
           navigation={navigation}
+          analyzed={analyzed}
         />
       );
     }

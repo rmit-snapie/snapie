@@ -17,7 +17,7 @@ export default StyleSheet.create({
     alignItems: 'flex-start',
   },
   resultsWrapper: {
-    flex: 6,
+    flex: 5,
     justifyContent: 'center',
     alignItems: 'center',
   },

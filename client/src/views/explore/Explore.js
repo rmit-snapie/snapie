@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {TouchableOpacity, Image} from 'react-native';
+import {TouchableOpacity, Image, ActivityIndicator, View} from 'react-native';
 import styles from './ExploreStyle';
 import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
@@ -14,16 +14,19 @@ class Explore extends Component {
       imageUri: '',
       base64encoded: '',
       loading: false,
+      doneAnalyze: false,
       results: [],
     };
   }
 
   takePicture = async () => {
+    this.setState({loading: true});
     if (this.camera) {
       const options = {quality: 0.5, base64: true};
       const data = await this.camera.takePictureAsync(options);
       this.setState({imageUri: data.uri, base64encoded: data.base64});
     }
+    this.setState({loading: false});
   };
 
   analyze = async () => {
@@ -52,13 +55,14 @@ class Explore extends Component {
         }
       })
       .then(() => {
-        this.setState({loading: false});
+        this.setState({loading: false, doneAnalyze: true});
       });
   };
 
   render() {
-    const {imageUri, loading, results} = this.state;
+    const {imageUri, loading, results, doneAnalyze} = this.state;
     const {navigation} = this.props;
+
     if (imageUri) {
       return (
         <ImageLabels
@@ -66,6 +70,7 @@ class Explore extends Component {
           loading={loading}
           results={results}
           analyze={() => this.analyze()}
+          doneAnalyze={doneAnalyze}
           navigation={navigation}
         />
       );
@@ -90,12 +95,22 @@ class Explore extends Component {
           buttonPositive: 'Confirm',
           buttonNegative: 'Cancel',
         }}>
-        <TouchableOpacity onPress={this.takePicture.bind(this)}>
-          <Image
-            style={styles.lookUp}
-            source={require('./assets/camera.png')}
-          />
-        </TouchableOpacity>
+        <View style={styles.captureWrapper}>
+          {loading ? (
+            <ActivityIndicator
+              animating={loading}
+              size="large"
+              color="#ffffff"
+            />
+          ) : (
+            <TouchableOpacity onPress={this.takePicture.bind(this)}>
+              <Image
+                style={styles.lookUp}
+                source={require('./assets/camera.png')}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
       </RNCamera>
     );
   }

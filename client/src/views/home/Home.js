@@ -16,8 +16,13 @@ import LessonButton from '../assets/home-screen-icons/Lesson.png';
 import ExploreButton from '../assets/home-screen-icons/Explore.png';
 import ReviewButton from '../assets/home-screen-icons/Book.png';
 import ImageButton from '../image-button/ImageButton';
+import {playYay} from '../../helpers/NewFile';
 
 class Home extends Component {
+  componentDidMount(): void {
+    playYay();
+  }
+
   render() {
     const {navigation} = this.props;
     return (

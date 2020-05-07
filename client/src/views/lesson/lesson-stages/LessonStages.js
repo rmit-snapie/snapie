@@ -4,10 +4,29 @@ import {connect} from 'react-redux';
 import styles from './LessonStagesStyle';
 import {View, ScrollView} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
-import {play} from '../../../redux/actions/ProgressActions';
+import {play, replay} from '../../../redux/actions/ProgressActions';
 import ImageButton from '../../image-button/ImageButton';
 
-const LessonStages = ({handlePlay, progress: {stage, level}}) => {
+const LessonStages = ({
+  handlePlay,
+  handleReplay,
+  progress: {stage, level, test},
+}) => {
+  const handlePress = (replayStage, replayLevel) => {
+    if (replayStage <= stage && replayLevel < level) {
+      handleReplay(replayStage, replayLevel);
+    } else {
+      handlePlay(stage, level, test);
+    }
+  };
+
+  const isDisabled = (iconStage, iconLevel) => {
+    if (iconStage > stage) {
+      return true;
+    }
+    return iconStage === stage && iconLevel > level;
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -16,9 +35,9 @@ const LessonStages = ({handlePlay, progress: {stage, level}}) => {
             {LEVELS_ICONS.stageOneC.map((icon, index) => (
               <ImageButton
                 key={index}
-                handlePress={() => handlePlay(true)}
+                handlePress={() => handlePress(stage, index)}
                 source={icon}
-                disabled={stage === 0 && level !== index}
+                disabled={isDisabled(0, index)}
               />
             ))}
           </View>
@@ -37,7 +56,7 @@ const LessonStages = ({handlePlay, progress: {stage, level}}) => {
                   key={index}
                   handlePress={() => handlePlay(true)}
                   source={icon}
-                  disabled={stage === 1 && level !== index}
+                  disabled={isDisabled(1, index)}
                 />
               ))}
             </View>
@@ -48,7 +67,7 @@ const LessonStages = ({handlePlay, progress: {stage, level}}) => {
                   key={index}
                   handlePress={() => handlePlay(true)}
                   source={icon}
-                  disabled={stage === 1 && level !== index}
+                  disabled={isDisabled(2, index)}
                 />
               ))}
             </View>
@@ -92,10 +111,11 @@ const LessonStages = ({handlePlay, progress: {stage, level}}) => {
 
 LessonStages.propTypes = {
   handlePlay: PropTypes.func.isRequired,
+  handleReplay: PropTypes.func.isRequired,
   progress: PropTypes.object.isRequired,
 };
 
 export default connect(
   state => ({progress: state.progressReducer}),
-  {handlePlay: play},
+  {handlePlay: play, handleReplay: replay},
 )(LessonStages);

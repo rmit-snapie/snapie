@@ -1,6 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import Proptypes from 'prop-types';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import styles from './MultipleChoiceStyle';
 import Cheers from '../cheers/Cheers';
 import {readText} from '../../helpers/TextToSpeech';
@@ -72,7 +78,10 @@ const MultipleChoice = ({question, type}) => {
         <>
           {type === MULTIPLE_CHOICE && (
             <View style={styles.assetsWrapper}>
-              <Image style={styles.image} source={imageAsset} />
+              <TouchableWithoutFeedback
+                onPress={() => readText(questionContent)}>
+                <Image style={styles.image} source={imageAsset} />
+              </TouchableWithoutFeedback>
             </View>
           )}
           <View style={styles.questionWrapper}>

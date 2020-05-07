@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {Animated, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {questionCompleted} from '../../redux/actions/ProgressActions';
 
-const Cheers = ({sad, correctAnswer, handleContinue, progress}) => {
+const Cheers = ({sad, correctAnswer, handleQuestionCompleted, progress}) => {
   const [opacity] = useState(new Animated.Value(0));
   const {stage, level, test, question} = progress;
   const imagePath = sad
@@ -17,6 +17,20 @@ const Cheers = ({sad, correctAnswer, handleContinue, progress}) => {
       duration: 200,
       useNativeDriver: true,
     }).start();
+  };
+
+  const handleContinue = () => {
+    if (progress.replay.start) {
+      handleQuestionCompleted(
+        progress.replay.stage,
+        progress.replay.level,
+        progress.replay.test,
+        progress.replay.question,
+        true,
+      );
+    } else {
+      handleQuestionCompleted(stage, level, test, question, false);
+    }
   };
 
   return (
@@ -50,7 +64,7 @@ const Cheers = ({sad, correctAnswer, handleContinue, progress}) => {
       </View>
       <View style={styles.continueButtonWrapper}>
         <TouchableOpacity
-          onPress={() => handleContinue(stage, level, test, question)}
+          onPress={() => handleContinue()}
           style={styles.continueButton}>
           <Text style={styles.continueTitle}> Continue </Text>
         </TouchableOpacity>
@@ -130,11 +144,11 @@ Cheers.propTypes = {
   cheers: PropTypes.bool.isRequired,
   sad: PropTypes.bool.isRequired,
   correctAnswer: PropTypes.string,
-  handleContinue: PropTypes.func.isRequired,
+  handleQuestionCompleted: PropTypes.func.isRequired,
   progress: PropTypes.object.isRequired,
 };
 
 export default connect(
   state => ({progress: state.progressReducer}),
-  {handleContinue: questionCompleted},
+  {handleQuestionCompleted: questionCompleted},
 )(Cheers);

@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {
-  View,
-  Text,
   Image,
+  Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 import styles from './SpellingOrderStyle';
 import Cheers from '../cheers/Cheers';
@@ -79,7 +79,7 @@ const SpellingOrder = ({question}) => {
             <TouchableWithoutFeedback onPress={() => readText(questionContent)}>
               <Image
                 style={styles.image}
-                onPress={() => readText(questionContent)}
+                onPress={() => readText(correctAnswer)}
                 source={imageAsset}
               />
             </TouchableWithoutFeedback>

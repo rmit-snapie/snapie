@@ -1,23 +1,23 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {Animated, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {questionCompleted} from '../../redux/actions/ProgressActions';
+import {playCheers, playSad, stop} from '../../helpers/AudioHelper';
 
 const Cheers = ({sad, correctAnswer, handleQuestionCompleted, progress}) => {
-  const [opacity] = useState(new Animated.Value(0));
   const {stage, level, test, question} = progress;
   const imagePath = sad
     ? require('./assets/sad.gif')
     : require('./assets/cheers.gif');
 
-  const onLoad = () => {
-    Animated.timing(opacity, {
-      toValue: 1,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-  };
+  useEffect(() => {
+    if (sad) {
+      playSad();
+    } else {
+      playCheers();
+    }
+  }, [sad]);
 
   const handleContinue = () => {
     if (progress.replay.start) {
@@ -31,29 +31,13 @@ const Cheers = ({sad, correctAnswer, handleQuestionCompleted, progress}) => {
     } else {
       handleQuestionCompleted(stage, level, test, question, false);
     }
+    return stop();
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.gifWrapper}>
-        <Animated.Image
-          onLoad={() => onLoad()}
-          source={imagePath}
-          style={[
-            {
-              opacity: opacity,
-              transform: [
-                {
-                  scale: opacity.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0.85, 1],
-                  }),
-                },
-              ],
-            },
-            styles.image,
-          ]}
-        />
+        <Image source={imagePath} style={styles.image} />
       </View>
       <View style={styles.correctAnswerWrapper}>
         {sad && (

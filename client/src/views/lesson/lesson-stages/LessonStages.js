@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStagesStyle';
-import {View, ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
 import {play, replay} from '../../../redux/actions/ProgressActions';
 import ImageButton from '../../image-button/ImageButton';

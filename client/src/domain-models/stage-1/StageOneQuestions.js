@@ -3,12 +3,6 @@ const ColorYellow = require('./assets/yellow.png');
 const ColorGreen = require('./assets/green.png');
 const ColorBlue = require('./assets/blue.png');
 const ColorOrange = require('./assets/orange.png');
-const SmallRed = require('./assets/small_red.png');
-const SmallYellow = require('./assets/small_yellow.png');
-const SmallGreen = require('./assets/small_green.png');
-const SmallBlue = require('./assets/small_blue.png');
-const SmallOrange = require('./assets/small_orange.png');
-
 import {
   FILL_THE_BLANK,
   MULTIPLE_CHOICE,
@@ -49,19 +43,19 @@ export const STAGE_ONE = [
         answers: [
           {
             name: 'red',
-            asset: SmallRed,
+            asset: ColorRed,
           },
           {
             name: 'blue',
-            asset: SmallBlue,
+            asset: ColorBlue,
           },
           {
             name: 'yellow',
-            asset: SmallYellow,
+            asset: ColorYellow,
           },
           {
             name: 'orange',
-            asset: SmallOrange,
+            asset: ColorOrange,
           },
         ],
         correctAnswer: 'yellow',
@@ -127,19 +121,19 @@ export const STAGE_ONE = [
         answers: [
           {
             name: 'green',
-            asset: SmallGreen,
+            asset: ColorGreen,
           },
           {
             name: 'blue',
-            asset: SmallBlue,
+            asset: ColorBlue,
           },
           {
             name: 'yellow',
-            asset: SmallYellow,
+            asset: ColorYellow,
           },
           {
             name: 'orange',
-            asset: SmallOrange,
+            asset: ColorOrange,
           },
         ],
         correctAnswer: 'orange',
@@ -286,19 +280,19 @@ export const STAGE_ONE = [
         imagesAsset: [
           {
             name: 'yellow',
-            asset: SmallYellow,
+            asset: ColorYellow,
           },
           {
             name: 'red',
-            asset: SmallRed,
+            asset: ColorRed,
           },
           {
             name: 'green',
-            asset: SmallGreen,
+            asset: ColorGreen,
           },
           {
             name: 'blue',
-            asset: SmallBlue,
+            asset: ColorBlue,
           },
         ],
         correctAnswerCount: 1,

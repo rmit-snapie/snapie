@@ -14,7 +14,6 @@ class Explore extends Component {
       imageUri: '',
       base64encoded: '',
       loading: false,
-      doneAnalyze: false,
       results: [],
       analyzed: false,
     };

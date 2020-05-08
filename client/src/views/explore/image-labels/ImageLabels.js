@@ -65,7 +65,7 @@ const ImageLabels = ({
                   </View>
                   <View style={styles.actionButtonsWrapper}>
                     <Button
-                      onPress={() => readText(item.label)}
+                      onPress={() => readText(item.description)}
                       style={styles.actionButton}
                       title="Listen"
                     />

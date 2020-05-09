@@ -27,11 +27,13 @@ const ImageLabels = ({
   useEffect(() => {
     setDisplayMore(false);
     if (results.length !== 0) {
+      // display only one result if there are more than one
+      // press "see more" to see the rest of results
       setDisplayResults([results[0]]);
     }
   }, [results]);
 
-  const emptyResults = () => {
+  const emptyResult = () => {
     return results.length === 0;
   };
 
@@ -42,7 +44,7 @@ const ImageLabels = ({
 
   return (
     <ImageBackground
-      blurRadius={!emptyResults() || loading ? 90 : 0}
+      blurRadius={!emptyResult() || loading ? 90 : 0}
       style={styles.previewImage}
       source={{uri: imageUri}}>
       <View style={styles.backButtonWrapper}>
@@ -56,7 +58,7 @@ const ImageLabels = ({
           <ActivityIndicator animating={loading} size="large" color="#ffffff" />
         ) : (
           <ScrollView>
-            {!emptyResults() &&
+            {!emptyResult() &&
               displayResults.map((item, index) => (
                 <View style={styles.resultWrapper} key={index}>
                   <View key={index} style={styles.labelWrapper}>
@@ -80,7 +82,7 @@ const ImageLabels = ({
                   </View>
                 </View>
               ))}
-            {emptyResults() && analyzed && (
+            {emptyResult() && analyzed && (
               <Text style={styles.noResultText}>
                 No result is found :( try again
               </Text>

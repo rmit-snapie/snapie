@@ -33,7 +33,7 @@ const ImageLabels = ({
     }
   }, [results]);
 
-  const emptyResult = () => {
+  const isEmptyResult = () => {
     return results.length === 0;
   };
 
@@ -44,7 +44,7 @@ const ImageLabels = ({
 
   return (
     <ImageBackground
-      blurRadius={!emptyResult() || loading ? 90 : 0}
+      blurRadius={!isEmptyResult() || loading ? 90 : 0}
       style={styles.previewImage}
       source={{uri: imageUri}}>
       <View style={styles.backButtonWrapper}>
@@ -58,7 +58,7 @@ const ImageLabels = ({
           <ActivityIndicator animating={loading} size="large" color="#ffffff" />
         ) : (
           <ScrollView>
-            {!emptyResult() &&
+            {!isEmptyResult() &&
               displayResults.map((item, index) => (
                 <View style={styles.resultWrapper} key={index}>
                   <View key={index} style={styles.labelWrapper}>
@@ -82,7 +82,7 @@ const ImageLabels = ({
                   </View>
                 </View>
               ))}
-            {emptyResult() && analyzed && (
+            {isEmptyResult() && analyzed && (
               <Text style={styles.noResultText}>
                 No result is found :( try again
               </Text>

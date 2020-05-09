@@ -45,6 +45,7 @@ export default class Pronounce extends React.Component {
           .includes(correctAnswer)
       ) {
         this.openCheers();
+        Voice.destroy().then(Voice.removeAllListeners);
       }
     }
     return false;

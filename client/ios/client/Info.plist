@@ -67,11 +67,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Amiko-Bold.ttf</string>
-		<string>Amiko-Regular.ttf</string>
-		<string>Amiko-SemiBold.ttf</string>
-	</array>
 </dict>
 </plist>

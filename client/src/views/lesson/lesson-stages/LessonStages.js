@@ -6,6 +6,8 @@ import {View, ScrollView} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
 import {play, replay} from '../../../redux/actions/ProgressActions';
 import ImageButton from '../../image-button/ImageButton';
+import Progress from './progress/Progress';
+import {getNumberOfTests} from '../../../helpers/QuestionHelper';
 
 const LessonStages = ({
   handlePlay,
@@ -33,12 +35,20 @@ const LessonStages = ({
         <View style={styles.stageWrapper}>
           <View style={styles.stageLevels}>
             {LEVELS_ICONS.stageOneC.map((icon, index) => (
-              <ImageButton
-                key={index}
-                handlePress={() => handlePress(stage, index)}
-                source={icon}
-                disabled={isDisabled(0, index)}
-              />
+              <View style={styles.iconWrapper} key={index}>
+                <ImageButton
+                  key={index}
+                  handlePress={() => handlePress(stage, index)}
+                  source={icon}
+                  disabled={isDisabled(0, index)}
+                />
+                <Progress
+                  testDone={test}
+                  maxTests={getNumberOfTests(0, index) + 1}
+                  levelLocked={isDisabled(0, index)}
+                  levelDone={index < level}
+                />
+              </View>
             ))}
           </View>
         </View>

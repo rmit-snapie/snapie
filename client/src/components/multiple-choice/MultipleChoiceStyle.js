@@ -39,9 +39,6 @@ export default StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
   },
-  buttonWrapper: {
-    flex: 2,
-  },
   answer: {
     shadowOffset: {
       width: 0,
@@ -110,6 +107,10 @@ export default StyleSheet.create({
     fontSize: 24,
     color: 'rgb(28, 176, 246)',
     fontWeight: '600',
+  },
+  buttonWrapper: {
+    flex: 2,
+    justifyContent: 'center',
   },
   confirmButton: {
     borderBottomWidth: 5,

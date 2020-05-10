@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {
-  View,
+  Image,
   Text,
   TouchableOpacity,
-  Image,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 import styles from './FillTheBlankStyle';
 import Cheers from '../cheers/Cheers';
@@ -61,7 +61,7 @@ const FillTheBlank = ({question}) => {
       {!cheers.display && (
         <>
           <View style={styles.mediaWrapper}>
-            <TouchableWithoutFeedback onPress={() => readText(questionContent)}>
+            <TouchableWithoutFeedback onPress={() => readText(correctAnswer)}>
               <Image
                 style={styles.image}
                 onPress={() => readText(questionContent)}

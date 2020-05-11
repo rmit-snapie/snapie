@@ -8,13 +8,19 @@ import {persistor, store} from './src/redux/store';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 //Routes
-import {EXPLORE_SCREEN, HOME_SCREEN, LESSON_SCREEN, REVIEW_SCREEN} from './environments/Routes';
+import {
+  EXPLORE_SCREEN, FIND_THE_OBJECT,
+  HOME_SCREEN,
+  LESSON_SCREEN,
+  REVIEW_SCREEN,
+} from './environments/Routes';
 //Views
 import Home from './src/views/home/Home';
 import Explore from './src/views/explore/Explore';
 import Review from './src/views/review/Review';
 import Lesson from './src/views/lesson/Lesson';
-import Pronounce from './src/components/pronounce/Pronounce';
+import Pronounce from './src/question-types/pronounce/Pronounce';
+import FindTheObject from './src/question-types/find-the-object/FindTheObject';
 
 const ApplicationStack = createStackNavigator();
 
@@ -35,6 +41,10 @@ export default function App() {
               component={Explore}
             />
             <ApplicationStack.Screen name="VOICE" component={Pronounce} />
+            <ApplicationStack.Screen
+              name={FIND_THE_OBJECT}
+              component={FindTheObject}
+            />
           </ApplicationStack.Navigator>
         </NavigationContainer>
       </PersistGate>

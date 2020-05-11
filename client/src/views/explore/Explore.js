@@ -34,7 +34,6 @@ class Explore extends Component {
     axios
       .post(LABELS_API, {
         image: this.state.base64encoded,
-        rawResult: 'false',
         maxResults: 5,
       })
       .then(response => {

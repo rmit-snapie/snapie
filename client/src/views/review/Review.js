@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet, ScrollView, Image, TouchableOpacity, SectionList } from 'react-native';
-// import { goToFirstScreenInStack, navigateTo } from '../helpers/NavigateHelper';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux'
-import {updateRecentArr} from './../../redux/reducers/ReviewScreen'
-import {readText} from './../../helpers/TextToSpeech'
+import { connect } from 'react-redux'
+import { updateRecentArr } from './../../redux/reducers/ReviewScreen'
+import { readText } from './../../helpers/TextToSpeech'
+import styles from './ReviewStyle';
 
 class Review extends Component {
   static propTypes = {
@@ -15,14 +15,13 @@ class Review extends Component {
     super(props);
     this.state = {
       data: [],
-      words: ['Apple', 'Banana', 'Cat', 'Dog', 'Egg', 'Fruit'],
+      words: ['Apple', 'America', 'Banana', 'Cat', 'Dog', 'Egg', 'Fruit'],
       currentWord: '',
       recent: this.props.reviewScreen.recentArr || []
     };
   }
 
   setCurrent(item) {
-    // console.warn(item)
     this.setState({ currentWord: item })
     if (!this.state.recent.includes(item)) {
       if (this.state.recent.length >= 3) {
@@ -54,7 +53,7 @@ class Review extends Component {
             <TouchableOpacity onPress={() => readText(this.state.currentWord)}>
               <Image
                 style={styles.lookUp}
-                source={require('./../assets/home-screen-icons/DefaultAvatar.png')}
+                source={require('./sample.png')}
               />
             </TouchableOpacity>
           </View>
@@ -89,72 +88,10 @@ class Review extends Component {
             keyExtractor={(item, index) => index}
           />
         </View>
-        {/* <Button
-              title="Go to Lesson"
-              onPress={() => navigateTo(navigation, LESSON_SCREEN)}
-            />
-            <Button
-              title="Go back Home"
-              onPress={() => goToFirstScreenInStack(navigation)}
-            /> */}
-        {/* </View> */}
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-    paddingBottom: 15,
-  },
-  buttonWrapper1: {
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    // justifyContent: 'center',
-    alignItems: 'center',
-  },
-  scrollView: {
-    backgroundColor: 'pink',
-    marginHorizontal: 20,
-  },
-  tinyLogo: {
-    width: 200,
-    height: 200,
-  },
-  lookUp: {
-    width: 50,
-    height: 50,
-  },
-  sectionHeader: {
-    paddingTop: 2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 2,
-    fontSize: 14,
-    fontWeight: 'bold',
-    backgroundColor: 'rgba(247,247,247,1.0)',
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-  labelWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    // alignItems: 'center',
-    width: 300,
-    backgroundColor: 'rgba(0,0,0, 0.4)',
-    borderRadius: 16,
-    padding: 10,
-  },
-});
 
 const mapStateToProps = state => ({
   reviewScreen: state.reviewScreen

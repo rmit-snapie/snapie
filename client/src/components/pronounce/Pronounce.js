@@ -105,7 +105,9 @@ export default class Pronounce extends React.Component {
       return (
         <View style={styles.container}>
           <View style={styles.imageAssetWrapper}>
+            <TouchableWithoutFeedback onPress={() => readText(correctAnswer)}>
             <Image source={imageAsset} style={styles.image} />
+            </TouchableOpacity>
           </View>
           <View style={styles.questionWrapper}>
             <Text style={styles.question}>{questionContent}</Text>

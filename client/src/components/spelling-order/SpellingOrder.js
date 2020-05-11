@@ -76,10 +76,9 @@ const SpellingOrder = ({question}) => {
       {!cheers.display && (
         <>
           <View style={styles.mediaWrapper}>
-            <TouchableWithoutFeedback onPress={() => readText(questionContent)}>
+            <TouchableWithoutFeedback onPress={() => readText(correctAnswer)}>
               <Image
                 style={styles.image}
-                onPress={() => readText(correctAnswer)}
                 source={imageAsset}
               />
             </TouchableWithoutFeedback>

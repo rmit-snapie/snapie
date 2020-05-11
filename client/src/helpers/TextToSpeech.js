@@ -32,8 +32,15 @@ export const setSpeechPitch = (rate: number) => {
 };
 
 export const readText = (text: string) => {
+Tts.getInitStatus().then(() => {
   Tts.stop();
-  Tts.speak(text);
+    Tts.speak(text);
+}, (err) => {
+  if (err.code === 'no_engine') {
+    Tts.requestInstallEngine();
+  }
+});
+
 };
 
 // in case remove listeners is needed in the future

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet, ScrollView, Image, TouchableOpacity, SectionList } from 'react-native';
 // import { goToFirstScreenInStack, navigateTo } from '../helpers/NavigateHelper';
 import PropTypes from 'prop-types';
-// import { LESSON_SCREEN } from '../../environments/Routes';
+import {connect} from 'react-redux'
+import {updateRecentArr} from './../../redux/reducers/ReviewScreen'
+import {readText} from './../../helpers/TextToSpeech'
 
 class Review extends Component {
   static propTypes = {
@@ -13,9 +15,9 @@ class Review extends Component {
     super(props);
     this.state = {
       data: [],
-      words: ['Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff'],
+      words: ['Apple', 'Banana', 'Cat', 'Dog', 'Egg', 'Fruit'],
       currentWord: '',
-      recent: []
+      recent: this.props.reviewScreen.recentArr || []
     };
   }
 
@@ -23,16 +25,22 @@ class Review extends Component {
     // console.warn(item)
     this.setState({ currentWord: item })
     if (!this.state.recent.includes(item)) {
-      if (this.state.recent.length >= 5) {
+      if (this.state.recent.length >= 3) {
         this.state.recent.pop()
         this.state.recent.unshift(item)
       } else {
         this.state.recent.unshift(item)
       }
+    } else {
+      var index = this.state.recent.indexOf(item)
+      this.state.recent.splice(index, 1)
+      this.state.recent.unshift(item)
     }
+    // this.props.dispatch(updateRecentArr(this.state.recent));
   }
 
   render() {
+    // console.warn(this.props.reviewScreen.recentArr)
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
@@ -43,7 +51,7 @@ class Review extends Component {
           />
           <View>
             <Text style={styles.text}>{this.state.currentWord}</Text>
-            <TouchableOpacity >
+            <TouchableOpacity onPress={() => readText(this.state.currentWord)}>
               <Image
                 style={styles.lookUp}
                 source={require('./../assets/home-screen-icons/DefaultAvatar.png')}
@@ -69,7 +77,7 @@ class Review extends Component {
               { title: 'K', data: this.state.words.filter((item) => item.charAt(0) == "K") },
               { title: 'L', data: this.state.words.filter((item) => item.charAt(0) == "L") },
             ]}
-            renderItem={({ item }) => <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => this.setCurrent(item)}>
+            renderItem={({ item }) => <TouchableOpacity style={{ alignItems: 'center', marginBottom: 10 }} onPress={() => this.setCurrent(item)}>
               <View style={styles.labelWrapper}>
                 <Text style={styles.item}>{item}</Text>
                 <Image
@@ -148,4 +156,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Review;
+const mapStateToProps = state => ({
+  reviewScreen: state.reviewScreen
+})
+
+export default connect(mapStateToProps)(Review);

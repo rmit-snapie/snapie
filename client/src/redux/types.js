@@ -18,3 +18,6 @@ export const POP_CURRENT_STACK = 'POP_CURRENT_STACK';
 
 //questions content reducer
 export const INITIALIZE_LOCAL_QUESTIONS = 'INITIALIZE_LOCAL_QUESTIONS';
+
+//review
+export const UPDATE_RECENT = 'UPDATE_RECENT'

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './PronounceStyle';
-import {View, Button, Text, Image} from 'react-native';
+import {View, Button, Text, Image, TouchableOpacity} from 'react-native';
 import Voice from '@react-native-community/voice';
 import Cheers from '../cheers/Cheers';
 
@@ -105,7 +105,7 @@ export default class Pronounce extends React.Component {
       return (
         <View style={styles.container}>
           <View style={styles.imageAssetWrapper}>
-            <TouchableWithoutFeedback onPress={() => readText(correctAnswer)}>
+            <TouchableOpacity onPress={() => readText(correctAnswer)}>
             <Image source={imageAsset} style={styles.image} />
             </TouchableOpacity>
           </View>

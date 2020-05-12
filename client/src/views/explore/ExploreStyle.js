@@ -1,15 +1,16 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
 export default StyleSheet.create({
-  preview: {
+  container: {
     flex: 1,
-    width: windowWidth,
-    height: windowHeight,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
+  },
+  exploreHeader: {
+    flex: 1,
+  },
+  cameraWrapper: {
+    flex: 4,
   },
   captureWrapper: {
     bottom: 30,
@@ -22,4 +23,5 @@ export default StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
   },
+
 });

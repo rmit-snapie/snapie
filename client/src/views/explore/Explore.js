@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {TouchableOpacity, Image, ActivityIndicator, View} from 'react-native';
+import {TouchableOpacity, Image, ActivityIndicator, View, Text} from 'react-native';
 import styles from './ExploreStyle';
 import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
@@ -61,42 +61,52 @@ class Explore extends Component {
       );
     }
     return (
-      <RNCamera
-        ref={ref => {
-          this.camera = ref;
-        }}
-        style={styles.preview}
-        type={RNCamera.Constants.Type.back}
-        flashMode={RNCamera.Constants.FlashMode.auto}
-        androidCameraPermissionOptions={{
-          title: 'Permission to use camera',
-          message: 'Snapie would like to access your camera',
-          buttonPositive: 'Confirm',
-          buttonNegative: 'Cancel',
-        }}
-        androidRecordAudioPermissionOptions={{
-          title: 'Permission to use audio recording',
-          message: 'Snapie would like to access your microphone',
-          buttonPositive: 'Confirm',
-          buttonNegative: 'Cancel',
-        }}>
-        <View style={styles.captureWrapper}>
-          {loading ? (
-            <ActivityIndicator
-              animating={loading}
-              size="large"
-              color="#ffffff"
-            />
-          ) : (
-            <TouchableOpacity onPress={this.takePicture.bind(this)}>
-              <Image
-                style={styles.lookUp}
-                source={require('./assets/camera.png')}
-              />
-            </TouchableOpacity>
-          )}
+      <View style={styles.container}>
+        <View style={styles.exploreHeader}>
+          <Text>Header</Text>
         </View>
-      </RNCamera>
+        <View style={styles.cameraWrapper}>
+          <RNCamera
+            ref={ref => {
+              this.camera = ref;
+            }}
+            style={styles.preview}
+            type={RNCamera.Constants.Type.back}
+            flashMode={RNCamera.Constants.FlashMode.auto}
+            androidCameraPermissionOptions={{
+              title: 'Permission to use camera',
+              message: 'Snapie would like to access your camera',
+              buttonPositive: 'Confirm',
+              buttonNegative: 'Cancel',
+            }}
+            androidRecordAudioPermissionOptions={{
+              title: 'Permission to use audio recording',
+              message: 'Snapie would like to access your microphone',
+              buttonPositive: 'Confirm',
+              buttonNegative: 'Cancel',
+            }}>
+            <View style={styles.captureWrapper}>
+              {loading ? (
+                <ActivityIndicator
+                  animating={loading}
+                  size="large"
+                  color="#ffffff"
+                />
+              ) : (
+                <TouchableOpacity onPress={this.takePicture.bind(this)}>
+                  <Image
+                    style={styles.lookUp}
+                    source={require('./assets/camera.png')}
+                  />
+                </TouchableOpacity>
+              )}
+            </View>
+          </RNCamera>
+        </View>
+        <View style={styles.exploreFotter}>
+          <Text>Footer</Text>
+        </View>
+      </View>
     );
   }
 }

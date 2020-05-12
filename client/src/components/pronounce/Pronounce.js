@@ -1,11 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './PronounceStyle';
 import {View, Button, Text, Image} from 'react-native';
 import Voice from '@react-native-community/voice';
 import Cheers from '../cheers/Cheers';
 
-export default class Pronounce extends React.Component {
+class Pronounce extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +36,13 @@ export default class Pronounce extends React.Component {
 
   componentDidUpdate() {
     const {voice} = this.state;
-    const {correctAnswer} = this.props.question;
+    // get question data from redux store, base on progress and questions
+    let question = !this.props.progress.replay.start
+      ? this.props.questions[this.props.progress.question]
+      : this.props.questions[this.props.progress.replay.question];
+
+    // const {correctAnswer} = this.props.question;
+    const {correctAnswer} = question;
     if (voice) {
       if (
         voice.toLowerCase() === correctAnswer ||
@@ -84,15 +91,21 @@ export default class Pronounce extends React.Component {
   };
 
   render() {
-    const {
-      question: {questionContent, imageAsset},
-    } = this.props;
+    // get question data from redux store, base on progress and questions
+    let question = !this.props.progress.replay.start
+      ? this.props.questions[this.props.progress.question]
+      : this.props.questions[this.props.progress.replay.question];
+    console.log('Pronounce > current question: ', question);
+    const {questionContent, imageAsset} = question;
+    // const {
+    //   question: {questionContent, imageAsset},
+    // } = this.props;
     const {
       isRecord,
       voice,
       cheers: {display, sad},
     } = this.state;
-    console.log(display);
+    console.log('Pronounce >  display: ', display);
     const buttonLabel = isRecord ? 'Stop' : 'Start';
     const voiceLabel = voice
       ? voice
@@ -121,5 +134,15 @@ export default class Pronounce extends React.Component {
 }
 
 Pronounce.propTypes = {
-  question: PropTypes.object.isRequired,
+  questions: PropTypes.array.isRequired,
+  progress: PropTypes.object.isRequired,
 };
+
+// export default Pronounce;
+export default connect(
+  state => ({
+    questions: state.questionsContentReducer,
+    progress: state.progressReducer,
+  }),
+  null,
+)(Pronounce);

@@ -8,21 +8,22 @@ import {View} from 'react-native';
 import LessonContent from './lesson-content/LessonContent';
 import LessonStages from './lesson-stages/LessonStages';
 
-const Lesson = ({progress: {play}, navigation}) => {
+const Lesson = play => {
   return (
     <View style={styles.container}>
       {!play && <LessonStages />}
-      {play && <LessonContent navigation={navigation} />}
+      {play && <LessonContent />}
     </View>
   );
 };
 
 Lesson.propTypes = {
-  progress: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired,
+  play: PropTypes.bool.isRequired,
 };
 
 export default connect(
-  state => ({progress: state.progressReducer}),
+  state => ({
+    play: state.progressReducer.play,
+  }),
   null,
 )(Lesson);

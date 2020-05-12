@@ -18,3 +18,6 @@ export const POP_CURRENT_STACK = 'POP_CURRENT_STACK';
 
 //questions content reducer
 export const INITIALIZE_LOCAL_QUESTIONS = 'INITIALIZE_LOCAL_QUESTIONS';
+
+//navigation stack reducer
+export const SAVE_NAVIGATION = 'SAVE_NAVIGATION';

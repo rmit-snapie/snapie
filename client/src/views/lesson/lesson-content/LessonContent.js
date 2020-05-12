@@ -20,24 +20,33 @@ import Pronounce from '../../../components/pronounce/Pronounce';
 import {replaceTo} from '../../../helpers/NavigateHelper';
 
 const LessonContent = ({questions, progress, navigation}) => {
-  const question = !progress.replay.start
+  // get current question from redux store based on progress and questions
+  const currentQuestion = !progress.replay.start
     ? questions[progress.question]
     : questions[progress.replay.question];
-  switch (question.type) {
+
+  switch (currentQuestion.type) {
     case FILL_THE_BLANK:
-      return <FillTheBlank question={question} />;
+      // return <FillTheBlank question={question} />;
+      return <FillTheBlank />;
     case MULTIPLE_CHOICE:
-      return <MultipleChoice question={question} type={MULTIPLE_CHOICE} />;
+      // return <MultipleChoice question={question} type={MULTIPLE_CHOICE} />;
+      return <MultipleChoice type={MULTIPLE_CHOICE} />;
     case MULTIPLE_CHOICE_IMAGES:
       return (
-        <MultipleChoice question={question} type={MULTIPLE_CHOICE_IMAGES} />
+        // <MultipleChoice question={question} type={MULTIPLE_CHOICE_IMAGES} />
+        <MultipleChoice type={MULTIPLE_CHOICE_IMAGES} />
       );
     case PAIR_SELECTION:
-      return <PairSelection question={question} />;
+      // return <PairSelection question={question} />;
+      return <PairSelection />;
     case SPELLING_ORDER:
-      return <SpellingOrder question={question} />;
+      // return <SpellingOrder question={question} />;
+      return <SpellingOrder />;
     case PRONOUNCE_THE_WORD:
-      return <Pronounce question={question} />;
+      // return <Pronounce question={question} />;
+      // console.log('pronounce....question', question);
+      return <Pronounce />;
     default:
       return (
         <View style={styles.container}>
@@ -69,6 +78,7 @@ export default connect(
   state => ({
     questions: state.questionsContentReducer,
     progress: state.progressReducer,
+    navigation: state.navigationReducer,
   }),
   null,
 )(LessonContent);

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {View, Text, TouchableOpacity, Animated, Easing} from 'react-native';
 import styles from './PairSelectionStyle';
@@ -9,7 +10,13 @@ import {readText} from '../../helpers/TextToSpeech';
 class PairSelection extends Component {
   constructor(props) {
     super(props);
-    const {questionContent, answers, imagesAsset} = props.question;
+    // get question data from redux store, base on progress and questions
+    let question = !props.progress.replay.start
+      ? questions[props.progress.question]
+      : questions[props.progress.replay.question];
+    console.log('PairSelection > current question: ', question);
+
+    const {questionContent, answers, imagesAsset} = question;
     this.state = {
       pictures: shuffle(imagesAsset),
       possibleAnswers: shuffle(answers),
@@ -203,7 +210,15 @@ class PairSelection extends Component {
 }
 
 PairSelection.propTypes = {
-  question: PropTypes.object.isRequired,
+  questions: PropTypes.array.isRequired,
+  progress: PropTypes.object.isRequired,
 };
 
-export default PairSelection;
+// export default PairSelection;
+export default connect(
+  state => ({
+    questions: state.questionsContentReducer,
+    progress: state.progressReducer,
+  }),
+  null,
+)(PairSelection);

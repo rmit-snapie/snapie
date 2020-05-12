@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Image,
@@ -12,7 +13,13 @@ import Cheers from '../cheers/Cheers';
 import {createBlanks} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
-const SpellingOrder = ({question}) => {
+const SpellingOrder = ({questions, progress}) => {
+  // get question data from redux store, base on progress and questions
+  let question = !progress.replay.start
+    ? questions[progress.question]
+    : questions[progress.replay.question];
+  console.log('SpellingOrder > current question: ', question);
+
   const {questionContent, answers, correctAnswer, imageAsset} = question;
   const initialBlanks = createBlanks(correctAnswer);
   const [word, setWord] = useState([]);
@@ -132,7 +139,15 @@ const SpellingOrder = ({question}) => {
 };
 
 SpellingOrder.propTypes = {
-  question: PropTypes.object.isRequired,
+  questions: PropTypes.array.isRequired,
+  progress: PropTypes.object.isRequired,
 };
 
-export default SpellingOrder;
+// export default SpellingOrder;
+export default connect(
+  state => ({
+    questions: state.questionsContentReducer,
+    progress: state.progressReducer,
+  }),
+  null,
+)(SpellingOrder);

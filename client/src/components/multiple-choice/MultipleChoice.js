@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
 import Proptypes from 'prop-types';
 import {
   Image,
@@ -15,7 +16,13 @@ import {
   MULTIPLE_CHOICE_IMAGES,
 } from '../../../environments/Routes';
 
-const MultipleChoice = ({question, type}) => {
+const MultipleChoice = ({type, progress, questions}) => {
+  // get question data from redux store, base on progress and questions
+  let question = !progress.replay.start
+    ? questions[progress.question]
+    : questions[progress.replay.question];
+  console.log('multiple choice > current question: ', question);
+  console.log('multiple choice > current question type: ', type);
   const {questionContent, answers, correctAnswer, imageAsset} = question;
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
@@ -150,8 +157,16 @@ const MultipleChoice = ({question, type}) => {
 };
 
 MultipleChoice.propTypes = {
-  question: Proptypes.object.isRequired,
+  questions: Proptypes.array.isRequired,
+  progress: Proptypes.object.isRequired,
   type: Proptypes.string.isRequired,
 };
 
-export default MultipleChoice;
+// export default MultipleChoice;
+export default connect(
+  state => ({
+    questions: state.questionsContentReducer,
+    progress: state.progressReducer,
+  }),
+  null,
+)(MultipleChoice);

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Image,
@@ -12,7 +13,13 @@ import Cheers from '../cheers/Cheers';
 import {createBlanks} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
-const FillTheBlank = ({question}) => {
+const FillTheBlank = ({progress, questions}) => {
+  // get question data from redux store, base on progress and questions
+  let question = !progress.replay.start
+    ? questions[progress.question]
+    : questions[progress.replay.question];
+  console.log('FillTheBlank > current question: ', question);
+
   const {questionContent, answers, correctAnswer, imageAsset} = question;
   const blanks = createBlanks(correctAnswer);
   const [currentAnswer, setCurrentAnswer] = useState({
@@ -111,7 +118,14 @@ const FillTheBlank = ({question}) => {
 };
 
 FillTheBlank.propTypes = {
-  question: PropTypes.object,
+  questions: PropTypes.array.isRequired,
+  progress: PropTypes.object.isRequired,
 };
 
-export default FillTheBlank;
+export default connect(
+  state => ({
+    questions: state.questionsContentReducer,
+    progress: state.progressReducer,
+  }),
+  null,
+)(FillTheBlank);

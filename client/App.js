@@ -8,7 +8,12 @@ import {persistor, store} from './src/redux/store';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 //Routes
-import {EXPLORE_SCREEN, HOME_SCREEN, LESSON_SCREEN, REVIEW_SCREEN} from './environments/Routes';
+import {
+  EXPLORE_SCREEN,
+  HOME_SCREEN,
+  LESSON_SCREEN,
+  REVIEW_SCREEN,
+} from './environments/Routes';
 //Views
 import Home from './src/views/home/Home';
 import Explore from './src/views/explore/Explore';
@@ -16,6 +21,15 @@ import Review from './src/views/review/Review';
 import Lesson from './src/views/lesson/Lesson';
 import Pronounce from './src/components/pronounce/Pronounce';
 
+// testing:
+import {readJsonFile} from './src/helpers/QuestionHelper';
+// here is for testing:
+
+// let myfile =
+// '/Users/donbosco/rmit_working/sepm/newSnapie13/client/src/domain-models/1.json';
+// console.log('read file: ', myfile);
+// readJsonFile(myfile);
+readJsonFile();
 const ApplicationStack = createStackNavigator();
 
 export default function App() {

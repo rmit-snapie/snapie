@@ -17,6 +17,7 @@ import LessonButton from '../assets/home-screen-icons/Lesson.png';
 import ExploreButton from '../assets/home-screen-icons/Explore.png';
 import ReviewButton from '../assets/home-screen-icons/Book.png';
 import ImageButton from '../image-button/ImageButton';
+import {getLocalTestQuestions} from '../../helpers/QuestionHelper';
 
 class Home extends Component {
   componentDidMount() {

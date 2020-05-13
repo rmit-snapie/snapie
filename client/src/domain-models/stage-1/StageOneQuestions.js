@@ -19,6 +19,7 @@ import {
 export const STAGE_ONE = [
   //first level
   [
+    // test 1
     [
       {
         id: 'q1',
@@ -82,6 +83,7 @@ export const STAGE_ONE = [
         correctAnswerCount: 1,
       },
     ],
+    // test 2
     [
       {
         id: 'q1',
@@ -160,6 +162,7 @@ export const STAGE_ONE = [
         correctAnswerCount: 1,
       },
     ],
+    // test 3
     [
       {
         id: 'q1',
@@ -225,6 +228,7 @@ export const STAGE_ONE = [
 
   //second level
   [
+    // test 1
     [
       {
         id: 'q1',

@@ -181,6 +181,8 @@ export const getStageQuestions = async stageID => {
    * @return: json object (full stage data)
    * default: stage_one.json
    */
+  // todo: how to save (dispatch) to redux so that it can be seen for all program
+  // todo: dispatch whole stage? or whole level? or whole test ?
   // return local data for the first two stage:
   switch (stageID) {
     case 0:

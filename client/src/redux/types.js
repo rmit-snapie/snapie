@@ -18,3 +18,7 @@ export const POP_CURRENT_STACK = 'POP_CURRENT_STACK';
 
 //questions content reducer
 export const INITIALIZE_LOCAL_QUESTIONS = 'INITIALIZE_LOCAL_QUESTIONS';
+
+//vocabularies reducer
+export const ADD_NEW_VOCABULARY = 'ADD_NEW_VOCABULARY';
+export const REMOVE_VOCABULARY = 'REMOVE_VOCABULARY';

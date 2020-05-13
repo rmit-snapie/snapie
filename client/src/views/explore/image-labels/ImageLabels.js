@@ -1,16 +1,24 @@
 import React, {useState, useEffect} from 'react';
-import {arrayOf, object} from 'prop-types';
+import {connect} from 'react-redux';
+import {arrayOf, object, func} from 'prop-types';
 import styles from './ImageLabelsStyle';
 import {Image, TouchableOpacity, Text, View} from 'react-native';
 import {readText} from '../../../helpers/TextToSpeech';
+import {addNewVocab} from '../../../redux/actions/VocabulariesActions';
+import SnapieModal from '../../../shared/components/SnapieModal';
 const ListenButton = require('../../../shared/assets/ListenButton.png');
 const SaveButton = require('../../../shared/assets/SaveButton.png');
 const ViewMoreButton = require('../../../shared/assets/ViewMoreButton.png');
 const ViewLessButton = require('../../../shared/assets/ViewLessButton.png');
 
-const ImageLabels = ({results}) => {
+const ImageLabels = ({results, handleAddVocabulary, vocabularies}) => {
   const [displayResults, setDisplayResults] = useState(results);
-  const [displayMore, setDisplayMore] = useState(true);
+  const [displayMore, setDisplayMore] = useState(false);
+  const [openModal, setOpenModal] = useState({
+    display: false,
+    type: null,
+    message: null,
+  });
 
   useEffect(() => {
     setDisplayMore(false);
@@ -33,6 +41,35 @@ const ImageLabels = ({results}) => {
     setDisplayResults([results[0]]);
   };
 
+  const vocabularyAlreadyAdded = word => {
+    return vocabularies.some(vocab => vocab.word === word);
+  };
+
+  const addVocabulary = (vocab, url) => {
+    if (vocabularyAlreadyAdded(vocab)) {
+      setOpenModal({
+        display: true,
+        type: 'error',
+        message: 'Vocabulary is already added!',
+      });
+    } else {
+      setOpenModal({display: true, type: 'success', message: 'Success!'});
+      handleAddVocabulary({
+        word: vocab,
+        url: url,
+      });
+    }
+    setTimeout(() => {
+      setOpenModal({display: false, type: null, message: null});
+    }, 1000);
+  };
+
+  const closeModal = () => {
+    setOpenModal(prevState => ({
+      ...prevState,
+      display: false,
+    }));
+  };
   if (resultIsEmpty()) {
     return (
       <View style={styles.container}>
@@ -42,7 +79,6 @@ const ImageLabels = ({results}) => {
       </View>
     );
   }
-
   return (
     <View style={styles.container}>
       <View style={styles.resultsWrapper}>
@@ -54,7 +90,10 @@ const ImageLabels = ({results}) => {
                 <TouchableOpacity onPress={() => readText(result.description)}>
                   <Image style={styles.actionButton} source={ListenButton} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    addVocabulary(result.description, result.urls[0])
+                  }>
                   <Image style={styles.actionButton} source={SaveButton} />
                 </TouchableOpacity>
               </View>
@@ -68,19 +107,33 @@ const ImageLabels = ({results}) => {
           </View>
         ))}
       </View>
-      <View style={styles.viewLessWrapper}>
-        {displayMore && (
+      {displayMore && (
+        <View style={styles.viewLessWrapper}>
           <TouchableOpacity onPress={() => seeLess()}>
             <Image style={styles.viewLess} source={ViewLessButton} />
           </TouchableOpacity>
-        )}
-      </View>
+        </View>
+      )}
+      {openModal.display && (
+        <SnapieModal
+          display={openModal.display}
+          animationType="fade"
+          message={openModal.message}
+          setDisplay={closeModal}
+          type={openModal.type}
+        />
+      )}
     </View>
   );
 };
 
 ImageLabels.propTypes = {
   results: arrayOf(object).isRequired,
+  handleAddVocabulary: func.isRequired,
+  vocabularies: arrayOf(object),
 };
 
-export default ImageLabels;
+export default connect(
+  state => ({vocabularies: state.vocabulariesReducer}),
+  {handleAddVocabulary: addNewVocab},
+)(ImageLabels);

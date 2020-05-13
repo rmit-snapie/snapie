@@ -5,6 +5,7 @@ export default StyleSheet.create({
     flex: 6,
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
   },
   notFound: {
     fontSize: 32,

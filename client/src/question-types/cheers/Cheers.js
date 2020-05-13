@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {bool, func, object, string} from 'prop-types';
 import {Animated, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {questionCompleted} from '../../redux/actions/ProgressActions';
 
@@ -141,11 +141,11 @@ Cheers.defaultProps = {
 };
 
 Cheers.propTypes = {
-  cheers: PropTypes.bool.isRequired,
-  sad: PropTypes.bool.isRequired,
-  correctAnswer: PropTypes.string,
-  handleQuestionCompleted: PropTypes.func.isRequired,
-  progress: PropTypes.object.isRequired,
+  cheers: bool.isRequired,
+  sad: bool.isRequired,
+  correctAnswer: string,
+  handleQuestionCompleted: func.isRequired,
+  progress: object.isRequired,
 };
 
 export default connect(

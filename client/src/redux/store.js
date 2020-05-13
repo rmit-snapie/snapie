@@ -9,7 +9,12 @@ const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   whitelist: [''],
-  blacklist: ['userReducer', 'progressReducer', 'questionsContentReducer'],
+  blacklist: [
+    'userReducer',
+    'progressReducer',
+    'questionsContentReducer',
+    'vocabulariesReducer',
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

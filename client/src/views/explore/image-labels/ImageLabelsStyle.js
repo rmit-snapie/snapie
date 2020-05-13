@@ -1,76 +1,69 @@
-import {Dimensions, StyleSheet} from 'react-native';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  previewImage: {
-    flex: 1,
-    height: windowHeight,
-    width: windowWidth,
-    backgroundColor: 'rgba(0,0,0, 0.4)',
-  },
-  backButtonWrapper: {
-    flex: 1,
-    top: 20,
-    left: 20,
-    alignItems: 'flex-start',
-  },
-  resultsWrapper: {
-    flex: 5,
+  container: {
+    flex: 6,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  notFound: {
+    fontSize: 32,
+    fontFamily: 'Amiko-Bold',
+    textAlign: 'center',
+  },
+  resultsWrapper: {
+    flex: 7,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   resultWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 15,
-  },
-  labelWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    width: 300,
-    backgroundColor: 'rgba(0,0,0, 0.4)',
-    borderRadius: 16,
     padding: 10,
+    width: 180,
+    marginRight: 10,
+    marginBottom: 10,
+  },
+  imageWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   image: {
     width: 100,
     height: 100,
+    borderWidth: 3,
     borderRadius: 16,
-  },
-  label: {
-    textAlign: 'center',
-    fontFamily: 'Amiko-Bold',
-    color: '#ffffff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
-    fontSize: 16,
+    borderColor: '#afafaf',
   },
   actionButtonsWrapper: {
-    flexDirection: 'row',
+    height: 100,
     justifyContent: 'space-between',
+    marginLeft: 10,
   },
   actionButton: {
-    fontFamily: 'Amiko-Bold',
-    fontSize: 20,
+    height: 40,
+    width: 40,
+    resizeMode: 'contain',
   },
-  noResultText: {
+  description: {
+    marginTop: 15,
+    fontSize: 18,
     fontFamily: 'Amiko-Bold',
-    fontSize: 32,
-    color: '#ffffff',
-    backgroundColor: 'rgba(0,0,0, 0.4)',
+    textAlign: 'center',
+    color: '#f47171',
   },
-  lookUpButtonWrapper: {
+  viewMore: {
+    width: 40,
+    height: 40,
+    marginTop: 10,
+  },
+  viewLessWrapper: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  viewLess: {
+    width: 40,
+    height: 40,
   },
 });

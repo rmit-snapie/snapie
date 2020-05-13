@@ -36,14 +36,15 @@ class FindTheObject extends Component {
   takePicture = async () => {
     if (!this.imageUriIsEmpty()) {
       this.recapture();
+    } else {
+      this.setState({loading: true});
+      if (this.camera) {
+        const options = {quality: 0.5, base64: true};
+        const data = await this.camera.takePictureAsync(options);
+        this.setState({imageUri: data.uri, base64encoded: data.base64});
+      }
+      this.setState({loading: false});
     }
-    this.setState({loading: true});
-    if (this.camera) {
-      const options = {quality: 0.5, base64: true};
-      const data = await this.camera.takePictureAsync(options);
-      this.setState({imageUri: data.uri, base64encoded: data.base64});
-    }
-    this.setState({loading: false});
   };
 
   recapture = () => {
@@ -81,8 +82,8 @@ class FindTheObject extends Component {
   render() {
     const {mockQuestion, imageUri, loading, analyzing, cheers} = this.state;
     const src = imageUri
-      ? require('../../shared/assets/Recapture.png')
-      : require('../../shared/assets/TakePicture.png');
+      ? require('../../shared/assets/CancelButton.png')
+      : require('../../shared/assets/TakePictureButton.png');
     if (analyzing) {
       return <Loading />;
     }

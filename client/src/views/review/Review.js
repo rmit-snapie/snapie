@@ -45,14 +45,14 @@ class Review extends Component {
       <View style={styles.container}>
         <View style={styles.buttonWrapper1}>
           <Image
-            style={styles.tinyLogo}
+            style={styles.bigImg}
             source={require('./../assets/home-screen-icons/DefaultAvatar.png')}
           />
           <View>
             <Text style={styles.text}>{this.state.currentWord}</Text>
-            <TouchableOpacity onPress={() => readText(this.state.currentWord)}>
+            <TouchableOpacity style={{marginLeft: 25}} onPress={() => readText(this.state.currentWord)}>
               <Image
-                style={styles.lookUp}
+                style={styles.listenBtn}
                 source={require('./sample.png')}
               />
             </TouchableOpacity>
@@ -80,7 +80,7 @@ class Review extends Component {
               <View style={styles.labelWrapper}>
                 <Text style={styles.item}>{item}</Text>
                 <Image
-                  style={styles.lookUp}
+                  style={styles.smallImg}
                   source={require('./../assets/home-screen-icons/DefaultAvatar.png')} />
               </View>
             </TouchableOpacity>}

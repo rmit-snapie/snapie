@@ -1,6 +1,9 @@
 import {INITIALIZE_LOCAL_QUESTIONS, INITIALIZE_QUESTIONS} from '../types';
 import {STAGE_ONE} from '../../domain-models/stage-1/StageOneQuestions';
-import {getLocalTestQuestions} from '../../helpers/QuestionHelper';
+import {
+  getLocalTestQuestions,
+  getTestQuestions,
+} from '../../helpers/QuestionHelper';
 import {getOnlineQuestions} from '../../helpers/OnlineQuestionHelper';
 
 let questions, stage, level, test;
@@ -12,7 +15,9 @@ const questionsContentReducer = (state = initialState, action) => {
   switch (action.type) {
     case INITIALIZE_LOCAL_QUESTIONS:
       ({stage, level, test} = action.payload);
-      questions = getLocalTestQuestions(stage, level, test);
+      // questions = getLocalTestQuestions(stage, level, test);
+      // todo: do not get data here, will have bug....
+      questions = getTestQuestions(action.payload);
       state = questions;
       return state;
     case INITIALIZE_QUESTIONS:

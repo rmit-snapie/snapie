@@ -25,7 +25,14 @@ const MultipleChoice = ({type, progress, questions}) => {
     ? questions[progress.question]
     : questions[progress.replay.question];
   console.log('multiple choice > current question: ', question);
-  console.log('multiple choice > current question type: ', type);
+  // console.log('multiple choice > current question type: ', type);
+  if (question == undefined) {
+    return (
+      <View>
+        <Text>question undefined...</Text>
+      </View>
+    );
+  }
   const {questionContent, answers, correctAnswer, imageAsset} = question;
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,

@@ -29,13 +29,14 @@ export function play(stage: number, level: number, test: number) {
 export function replay(stage: number, level: number) {
   const lastTest = getNumberOfTests(stage, level);
   return function(dispatch) {
-    dispatch(
-      setLocalQuestions({
-        stage: stage,
-        level: level,
-        test: lastTest,
-      }),
-    );
+    // todo: change this to setTestQuestion....
+    // dispatch(
+    //   setLocalQuestions({
+    //     stage: stage,
+    //     level: level,
+    //     test: lastTest,
+    //   }),
+    // );
     dispatch({
       type: REPLAY,
       payload: {stage: stage, level: level, test: lastTest},
@@ -48,7 +49,16 @@ export function stop() {
     dispatch({type: STOP});
   };
 }
-
+export function completeRelayQuestion() {
+  return function(dispatch) {
+    dispatch({type: COMPLETED_A_REPLAY_QUESTION});
+  };
+}
+export function completeAQuestion() {
+  return function(dispatch) {
+    dispatch({type: COMPLETED_A_QUESTION});
+  };
+}
 export function questionCompleted(stage, level, test, question, doneReplay) {
   return function(dispatch) {
     if (doneReplay) {
@@ -59,8 +69,10 @@ export function questionCompleted(stage, level, test, question, doneReplay) {
       }
     } else {
       if (question === getNumberOfQuestions(stage, level, test)) {
+        // todo: this is hardcoded...need double check...
         if (test < 2) {
           dispatch(testCompleted());
+          // todo: change this to setTestQuestion....
           dispatch(
             setLocalQuestions({
               stage: stage,

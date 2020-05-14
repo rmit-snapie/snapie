@@ -51,6 +51,9 @@ const progressReducer = (state = initialState, action) => {
         replay: {start: false, stage: 0, level: 0, test: 0},
       };
     case COMPLETED_A_QUESTION:
+      // console.log(
+      //   'progressReducer: completed a question > increase question to: ',
+      // );
       return {...state, question: state.question + 1};
     case COMPLETED_A_REPLAY_QUESTION:
       return {

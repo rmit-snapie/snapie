@@ -20,7 +20,13 @@ const FillTheBlank = ({progress, questions}) => {
     : questions[progress.replay.question];
   console.log('FillTheBlank > current question: ', question);
   const {stage} = progress;
-
+  if (question == undefined) {
+    return (
+      <View>
+        <Text>question undefined...</Text>
+      </View>
+    );
+  }
   const {questionContent, answers, correctAnswer, imageAsset} = question;
   const blanks = createBlanks(correctAnswer);
   const [currentAnswer, setCurrentAnswer] = useState({

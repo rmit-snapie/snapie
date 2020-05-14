@@ -19,7 +19,13 @@ const SpellingOrder = ({questions, progress}) => {
     : questions[progress.replay.question];
   const {stage} = progress;
   console.log('SpellingOrder > current question: ', question);
-
+  if (question == undefined) {
+    return (
+      <View>
+        <Text>question undefined...</Text>
+      </View>
+    );
+  }
   const {questionContent, answers, correctAnswer, imageAsset} = question;
   const initialBlanks = createBlanks(correctAnswer);
   const [word, setWord] = useState([]);

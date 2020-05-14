@@ -15,7 +15,13 @@ class PairSelection extends Component {
       ? props.questions[props.progress.question]
       : props.questions[props.progress.replay.question];
     console.log('PairSelection > current question: ', question);
-
+    if (question == undefined) {
+      return (
+        <View>
+          <Text>question undefined...</Text>
+        </View>
+      );
+    }
     const {questionContent, answers, imagesAsset} = question;
     this.state = {
       pictures: shuffle(imagesAsset),

@@ -14,7 +14,10 @@ import ImageButton from '../../image-button/ImageButton';
 import Progress from './progress/Progress';
 import {setQuestions} from '../../../redux/actions/QuestionsContentActions';
 import {getOnlineQuestions} from '../../../helpers/OnlineQuestionHelper';
-import {getTestQuestions} from '../../../helpers/QuestionHelper';
+import {
+  getTestQuestions,
+  getNumberOfTests,
+} from '../../../helpers/QuestionHelper';
 
 const LessonStages = ({
   handlePlay,
@@ -23,25 +26,27 @@ const LessonStages = ({
   prepareData,
 }) => {
   const handlePress = (replayStage, replayLevel) => {
-    // todo: set back to progress data:
-    getTestQuestions({stage: stage, level: level, test: test}).then(data => {
-      console.log(
-        'lessonStages > handlepress > getonlinequestion > resutl: ',
-        data,
-      );
-      prepareData(data);
-      if (replayStage <= stage && replayLevel < level) {
-        handleReplay(replayStage, replayLevel);
-      } else {
-        handlePlay(stage, level, test);
-      }
-    });
-
-    // if (replayStage <= stage && replayLevel < level) {
-    //   handleReplay(replayStage, replayLevel);
-    // } else {
-    //   handlePlay(stage, level, test);
-    // }
+    if (replayStage <= stage && replayLevel < level) {
+      const lastTest = getNumberOfTests(replayStage, replayLevel);
+      getTestQuestions({
+        stage: replayStage,
+        level: replayLevel,
+        test: lastTest,
+      }).then(data => {
+        console.log('lessonStages > handlepress > replay  > resutl: ', data);
+        prepareData(data);
+      });
+      handleReplay(replayStage, replayLevel);
+    } else {
+      getTestQuestions({stage: stage, level: level, test: test}).then(data => {
+        console.log(
+          'lessonStages > handlepress > getTestQuestions > resutl: ',
+          data,
+        );
+        prepareData(data);
+      });
+      handlePlay(stage, level, test);
+    }
   };
 
   const isDisabled = (iconStage, iconLevel) => {

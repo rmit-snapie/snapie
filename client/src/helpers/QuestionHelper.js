@@ -29,7 +29,10 @@ export const getNumberOfQuestions = (
   if (stage === 0) {
     return STAGE_ONE[level][test].length - 1;
   } else if (stage === 1) {
-    return STAGE_TWO[level][test].length;
+    return STAGE_TWO[level][test].length - 1;
+  } else {
+    console.log('getNumberOfQuestions > stage: ', stage, ' error, fix here');
+    return 0;
   }
 };
 
@@ -38,6 +41,9 @@ export const getNumberOfTests = (stage: number, level: number) => {
     return STAGE_ONE[level].length - 1;
   } else if (stage === 1) {
     return STAGE_TWO[level].length - 1;
+  } else {
+    console.log('getNumberOfTests > stage: ', stage, ' error, fix here');
+    return 0;
   }
 };
 
@@ -46,6 +52,9 @@ export const getNumberOfLevels = (stage: number) => {
     return STAGE_ONE.length - 1;
   } else if (stage === 1) {
     return STAGE_TWO.length - 1;
+  } else {
+    console.log('getNumberOfLevels > stage: ', stage, ' error, fix here');
+    return 0;
   }
 };
 

@@ -2,10 +2,31 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {questionCompleted} from '../../redux/actions/ProgressActions';
-import {playCheers, playSad, stop} from '../../helpers/AudioHelper';
-
-const Cheers = ({sad, correctAnswer, handleQuestionCompleted, progress}) => {
+import {
+  questionCompleted,
+  stop,
+  completeRelayQuestion,
+  testCompleted,
+  levelCompleted,
+  stageCompleted,
+  completeAQuestion,
+} from '../../redux/actions/ProgressActions';
+import {playCheers, playSad} from '../../helpers/AudioHelper';
+import {
+  getNumberOfTests,
+  getNumberOfQuestions,
+  getTestQuestions,
+  getNumberOfLevels,
+} from '../../helpers/QuestionHelper';
+import {setQuestions} from '../../redux/actions/QuestionsContentActions';
+const Cheers = ({
+  sad,
+  correctAnswer,
+  handleQuestionCompleted,
+  progress,
+  ...props
+}) => {
+  console.log('Cheers > props > progress', progress);
   const {stage, level, test, question} = progress;
   const imagePath = sad
     ? require('./assets/sad.gif')
@@ -21,16 +42,87 @@ const Cheers = ({sad, correctAnswer, handleQuestionCompleted, progress}) => {
 
   const handleContinue = () => {
     if (progress.replay.start) {
-      handleQuestionCompleted(
-        progress.replay.stage,
-        progress.replay.level,
-        progress.replay.test,
-        progress.replay.question,
-        true,
-      );
+      if (question === getNumberOfQuestions(stage, level, test)) {
+        console.log('Cheers > handleContinue > replay true > stop ');
+        props.stop();
+      } else {
+        console.log(
+          'Cheers > handleContinue > replay true > completereplayquestion ',
+        );
+        props.completeRelayQuestion();
+      }
     } else {
-      handleQuestionCompleted(stage, level, test, question, false);
+      // if last question of last test of last level: next stage
+      if (
+        question === getNumberOfQuestions(stage, level, test) &&
+        test === getNumberOfTests(stage, level) &&
+        level === getNumberOfLevels(stage)
+      ) {
+        // next stage:
+
+        getTestQuestions({
+          stage: stage + 1,
+          level: 0,
+          test: 0,
+        }).then(data => {
+          console.log(
+            'Cheers > handleContinue > stagecomplete> resutl: ',
+            data,
+          );
+          props.prepareData(data);
+        });
+        props.stageCompleted();
+        console.log('Cheers > handleContinue > replay true > stageCompleted ');
+        return;
+      }
+
+      // if last question of last test: next level
+      if (
+        question === getNumberOfQuestions(stage, level, test) &&
+        test === getNumberOfTests(stage, level) &&
+        level < getNumberOfLevels(stage)
+      ) {
+        // next level:
+        props.levelCompleted();
+        getTestQuestions({
+          stage: stage,
+          level: level + 1,
+          test: 0,
+        }).then(data => {
+          console.log(
+            'Cheers > handleContinue > getnextLevel > resutl: ',
+            data,
+          );
+          props.prepareData(data);
+        });
+        console.log('Cheers > handleContinue > replay true > levelCompleted ');
+        return;
+      }
+      // if last question of test: next test
+      if (
+        question === getNumberOfQuestions(stage, level, test) &&
+        test < getNumberOfTests(stage, level) &&
+        level < getNumberOfLevels(stage)
+      ) {
+        // next test:
+        props.testCompleted();
+        getTestQuestions({
+          stage: stage,
+          level: level,
+          test: test + 1,
+        }).then(data => {
+          console.log('Cheers > handleContinue > getnextTest > resutl: ', data);
+          props.prepareData(data);
+        });
+        console.log('Cheers > handleContinue > replay true > testCompleted ');
+        return;
+      }
+
+      // else: next question...
+      console.log('Cheers > handleContinue > replay true > next question ');
+      props.completeAQuestion();
     }
+    // console.log('Cheers > handleContinue > replay true > nothing ');
     return stop();
   };
 
@@ -134,5 +226,14 @@ Cheers.propTypes = {
 
 export default connect(
   state => ({progress: state.progressReducer}),
-  {handleQuestionCompleted: questionCompleted},
+  {
+    handleQuestionCompleted: questionCompleted,
+    stop: stop,
+    completeRelayQuestion: completeRelayQuestion,
+    prepareData: setQuestions,
+    testCompleted: testCompleted,
+    levelCompleted: levelCompleted,
+    stageCompleted: stageCompleted,
+    completeAQuestion: completeAQuestion,
+  },
 )(Cheers);

@@ -34,15 +34,16 @@ const LessonContent = ({questions, progress, navigation}) => {
   }
 
   console.log('lessonContent > current question :', currentQuestion);
-  console.log(
-    'lessonContent > current question type:',
-    currentQuestion.type,
-    typeof currentQuestion.type,
-    MULTIPLE_CHOICE,
-    typeof MULTIPLE_CHOICE,
-    currentQuestion.type === MULTIPLE_CHOICE,
-  );
-  switch (currentQuestion.type) {
+  // console.log(
+  //   'lessonContent > current question type:',
+  //   currentQuestion.type,
+  //   typeof currentQuestion.type,
+  //   MULTIPLE_CHOICE,
+  //   typeof MULTIPLE_CHOICE,
+  //   currentQuestion.type === MULTIPLE_CHOICE,
+  // );
+  let type = currentQuestion ? currentQuestion.type : 'unknown';
+  switch (type) {
     // switch ('currentQuestion.type') {
     case FILL_THE_BLANK:
       // return <FillTheBlank question={question} />;
@@ -69,6 +70,7 @@ const LessonContent = ({questions, progress, navigation}) => {
       return (
         <View style={styles.container}>
           <Text>Something went wrong :(</Text>
+          <Text>unknown type of : {type}</Text>
           <Button
             title="Home"
             onPress={() => replaceTo(navigation, HOME_SCREEN)}

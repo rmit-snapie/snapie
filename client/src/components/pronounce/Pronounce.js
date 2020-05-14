@@ -98,6 +98,13 @@ class Pronounce extends React.Component {
       : this.props.questions[this.props.progress.replay.question];
     console.log('Pronounce > current question: ', question);
     const {stage} = this.props.progress;
+    if (question == undefined) {
+      return (
+        <View>
+          <Text>question undefined...</Text>
+        </View>
+      );
+    }
     const {questionContent, imageAsset} = question;
     // const {
     //   question: {questionContent, imageAsset},

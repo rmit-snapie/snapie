@@ -306,8 +306,6 @@ export const STAGE_ONE = [
         correctAnswerCount: 1,
       },
     ],
-    [[{}]],
-    [[{}]],
+
   ],
-  [[{}], [{}], [{}]],
 ];

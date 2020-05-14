@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {View, Text, TouchableOpacity, Animated, Easing} from 'react-native';
 import styles from './PairSelectionStyle';
 import Cheers from '../cheers/Cheers';
-import {shuffle} from '../../helpers/QuestionHelper';
+import {renderImageWrapper, shuffle} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
 class PairSelection extends Component {
@@ -12,8 +12,8 @@ class PairSelection extends Component {
     super(props);
     // get question data from redux store, base on progress and questions
     let question = !props.progress.replay.start
-      ? questions[props.progress.question]
-      : questions[props.progress.replay.question];
+      ? props.questions[props.progress.question]
+      : props.questions[props.progress.replay.question];
     console.log('PairSelection > current question: ', question);
 
     const {questionContent, answers, imagesAsset} = question;
@@ -101,6 +101,7 @@ class PairSelection extends Component {
   }
 
   render() {
+    const {stage} = this.props.progress;
     const handleAnswerPressed = (index, answer) => {
       const {currentAnswer} = this.state;
       if (currentAnswer.index === index) {
@@ -195,10 +196,11 @@ class PairSelection extends Component {
                       : [styles.answerImage, styles.notChosenAnswerImage]
                   }
                   key={index}>
-                  <Animated.Image
-                    style={[styles.asset]}
-                    source={picture.asset}
-                  />
+                  {/*<Animated.Image*/}
+                  {/*  style={[styles.asset]}*/}
+                  {/*  source={picture.asset}*/}
+                  {/*/>*/}
+                  {renderImageWrapper(stage, picture.asset, styles.asset, true)}
                 </TouchableOpacity>
               ))}
             </Animated.View>

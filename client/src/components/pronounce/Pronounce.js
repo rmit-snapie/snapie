@@ -5,6 +5,7 @@ import styles from './PronounceStyle';
 import {View, Button, Text, Image} from 'react-native';
 import Voice from '@react-native-community/voice';
 import Cheers from '../cheers/Cheers';
+import {renderImageWrapper} from '../../helpers/QuestionHelper';
 
 class Pronounce extends React.Component {
   constructor(props) {
@@ -96,6 +97,7 @@ class Pronounce extends React.Component {
       ? this.props.questions[this.props.progress.question]
       : this.props.questions[this.props.progress.replay.question];
     console.log('Pronounce > current question: ', question);
+    const {stage} = this.props.progress;
     const {questionContent, imageAsset} = question;
     // const {
     //   question: {questionContent, imageAsset},
@@ -118,7 +120,7 @@ class Pronounce extends React.Component {
       return (
         <View style={styles.container}>
           <View style={styles.imageAssetWrapper}>
-            <Image source={imageAsset} style={styles.image} />
+            {renderImageWrapper(stage, imageAsset, styles.image)}
           </View>
           <View style={styles.questionWrapper}>
             <Text style={styles.question}>{questionContent}</Text>

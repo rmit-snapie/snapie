@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import styles from './FillTheBlankStyle';
 import Cheers from '../cheers/Cheers';
-import {createBlanks} from '../../helpers/QuestionHelper';
+import {createBlanks, renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
 const FillTheBlank = ({progress, questions}) => {
@@ -19,6 +19,7 @@ const FillTheBlank = ({progress, questions}) => {
     ? questions[progress.question]
     : questions[progress.replay.question];
   console.log('FillTheBlank > current question: ', question);
+  const {stage} = progress;
 
   const {questionContent, answers, correctAnswer, imageAsset} = question;
   const blanks = createBlanks(correctAnswer);
@@ -69,11 +70,7 @@ const FillTheBlank = ({progress, questions}) => {
         <>
           <View style={styles.mediaWrapper}>
             <TouchableWithoutFeedback onPress={() => readText(correctAnswer)}>
-              <Image
-                style={styles.image}
-                onPress={() => readText(questionContent)}
-                source={imageAsset}
-              />
+              {renderImageWrapper(stage, imageAsset, styles.image)}
             </TouchableWithoutFeedback>
           </View>
           <View style={styles.questionWrapper}>

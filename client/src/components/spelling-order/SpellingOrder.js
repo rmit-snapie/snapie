@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-  Image,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -10,7 +9,7 @@ import {
 } from 'react-native';
 import styles from './SpellingOrderStyle';
 import Cheers from '../cheers/Cheers';
-import {createBlanks} from '../../helpers/QuestionHelper';
+import {createBlanks, renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
 const SpellingOrder = ({questions, progress}) => {
@@ -18,6 +17,7 @@ const SpellingOrder = ({questions, progress}) => {
   let question = !progress.replay.start
     ? questions[progress.question]
     : questions[progress.replay.question];
+  const {stage} = progress;
   console.log('SpellingOrder > current question: ', question);
 
   const {questionContent, answers, correctAnswer, imageAsset} = question;
@@ -84,11 +84,12 @@ const SpellingOrder = ({questions, progress}) => {
         <>
           <View style={styles.mediaWrapper}>
             <TouchableWithoutFeedback onPress={() => readText(questionContent)}>
-              <Image
-                style={styles.image}
-                onPress={() => readText(correctAnswer)}
-                source={imageAsset}
-              />
+              {/*<Image*/}
+              {/*  style={styles.image}*/}
+              {/*  onPress={() => readText(correctAnswer)}*/}
+              {/*  source={imageAsset}*/}
+              {/*/>*/}
+              {renderImageWrapper(stage, imageAsset, styles.image)}
             </TouchableWithoutFeedback>
           </View>
           <View style={styles.questionWrapper}>

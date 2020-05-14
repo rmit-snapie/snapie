@@ -22,14 +22,15 @@ import Lesson from './src/views/lesson/Lesson';
 import Pronounce from './src/components/pronounce/Pronounce';
 
 // testing:
-import {readJsonFile} from './src/helpers/QuestionHelper';
+import {readJsonFile, saveJsonFile} from './src/helpers/QuestionHelper';
 // here is for testing:
 
 // let myfile =
 // '/Users/donbosco/rmit_working/sepm/newSnapie13/client/src/domain-models/1.json';
 // console.log('read file: ', myfile);
 // readJsonFile(myfile);
-readJsonFile();
+// saveJsonFile();
+// readJsonFile();
 const ApplicationStack = createStackNavigator();
 
 export default function App() {

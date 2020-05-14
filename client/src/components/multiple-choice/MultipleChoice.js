@@ -15,9 +15,11 @@ import {
   MULTIPLE_CHOICE,
   MULTIPLE_CHOICE_IMAGES,
 } from '../../../environments/Routes';
+import {renderImageWrapper} from '../../helpers/QuestionHelper';
 
 const MultipleChoice = ({type, progress, questions}) => {
   // get question data from redux store, base on progress and questions
+  const {stage} = progress;
   let question = !progress.replay.start
     ? questions[progress.question]
     : questions[progress.replay.question];
@@ -86,7 +88,7 @@ const MultipleChoice = ({type, progress, questions}) => {
           {type === MULTIPLE_CHOICE && (
             <View style={styles.assetsWrapper}>
               <TouchableWithoutFeedback onPress={() => readText(correctAnswer)}>
-                <Image style={styles.image} source={imageAsset} />
+                {renderImageWrapper(stage, imageAsset, styles.image)}
               </TouchableWithoutFeedback>
             </View>
           )}
@@ -134,7 +136,8 @@ const MultipleChoice = ({type, progress, questions}) => {
                       : [styles.answerImage, styles.notChosenAnswerImage]
                   }
                   onPress={() => handleAnswerPressed(index, answer)}>
-                  <Image style={styles.imageContent} source={answer.asset} />
+                  {/*<Image style={styles.imageContent} source={answer.asset} />*/}
+                  {renderImageWrapper(stage, answer.asset, styles.imageContent)}
                 </TouchableOpacity>
               ))}
           </View>

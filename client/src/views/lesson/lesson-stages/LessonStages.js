@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStagesStyle';
-import {View, ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
 import {play, replay} from '../../../redux/actions/ProgressActions';
 import ImageButton from '../../image-button/ImageButton';
 import Progress from './progress/Progress';
-import {getNumberOfTests} from '../../../helpers/QuestionHelper';
 
 const LessonStages = ({
   handlePlay,
@@ -44,7 +43,7 @@ const LessonStages = ({
                 />
                 <Progress
                   testDone={test}
-                  maxTests={getNumberOfTests(0, index) + 1}
+                  maxTests={3}
                   levelLocked={isDisabled(0, index)}
                   levelDone={index < level}
                 />

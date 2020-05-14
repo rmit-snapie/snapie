@@ -24,9 +24,15 @@ const LessonContent = ({questions, progress, navigation}) => {
   console.log('lessonContent > props: questions :', questions);
   console.log('lessonContent > props: progress :', progress);
   console.log('lessonContent > props: navigation :', navigation);
-  const currentQuestion = !progress.replay.start
-    ? questions[progress.question]
-    : questions[progress.replay.question];
+  let currentQuestion = null;
+  if (progress.question < questions.length) {
+    currentQuestion = !progress.replay.start
+      ? questions[progress.question]
+      : questions[progress.replay.question];
+  } else {
+    currentQuestion = questions[0];
+  }
+
   console.log('lessonContent > current question :', currentQuestion);
   console.log(
     'lessonContent > current question type:',

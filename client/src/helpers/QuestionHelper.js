@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Animated} from 'react-native';
+import {Image, Animated, Platform} from 'react-native';
 import {STAGE_ONE} from '../domain-models/stage-1/StageOneQuestions';
 import {STAGE_TWO} from '../domain-models/stage-2/StageTwoQuestions';
 
@@ -74,26 +74,16 @@ export const shuffle = array => {
 
 import RNFetchBlob from 'rn-fetch-blob';
 import RNFS, {
-  MainBundlePath,
-  CachesDirectoryPath,
-  LibraryDirectoryPath,
+  // MainBundlePath,
+  // CachesDirectoryPath,
+  // LibraryDirectoryPath,
   DocumentDirectoryPath,
 } from 'react-native-fs';
 import styles from '../components/pair-selection/PairSelectionStyle';
 
 export const dirs = RNFetchBlob.fs.dirs;
-// console.log(dirs);
-// console.log(dirs.LibraryDir);
-console.log(dirs.DocumentDir);
-// console.log(dirs.CacheDir);
-// console.log(dirs.DCIMDir);
-// console.log(dirs.DownloadDir);
-// // from RNFS
-// console.log('from RNFS:');
-// console.log('react-native-fs MainBundlePath', MainBundlePath);
-// console.log('react-native-fs CachesDirectoryPath', CachesDirectoryPath);
-// console.log('react-native-fs LibraryDirectoryPath', LibraryDirectoryPath);
-console.log('react-native-fs DocumentDirectoryPath', DocumentDirectoryPath);
+// console.log(dirs.DocumentDir);
+// console.log('react-native-fs DocumentDirectoryPath', DocumentDirectoryPath);
 
 const imageFetchPath =
   'https://tam-terraform-state.s3-ap-southeast-1.amazonaws.com/images/';
@@ -118,279 +108,244 @@ RNFetchBlob.fs.exists(localStagePath).then(existed => {
   }
 });
 
-const removeJSONFile = () => {
-  let path = localStagePath + '1.json';
-  RNFetchBlob.fs.exists(path).then(existed => {
-    if (existed) {
-      RNFetchBlob.fs
-        .unlink(path)
-        .then(() => {
-          console.log('removed');
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  });
-};
-
-const fetchQuestion = async stageID => {
+export const fetchImage = async imageName => {
   /**
-   * fetch json file from API then save to doctument dir as JSON file
-   * @param: stageID (int)
-   * @return: json file, saved in documentDir/stages/stageID.json
-   * default: 1.json
+   * fetch image file from API then save to doctument dir with same name
+   * @param: imageName
+   * @note:fetch path (API) is set as const
+   * default: default.png
    */
-  // set default stage file name if stageID not exist
-  const stageFileName = stageID ? stageID + '.json' : '1.json';
-  console.log(stageFileName, 'print this please');
+  // set default image file name if imageName not exist
+  const imageFileName = imageName ? imageName : 'default.png';
 
-  let fetchPath = stageFetchPath + stageFileName;
+  // set default stage 1 if stageID not exist
+  const fetchPath = imageFetchPath + imageFileName;
   // check path:
-  console.log('fech path: ', fetchPath);
+  console.log('fetchImage > fech path: ', fetchPath);
   await RNFetchBlob.config({
-    //   path that the response data will goto
-    path: localStagePath + stageFileName,
+    // will save to docDir/images/...
+    path: localImagePath + imageFileName,
     // use wifi only, this flag will only work on API version 21 or above
     wifiOnly: true,
   })
-    .fetch(
-      'GET',
-      fetchPath,
-      // {
-      //   Authorization: 'Bearer access-token...',
-      // },
-    )
+    .fetch('GET', fetchPath)
     .then(res => {
-      console.log('response data from s3: ', res);
+      console.log('fetchImage > get imgage from s3: ', res);
       let status = res.info().status;
       console.log(status);
       // the temp file path
-      console.log('The file will save to ', res.path());
+      console.log('The image file saved to ', res.path());
       //   return the file path being saved.
       return res.path();
-
-      // // make dir to test
-      // // todo: comment out the return above, change to your path below, note the last /
-      // const myFolderPath =
-      //   '/Users/donbosco/rmit_working/sepm/snapie/client/MyFolder/';
-      // RNFetchBlob.fs.exists(myFolderPath).then(existed => {
-      //   if (!existed) {
-      //     RNFetchBlob.fs.mkdir(myFolderPath);
-      //   }
-      // });
-      // // write file to the test dir
-      // RNFS.writeFile(myFolderPath + filepath[filepath.length - 1], res.data)
-      //   .then(() => {
-      //     console.log(
-      //       'file saved at ' + myFolderPath + filepath[filepath.length - 1],
-      //     );
-      //   })
-      //   .catch((e, code) => console.log(e, code));
     })
-    .catch((e, code) => {
-      console.log(e, code);
-
-    });
+    .catch((e, code) => console.log(e, code));
+};
+const checkImageExisted = async imageName => {
+  /**
+   * check if the image existed in local memory
+   * @param:  imageName
+   */
+  let imagePath = localImagePath + imageName;
+  return RNFetchBlob.fs.exists(imagePath).then(existed => {
+    console.log(imagePath, ' existed ? ', existed);
+    return existed;
+  });
 };
 
+export const setOfflineImageAssets = () => {};
 
-export const saveJsonFile = (fileName, jsonData) => {
-  fileName = fileName ? fileName : '1.json';
-  let path = localStagePath + fileName;
-  const stage1 = require('../domain-models/1.json');
-  console.log(typeof stage1);
-  const data = jsonData ? JSON.stringify(jsonData) : JSON.stringify(stage1);
-  // data = data ? data : stage1;
-  // write the file
-  RNFS.writeFile(path, data, 'utf8')
-    .then(success => {
-      console.log('FILE WRITTEN!');
-      // read back to check
-      readJsonFile(path);
-    })
-    .catch(err => {
-      console.log(err.message);
+export const setStageImagesAssets = async assetList => {
+  /**
+   * get all images asset ready
+   * fetch image file list from API then save to local asset images files with same name
+   * @param: assetList : imageName array
+   * default: default.png
+   */
+
+  // fetch every images....
+  assetList.forEach((image, index) => {
+    // check in local memory:
+    checkImageExisted(image).then(existed => {
+      if (existed) {
+        // existed: do nothing
+        console.log(image, ' existed');
+        return true;
+      } else {
+        // not existed: fetch to local memory
+        fetchImage(image).then(result => {
+          console.log('image fetched, result: ', result);
+          return result;
+        });
+      }
     });
+  });
 };
 
-const checkStageFileExisted = stageID => {
+// // // testing:
+// // export const testJsonFile = () => {
+// //   // removeJSONFile();
+// //   saveJsonFile();
+// // };
+
+export const renderImageWrapper = (stage, imageSource, style, animated) => {
+  // console.log("QuestionHelper > renderImageWrapper > params: ",stage, imageSource, style, animated)
+  if (stage > 1) {
+    imageSource = localImagePath + imageSource;
+    if (animated) {
+      console.log(
+        'QuestionHelper > renderImageWrapper > params: ',
+        stage,
+        imageSource,
+        style,
+        animated,
+      );
+      console.log('stage >1; animated true');
+      return (
+        <Animated.Image
+          style={[style]}
+          source={{
+            uri:
+              Platform.OS === 'android' ? 'file://' + imageSource : imageSource,
+          }}
+        />
+      );
+    }
+    console.log(
+      'QuestionHelper > renderImageWrapper > params: ',
+      stage,
+      imageSource,
+      style,
+      animated,
+    );
+    console.log('stage >1; animated false');
+    return (
+      <Image
+        source={{
+          uri:
+            Platform.OS === 'android' ? 'file://' + imageSource : imageSource,
+        }}
+        style={style}
+      />
+    );
+  } else {
+    if (animated) {
+      console.log(
+        'QuestionHelper > renderImageWrapper > params: ',
+        stage,
+        imageSource,
+        style,
+        animated,
+      );
+      console.log('stage < 1; animated true');
+      return <Animated.Image style={[style]} source={imageSource} />;
+    }
+    console.log(
+      'QuestionHelper > renderImageWrapper > params: ',
+      stage,
+      imageSource,
+      style,
+      animated,
+    );
+    console.log('stage  < 1; animated true');
+    return <Image source={imageSource} style={style} />;
+  }
+};
+
+export const getTestQuestions = async progress => {
+  /**
+   * get stage question data, for stage 1 and 2: return default; from stage 3: fetch if required
+   * @param: stageID (int)
+   * @return: json object (full stage data)
+   * default: stage_one.json
+   */
+  const {stage, level, test} = progress;
+  console.log('getTestQuestions > progress', stage, level, test, progress);
+  switch (stage) {
+    case 0:
+      console.log('stage ', stage, ' level ', level, ' test ', test);
+      return STAGE_ONE[level][test];
+    case 1:
+      console.log('stage ', stage, ' level ', level, ' test ', test);
+      return STAGE_TWO[level][test];
+  }
+  console.log('stage ', stage, ' level ', level, ' test ', test);
+  // adjust to follow current files on s3.
+  // todo: maybe change file name on s3 to this style: start from 0.
+  stage = stage + 1;
+  // removeJSONFile(3);
+  return checkStageFileExisted(stage).then(isExisted => {
+    if (!isExisted) {
+      return fetchQuestion(stage).then(result => {
+        console.log('getOnlineQuestions > fetchquestion result:', result);
+        if (result) {
+          return readJsonFile(localStagePath + stage + '.json')
+            .then(result => {
+              console.log('fetch> read > result: ', result.levels[level[test]]);
+              // fetch images:
+              const a = setStageImagesAssets(result.assetsRequired);
+              console.log(
+                'getOnlineQuestions > fetch > setImages > result: ',
+                a,
+              );
+              return result.levels[level][test];
+            })
+            .catch(e => console.log(e));
+          // console.log('fetch> read > result: ', stageData.levels[level[test]]);
+          // return stageData.levels[level][test];
+        } else {
+          console.log(
+            'fetch' + stage + ' > result: ',
+            result,
+            ', solution: retun stage_one',
+          );
+          return STAGE_ONE;
+        }
+      });
+    } else {
+      // const stageData = await readJsonFile(localStagePath + stage + '.json');
+      // console.log(stageData.levels[level][test]);
+      // return stageData.levels[level][test];
+      return readJsonFile(localStagePath + stage + '.json')
+        .then(result => {
+          console.log('read from local file: ', result);
+          console.log(level, test, result.levels);
+          // fetch images:
+          const a = setStageImagesAssets(result.assetsRequired);
+          console.log('getTestQuestions > local > setImages > result: ', a);
+          return result.levels[level][test];
+        })
+        .catch(e => console.log(e));
+    }
+  });
+};
+const checkStageFileExisted = async stageID => {
   /**
    * check if the stage json file existed in local memory
    * @param:  stageID (int)
    */
   let myFilePath = localStagePath + stageID + '.json';
-  RNFetchBlob.fs.exists(myFilePath).then(existed => {
-    console.log(existed, 'stage existed, path: ', myFilePath);
+  // console.log(myFilePath, 'my file path');
+  return RNFetchBlob.fs.exists(myFilePath).then(existed => {
+    console.log(myFilePath, ' stage existed ? ', existed);
     return existed;
   });
 };
 
-// export const getOnlineQuestions = async (progress) => {
-//   /**
-//    * get stage question data, for stage 1 and 2: return default; from stage 3: fetch if required
-//    * @param: stageID (int)
-//    * @return: json object (full stage data)
-//    * default: stage_one.json
-//    */
-//   // todo: how to save (dispatch) to redux so that it can be seen for all program
-//   // todo: dispatch whole stage? or whole level? or whole test ?
-//   // return local data for the first two stage:
-//   const {stage, level, test} = progress;
-//   console.log(progress);
-//   if (stage < 2) {
-//     console.error('stage must be bigger than 2');
-//     return [];
-//   }
-//   console.log(stage, level, test, 'progress');
-//   // return removeJSONFile();
-//   //   stage more than 2: fetch if required
-//   checkStageFileExisted(stage).then(isExisted => {
-//     // if not existed: fetch the file
-//     if (!isExisted) {
-//       // fetch stage
-//       fetchQuestion(stage).then(result => {
-//         if (result) {
-//           //todo: parse JSON,return first test array
-//           const stageData = readJsonFile(localStagePath + stage + '.json');
-//           console.log(stageData.levels[level][test], 'stage cloud');
-//           // return stageData.levels[level][test];
-//           // success: read file, convert to json object
-//           // todo: finish this....
-//           // RNFetchBlob.fs.readFile();
-//           // get required asset:
-//           // todo: finish this...
-//           // const stageAssets = ['blue.png'];
-//           // setStageAssets(stageAssets).then(success => {
-//           //   console.log('get asset result: ', success);
-//           // });
-//           //  return object
-//           // for now: return dummy
-//           return STAGE_ONE;
-//         } else {
-//           // fail to fetch data: return default
-//           return STAGE_ONE;
-//         }
-//       });
-//     } else {
-//       //  existed: read and return json object:
-//       // todo: finish this
-//       // dummy data:
-//       return STAGE_ONE;
-//     }
-//   });
-// };
+export const readJsonFile = async filePath => {
+  console.log('readjsonfile > filepath: ', filePath);
+  // filePath = filePath ? filePath : localStagePath + '1.json';
+  // encoding:utf8 | base64 | ascii | uri
+  return RNFetchBlob.fs
+    .readFile(filePath, 'utf8')
+    .then(data => {
+      console.log('read file success: ', filePath);
+      // console.log(data, typeof data);
 
-// export const fetchImage = async imageName => {
-//   /**
-//    * fetch image file from API then save to doctument dir with same name
-//    * @param: imageName
-//    * @note:fetch path (API) is set as const
-//    * default: default.png
-//    */
-//   // set default image file name if imageName not exist
-//   const imageFileName = imageName ? imageName : 'default.png';
-//
-//   // set default stage 1 if stageID not exist
-//   const fetchPath = imageFetchPath + imageFileName;
-//   // check path:
-//   console.log('fech path: ', fetchPath);
-//   await RNFetchBlob.config({
-//     // will save to docDir/images/...
-//     path: localImagePath + imageFileName,
-//     // use wifi only, this flag will only work on API version 21 or above
-//     wifiOnly: true,
-//   })
-//     .fetch('GET', fetchPath)
-//     .then(res => {
-//       console.log('get imgage from s3: ', res);
-//       let status = res.info().status;
-//       console.log(status);
-//       // the temp file path
-//       console.log('The file will save to ', res.path());
-//       //   return the file path being saved.
-//       return res.path();
-//       // make dir to test
-//       // todo: change to your path, note the last /
-//       const myFolderPath =
-//         '/Users/donbosco/rmit_working/sepm/snapie/client/MyFolder/';
-//       RNFetchBlob.fs.exists(myFolderPath).then(existed => {
-//         if (!existed) {
-//           RNFetchBlob.fs.mkdir(myFolderPath);
-//         }
-//       });
-//       // write file
-//       RNFS.writeFile(myFolderPath + filepath[filepath.length - 1], res.data)
-//         .then(() => {
-//           console.log(
-//             'file saved at ' + myFolderPath + filepath[filepath.length - 1],
-//           );
-//         })
-//         .catch((e, code) => console.log(e, code));
-//     })
-//     .catch((e, code) => console.log(e, code));
-// };
-//
-// export const setOfflineImageAssets = () => {};
-//
-// export const setStageAssets = async assetList => {
-//   /**
-//    * get all images asset ready
-//    * fetch image file list from API then save to local asset images files with same name
-//    * @param: assetList : imageName array
-//    * default: default.png
-//    */
-//   let success = false;
-//
-//   // fetch every images....
-//   assetList.forEach((image, index) => {
-//     // check in local memory:
-//     checkImageExisted(image).then(existed => {
-//       if (existed) {
-//         // existed: do nothing
-//         return true;
-//       }
-//       // not existed: fetch to local memory
-//       fetchImage(image).then(result => {
-//         console.log('image fetched, result: ', result);
-//         return result ? true : false;
-//       });
-//     });
-//   });
-//   return success;
-// };
-// const checkImageExisted = imageName => {
-//   /**
-//    * check if the image existed in local memory
-//    * @param:  imageName
-//    */
-//   let imagePath = localImagePath + imageName;
-//   RNFetchBlob.fs.exists(imagePath).then(existed => {
-//     console.log(existed, 'image existed, path: ', imagePath);
-//     return existed;
-//   });
-// };
-
-
-
-
-// // testing:
-// export const testJsonFile = () => {
-//   // removeJSONFile();
-//   saveJsonFile();
-// };
-
-
-export const renderImageWrapper = (stage, imageSource, style, animated) => {
-  if (stage > 1) {
-    if (animated) {
-      return <Animated.Image style={[style]} source={{uri: imageSource}} />;
-    }
-    return <Image source={{uri: imageSource}} style={style} />;
-  } else {
-    if (animated) {
-      return <Animated.Image style={[style]} source={imageSource} />;
-    }
-    return <Image source={imageSource} style={style} />;
-  }
+      let myJsonObject = JSON.parse(data);
+      console.log('json read: ', myJsonObject);
+      return myJsonObject;
+    })
+    .catch(e => {
+      console.log('error: ', e);
+    });
 };

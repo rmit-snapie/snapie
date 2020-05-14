@@ -17,19 +17,11 @@ import {setLocalQuestions, setOnlineQuestions} from './QuestionsContentActions';
 
 export function play(stage: number, level: number, test: number) {
   return function(dispatch) {
-    // dispatch(
-    //   // setLocalQuestions({
-    //   //   stage: stage,
-    //   //   level: level,
-    //   //   test: test,
-    //   // }),
-    //   // TODO change JSOn file name to 2.json
-    //   setOnlineQuestions({
-    //     stage: 3,
-    //     level: level,
-    //     test: test,
-    //   }),
-    // );
+    // // todo: check to remove dispatch here
+    // dispatch({
+    //   type: SET_PROGRESS,
+    //   payload: {stage: stage, level: level, test: test, question: 0},
+    // });
     dispatch({type: PLAY});
   };
 }
@@ -117,5 +109,18 @@ export function levelCompleted() {
 export function stageCompleted() {
   return function(dispatch) {
     dispatch({type: COMPLETED_A_STAGE});
+  };
+}
+export function setProgress(
+  stage: number,
+  level: number,
+  test: number,
+  question: number,
+) {
+  return function(dispatch) {
+    dispatch({
+      type: SET_PROGRESS,
+      payload: {stage: stage, level: level, test: test, question: question},
+    });
   };
 }

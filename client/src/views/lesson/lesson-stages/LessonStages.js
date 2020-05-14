@@ -4,15 +4,17 @@ import {connect} from 'react-redux';
 import styles from './LessonStagesStyle';
 import {ScrollView, View} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
-import {play, replay} from '../../../redux/actions/ProgressActions';
+import {
+  play,
+  replay,
+  setProgress,
+} from '../../../redux/actions/ProgressActions';
 
 import ImageButton from '../../image-button/ImageButton';
 import Progress from './progress/Progress';
-import {
-  setOnlineQuestions,
-  setFirstOnlineQuestion,
-} from '../../../redux/actions/QuestionsContentActions';
+import {setQuestions} from '../../../redux/actions/QuestionsContentActions';
 import {getOnlineQuestions} from '../../../helpers/OnlineQuestionHelper';
+import {getTestQuestions} from '../../../helpers/QuestionHelper';
 
 const LessonStages = ({
   handlePlay,
@@ -21,7 +23,8 @@ const LessonStages = ({
   prepareData,
 }) => {
   const handlePress = (replayStage, replayLevel) => {
-    getOnlineQuestions({stage: 3, level: 0, test: 0}).then(data => {
+    // todo: set back to progress data:
+    getTestQuestions({stage: stage, level: level, test: test}).then(data => {
       console.log(
         'lessonStages > handlepress > getonlinequestion > resutl: ',
         data,
@@ -178,5 +181,10 @@ LessonStages.propTypes = {
 
 export default connect(
   state => ({progress: state.progressReducer}),
-  {handlePlay: play, handleReplay: replay, prepareData: setFirstOnlineQuestion},
+  {
+    handlePlay: play,
+    handleReplay: replay,
+    prepareData: setQuestions,
+    setProgress: setProgress,
+  },
 )(LessonStages);

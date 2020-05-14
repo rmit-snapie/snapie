@@ -7,6 +7,7 @@ import {
   PLAY,
   REPLAY,
   STOP,
+  SET_PROGRESS,
 } from '../types';
 
 const initialState = {
@@ -68,6 +69,16 @@ const progressReducer = (state = initialState, action) => {
       };
     case COMPLETED_A_STAGE:
       return {...state, stage: state.stage + 1, level: 0, test: 0, question: 0};
+    case SET_PROGRESS:
+      ({stage, level, test, question} = action.payload);
+      console.log('progressreducer > setprogress > param: '.action.payload);
+      return {
+        ...state,
+        stage: stage,
+        level: level,
+        test: test,
+        question: question,
+      };
     default:
       return state;
   }

@@ -19,6 +19,7 @@ import {renderImageWrapper} from '../../helpers/QuestionHelper';
 
 const MultipleChoice = ({type, progress, questions}) => {
   // get question data from redux store, base on progress and questions
+  console.log('multiple choice > current params: ', type, progress, question);
   const {stage} = progress;
   let question = !progress.replay.start
     ? questions[progress.question]

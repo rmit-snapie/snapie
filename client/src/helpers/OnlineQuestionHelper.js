@@ -144,3 +144,57 @@ const removeJSONFile = (stageID) => {
     }
   });
 };
+export const getQuestions = async (progress) => {
+  /**
+   * get stage question data, for stage 1 and 2: return default; from stage 3: fetch if required
+   * @param: stageID (int)
+   * @return: json object (full stage data)
+   * default: stage_one.json
+   */
+  const {stage, level, test} = progress;
+  console.log(progress);
+  if (stage < 2) {
+    console.error('stage must be bigger than 2');
+    return [];
+  }
+  console.log('getOnlineQuestions > progress', stage, level, test);
+  // removeJSONFile(3);
+  return checkStageFileExisted(stage).then((isExisted) => {
+    // isExisted = false;
+    if (!isExisted) {
+      return fetchQuestion(stage).then((result) => {
+        console.log('getOnlineQuestions > fetchquestion result:', result);
+        if (result) {
+          //todo: parse JSON,return first test array
+          return readJsonFile(localStagePath + stage + '.json')
+            .then((result) => {
+              console.log('fetch> read > result: ', result.levels[level[test]]);
+              console.log(level, test, result.levels);
+              return result.levels[level][test];
+            })
+            .catch((e) => console.log(e));
+          // console.log('fetch> read > result: ', stageData.levels[level[test]]);
+          // return stageData.levels[level][test];
+        } else {
+          console.log(
+            'fetch' + stage + ' > ',
+            result,
+            ' solution: retun stage_one',
+          );
+          return STAGE_ONE;
+        }
+      });
+    } else {
+      // const stageData = await readJsonFile(localStagePath + stage + '.json');
+      // console.log(stageData.levels[level][test]);
+      // return stageData.levels[level][test];
+      return readJsonFile(localStagePath + stage + '.json')
+        .then((result) => {
+          console.log('read from local file: ', result);
+          console.log(level, test, result.levels);
+          return result.levels[level][test];
+        })
+        .catch((e) => console.log(e));
+    }
+  });
+};

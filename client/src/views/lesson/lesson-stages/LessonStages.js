@@ -5,20 +5,40 @@ import styles from './LessonStagesStyle';
 import {ScrollView, View} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
 import {play, replay} from '../../../redux/actions/ProgressActions';
+
 import ImageButton from '../../image-button/ImageButton';
 import Progress from './progress/Progress';
+import {
+  setOnlineQuestions,
+  setFirstOnlineQuestion,
+} from '../../../redux/actions/QuestionsContentActions';
+import {getOnlineQuestions} from '../../../helpers/OnlineQuestionHelper';
 
 const LessonStages = ({
   handlePlay,
   handleReplay,
   progress: {stage, level, test},
+  prepareData,
 }) => {
   const handlePress = (replayStage, replayLevel) => {
-    if (replayStage <= stage && replayLevel < level) {
-      handleReplay(replayStage, replayLevel);
-    } else {
-      handlePlay(stage, level, test);
-    }
+    getOnlineQuestions({stage: 3, level: 0, test: 0}).then(data => {
+      console.log(
+        'lessonStages > handlepress > getonlinequestion > resutl: ',
+        data,
+      );
+      prepareData(data);
+      if (replayStage <= stage && replayLevel < level) {
+        handleReplay(replayStage, replayLevel);
+      } else {
+        handlePlay(stage, level, test);
+      }
+    });
+
+    // if (replayStage <= stage && replayLevel < level) {
+    //   handleReplay(replayStage, replayLevel);
+    // } else {
+    //   handlePlay(stage, level, test);
+    // }
   };
 
   const isDisabled = (iconStage, iconLevel) => {
@@ -158,5 +178,5 @@ LessonStages.propTypes = {
 
 export default connect(
   state => ({progress: state.progressReducer}),
-  {handlePlay: play, handleReplay: replay},
+  {handlePlay: play, handleReplay: replay, prepareData: setFirstOnlineQuestion},
 )(LessonStages);

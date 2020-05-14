@@ -11,6 +11,7 @@ let questions, stage, level, test;
 const initialState = STAGE_ONE[0][0];
 
 const questionsContentReducer = (state = initialState, action) => {
+  // console.log('questioncontentreducer  > currentStage: ', stage);
   switch (action.type) {
     case INITIALIZE_LOCAL_QUESTIONS:
       ({stage, level, test} = action.payload);
@@ -18,16 +19,21 @@ const questionsContentReducer = (state = initialState, action) => {
       state = questions;
       return state;
     case INITIALIZE_ONLINE_QUESTIONS:
-      ({stage, level, test} = action.payload);
+      // ({stage, level, test} = action.payload);
       // eslint-disable-next-line no-case-declarations
-      getOnlineQuestions(action.payload)
-        .then((result) => {
-          let onlineQuestions = result;
-          console.log(onlineQuestions, 'aaaa');
-          return state = onlineQuestions
-        });
 
-      return state;
+      // getOnlineQuestions(action.payload).then(result => {
+      //   let onlineQuestions = result;
+      //   console.log(
+      //     'questioncontentreducer > getonlinequestion > resutl: ',
+      //     result,
+      //   );
+      //   state = onlineQuestions;
+      //   // return initialState;
+      //   return result;
+      // });
+      return action.payload;
+    // return state;
     default:
       return state;
   }

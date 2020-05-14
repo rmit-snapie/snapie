@@ -17,19 +17,19 @@ import {setLocalQuestions, setOnlineQuestions} from './QuestionsContentActions';
 
 export function play(stage: number, level: number, test: number) {
   return function(dispatch) {
-    dispatch(
-      // setLocalQuestions({
-      //   stage: stage,
-      //   level: level,
-      //   test: test,
-      // }),
-      // TODO change JSOn file name to 2.json
-      setOnlineQuestions({
-        stage: 3,
-        level: level,
-        test: test,
-      }),
-    );
+    // dispatch(
+    //   // setLocalQuestions({
+    //   //   stage: stage,
+    //   //   level: level,
+    //   //   test: test,
+    //   // }),
+    //   // TODO change JSOn file name to 2.json
+    //   setOnlineQuestions({
+    //     stage: 3,
+    //     level: level,
+    //     test: test,
+    //   }),
+    // );
     dispatch({type: PLAY});
   };
 }

@@ -21,11 +21,23 @@ import {replaceTo} from '../../../helpers/NavigateHelper';
 
 const LessonContent = ({questions, progress, navigation}) => {
   // get current question from redux store based on progress and questions
+  console.log('lessonContent > props: questions :', questions);
+  console.log('lessonContent > props: progress :', progress);
+  console.log('lessonContent > props: navigation :', navigation);
   const currentQuestion = !progress.replay.start
     ? questions[progress.question]
     : questions[progress.replay.question];
-
+  console.log('lessonContent > current question :', currentQuestion);
+  console.log(
+    'lessonContent > current question type:',
+    currentQuestion.type,
+    typeof currentQuestion.type,
+    MULTIPLE_CHOICE,
+    typeof MULTIPLE_CHOICE,
+    currentQuestion.type === MULTIPLE_CHOICE,
+  );
   switch (currentQuestion.type) {
+    // switch ('currentQuestion.type') {
     case FILL_THE_BLANK:
       // return <FillTheBlank question={question} />;
       return <FillTheBlank />;

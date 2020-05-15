@@ -26,6 +26,6 @@ export const playSad = () => {
   });
 };
 
-export const stop = () => {
+export const stopAudio = () => {
   return TrackPlayer.stop();
 };

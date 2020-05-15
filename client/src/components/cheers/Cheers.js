@@ -12,6 +12,7 @@ import {
   completeAQuestion,
 } from '../../redux/actions/ProgressActions';
 import {playCheers, playSad} from '../../helpers/AudioHelper';
+import {stopAudio} from '../../helpers/AudioHelper';
 import {
   getNumberOfTests,
   getNumberOfQuestions,
@@ -41,6 +42,7 @@ const Cheers = ({
   }, [sad]);
 
   const handleContinue = () => {
+    stopAudio();
     if (progress.replay.start) {
       if (question === getNumberOfQuestions(stage, level, test)) {
         console.log('Cheers > handleContinue > replay true > stop ');
@@ -123,7 +125,6 @@ const Cheers = ({
       props.completeAQuestion();
     }
     // console.log('Cheers > handleContinue > replay true > nothing ');
-    return stop();
   };
 
   return (

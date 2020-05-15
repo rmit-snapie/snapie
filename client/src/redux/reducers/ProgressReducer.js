@@ -71,7 +71,14 @@ const progressReducer = (state = initialState, action) => {
         play: false,
       };
     case COMPLETED_A_STAGE:
-      return {...state, stage: state.stage + 1, level: 0, test: 0, question: 0};
+      return {
+        ...state,
+        stage: state.stage + 1,
+        level: 0,
+        test: 0,
+        question: 0,
+        play: false,
+      };
     case SET_PROGRESS:
       ({stage, level, test, question} = action.payload);
       console.log('progressreducer > setprogress > param: '.action.payload);

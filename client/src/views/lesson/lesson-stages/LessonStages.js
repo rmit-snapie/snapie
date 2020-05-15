@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {func, object} from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStagesStyle';
 import {ScrollView, View} from 'react-native';
@@ -179,9 +179,10 @@ const LessonStages = ({
 };
 
 LessonStages.propTypes = {
-  handlePlay: PropTypes.func.isRequired,
-  handleReplay: PropTypes.func.isRequired,
-  progress: PropTypes.object.isRequired,
+  handlePlay: func.isRequired,
+  handleReplay: func.isRequired,
+  prepareData: func.isRequired,
+  progress: object.isRequired,
 };
 
 export default connect(

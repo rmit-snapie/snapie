@@ -61,16 +61,21 @@ export function questionCompleted(stage, level, test, question, doneReplay) {
       }
     } else {
       if (question === getNumberOfQuestions(stage, level, test)) {
-        if (test < 2) {
-          dispatch(testCompleted());
+        if (
+          level === getNumberOfLevels(stage) &&
+          test === getNumberOfTests(stage, level)
+        ) {
+          console.log('stage completed', stage, level, test);
+          dispatch(stageCompleted());
           dispatch(
             setLocalQuestions({
-              stage: stage,
-              level: level,
-              test: test + 1,
+              stage: stage + 1,
+              level: 0,
+              test: 0,
             }),
           );
         } else if (test === 2) {
+          console.log('level completed', stage, level, test);
           dispatch(levelCompleted());
           dispatch(
             setLocalQuestions({
@@ -79,13 +84,14 @@ export function questionCompleted(stage, level, test, question, doneReplay) {
               test: 0,
             }),
           );
-        } else if (level === getNumberOfLevels(stage, level)) {
-          dispatch(stageCompleted());
+        } else if (test < 2) {
+          console.log('test completed', stage, level, test);
+          dispatch(testCompleted());
           dispatch(
             setLocalQuestions({
               stage: stage,
-              level: 0,
-              test: 0,
+              level: level,
+              test: test + 1,
             }),
           );
         }
@@ -109,6 +115,7 @@ export function levelCompleted() {
 }
 
 export function stageCompleted() {
+  console.log('called');
   return function(dispatch) {
     dispatch({type: COMPLETED_A_STAGE});
   };

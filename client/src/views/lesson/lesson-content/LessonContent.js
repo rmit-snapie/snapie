@@ -10,6 +10,7 @@ import {
   PRONOUNCE_THE_WORD,
   SPELLING_ORDER,
   HOME_SCREEN,
+  FIND_THE_OBJECT,
 } from '../../../../environments/Routes';
 //question-types
 import FillTheBlank from '../../../question-types/fill-the-blank/FillTheBlank';
@@ -17,6 +18,7 @@ import MultipleChoice from '../../../question-types/multiple-choice/MultipleChoi
 import SpellingOrder from '../../../question-types/spelling-order/SpellingOrder';
 import PairSelection from '../../../question-types/pair-selection/PairSelection';
 import Pronounce from '../../../question-types/pronounce/Pronounce';
+import FindTheObject from '../../../question-types/find-the-object/FindTheObject';
 import {replaceTo} from '../../../helpers/NavigateHelper';
 
 const LessonContent = ({questions, progress, navigation}) => {
@@ -38,6 +40,8 @@ const LessonContent = ({questions, progress, navigation}) => {
       return <SpellingOrder question={question} />;
     case PRONOUNCE_THE_WORD:
       return <Pronounce question={question} />;
+    case FIND_THE_OBJECT:
+      return <FindTheObject question={question} />;
     default:
       return (
         <View style={styles.container}>

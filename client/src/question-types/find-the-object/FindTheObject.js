@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import {object} from 'prop-types';
 import styles from './FindTheObjectStyle';
 import {
   View,
@@ -18,8 +18,10 @@ import Cheers from '../cheers/Cheers';
 class FindTheObject extends Component {
   constructor(props) {
     super(props);
+    const {questionContent, correctAnswer} = props.question;
     this.state = {
-      mockQuestion: 'Find this object',
+      questionContent: questionContent,
+      correctAnswer: correctAnswer,
       imageUri: '',
       base64encoded: '',
       results: [],
@@ -67,20 +69,30 @@ class FindTheObject extends Component {
       });
   };
 
-  openCheers = () => {
-    this.setState({cheers: {display: true, sad: false}});
+  openCheers = (display, sad) => {
+    this.setState({cheers: {display: display, sad: sad}});
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     const {results: oldResults} = prevState;
-    const {results} = this.state;
+    const {results, correctAnswer} = this.state;
     if (results !== oldResults && results.length !== 0) {
-      this.openCheers();
+      console.log(results);
+      if (
+        results.some(
+          result =>
+            result.description.toLowerCase() === correctAnswer.toLowerCase(),
+        )
+      ) {
+        this.openCheers(true, false);
+      } else {
+        this.openCheers(true, true);
+      }
     }
   }
 
   render() {
-    const {mockQuestion, imageUri, loading, analyzing, cheers} = this.state;
+    const {questionContent, imageUri, loading, analyzing, cheers} = this.state;
     const src = imageUri
       ? require('../../shared/assets/CancelButton.png')
       : require('../../shared/assets/TakePictureButton.png');
@@ -93,7 +105,7 @@ class FindTheObject extends Component {
     return (
       <View style={styles.preview}>
         <View style={styles.questionWrapper}>
-          <Text style={styles.questionContent}>{mockQuestion}</Text>
+          <Text style={styles.questionContent}>{questionContent}</Text>
         </View>
         <View style={styles.cameraWrapper}>
           {!this.imageUriIsEmpty() ? (
@@ -148,5 +160,9 @@ class FindTheObject extends Component {
     );
   }
 }
+
+FindTheObject.propTypes = {
+  question: object.isRequired,
+};
 
 export default FindTheObject;

@@ -27,7 +27,7 @@ export const getNumberOfQuestions = (
   if (stage === 0) {
     return STAGE_ONE[level][test].length - 1;
   } else if (stage === 1) {
-    return STAGE_TWO[level][test].length;
+    return STAGE_TWO[level][test].length - 1;
   }
 };
 

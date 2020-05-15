@@ -98,7 +98,7 @@ export default class Pronounce extends React.Component {
       ? voice
       : isRecord
       ? 'Say something...'
-      : 'press Start button';
+      : 'Press Start';
     if (display) {
       return <Cheers cheers={display} sad={sad} />;
     } else {

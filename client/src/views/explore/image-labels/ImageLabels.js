@@ -79,6 +79,12 @@ const ImageLabels = ({results, handleAddVocabulary, vocabularies}) => {
       </View>
     );
   }
+  const saveOrTick = vocab => {
+    if (vocabularyAlreadyAdded(vocab)) {
+      return require('../../../shared/assets/Ticked.gif');
+    }
+    return require('../../../shared/assets/SaveButton.png');
+  };
   return (
     <View style={styles.container}>
       <View style={styles.resultsWrapper}>
@@ -94,7 +100,10 @@ const ImageLabels = ({results, handleAddVocabulary, vocabularies}) => {
                   onPress={() =>
                     addVocabulary(result.description, result.urls[0])
                   }>
-                  <Image style={styles.actionButton} source={SaveButton} />
+                  <Image
+                    style={styles.actionButton}
+                    source={saveOrTick(result.description)}
+                  />
                 </TouchableOpacity>
               </View>
             </View>

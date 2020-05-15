@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {bool, func, object, string} from 'prop-types';
-import {Animated, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 import {questionCompleted} from '../../redux/actions/ProgressActions';
 import {playCheers, playSad, stop} from '../../helpers/AudioHelper';
 
@@ -11,13 +11,13 @@ const Cheers = ({sad, correctAnswer, handleQuestionCompleted, progress}) => {
     ? require('./assets/sad.gif')
     : require('./assets/cheers.gif');
 
-  const onLoad = () => {
-    Animated.timing(opacity, {
-      toValue: 1,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-  };
+  useEffect(() => {
+    if (sad) {
+      playSad();
+    } else {
+      playCheers();
+    }
+  }, [sad]);
 
   const handleContinue = () => {
     if (progress.replay.start) {

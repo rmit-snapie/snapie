@@ -14,14 +14,31 @@ export default StyleSheet.create({
     fontFamily: 'Amiko-Bold',
     marginLeft: 25
   },
+  goHome: {
+    margin: 10,
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
+  },
   listenBtn: {
     width: 60,
     height: 60,
+  },
+  noSelect: {
+    height: 170,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#efc458',
+  },
+  noSelectText: {
+    fontSize: 24,
+    fontFamily: 'Amiko-Bold',
   },
   buttonWrapper1: {
     // justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#efc458',
   },
   scrollView: {
     backgroundColor: 'pink',
@@ -29,8 +46,9 @@ export default StyleSheet.create({
   },
   bigImg: {
     margin: 10,
-    width: 175,
-    height: 175,
+    marginLeft: 25,
+    width: 150,
+    height: 150,
     borderWidth: 3,
     borderRadius: 16,
     borderColor: '#afafaf',
@@ -60,8 +78,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 250,
-    backgroundColor: 'rgba(0,0,0, 0.4)',
+    width: 300,
+    backgroundColor: "#efc458",
     borderRadius: 16,
     padding: 4,
 

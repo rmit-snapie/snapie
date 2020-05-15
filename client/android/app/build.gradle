@@ -129,6 +129,8 @@ android {
     }
 
     defaultConfig {
+        multiDexEnabled true
+        missingDimensionStrategy 'react-native-camera', 'general'
         applicationId "com.client"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

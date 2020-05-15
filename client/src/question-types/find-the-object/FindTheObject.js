@@ -1,0 +1,152 @@
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import styles from './FindTheObjectStyle';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
+import {RNCamera} from 'react-native-camera';
+import axios from 'axios';
+import {LABELS_API} from '../../views/explore/constants';
+import Loading from '../../shared/components/Loading';
+import Cheers from '../cheers/Cheers';
+
+class FindTheObject extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mockQuestion: 'Find this object',
+      imageUri: '',
+      base64encoded: '',
+      results: [],
+      loading: false,
+      analyzing: false,
+      cheers: {display: false, sad: false},
+    };
+  }
+
+  imageUriIsEmpty = () => {
+    return this.state.imageUri === '';
+  };
+
+  takePicture = async () => {
+    if (!this.imageUriIsEmpty()) {
+      this.recapture();
+    } else {
+      this.setState({loading: true});
+      if (this.camera) {
+        const options = {quality: 0.5, base64: true};
+        const data = await this.camera.takePictureAsync(options);
+        this.setState({imageUri: data.uri, base64encoded: data.base64});
+      }
+      this.setState({loading: false});
+    }
+  };
+
+  recapture = () => {
+    this.setState({imageUri: '', loading: false, analyzed: false});
+  };
+
+  analyze = async () => {
+    this.setState({analyzing: true});
+    axios
+      .post(LABELS_API, {
+        image: this.state.base64encoded,
+        maxResults: 5,
+      })
+      .then(response => {
+        console.log(response.data);
+        this.setState({results: [...response.data]});
+      })
+      .then(() => {
+        this.setState({analyzing: false});
+      });
+  };
+
+  openCheers = () => {
+    this.setState({cheers: {display: true, sad: false}});
+  };
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {results: oldResults} = prevState;
+    const {results} = this.state;
+    if (results !== oldResults && results.length !== 0) {
+      this.openCheers();
+    }
+  }
+
+  render() {
+    const {mockQuestion, imageUri, loading, analyzing, cheers} = this.state;
+    const src = imageUri
+      ? require('../../shared/assets/CancelButton.png')
+      : require('../../shared/assets/TakePictureButton.png');
+    if (analyzing) {
+      return <Loading />;
+    }
+    if (cheers.display) {
+      return <Cheers cheers={cheers.display} sad={cheers.sad} />;
+    }
+    return (
+      <View style={styles.preview}>
+        <View style={styles.questionWrapper}>
+          <Text style={styles.questionContent}>{mockQuestion}</Text>
+        </View>
+        <View style={styles.cameraWrapper}>
+          {!this.imageUriIsEmpty() ? (
+            <ImageBackground source={{uri: imageUri}} style={styles.camera} />
+          ) : (
+            <RNCamera
+              ref={ref => (this.camera = ref)}
+              style={styles.camera}
+              type={RNCamera.Constants.Type.back}
+              flashMode={RNCamera.Constants.FlashMode.auto}
+              androidCameraPermissionOptions={{
+                title: 'Permission to use camera',
+                message: 'Snapie would like to access your camera',
+                buttonPositive: 'Confirm',
+                buttonNegative: 'Cancel',
+              }}
+              androidRecordAudioPermissionOptions={{
+                title: 'Permission to use audio recording',
+                message: 'Snapie would like to access your microphone',
+                buttonPositive: 'Confirm',
+                buttonNegative: 'Cancel',
+              }}
+            />
+          )}
+        </View>
+        <View style={styles.captureWrapper}>
+          {loading && this.imageUriIsEmpty() ? (
+            <ActivityIndicator
+              style={styles.loading}
+              animating={loading}
+              size="large"
+            />
+          ) : (
+            <TouchableOpacity onPress={this.takePicture.bind(this)}>
+              <Image style={styles.capture} source={src} />
+            </TouchableOpacity>
+          )}
+        </View>
+        <View style={styles.analyzeWrapper}>
+          <TouchableOpacity
+            onPress={this.analyze.bind(this)}
+            style={
+              this.imageUriIsEmpty()
+                ? [styles.checkButton, styles.disabledCheck]
+                : [styles.checkButton, styles.checkAnswer]
+            }
+            disabled={this.imageUriIsEmpty()}>
+            <Text style={styles.check}>Check</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
+
+export default FindTheObject;

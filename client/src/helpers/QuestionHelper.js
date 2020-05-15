@@ -32,18 +32,23 @@ export const getNumberOfQuestions = (
     return STAGE_TWO[level][test].length - 1;
   } else {
     // console.log('getNumberOfQuestions > stage: ', stage, ' error, fix here');
+    // console.log('QuestionHeler > getNumberOfQuestions > metadata: ', metaData);
+    console.log('QuestionHeler > getNumberOfQuestions > questionAmount : ');
     if (level === 0) {
-      console.log(metaData, 'ioioi');
-      return metaData.data.levelOneTestQuestionsCount[test];
+      console.log(metaData.data.levelOneTestQuestionsCount[test]);
+      return metaData.data.levelOneTestQuestionsCount[test] - 1;
     } else if (level === 1) {
-      return metaData.data.levelTwoTestQuestionsCount[test];
+      console.log(metaData.data.levelTwoTestQuestionsCount[test]);
+      return metaData.data.levelTwoTestQuestionsCount[test] - 1;
     } else if (level === 2) {
-      return metaData.data.levelThreeTestQuestionsCount[test];
+      console.log(metaData.data.levelThreeTestQuestionsCount[test]);
+      return metaData.data.levelThreeTestQuestionsCount[test] - 1;
     }
   }
 };
 
 export const getNumberOfTests = (stage: number, level: number) => {
+  console.log('QuestionHeler > getNumberOfTests > metadata: ', metaData);
   if (stage === 0) {
     return STAGE_ONE[level].length - 1;
   } else if (stage === 1) {
@@ -54,6 +59,7 @@ export const getNumberOfTests = (stage: number, level: number) => {
 };
 
 export const getNumberOfLevels = (stage: number) => {
+  console.log('QuestionHeler > getNumberOfLevels > metadata: ', metaData);
   if (stage === 0) {
     return STAGE_ONE.length - 1;
   } else if (stage === 1) {
@@ -206,14 +212,14 @@ export const renderImageWrapper = (stage, imageSource, style, animated) => {
   if (stage > 1) {
     imageSource = localImagePath + imageSource;
     if (animated) {
-      console.log(
-        'QuestionHelper > renderImageWrapper > params: ',
-        stage,
-        imageSource,
-        style,
-        animated,
-      );
-      console.log('stage >1; animated true');
+      // console.log(
+      //   'QuestionHelper > renderImageWrapper > params: ',
+      //   stage,
+      //   imageSource,
+      //   style,
+      //   animated,
+      // );
+      // console.log('stage >1; animated true');
       return (
         <Animated.Image
           style={[style]}
@@ -224,14 +230,14 @@ export const renderImageWrapper = (stage, imageSource, style, animated) => {
         />
       );
     }
-    console.log(
-      'QuestionHelper > renderImageWrapper > params: ',
-      stage,
-      imageSource,
-      style,
-      animated,
-    );
-    console.log('stage >1; animated false');
+    // console.log(
+    //   'QuestionHelper > renderImageWrapper > params: ',
+    //   stage,
+    //   imageSource,
+    //   style,
+    //   animated,
+    // );
+    // console.log('stage >1; animated false');
     return (
       <Image
         source={{
@@ -243,24 +249,24 @@ export const renderImageWrapper = (stage, imageSource, style, animated) => {
     );
   } else {
     if (animated) {
-      console.log(
-        'QuestionHelper > renderImageWrapper > params: ',
-        stage,
-        imageSource,
-        style,
-        animated,
-      );
-      console.log('stage < 1; animated true');
+      // console.log(
+      //   'QuestionHelper > renderImageWrapper > params: ',
+      //   stage,
+      //   imageSource,
+      //   style,
+      //   animated,
+      // );
+      // console.log('stage < 1; animated true');
       return <Animated.Image style={[style]} source={imageSource} />;
     }
-    console.log(
-      'QuestionHelper > renderImageWrapper > params: ',
-      stage,
-      imageSource,
-      style,
-      animated,
-    );
-    console.log('stage  < 1; animated true');
+    // console.log(
+    //   'QuestionHelper > renderImageWrapper > params: ',
+    //   stage,
+    //   imageSource,
+    //   style,
+    //   animated,
+    // );
+    // console.log('stage  < 1; animated true');
     return <Image source={imageSource} style={style} />;
   }
 };
@@ -301,14 +307,14 @@ const fetchQuestion = async stageID => {
     .fetch('GET', fetchPath)
     .then(res => {
       console.log('response data from s3: ', res.info().status);
-      let status = res.info().status;
-      console.log(status);
-      console.log(res.data());
+      // let status = res.info().status;
+      // console.log(status);
+      // console.log(res.data);
       // the temp file path
       console.log('The file will save to ', res.path());
       //   return the file path being saved.
 
-      return res.path();
+      return res.info().status;
     })
     .catch((e, code) => {
       console.log(e, code);
@@ -323,7 +329,7 @@ export const getTestQuestions = async progress => {
    * default: stage_one.json
    */
   const {stage, level, test} = progress;
-  console.log('getTestQuestions > progress', stage, level, test, progress);
+  // console.log('getTestQuestions > progress', stage, level, test, progress);
 
   // readJsonFile()
   switch (stage) {
@@ -348,10 +354,7 @@ export const getTestQuestions = async progress => {
               console.log('fetch> read > result: ', result.levels[level][test]);
               // fetch images:
               const a = setStageImagesAssets(result.assetsRequired);
-              console.log(
-                'getOnlineQuestions > fetch > setImages > result: ',
-                a,
-              );
+              console.log('getOnlineQuestions > fetch > setImages ... ');
               return result.levels[level][test];
             })
             .catch(e => console.log(e));

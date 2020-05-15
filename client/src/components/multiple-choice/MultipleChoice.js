@@ -17,13 +17,14 @@ import {
 } from '../../../environments/Routes';
 import {renderImageWrapper} from '../../helpers/QuestionHelper';
 
-const MultipleChoice = ({type, progress, questions}) => {
+const MultipleChoice = ({type, progress, questions, ...props}) => {
   // get question data from redux store, base on progress and questions
-  console.log('multiple choice > current params: ', type, progress, question);
+  // console.log('multiple choice > current params: ', type, progress, questions);
   const {stage} = progress;
-  let question = !progress.replay.start
-    ? questions[progress.question]
-    : questions[progress.replay.question];
+  // let question = !progress.replay.start
+  //   ? questions[progress.question]
+  //   : questions[progress.replay.question];
+  let question = props.currentQuestion;
   console.log('multiple choice > current question: ', question);
   // console.log('multiple choice > current question type: ', type);
   if (question == undefined) {
@@ -176,8 +177,9 @@ MultipleChoice.propTypes = {
 // export default MultipleChoice;
 export default connect(
   state => ({
-    questions: state.questionsContentReducer,
+    questions: state.questionsContentReducer.testQuestions,
     progress: state.progressReducer,
+    currentQuestion: state.questionsContentReducer.currentQuestion,
   }),
   null,
 )(MultipleChoice);

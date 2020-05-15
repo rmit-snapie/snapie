@@ -13,11 +13,12 @@ import Cheers from '../cheers/Cheers';
 import {createBlanks, renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
-const FillTheBlank = ({progress, questions}) => {
+const FillTheBlank = ({progress, questions, ...props}) => {
   // get question data from redux store, base on progress and questions
-  let question = !progress.replay.start
-    ? questions[progress.question]
-    : questions[progress.replay.question];
+  // let question = !progress.replay.start
+  //   ? questions[progress.question]
+  //   : questions[progress.replay.question];
+  let question = props.currentQuestion;
   console.log('FillTheBlank > current question: ', question);
   const {stage} = progress;
   if (question == undefined) {
@@ -127,8 +128,9 @@ FillTheBlank.propTypes = {
 
 export default connect(
   state => ({
-    questions: state.questionsContentReducer,
+    questions: state.questionsContentReducer.testQuestions,
     progress: state.progressReducer,
+    currentQuestion: state.questionsContentReducer.currentQuestion,
   }),
   null,
 )(FillTheBlank);

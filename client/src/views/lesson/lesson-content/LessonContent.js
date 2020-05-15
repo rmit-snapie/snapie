@@ -19,21 +19,23 @@ import PairSelection from '../../../components/pair-selection/PairSelection';
 import Pronounce from '../../../components/pronounce/Pronounce';
 import {replaceTo} from '../../../helpers/NavigateHelper';
 
-const LessonContent = ({questions, progress, navigation}) => {
+const LessonContent = ({questions, progress, navigation, ...props}) => {
   // get current question from redux store based on progress and questions
-  console.log('lessonContent > props: questions :', questions);
   console.log('lessonContent > props: progress :', progress);
-  console.log('lessonContent > props: navigation :', navigation);
-  let currentQuestion = null;
-  if (progress.question < questions.length) {
-    currentQuestion = !progress.replay.start
-      ? questions[progress.question]
-      : questions[progress.replay.question];
-  } else {
-    currentQuestion = questions[0];
-  }
+  console.log('lessonContent > props: questions :', questions);
 
-  console.log('lessonContent > current question :', currentQuestion);
+  // console.log('lessonContent > props: navigation :', navigation);
+  // let currentQuestion = null;
+  // if (progress.question < questions.length) {
+  //   currentQuestion = !progress.replay.start
+  //     ? questions[progress.question]
+  //     : questions[progress.replay.question];
+  // } else {
+  //   currentQuestion = questions[0];
+  // }
+
+  console.log('lessonContent > current question :', props.currentQuestion);
+  // console.log('lessonContent > allProps: ', props);
   // console.log(
   //   'lessonContent > current question type:',
   //   currentQuestion.type,
@@ -42,7 +44,7 @@ const LessonContent = ({questions, progress, navigation}) => {
   //   typeof MULTIPLE_CHOICE,
   //   currentQuestion.type === MULTIPLE_CHOICE,
   // );
-  let type = currentQuestion ? currentQuestion.type : 'unknown';
+  let type = props.currentQuestion ? props.currentQuestion.type : 'unknown';
   switch (type) {
     // switch ('currentQuestion.type') {
     case FILL_THE_BLANK:
@@ -96,9 +98,11 @@ LessonContent.propTypes = {
 
 export default connect(
   state => ({
-    questions: state.questionsContentReducer,
+    // allStage: state,
+    questions: state.questionsContentReducer.testQuestions,
     progress: state.progressReducer,
     navigation: state.navigationReducer,
+    currentQuestion: state.questionsContentReducer.currentQuestion,
   }),
   null,
 )(LessonContent);

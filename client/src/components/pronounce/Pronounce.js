@@ -38,10 +38,10 @@ class Pronounce extends React.Component {
   componentDidUpdate() {
     const {voice} = this.state;
     // get question data from redux store, base on progress and questions
-    let question = !this.props.progress.replay.start
-      ? this.props.questions[this.props.progress.question]
-      : this.props.questions[this.props.progress.replay.question];
-
+    // let question = !this.props.progress.replay.start
+    //   ? this.props.questions[this.props.progress.question]
+    //   : this.props.questions[this.props.progress.replay.question];
+    let question = this.props.currentQuestion;
     // const {correctAnswer} = this.props.question;
     const {correctAnswer} = question;
     if (voice) {
@@ -93,9 +93,10 @@ class Pronounce extends React.Component {
 
   render() {
     // get question data from redux store, base on progress and questions
-    let question = !this.props.progress.replay.start
-      ? this.props.questions[this.props.progress.question]
-      : this.props.questions[this.props.progress.replay.question];
+    // let question = !this.props.progress.replay.start
+    //   ? this.props.questions[this.props.progress.question]
+    //   : this.props.questions[this.props.progress.replay.question];
+    let question = this.props.currentQuestion;
     console.log('Pronounce > current question: ', question);
     const {stage} = this.props.progress;
     if (question == undefined) {
@@ -150,8 +151,9 @@ Pronounce.propTypes = {
 // export default Pronounce;
 export default connect(
   state => ({
-    questions: state.questionsContentReducer,
+    questions: state.questionsContentReducer.testQuestions,
     progress: state.progressReducer,
+    currentQuestion: state.questionsContentReducer.currentQuestion,
   }),
   null,
 )(Pronounce);

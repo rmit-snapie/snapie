@@ -12,7 +12,10 @@ import {
 
 import ImageButton from '../../image-button/ImageButton';
 import Progress from './progress/Progress';
-import {setQuestions} from '../../../redux/actions/QuestionsContentActions';
+import {
+  setQuestions,
+  setCurrentQuestion,
+} from '../../../redux/actions/QuestionsContentActions';
 import {getOnlineQuestions} from '../../../helpers/OnlineQuestionHelper';
 import {
   getTestQuestions,
@@ -23,8 +26,10 @@ const LessonStages = ({
   handlePlay,
   handleReplay,
   progress: {stage, level, test},
-  prepareData,
+  ...props
 }) => {
+  // console.log(props);
+  console.log('LessonStages > props: progress ', {stage, level, test});
   const handlePress = (replayStage, replayLevel) => {
     if (replayStage <= stage && replayLevel < level) {
       const lastTest = getNumberOfTests(replayStage, replayLevel);
@@ -34,18 +39,27 @@ const LessonStages = ({
         test: lastTest,
       }).then(data => {
         console.log('lessonStages > handlepress > replay  > resutl: ', data);
-        prepareData(data);
+        // dispatch current question
+        // console.log('set next question: ', data[0]);
+        props.setCurrentQuestion(data[0]);
+        props.prepareData(data);
+        handleReplay(replayStage, replayLevel);
       });
-      handleReplay(replayStage, replayLevel);
+
+      // handleReplay(replayStage, replayLevel);
     } else {
       getTestQuestions({stage: stage, level: level, test: test}).then(data => {
         console.log(
           'lessonStages > handlepress > getTestQuestions > resutl: ',
           data,
         );
-        prepareData(data);
+        // dispatch current question
+        // console.log('set next question: ', data[0]);
+        props.setCurrentQuestion(data[0]);
+        props.prepareData(data);
+        handlePlay(stage, level, test);
       });
-      handlePlay(stage, level, test);
+      // handlePlay(stage, level, test);
     }
   };
 
@@ -190,11 +204,15 @@ LessonStages.propTypes = {
 };
 
 export default connect(
-  state => ({progress: state.progressReducer}),
+  state => ({
+    progress: state.progressReducer,
+    questions: state.questionsContentReducer.testQuestions,
+  }),
   {
     handlePlay: play,
     handleReplay: replay,
     prepareData: setQuestions,
     setProgress: setProgress,
+    setCurrentQuestion: setCurrentQuestion,
   },
 )(LessonStages);

@@ -11,9 +11,11 @@ class PairSelection extends Component {
   constructor(props) {
     super(props);
     // get question data from redux store, base on progress and questions
-    let question = !props.progress.replay.start
-      ? props.questions[props.progress.question]
-      : props.questions[props.progress.replay.question];
+    // let question = !props.progress.replay.start
+    //   ? props.questions[props.progress.question]
+    //   : props.questions[props.progress.replay.question];
+
+    let question = props.currentQuestion;
     console.log('PairSelection > current question: ', question);
     if (question == undefined) {
       return (
@@ -225,8 +227,9 @@ PairSelection.propTypes = {
 // export default PairSelection;
 export default connect(
   state => ({
-    questions: state.questionsContentReducer,
+    questions: state.questionsContentReducer.testQuestions,
     progress: state.progressReducer,
+    currentQuestion: state.questionsContentReducer.currentQuestion,
   }),
   null,
 )(PairSelection);

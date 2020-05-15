@@ -1,4 +1,8 @@
-import {INITIALIZE_LOCAL_QUESTIONS, INITIALIZE_QUESTIONS} from '../types';
+import {
+  INITIALIZE_LOCAL_QUESTIONS,
+  INITIALIZE_QUESTIONS,
+  SET_CURRENT_QUESTION,
+} from '../types';
 export function setLocalQuestions(currentProgress) {
   return function(dispatch) {
     dispatch({
@@ -17,3 +21,11 @@ export function setQuestions(data) {
   };
 }
 
+export function setCurrentQuestion(data) {
+  return function(dispatch) {
+    dispatch({
+      type: SET_CURRENT_QUESTION,
+      payload: data,
+    });
+  };
+}

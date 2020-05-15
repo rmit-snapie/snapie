@@ -12,7 +12,7 @@ import {
 
 const initialState = {
   play: false,
-  stage: 1,
+  stage: 0,
   level: 0,
   test: 0,
   question: 0,
@@ -54,7 +54,7 @@ const progressReducer = (state = initialState, action) => {
       // console.log(
       //   'progressReducer: completed a question > increase question to: ',
       // );
-      return {...state, question: state.question + 1};
+      return {...state, question: action.payload};
     case COMPLETED_A_REPLAY_QUESTION:
       return {
         ...state,

@@ -12,11 +12,12 @@ import Cheers from '../cheers/Cheers';
 import {createBlanks, renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
-const SpellingOrder = ({questions, progress}) => {
+const SpellingOrder = ({questions, progress, ...props}) => {
   // get question data from redux store, base on progress and questions
-  let question = !progress.replay.start
-    ? questions[progress.question]
-    : questions[progress.replay.question];
+  // let question = !progress.replay.start
+  //   ? questions[progress.question]
+  //   : questions[progress.replay.question];
+  let question = props.currentQuestion;
   const {stage} = progress;
   console.log('SpellingOrder > current question: ', question);
   if (question == undefined) {
@@ -153,8 +154,9 @@ SpellingOrder.propTypes = {
 // export default SpellingOrder;
 export default connect(
   state => ({
-    questions: state.questionsContentReducer,
+    questions: state.questionsContentReducer.testQuestions,
     progress: state.progressReducer,
+    currentQuestion: state.questionsContentReducer.currentQuestion,
   }),
   null,
 )(SpellingOrder);

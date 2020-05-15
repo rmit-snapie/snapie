@@ -54,9 +54,9 @@ export function completeRelayQuestion() {
     dispatch({type: COMPLETED_A_REPLAY_QUESTION});
   };
 }
-export function completeAQuestion() {
+export function completeAQuestion(nextQuestion) {
   return function(dispatch) {
-    dispatch({type: COMPLETED_A_QUESTION});
+    dispatch({type: COMPLETED_A_QUESTION, payload: nextQuestion});
   };
 }
 export function questionCompleted(stage, level, test, question, doneReplay) {

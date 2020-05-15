@@ -14,6 +14,7 @@ const persistConfig = {
     'progressReducer',
     'questionsContentReducer',
     'vocabulariesReducer',
+    'progressCounterReducer',
   ],
 };
 

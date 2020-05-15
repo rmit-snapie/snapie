@@ -14,6 +14,12 @@ import {
   getNumberOfTests,
 } from '../../helpers/QuestionHelper';
 import {setLocalQuestions} from './QuestionsContentActions';
+import {
+  incrementLevelCounter,
+  incrementQuestionCounter,
+  incrementStageCounter,
+  incrementTestCounter,
+} from './ProgressCounterActions';
 
 export function play(stage: number, level: number, test: number) {
   return function(dispatch) {
@@ -60,6 +66,7 @@ export function questionCompleted(stage, level, test, question, doneReplay) {
         dispatch({type: COMPLETED_A_REPLAY_QUESTION});
       }
     } else {
+      dispatch(incrementQuestionCounter());
       if (question === getNumberOfQuestions(stage, level, test)) {
         if (
           level === getNumberOfLevels(stage) &&
@@ -67,6 +74,9 @@ export function questionCompleted(stage, level, test, question, doneReplay) {
         ) {
           console.log('stage completed', stage, level, test);
           dispatch(stageCompleted());
+          dispatch(incrementTestCounter());
+          dispatch(incrementLevelCounter());
+          dispatch(incrementStageCounter());
           dispatch(
             setLocalQuestions({
               stage: stage + 1,
@@ -77,6 +87,8 @@ export function questionCompleted(stage, level, test, question, doneReplay) {
         } else if (test === 2) {
           console.log('level completed', stage, level, test);
           dispatch(levelCompleted());
+          dispatch(incrementTestCounter());
+          dispatch(incrementLevelCounter());
           dispatch(
             setLocalQuestions({
               stage: stage,
@@ -87,6 +99,7 @@ export function questionCompleted(stage, level, test, question, doneReplay) {
         } else if (test < 2) {
           console.log('test completed', stage, level, test);
           dispatch(testCompleted());
+          dispatch(incrementTestCounter());
           dispatch(
             setLocalQuestions({
               stage: stage,
@@ -115,7 +128,6 @@ export function levelCompleted() {
 }
 
 export function stageCompleted() {
-  console.log('called');
   return function(dispatch) {
     dispatch({type: COMPLETED_A_STAGE});
   };

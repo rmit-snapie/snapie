@@ -61,7 +61,6 @@ class FindTheObject extends Component {
         maxResults: 5,
       })
       .then(response => {
-        console.log(response.data);
         this.setState({results: [...response.data]});
       })
       .then(() => {
@@ -77,7 +76,6 @@ class FindTheObject extends Component {
     const {results: oldResults} = prevState;
     const {results, correctAnswer} = this.state;
     if (results !== oldResults && results.length !== 0) {
-      console.log(results);
       if (
         results.some(
           result =>

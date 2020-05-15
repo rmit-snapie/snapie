@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {object} from 'prop-types';
-import {connect} from 'react-redux';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './ProfileStyle';
 import Badges from './badges/Badges';
 import Progress from './progress/Progress';
+import {goToFirstScreenInStack} from '../../helpers/NavigateHelper';
 
 const tabs = {PROGRESS: 'PROGRESS', BADGES: 'BADGES'};
 
-const Profile = ({progress: {stage, level, test}}) => {
+const Profile = ({navigation}) => {
   const [tab, setTab] = useState(tabs.PROGRESS);
 
   const renderTab = () => {
@@ -22,12 +22,18 @@ const Profile = ({progress: {stage, level, test}}) => {
     <View style={styles.container}>
       <View style={styles.profileHeader}>
         <View style={styles.profileActionsWrapper}>
-          {/*<TouchableOpacity>*/}
-
-          {/*</TouchableOpacity>*/}
-          {/*<TouchableOpacity>*/}
-
-          {/*</TouchableOpacity>*/}
+          <TouchableOpacity onPress={() => goToFirstScreenInStack(navigation)}>
+            <Image
+              style={styles.profileAction}
+              source={require('../../shared/assets/BackToHomeIconSecondary.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image
+              style={styles.profileAction}
+              source={require('../../shared/assets/SettingsIcon.png')}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.profileInfoWrapper}>
           <Image
@@ -61,10 +67,7 @@ const Profile = ({progress: {stage, level, test}}) => {
 };
 
 Profile.propTypes = {
-  progress: object.isRequired,
+  navigation: object.isRequired,
 };
 
-export default connect(
-  state => ({progress: state.progressReducer}),
-  null,
-)(Profile);
+export default Profile;

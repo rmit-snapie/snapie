@@ -10,6 +10,8 @@
     <string>Snapie would like to access your photo library</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>Snapie would like to access your microphone</string>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>Snapie would like to use speech recognition</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

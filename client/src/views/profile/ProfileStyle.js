@@ -15,9 +15,19 @@ export default StyleSheet.create({
   profileActionsWrapper: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 25,
+    paddingLeft: 25,
+    paddingRight: 25,
+  },
+  profileAction: {
+    height: 40,
+    width: 40,
+    resizeMode: 'contain',
   },
   profileInfoWrapper: {
     flex: 2,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -27,8 +37,8 @@ export default StyleSheet.create({
     fontSize: 18,
   },
   avatar: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     resizeMode: 'contain',
   },
   tabsWrapper: {

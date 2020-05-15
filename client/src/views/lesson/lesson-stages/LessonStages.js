@@ -80,32 +80,13 @@ const LessonStages = ({
           </View>
         </View>
         <View
-          pointerEvents={stage < 2 ? 'none' : 'auto'}
+          pointerEvents={stage >= 1 ? 'auto' : 'none'}
           style={
-            stage < 2
-              ? [styles.stageWrapper, styles.lockedStage]
-              : styles.stageWrapper
+            stage >= 1
+              ? styles.stageWrapper
+              : [styles.stageWrapper, styles.lockedStage]
           }>
-          {stage < 2 ? (
-            <View style={styles.stageLevels}>
-              {LEVELS_ICONS.stageTwoG.map((icon, index) => (
-                <View style={styles.iconWrapper} key={index}>
-                  <ImageButton
-                    key={index}
-                    handlePress={() => handlePress(stage, index)}
-                    source={icon}
-                    disabled={isDisabled(1, index)}
-                  />
-                  <Progress
-                    testDone={test}
-                    maxTests={3}
-                    levelLocked={isDisabled(1, index)}
-                    levelDone={index < level}
-                  />
-                </View>
-              ))}
-            </View>
-          ) : (
+          {stage >= 1 ? (
             <View style={styles.stageLevels}>
               {LEVELS_ICONS.stageTwoC.map((icon, index) => (
                 <View style={styles.iconWrapper} key={index}>
@@ -120,6 +101,27 @@ const LessonStages = ({
                     maxTests={3}
                     levelLocked={isDisabled(1, index)}
                     levelDone={index < level}
+                    stageDone={stage > 1}
+                  />
+                </View>
+              ))}
+            </View>
+          ) : (
+            <View style={styles.stageLevels}>
+              {LEVELS_ICONS.stageTwoG.map((icon, index) => (
+                <View style={styles.iconWrapper} key={index}>
+                  <ImageButton
+                    key={index}
+                    handlePress={() => handlePress(stage, index)}
+                    source={icon}
+                    disabled={isDisabled(1, index)}
+                  />
+                  <Progress
+                    testDone={test}
+                    maxTests={3}
+                    levelLocked={isDisabled(1, index)}
+                    levelDone={index < level}
+                    stageDone={stage > 1}
                   />
                 </View>
               ))}
@@ -127,32 +129,13 @@ const LessonStages = ({
           )}
         </View>
         <View
-          pointerEvents={stage < 3 ? 'none' : 'auto'}
+          pointerEvents={stage >= 2 ? 'auto' : 'none'}
           style={
-            stage < 3
-              ? [styles.stageWrapper, styles.lockedStage]
-              : styles.stageWrapper
+            stage >= 2
+              ? stage.stageWrapper
+              : [styles.stageWrapper, styles.lockedStage]
           }>
-          {stage < 3 ? (
-            <View style={styles.stageLevels}>
-              {LEVELS_ICONS.stageThreeG.map((icon, index) => (
-                <View style={styles.iconWrapper} key={index}>
-                  <ImageButton
-                    key={index}
-                    handlePress={() => handlePress(stage, index)}
-                    source={icon}
-                    disabled={isDisabled(2, index)}
-                  />
-                  <Progress
-                    testDone={test}
-                    maxTests={3}
-                    levelLocked={isDisabled(2, index)}
-                    levelDone={index < level}
-                  />
-                </View>
-              ))}
-            </View>
-          ) : (
+          {stage >= 2 ? (
             <View style={styles.stageLevels}>
               {LEVELS_ICONS.stageThreeC.map((icon, index) => (
                 <View style={styles.iconWrapper} key={index}>
@@ -167,6 +150,27 @@ const LessonStages = ({
                     maxTests={3}
                     levelLocked={isDisabled(2, index)}
                     levelDone={index < level}
+                    stageDone={stage > 2}
+                  />
+                </View>
+              ))}
+            </View>
+          ) : (
+            <View style={styles.stageLevels}>
+              {LEVELS_ICONS.stageThreeG.map((icon, index) => (
+                <View style={styles.iconWrapper} key={index}>
+                  <ImageButton
+                    key={index}
+                    handlePress={() => handlePress(stage, index)}
+                    source={icon}
+                    disabled={isDisabled(2, index)}
+                  />
+                  <Progress
+                    testDone={test}
+                    maxTests={3}
+                    levelLocked={isDisabled(2, index)}
+                    levelDone={index < level}
+                    stageDone={stage > 2}
                   />
                 </View>
               ))}

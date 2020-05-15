@@ -21,9 +21,8 @@ const questionsContentReducer = (state = initialState, action) => {
       state = questions;
       return state;
     case INITIALIZE_QUESTIONS:
-      stage = action.payload;
-      return stage;
-
+      state = action.payload;
+      return state;
     default:
       return state;
   }

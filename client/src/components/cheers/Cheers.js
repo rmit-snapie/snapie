@@ -55,76 +55,68 @@ const Cheers = ({
       }
     } else {
       // if last question of last test of last level: next stage
-      if (
-        question === getNumberOfQuestions(stage, level, test) &&
-        test === getNumberOfTests(stage, level) &&
-        level === getNumberOfLevels(stage)
-      ) {
+      if (question === getNumberOfQuestions(stage, level, test)) {
         // next stage:
-
-        getTestQuestions({
-          stage: stage + 1,
-          level: 0,
-          test: 0,
-        }).then(data => {
-          console.log(
-            'Cheers > handleContinue > stagecomplete> resutl: ',
-            data,
-          );
-          props.prepareData(data);
-        });
-        props.stageCompleted();
-        console.log('Cheers > handleContinue > replay true > stageCompleted ');
-        return;
+        if (
+          test === getNumberOfTests(stage, level) &&
+          level === getNumberOfLevels(stage)
+        ) {
+          props.stageCompleted();
+          getTestQuestions({
+            stage: stage + 1,
+            level: 0,
+            test: 0,
+          }).then(data => {
+            console.log(
+              'Cheers > handleContinue > stagecomplete> resutl: ',
+              data,
+            );
+            console.log(
+              'Cheers > handleContinue > replay true > stageCompleted ',
+            );
+            return props.prepareData(data);
+          });
+        } else if (test === 2) {
+          // next level:
+          props.levelCompleted();
+          getTestQuestions({
+            stage: stage,
+            level: level + 1,
+            test: 0,
+          }).then(data => {
+            console.log(
+              'Cheers > handleContinue > getnextLevel > resut: ',
+              data,
+            );
+            console.log(
+              'Cheers > handleContinue > replay true > levelCompleted ',
+            );
+            return props.prepareData(data);
+          });
+        } else if (test < 2) {
+          // next test:
+          props.testCompleted();
+          getTestQuestions({
+            stage: stage,
+            level: level,
+            test: test + 1,
+          }).then(data => {
+            console.log(
+              'Cheers > handleContinue > getnextTest > resutl: ',
+              data,
+            );
+            console.log(
+              'Cheers > handleContinue > replay true > testCompleted ',
+            );
+            return props.prepareData(data);
+          });
+        }
+      } else {
+        // else: next question...
+        console.log('Cheers > handleContinue > replay true > next question ');
+        return props.completeAQuestion();
       }
-
-      // if last question of last test: next level
-      if (
-        question === getNumberOfQuestions(stage, level, test) &&
-        test === getNumberOfTests(stage, level) &&
-        level < getNumberOfLevels(stage)
-      ) {
-        // next level:
-        props.levelCompleted();
-        getTestQuestions({
-          stage: stage,
-          level: level + 1,
-          test: 0,
-        }).then(data => {
-          console.log(
-            'Cheers > handleContinue > getnextLevel > resutl: ',
-            data,
-          );
-          props.prepareData(data);
-        });
-        console.log('Cheers > handleContinue > replay true > levelCompleted ');
-        return;
-      }
-      // if last question of test: next test
-      if (
-        question === getNumberOfQuestions(stage, level, test) &&
-        test < getNumberOfTests(stage, level) &&
-        level < getNumberOfLevels(stage)
-      ) {
-        // next test:
-        props.testCompleted();
-        getTestQuestions({
-          stage: stage,
-          level: level,
-          test: test + 1,
-        }).then(data => {
-          console.log('Cheers > handleContinue > getnextTest > resutl: ', data);
-          props.prepareData(data);
-        });
-        console.log('Cheers > handleContinue > replay true > testCompleted ');
-        return;
-      }
-
-      // else: next question...
-      console.log('Cheers > handleContinue > replay true > next question ');
-      props.completeAQuestion();
     }
-    // console.log('Cheers > handleContinue > replay true > nothing ');
   };
 
   return (

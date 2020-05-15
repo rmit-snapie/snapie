@@ -1,13 +1,12 @@
 import {SAVE_NAVIGATION} from '../types';
 
-const initialState = {
-  navigation: null,
-};
+const initialState = {};
 
 const navigationReducer = (state = initialState, action) => {
   switch (action.type) {
     case SAVE_NAVIGATION:
-      return {...state, navigation: action.payload};
+      state = action.payload;
+      return state;
     default:
       return state;
   }

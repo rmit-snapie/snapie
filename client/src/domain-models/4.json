@@ -1,4 +1,11 @@
 {
+  "metaData": {
+    "stateId": 2,
+    "levelsCount": 5,
+    "levelOneTestQuestionsCount": [3,4,5],
+    "levelTwoTestQuestionsCount": [3,4,3],
+    "levelThreeTestQuestionsCount": [3,4,5]
+  },
   "assetsRequired": [
     "red.png",
     "blue.png",

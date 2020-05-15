@@ -1,9 +1,8 @@
-const ColorRed = require('../stage-1//assets/red.png');
-const ColorYellow = require('../stage-1//assets/yellow.png');
-const ColorGreen = require('../stage-1//assets/green.png');
-const ColorBlue = require('../stage-1//assets/blue.png');
-const ColorOrange = require('../stage-1//assets/orange.png');
-
+const ColorRed = require('../stage-1/assets/red.png');
+const ColorYellow = require('../stage-1/assets/yellow.png');
+const ColorGreen = require('../stage-1/assets/green.png');
+const ColorBlue = require('../stage-1/assets/blue.png');
+const ColorOrange = require('../stage-1/assets/orange.png');
 import {
   FILL_THE_BLANK,
   MULTIPLE_CHOICE,
@@ -16,7 +15,6 @@ import {
 export const STAGE_TWO = [
   //first level
   [
-    //   test 1
     [
       {
         id: 'q1',
@@ -33,66 +31,12 @@ export const STAGE_TWO = [
         imageAsset: ColorRed,
         correctAnswerCount: 1,
       },
-      {
-        id: 'q2',
-        stage: 'stage-2',
-        level: 'level-1',
-        test: 'test-1',
-        createdAt: '02-05-2020',
-        updatedAt: '02-05-2020',
-        type: MULTIPLE_CHOICE_IMAGES,
-        questionContent: 'Choose SPRING',
-        answers: [
-          {
-            name: 'winter',
-            asset: ColorRed,
-          },
-          {
-            name: 'fall',
-            asset: ColorGreen,
-          },
-          {
-            name: 'spring',
-            asset: ColorYellow,
-          },
-          {
-            name: 'summer',
-            asset: ColorOrange,
-          },
-        ],
-        correctAnswer: 'spring',
-        imageAsset: null,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q3',
-        stage: 'stage-2',
-        level: 'level-1',
-        test: 'test-1',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['winter', 'spring'],
-        imagesAsset: [
-          {
-            name: 'winter',
-            asset: ColorYellow,
-          },
-          {
-            name: 'spring',
-            asset: ColorRed,
-          },
-        ],
-        correctAnswerCount: 1,
-      },
     ],
-    //   test 2
     [
       {
         id: 'q1',
         stage: 'stage-2',
-        level: 'level-2',
+        level: 'level-1',
         test: 'test-2',
         createdAt: '02-05-2020',
         updatedAt: '02-05-2020',
@@ -104,62 +48,7 @@ export const STAGE_TWO = [
         imageAsset: ColorGreen,
         correctAnswerCount: 1,
       },
-      {
-        id: 'q2',
-        stage: 'stage-2',
-        level: 'level-2',
-        test: 'test-2',
-        createdAt: '08-04-2020',
-        updatedAt: '08-04-2020',
-        type: FILL_THE_BLANK,
-        questionContent: 'It is',
-        possibleAnswersCount: 4,
-        answers: ['winter', 'fall', 'summer', 'spring'],
-        correctAnswer: 'fall',
-        imageAsset: ColorYellow,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q4',
-        stage: 'stage-2',
-        level: 'level-2',
-        test: 'test-2',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['spring', 'winter', 'fall'],
-        imagesAsset: [
-          {
-            name: 'spring',
-            asset: ColorYellow,
-          },
-          {
-            name: 'winter',
-            asset: ColorRed,
-          },
-          {
-            name: 'fall',
-            asset: ColorGreen,
-          },
-        ],
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q3',
-        stage: 'stage-2',
-        level: 'level-2',
-        test: 'test-2',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PRONOUNCE_THE_WORD,
-        questionContent: 'Listen and repeat',
-        imageAsset: ColorBlue,
-        correctAnswer: 'fall',
-        correctAnswerCount: 1,
-      },
     ],
-    //   test 3
     [
       {
         id: 'q1',
@@ -192,102 +81,15 @@ export const STAGE_TWO = [
         imageAsset: null,
         correctAnswerCount: 1,
       },
-      {
-        id: 'q4',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: SPELLING_ORDER,
-        questionContent: 'Spell the word',
-        possibleAnswersCount: 4,
-        answers: ['m', 'm', 'u', 'e', 'r', 's'],
-        correctAnswer: 'summer',
-        imageAsset: ColorBlue,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q5',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['spring', 'summer', 'winter'],
-        imagesAsset: [
-          {
-            name: 'spring',
-            asset: ColorOrange,
-          },
-          {
-            name: 'summer',
-            asset: ColorRed,
-          },
-          {
-            name: 'winter',
-            asset: ColorGreen,
-          },
-        ],
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q1',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-2',
-        createdAt: '02-05-2020',
-        updatedAt: '02-05-2020',
-        type: MULTIPLE_CHOICE,
-        questionContent: 'What season is it ?',
-        possibleAnswersCount: 4,
-        answers: ['fall', 'summer', 'winter', 'spring'],
-        correctAnswer: 'summer',
-        imageAsset: ColorGreen,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q5',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['spring', 'summer', 'fall', 'winter'],
-        imagesAsset: [
-          {
-            name: 'spring',
-            asset: ColorOrange,
-          },
-          {
-            name: 'summer',
-            asset: ColorRed,
-          },
-          {
-            name: 'fall',
-            asset: ColorBlue,
-          },
-          {
-            name: 'winter',
-            asset: ColorGreen,
-          },
-        ],
-        correctAnswerCount: 1,
-      },
     ],
   ],
 
   //second level
   [
-    //   test 1
     [
       {
         id: 'q1',
-        stage: 'stage-1',
+        stage: 'stage-2',
         level: 'level-2',
         test: 'test-1',
         createdAt: '02-05-2020',
@@ -300,65 +102,11 @@ export const STAGE_TWO = [
         imageAsset: ColorRed,
         correctAnswerCount: 1,
       },
-      {
-        id: 'q2',
-        stage: 'stage-1',
-        level: 'level-2',
-        test: 'test-1',
-        createdAt: '02-05-2020',
-        updatedAt: '02-05-2020',
-        type: MULTIPLE_CHOICE_IMAGES,
-        questionContent: 'Choose ERASER',
-        answers: [
-          {
-            name: 'eraser',
-            asset: ColorRed,
-          },
-          {
-            name: 'pen',
-            asset: ColorGreen,
-          },
-          {
-            name: 'bag',
-            asset: ColorYellow,
-          },
-          {
-            name: 'pencil',
-            asset: ColorOrange,
-          },
-        ],
-        correctAnswer: 'eraser',
-        imageAsset: null,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q3',
-        stage: 'stage-1',
-        level: 'level-2',
-        test: 'test-1',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['pencil', 'eraser'],
-        imagesAsset: [
-          {
-            name: 'pencil',
-            asset: ColorYellow,
-          },
-          {
-            name: 'eraser',
-            asset: ColorRed,
-          },
-        ],
-        correctAnswerCount: 1,
-      },
     ],
-    //   test 2
     [
       {
         id: 'q1',
-        stage: 'stage-1',
+        stage: 'stage-2',
         level: 'level-2',
         test: 'test-2',
         createdAt: '02-05-2020',
@@ -387,72 +135,11 @@ export const STAGE_TWO = [
         imageAsset: null,
         correctAnswerCount: 1,
       },
-      {
-        id: 'q2',
-        stage: 'stage-1',
-        level: 'level-2',
-        test: 'test-2',
-        createdAt: '02-05-2020',
-        updatedAt: '02-05-2020',
-        type: MULTIPLE_CHOICE,
-        questionContent: 'What is it ?',
-        possibleAnswersCount: 4,
-        answers: ['pencil', 'eraser', 'pen', 'bag'],
-        correctAnswer: 'bag',
-        imageAsset: ColorGreen,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q3',
-        stage: 'stage-1',
-        level: 'level-2',
-        test: 'test-2',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: SPELLING_ORDER,
-        questionContent: 'Spell the word',
-        possibleAnswersCount: 4,
-        answers: ['n', 'p', 'e', 'c', 'l', 'i'],
-        correctAnswer: 'pencil',
-        imageAsset: ColorBlue,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q4',
-        stage: 'stage-1',
-        level: 'level-2',
-        test: 'test-2',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['eraser', 'pen', 'bag', 'pencil'],
-        imagesAsset: [
-          {
-            name: 'eraser',
-            asset: ColorYellow,
-          },
-          {
-            name: 'pen',
-            asset: ColorRed,
-          },
-          {
-            name: 'bag',
-            asset: ColorGreen,
-          },
-          {
-            name: 'pencil',
-            asset: ColorBlue,
-          },
-        ],
-        correctAnswerCount: 1,
-      },
     ],
-    //   test 3
     [
       {
         id: 'q1',
-        stage: 'stage-1',
+        stage: 'stage-2',
         level: 'level-2',
         test: 'test-3',
         createdAt: '02-05-2020',
@@ -465,89 +152,15 @@ export const STAGE_TWO = [
         imageAsset: ColorGreen,
         correctAnswerCount: 1,
       },
-      {
-        id: 'q4',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: SPELLING_ORDER,
-        questionContent: 'Spell the word',
-        possibleAnswersCount: 4,
-        answers: ['u', 'r', 'l', 'e', 'r'],
-        correctAnswer: 'ruler',
-        imageAsset: ColorBlue,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q2',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '08-04-2020',
-        updatedAt: '08-04-2020',
-        type: FILL_THE_BLANK,
-        questionContent: 'It is a',
-        possibleAnswersCount: 4,
-        answers: ['ruler', 'bag', 'pen', 'pencil'],
-        correctAnswer: 'ruler',
-        imageAsset: ColorYellow,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q3',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PRONOUNCE_THE_WORD,
-        questionContent: 'Listen and repeat',
-        imageAsset: ColorBlue,
-        correctAnswer: 'pen',
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q5',
-        stage: 'stage-1',
-        level: 'level-2',
-        test: 'test-3',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['pen', 'bag', 'ruler', 'eraser'],
-        imagesAsset: [
-          {
-            name: 'pen',
-            asset: ColorOrange,
-          },
-          {
-            name: 'bag',
-            asset: ColorRed,
-          },
-          {
-            name: 'ruler',
-            asset: ColorGreen,
-          },
-          {
-            name: 'eraser',
-            asset: ColorBlue,
-          },
-        ],
-        correctAnswerCount: 1,
-      },
     ],
   ],
 
   //third level
   [
-    //   test 1
     [
       {
         id: 'q1',
-        stage: 'stage-1',
+        stage: 'stage-2',
         level: 'level-3',
         test: 'test-1',
         createdAt: '02-05-2020',
@@ -576,49 +189,11 @@ export const STAGE_TWO = [
         imageAsset: null,
         correctAnswerCount: 1,
       },
-      {
-        id: 'q2',
-        stage: 'stage-1',
-        level: 'level-3',
-        test: 'test-1',
-        createdAt: '02-05-2020',
-        updatedAt: '02-05-2020',
-        type: MULTIPLE_CHOICE,
-        questionContent: 'What animal is it ?',
-        possibleAnswersCount: 4,
-        answers: ['dog', 'cat', 'bird', 'fish'],
-        correctAnswer: 'cat',
-        imageAsset: ColorRed,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q3',
-        stage: 'stage-1',
-        level: 'level-2',
-        test: 'test-1',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['dog', 'cat'],
-        imagesAsset: [
-          {
-            name: 'dog',
-            asset: ColorYellow,
-          },
-          {
-            name: 'cat',
-            asset: ColorRed,
-          },
-        ],
-        correctAnswerCount: 1,
-      },
     ],
-    //   test 2
     [
       {
         id: 'q1',
-        stage: 'stage-1',
+        stage: 'stage-2',
         level: 'level-2',
         test: 'test-2',
         createdAt: '02-05-2020',
@@ -631,86 +206,11 @@ export const STAGE_TWO = [
         imageAsset: ColorGreen,
         correctAnswerCount: 1,
       },
-      {
-        id: 'q2',
-        stage: 'stage-1',
-        level: 'level-2',
-        test: 'test-2',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PRONOUNCE_THE_WORD,
-        questionContent: 'Listen and repeat',
-        imageAsset: ColorBlue,
-        correctAnswer: 'cat',
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q3',
-        stage: 'stage-1',
-        level: 'level-2',
-        test: 'test-2',
-        createdAt: '02-05-2020',
-        updatedAt: '02-05-2020',
-        type: MULTIPLE_CHOICE_IMAGES,
-        questionContent: 'Choose FISH',
-        answers: [
-          {
-            name: 'dog',
-            asset: ColorRed,
-          },
-          {
-            name: 'cat',
-            asset: ColorGreen,
-          },
-          {
-            name: 'bird',
-            asset: ColorYellow,
-          },
-          {
-            name: 'fish',
-            asset: ColorOrange,
-          },
-        ],
-        correctAnswer: 'fish',
-        imageAsset: null,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q4',
-        stage: 'stage-1',
-        level: 'level-2',
-        test: 'test-2',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['bird', 'cat', 'fish', 'dog'],
-        imagesAsset: [
-          {
-            name: 'bird',
-            asset: ColorYellow,
-          },
-          {
-            name: 'cat',
-            asset: ColorRed,
-          },
-          {
-            name: 'fish',
-            asset: ColorGreen,
-          },
-          {
-            name: 'dog',
-            asset: ColorBlue,
-          },
-        ],
-        correctAnswerCount: 1,
-      },
     ],
-    //   test 3
     [
       {
         id: 'q1',
-        stage: 'stage-1',
+        stage: 'stage-2',
         level: 'level-2',
         test: 'test-3',
         createdAt: '02-05-2020',
@@ -739,85 +239,11 @@ export const STAGE_TWO = [
         imageAsset: null,
         correctAnswerCount: 1,
       },
-      {
-        id: 'q2',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '08-04-2020',
-        updatedAt: '08-04-2020',
-        type: FILL_THE_BLANK,
-        questionContent: 'It is a ',
-        possibleAnswersCount: 4,
-        answers: ['cat', 'pig', 'dog', 'fish'],
-        correctAnswer: 'fish',
-        imageAsset: ColorYellow,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q3',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PRONOUNCE_THE_WORD,
-        questionContent: 'Listen and repeat',
-        imageAsset: ColorBlue,
-        correctAnswer: 'rabbit',
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q4',
-        stage: 'stage-1',
-        level: 'level-2',
-        test: 'test-2',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: SPELLING_ORDER,
-        questionContent: 'Spell the word',
-        possibleAnswersCount: 4,
-        answers: ['r', 'd', 'i', 'b'],
-        correctAnswer: 'bird',
-        imageAsset: ColorBlue,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q5',
-        stage: 'stage-1',
-        level: 'level-2',
-        test: 'test-3',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['rabbit', 'fish', 'bird', 'dog'],
-        imagesAsset: [
-          {
-            name: 'rabbit',
-            asset: ColorOrange,
-          },
-          {
-            name: 'fish',
-            asset: ColorRed,
-          },
-          {
-            name: 'bird',
-            asset: ColorGreen,
-          },
-          {
-            name: 'dog',
-            asset: ColorBlue,
-          },
-        ],
-        correctAnswerCount: 1,
-      },
     ],
   ],
 
   //Fourth Level
   [
-    //   test 1
     [
       {
         id: 'q1',
@@ -834,65 +260,11 @@ export const STAGE_TWO = [
         imageAsset: ColorRed,
         correctAnswerCount: 1,
       },
-      {
-        id: 'q2',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-1',
-        createdAt: '02-05-2020',
-        updatedAt: '02-05-2020',
-        type: MULTIPLE_CHOICE_IMAGES,
-        questionContent: 'Choose BROWN',
-        answers: [
-          {
-            name: 'purple',
-            asset: ColorRed,
-          },
-          {
-            name: 'brown',
-            asset: ColorGreen,
-          },
-          {
-            name: 'black',
-            asset: ColorYellow,
-          },
-          {
-            name: 'white',
-            asset: ColorOrange,
-          },
-        ],
-        correctAnswer: 'brown',
-        imageAsset: null,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q3',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-1',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['purple', 'brown'],
-        imagesAsset: [
-          {
-            name: 'purple',
-            asset: ColorYellow,
-          },
-          {
-            name: 'brown',
-            asset: ColorRed,
-          },
-        ],
-        correctAnswerCount: 1,
-      },
     ],
-    //   test 2
     [
       {
         id: 'q1',
-        stage: 'stage-1',
+        stage: 'stage-2',
         level: 'level-1',
         test: 'test-2',
         createdAt: '02-05-2020',
@@ -905,88 +277,11 @@ export const STAGE_TWO = [
         imageAsset: ColorGreen,
         correctAnswerCount: 1,
       },
-      {
-        id: 'q2',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '08-04-2020',
-        updatedAt: '08-04-2020',
-        type: FILL_THE_BLANK,
-        questionContent: 'The color is',
-        possibleAnswersCount: 4,
-        answers: ['brown', 'black', 'purple', 'blue'],
-        correctAnswer: 'brown',
-        imageAsset: ColorYellow,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q1',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '02-05-2020',
-        updatedAt: '02-05-2020',
-        type: MULTIPLE_CHOICE_IMAGES,
-        questionContent: 'Choose WHITE',
-        answers: [
-          {
-            name: 'purple',
-            asset: ColorRed,
-          },
-          {
-            name: 'brown',
-            asset: ColorGreen,
-          },
-          {
-            name: 'black',
-            asset: ColorBlue,
-          },
-          {
-            name: 'white',
-            asset: ColorOrange,
-          },
-        ],
-        correctAnswer: 'white',
-        imageAsset: null,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q4',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-2',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['purple', 'brown', 'black', 'white'],
-        imagesAsset: [
-          {
-            name: 'purple',
-            asset: ColorYellow,
-          },
-          {
-            name: 'brown',
-            asset: ColorRed,
-          },
-          {
-            name: 'black',
-            asset: ColorGreen,
-          },
-          {
-            name: 'white',
-            asset: ColorGreen,
-          },
-        ],
-        correctAnswerCount: 1,
-      },
     ],
-    //   test 3
     [
       {
         id: 'q1',
-        stage: 'stage-1',
+        stage: 'stage-2',
         level: 'level-1',
         test: 'test-3',
         createdAt: '02-05-2020',
@@ -1013,81 +308,6 @@ export const STAGE_TWO = [
         ],
         correctAnswer: 'pink',
         imageAsset: null,
-        correctAnswerCount: 1,
-      },
-
-      {
-        id: 'q2',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '08-04-2020',
-        updatedAt: '08-04-2020',
-        type: FILL_THE_BLANK,
-        questionContent: 'The color is',
-        possibleAnswersCount: 4,
-        answers: ['white', 'orange', 'black', 'brown'],
-        correctAnswer: 'white',
-        imageAsset: ColorYellow,
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q3',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PRONOUNCE_THE_WORD,
-        questionContent: 'Listen and repeat',
-        imageAsset: ColorBlue,
-        correctAnswer: 'pink',
-        correctAnswerCount: 1,
-      },
-      {
-        id: 'q4',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: SPELLING_ORDER,
-        questionContent: 'Spell the word',
-        possibleAnswersCount: 4,
-        answers: ['n', 'k', 'i', 'p'],
-        correctAnswer: 'pink',
-        imageAsset: ColorBlue,
-        correctAnswerCount: 1,
-      },
-
-      {
-        id: 'q5',
-        stage: 'stage-1',
-        level: 'level-1',
-        test: 'test-3',
-        createdAt: '14-04-2020',
-        updatedAt: '14-04-2020',
-        type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
-        answers: ['pink', 'white', 'purple', 'black'],
-        imagesAsset: [
-          {
-            name: 'pink',
-            asset: ColorOrange,
-          },
-          {
-            name: 'white',
-            asset: ColorRed,
-          },
-          {
-            name: 'purple',
-            asset: ColorBlue,
-          },
-          {
-            name: 'black',
-            asset: ColorGreen,
-          },
-        ],
         correctAnswerCount: 1,
       },
     ],

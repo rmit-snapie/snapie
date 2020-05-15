@@ -31,8 +31,15 @@ export const getNumberOfQuestions = (
   } else if (stage === 1) {
     return STAGE_TWO[level][test].length - 1;
   } else {
-    console.log('getNumberOfQuestions > stage: ', stage, ' error, fix here');
-    return 0;
+    // console.log('getNumberOfQuestions > stage: ', stage, ' error, fix here');
+    if (level === 0) {
+      console.log(metaData, 'ioioi');
+      return metaData.data.levelOneTestQuestionsCount[test];
+    } else if (level === 1) {
+      return metaData.data.levelTwoTestQuestionsCount[test];
+    } else if (level === 2) {
+      return metaData.data.levelThreeTestQuestionsCount[test];
+    }
   }
 };
 
@@ -42,8 +49,7 @@ export const getNumberOfTests = (stage: number, level: number) => {
   } else if (stage === 1) {
     return STAGE_TWO[level].length - 1;
   } else {
-    console.log('getNumberOfTests > stage: ', stage, ' error, fix here');
-    return 0;
+    return 2;
   }
 };
 
@@ -53,8 +59,7 @@ export const getNumberOfLevels = (stage: number) => {
   } else if (stage === 1) {
     return STAGE_TWO.length - 1;
   } else {
-    console.log('getNumberOfLevels > stage: ', stage, ' error, fix here');
-    return 0;
+    return metaData.data.levelsCount;
   }
 };
 
@@ -259,6 +264,56 @@ export const renderImageWrapper = (stage, imageSource, style, animated) => {
     return <Image source={imageSource} style={style} />;
   }
 };
+const removeJSONFile = stageID => {
+  let path = localStagePath + stageID + '.json';
+  RNFetchBlob.fs.exists(path).then(existed => {
+    if (existed) {
+      RNFetchBlob.fs
+        .unlink(path)
+        .then(() => {
+          console.log('removed');
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      console.log('not exist');
+    }
+  });
+};
+
+const fetchQuestion = async stageID => {
+  /**
+   * fetch json file from API then save to doctument dir as JSON file
+   * @param: stageID (int)
+   * @return: json file, saved in documentDir/stages/stageID.json
+   * default: 1.json
+   */
+
+  // set default stage file name if stageID not exist
+  const stageFileName = stageID ? stageID + '.json' : '1.json';
+  let fetchPath = stageFetchPath + stageFileName;
+  // check path:
+  return RNFetchBlob.config({
+    path: localStagePath + stageFileName,
+    wifiOnly: true,
+  })
+    .fetch('GET', fetchPath)
+    .then(res => {
+      console.log('response data from s3: ', res.info().status);
+      let status = res.info().status;
+      console.log(status);
+      console.log(res.data());
+      // the temp file path
+      console.log('The file will save to ', res.path());
+      //   return the file path being saved.
+
+      return res.path();
+    })
+    .catch((e, code) => {
+      console.log(e, code);
+    });
+};
 
 export const getTestQuestions = async progress => {
   /**
@@ -269,6 +324,8 @@ export const getTestQuestions = async progress => {
    */
   const {stage, level, test} = progress;
   console.log('getTestQuestions > progress', stage, level, test, progress);
+
+  // readJsonFile()
   switch (stage) {
     case 0:
       console.log('stage ', stage, ' level ', level, ' test ', test);
@@ -280,16 +337,15 @@ export const getTestQuestions = async progress => {
   console.log('stage ', stage, ' level ', level, ' test ', test);
   // adjust to follow current files on s3.
   // todo: maybe change file name on s3 to this style: start from 0.
-  stage = stage + 1;
-  // removeJSONFile(3);
-  return checkStageFileExisted(stage).then(isExisted => {
+
+  return checkStageFileExisted(stage + 1).then(isExisted => {
     if (!isExisted) {
-      return fetchQuestion(stage).then(result => {
+      return fetchQuestion(stage + 1).then(result => {
         console.log('getOnlineQuestions > fetchquestion result:', result);
         if (result) {
-          return readJsonFile(localStagePath + stage + '.json')
+          return readJsonFile(localStagePath + (stage + 1) + '.json')
             .then(result => {
-              console.log('fetch> read > result: ', result.levels[level[test]]);
+              console.log('fetch> read > result: ', result.levels[level][test]);
               // fetch images:
               const a = setStageImagesAssets(result.assetsRequired);
               console.log(
@@ -314,7 +370,8 @@ export const getTestQuestions = async progress => {
       // const stageData = await readJsonFile(localStagePath + stage + '.json');
       // console.log(stageData.levels[level][test]);
       // return stageData.levels[level][test];
-      return readJsonFile(localStagePath + stage + '.json')
+
+      return readJsonFile(localStagePath + (stage + 1) + '.json')
         .then(result => {
           console.log('read from local file: ', result);
           console.log(level, test, result.levels);
@@ -340,6 +397,7 @@ const checkStageFileExisted = async stageID => {
   });
 };
 
+export const metaData = {};
 export const readJsonFile = async filePath => {
   console.log('readjsonfile > filepath: ', filePath);
   // filePath = filePath ? filePath : localStagePath + '1.json';
@@ -351,6 +409,13 @@ export const readJsonFile = async filePath => {
       // console.log(data, typeof data);
 
       let myJsonObject = JSON.parse(data);
+      try {
+        metaData.data = myJsonObject.metaData;
+        console.log(myJsonObject, 'data from json cliud');
+        console.log(metaData, 'metadata from local');
+      } catch (e) {
+        console.log(e);
+      }
       console.log('json read: ', myJsonObject);
       return myJsonObject;
     })
@@ -358,3 +423,9 @@ export const readJsonFile = async filePath => {
       console.log('error: ', e);
     });
 };
+// removeJSONFile(3);
+// removeJSONFile(2);
+// removeJSONFile(4);
+// readJsonFile(localStagePath + '3.json').then(() => {
+//   removeJSONFile(3);
+// });

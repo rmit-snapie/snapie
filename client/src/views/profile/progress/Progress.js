@@ -118,7 +118,6 @@ class Progress extends Component {
               <Text style={styles.absoluteText}>
                 {words}
                 {'\n'}word(s)
-                {'\n'}learned
               </Text>
             </Animated.View>
           </View>

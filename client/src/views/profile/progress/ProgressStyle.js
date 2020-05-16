@@ -22,8 +22,8 @@ export default StyleSheet.create({
   },
   absoluteText: {
     position: 'absolute',
-    fontWeight: '700',
-    fontFamily: 'Amiko-Bold',
+    fontWeight: '500',
+    fontFamily: 'Quicksand-Light',
     color: '#ffffff',
     fontSize: 18,
     textAlign: 'center',

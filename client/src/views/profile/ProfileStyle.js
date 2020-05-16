@@ -32,7 +32,6 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   name: {
-    fontFamily: 'Amiko-Bold',
     fontWeight: '700',
     fontSize: 18,
   },

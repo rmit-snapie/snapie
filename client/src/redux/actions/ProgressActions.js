@@ -8,22 +8,10 @@ import {
   REPLAY,
   STOP,
 } from '../types';
-import {
-  getNumberOfLevels,
-  getNumberOfQuestions,
-  getNumberOfTests,
-} from '../../helpers/QuestionHelper';
-import {setLocalQuestions} from './QuestionsContentActions';
+import {getNumberOfTests} from '../../helpers/QuestionHelper';
 
-export function play(stage: number, level: number, test: number) {
+export function play() {
   return function(dispatch) {
-    dispatch(
-      setLocalQuestions({
-        stage: stage,
-        level: level,
-        test: test,
-      }),
-    );
     dispatch({type: PLAY});
   };
 }
@@ -31,13 +19,6 @@ export function play(stage: number, level: number, test: number) {
 export function replay(stage: number, level: number) {
   const lastTest = getNumberOfTests(stage, level);
   return function(dispatch) {
-    dispatch(
-      setLocalQuestions({
-        stage: stage,
-        level: level,
-        test: lastTest,
-      }),
-    );
     dispatch({
       type: REPLAY,
       payload: {stage: stage, level: level, test: lastTest},
@@ -50,49 +31,14 @@ export function stop() {
     dispatch({type: STOP});
   };
 }
-
-export function questionCompleted(stage, level, test, question, doneReplay) {
+export function replayQuestionCompleted() {
   return function(dispatch) {
-    if (doneReplay) {
-      if (question === getNumberOfQuestions(stage, level, test)) {
-        dispatch(stop());
-      } else {
-        dispatch({type: COMPLETED_A_REPLAY_QUESTION});
-      }
-    } else {
-      if (question === getNumberOfQuestions(stage, level, test)) {
-        if (test < 2) {
-          dispatch(testCompleted());
-          dispatch(
-            setLocalQuestions({
-              stage: stage,
-              level: level,
-              test: test + 1,
-            }),
-          );
-        } else if (test === 2) {
-          dispatch(levelCompleted());
-          dispatch(
-            setLocalQuestions({
-              stage: stage,
-              level: level + 1,
-              test: 0,
-            }),
-          );
-        } else if (level === getNumberOfLevels(stage, level)) {
-          dispatch(stageCompleted());
-          dispatch(
-            setLocalQuestions({
-              stage: stage,
-              level: 0,
-              test: 0,
-            }),
-          );
-        }
-      } else {
-        dispatch({type: COMPLETED_A_QUESTION});
-      }
-    }
+    dispatch({type: COMPLETED_A_REPLAY_QUESTION});
+  };
+}
+export function questionCompleted(nextQuestion) {
+  return function(dispatch) {
+    dispatch({type: COMPLETED_A_QUESTION, payload: nextQuestion});
   };
 }
 

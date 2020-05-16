@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {object} from 'prop-types';
 import {
-  Image,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -9,11 +9,12 @@ import {
 } from 'react-native';
 import styles from './SpellingOrderStyle';
 import Cheers from '../cheers/Cheers';
-import {createBlanks} from '../../helpers/QuestionHelper';
+import {createBlanks, renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
-const SpellingOrder = ({question}) => {
-  const {questionContent, answers, correctAnswer, imageAsset} = question;
+const SpellingOrder = ({currentQuestion, progress}) => {
+  const {stage} = progress.replay.play ? progress.replay : progress;
+  const {questionContent, answers, correctAnswer, imageAsset} = currentQuestion;
   const initialBlanks = createBlanks(correctAnswer);
   const [word, setWord] = useState([]);
   const [blanks, setBlanks] = useState([]);
@@ -24,7 +25,7 @@ const SpellingOrder = ({question}) => {
 
   useEffect(() => {
     readText(questionContent);
-  }, [question, questionContent]);
+  }, [currentQuestion, questionContent]);
 
   useEffect(() => {
     if (word.length === 0 && blanks.length === 0) {
@@ -64,6 +65,14 @@ const SpellingOrder = ({question}) => {
     }
   };
 
+  if (currentQuestion === undefined) {
+    return (
+      <View style={styles.container}>
+        <Text>ERROR SPELLING ORDER COULD NOT LOAD</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       {cheers.display && (
@@ -77,11 +86,7 @@ const SpellingOrder = ({question}) => {
         <>
           <View style={styles.mediaWrapper}>
             <TouchableWithoutFeedback onPress={() => readText(questionContent)}>
-              <Image
-                style={styles.image}
-                onPress={() => readText(correctAnswer)}
-                source={imageAsset}
-              />
+              {renderImageWrapper(stage, imageAsset, styles.image)}
             </TouchableWithoutFeedback>
           </View>
           <View style={styles.questionWrapper}>
@@ -132,7 +137,14 @@ const SpellingOrder = ({question}) => {
 };
 
 SpellingOrder.propTypes = {
-  question: PropTypes.object.isRequired,
+  currentQuestion: object.isRequired,
+  progress: object.isRequired,
 };
 
-export default SpellingOrder;
+export default connect(
+  state => ({
+    progress: state.progressReducer,
+    currentQuestion: state.questionsContentReducer.currentQuestion,
+  }),
+  null,
+)(SpellingOrder);

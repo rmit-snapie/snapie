@@ -8,7 +8,12 @@ import {persistor, store} from './src/redux/store';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 //Routes
-import {EXPLORE_SCREEN, HOME_SCREEN, LESSON_SCREEN, REVIEW_SCREEN} from './environments/Routes';
+import {
+  EXPLORE_SCREEN,
+  HOME_SCREEN,
+  LESSON_SCREEN,
+  REVIEW_SCREEN,
+} from './environments/Routes';
 //Views
 import Home from './src/views/home/Home';
 import Explore from './src/views/explore/Explore';

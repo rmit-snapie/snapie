@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {object} from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStyle';
 import {View} from 'react-native';
@@ -18,11 +18,13 @@ const Lesson = ({progress: {play}, navigation}) => {
 };
 
 Lesson.propTypes = {
-  progress: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired,
+  progress: object.isRequired,
+  navigation: object.isRequired,
 };
 
 export default connect(
-  state => ({progress: state.progressReducer}),
+  state => ({
+    progress: state.progressReducer,
+  }),
   null,
 )(Lesson);

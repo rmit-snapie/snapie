@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import {object} from 'prop-types';
 import styles from './HomeStyle';
 import {View, Text, Image, ImageBackground} from 'react-native';
 import {navigateTo} from '../../helpers/NavigateHelper';
@@ -8,8 +8,6 @@ import {
   LESSON_SCREEN,
   REVIEW_SCREEN,
 } from '../../../environments/Routes';
-import {connect} from 'react-redux';
-import {setLocalQuestions} from '../../redux/actions/QuestionsContentActions';
 import DefaultAvatar from '../assets/home-screen-icons/DefaultAvatar.png';
 import HomeScreen from '../assets/home-screen-icons/HomeScreen.png';
 import LessonButton from '../assets/home-screen-icons/Lesson.png';
@@ -50,14 +48,7 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  navigation: PropTypes.object.isRequired,
-  progress: PropTypes.object.isRequired,
-  handleSetLocalQuestions: PropTypes.func.isRequired,
+  navigation: object.isRequired,
 };
 
-export default connect(
-  state => ({
-    progress: state.progressReducer,
-  }),
-  {handleSetLocalQuestions: setLocalQuestions},
-)(Home);
+export default Home;

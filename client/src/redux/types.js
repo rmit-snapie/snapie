@@ -17,4 +17,8 @@ export const SET_CURRENT_STACK = 'SET_CURRENT_STACK';
 export const POP_CURRENT_STACK = 'POP_CURRENT_STACK';
 
 //questions content reducer
-export const INITIALIZE_LOCAL_QUESTIONS = 'INITIALIZE_LOCAL_QUESTIONS';
+export const INITIALIZE_QUESTIONS = 'INITIALIZE_QUESTIONS';
+export const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION';
+
+//navigation stack reducer
+export const SAVE_NAVIGATION = 'SAVE_NAVIGATION';

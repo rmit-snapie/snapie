@@ -79,6 +79,8 @@ target 'client' do
 
   pod 'react-native-voice', :path => '../node_modules/@react-native-community/voice'
 
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
   target 'clientTests' do
     inherit! :complete
     # Pods for testing

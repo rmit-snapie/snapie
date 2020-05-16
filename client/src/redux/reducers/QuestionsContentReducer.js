@@ -1,17 +1,16 @@
-import {INITIALIZE_LOCAL_QUESTIONS} from '../types';
-import {getLocalTestQuestions} from '../../helpers/QuestionHelper';
-import {STAGE_ONE} from '../../domain-models/stage-1/StageOneQuestions';
+import {INITIALIZE_QUESTIONS, SET_CURRENT_QUESTION} from '../types';
 
-let questions, stage, level, test;
-const initialState = STAGE_ONE[0][0];
+const initialState = {
+  currentQuestion: {},
+  questions: [],
+};
 
 const questionsContentReducer = (state = initialState, action) => {
   switch (action.type) {
-    case INITIALIZE_LOCAL_QUESTIONS:
-      ({stage, level, test} = action.payload);
-      questions = getLocalTestQuestions(stage, level, test);
-      state = questions;
-      return state;
+    case INITIALIZE_QUESTIONS:
+      return {...state, questions: action.payload};
+    case SET_CURRENT_QUESTION:
+      return {...state, currentQuestion: action.payload};
     default:
       return state;
   }

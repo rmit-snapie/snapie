@@ -1,23 +1,46 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {func, object} from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStagesStyle';
 import {ScrollView, View} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
 import {play, replay} from '../../../redux/actions/ProgressActions';
+
 import ImageButton from '../../image-button/ImageButton';
 import Progress from './progress/Progress';
+import {
+  setQuestions,
+  setCurrentQuestion,
+} from '../../../redux/actions/QuestionsContentActions';
+import {
+  getTestQuestions,
+  getNumberOfTests,
+} from '../../../helpers/QuestionHelper';
 
 const LessonStages = ({
   handlePlay,
   handleReplay,
   progress: {stage, level, test},
+  ...props
 }) => {
   const handlePress = (replayStage, replayLevel) => {
-    if (replayStage <= stage && replayLevel < level) {
-      handleReplay(replayStage, replayLevel);
+    if (replayStage < stage || replayLevel < level) {
+      const lastTest = getNumberOfTests(replayStage, replayLevel);
+      getTestQuestions({
+        stage: replayStage,
+        level: replayLevel,
+        test: lastTest,
+      }).then(data => {
+        props.setCurrentQuestion(data[0]);
+        props.prepareData(data);
+        handleReplay(replayStage, replayLevel);
+      });
     } else {
-      handlePlay(stage, level, test);
+      getTestQuestions({stage: stage, level: level, test: test}).then(data => {
+        props.setCurrentQuestion(data[0]);
+        props.prepareData(data);
+        handlePlay(stage, level, test);
+      });
     }
   };
 
@@ -37,7 +60,7 @@ const LessonStages = ({
               <View style={styles.iconWrapper} key={index}>
                 <ImageButton
                   key={index}
-                  handlePress={() => handlePress(stage, index)}
+                  handlePress={() => handlePress(0, index)}
                   source={icon}
                   disabled={isDisabled(0, index)}
                 />
@@ -52,19 +75,19 @@ const LessonStages = ({
           </View>
         </View>
         <View
-          pointerEvents={stage < 2 ? 'none' : 'auto'}
+          pointerEvents={stage >= 1 ? 'auto' : 'none'}
           style={
-            stage < 2
-              ? [styles.stageWrapper, styles.lockedStage]
-              : styles.stageWrapper
+            stage >= 1
+              ? styles.stageWrapper
+              : [styles.stageWrapper, styles.lockedStage]
           }>
-          {stage < 2 ? (
+          {stage >= 1 ? (
             <View style={styles.stageLevels}>
-              {LEVELS_ICONS.stageTwoG.map((icon, index) => (
+              {LEVELS_ICONS.stageTwoC.map((icon, index) => (
                 <View style={styles.iconWrapper} key={index}>
                   <ImageButton
                     key={index}
-                    handlePress={() => handlePress(stage, index)}
+                    handlePress={() => handlePress(1, index)}
                     source={icon}
                     disabled={isDisabled(1, index)}
                   />
@@ -73,17 +96,18 @@ const LessonStages = ({
                     maxTests={3}
                     levelLocked={isDisabled(1, index)}
                     levelDone={index < level}
+                    stageDone={stage > 1}
                   />
                 </View>
               ))}
             </View>
           ) : (
             <View style={styles.stageLevels}>
-              {LEVELS_ICONS.stageTwoC.map((icon, index) => (
+              {LEVELS_ICONS.stageTwoG.map((icon, index) => (
                 <View style={styles.iconWrapper} key={index}>
                   <ImageButton
                     key={index}
-                    handlePress={() => handlePress(stage, index)}
+                    handlePress={() => handlePress(1, index)}
                     source={icon}
                     disabled={isDisabled(1, index)}
                   />
@@ -92,6 +116,7 @@ const LessonStages = ({
                     maxTests={3}
                     levelLocked={isDisabled(1, index)}
                     levelDone={index < level}
+                    stageDone={stage > 1}
                   />
                 </View>
               ))}
@@ -99,19 +124,19 @@ const LessonStages = ({
           )}
         </View>
         <View
-          pointerEvents={stage < 3 ? 'none' : 'auto'}
+          pointerEvents={stage >= 2 ? 'auto' : 'none'}
           style={
-            stage < 3
-              ? [styles.stageWrapper, styles.lockedStage]
-              : styles.stageWrapper
+            stage >= 2
+              ? styles.stageWrapper
+              : [styles.stageWrapper, styles.lockedStage]
           }>
-          {stage < 3 ? (
+          {stage >= 2 ? (
             <View style={styles.stageLevels}>
-              {LEVELS_ICONS.stageThreeG.map((icon, index) => (
+              {LEVELS_ICONS.stageThreeC.map((icon, index) => (
                 <View style={styles.iconWrapper} key={index}>
                   <ImageButton
                     key={index}
-                    handlePress={() => handlePress(stage, index)}
+                    handlePress={() => handlePress(2, index)}
                     source={icon}
                     disabled={isDisabled(2, index)}
                   />
@@ -120,17 +145,18 @@ const LessonStages = ({
                     maxTests={3}
                     levelLocked={isDisabled(2, index)}
                     levelDone={index < level}
+                    stageDone={stage > 2}
                   />
                 </View>
               ))}
             </View>
           ) : (
             <View style={styles.stageLevels}>
-              {LEVELS_ICONS.stageThreeC.map((icon, index) => (
+              {LEVELS_ICONS.stageThreeG.map((icon, index) => (
                 <View style={styles.iconWrapper} key={index}>
                   <ImageButton
                     key={index}
-                    handlePress={() => handlePress(stage, index)}
+                    handlePress={() => handlePress(2, index)}
                     source={icon}
                     disabled={isDisabled(2, index)}
                   />
@@ -139,6 +165,7 @@ const LessonStages = ({
                     maxTests={3}
                     levelLocked={isDisabled(2, index)}
                     levelDone={index < level}
+                    stageDone={stage > 2}
                   />
                 </View>
               ))}
@@ -151,12 +178,22 @@ const LessonStages = ({
 };
 
 LessonStages.propTypes = {
-  handlePlay: PropTypes.func.isRequired,
-  handleReplay: PropTypes.func.isRequired,
-  progress: PropTypes.object.isRequired,
+  handlePlay: func.isRequired,
+  handleReplay: func.isRequired,
+  prepareData: func.isRequired,
+  progress: object.isRequired,
+  setCurrentQuestion: func.isRequired,
 };
 
 export default connect(
-  state => ({progress: state.progressReducer}),
-  {handlePlay: play, handleReplay: replay},
+  state => ({
+    progress: state.progressReducer,
+    questions: state.questionsContentReducer.testQuestions,
+  }),
+  {
+    handlePlay: play,
+    handleReplay: replay,
+    prepareData: setQuestions,
+    setCurrentQuestion: setCurrentQuestion,
+  },
 )(LessonStages);

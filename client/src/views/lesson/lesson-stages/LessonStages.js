@@ -24,7 +24,7 @@ const LessonStages = ({
   ...props
 }) => {
   const handlePress = (replayStage, replayLevel) => {
-    if (replayStage <= stage && replayLevel < level) {
+    if (replayStage < stage || replayLevel < level) {
       const lastTest = getNumberOfTests(replayStage, replayLevel);
       getTestQuestions({
         stage: replayStage,
@@ -60,7 +60,7 @@ const LessonStages = ({
               <View style={styles.iconWrapper} key={index}>
                 <ImageButton
                   key={index}
-                  handlePress={() => handlePress(stage, index)}
+                  handlePress={() => handlePress(0, index)}
                   source={icon}
                   disabled={isDisabled(0, index)}
                 />
@@ -87,7 +87,7 @@ const LessonStages = ({
                 <View style={styles.iconWrapper} key={index}>
                   <ImageButton
                     key={index}
-                    handlePress={() => handlePress(stage, index)}
+                    handlePress={() => handlePress(1, index)}
                     source={icon}
                     disabled={isDisabled(1, index)}
                   />
@@ -107,7 +107,7 @@ const LessonStages = ({
                 <View style={styles.iconWrapper} key={index}>
                   <ImageButton
                     key={index}
-                    handlePress={() => handlePress(stage, index)}
+                    handlePress={() => handlePress(1, index)}
                     source={icon}
                     disabled={isDisabled(1, index)}
                   />
@@ -136,7 +136,7 @@ const LessonStages = ({
                 <View style={styles.iconWrapper} key={index}>
                   <ImageButton
                     key={index}
-                    handlePress={() => handlePress(stage, index)}
+                    handlePress={() => handlePress(2, index)}
                     source={icon}
                     disabled={isDisabled(2, index)}
                   />
@@ -156,7 +156,7 @@ const LessonStages = ({
                 <View style={styles.iconWrapper} key={index}>
                   <ImageButton
                     key={index}
-                    handlePress={() => handlePress(stage, index)}
+                    handlePress={() => handlePress(2, index)}
                     source={icon}
                     disabled={isDisabled(2, index)}
                   />

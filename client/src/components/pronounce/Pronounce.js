@@ -1,11 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {object} from 'prop-types';
 import styles from './PronounceStyle';
-import {View, Button, Text, Image} from 'react-native';
+import {View, TouchableWithoutFeedback, Button, Text} from 'react-native';
 import Voice from '@react-native-community/voice';
 import Cheers from '../cheers/Cheers';
 import {renderImageWrapper} from '../../helpers/QuestionHelper';
+import {readText} from '../../helpers/TextToSpeech';
 
 class Pronounce extends React.Component {
   constructor(props) {
@@ -23,6 +24,10 @@ class Pronounce extends React.Component {
     this.openCheers = this.openCheers.bind(this);
   }
 
+  componentDidMount() {
+    readText(this.props.currentQuestion.questionContent);
+  }
+
   componentWillUnmount() {
     Voice.destroy().then(Voice.removeAllListeners);
   }
@@ -37,13 +42,7 @@ class Pronounce extends React.Component {
 
   componentDidUpdate() {
     const {voice} = this.state;
-    // get question data from redux store, base on progress and questions
-    // let question = !this.props.progress.replay.start
-    //   ? this.props.questions[this.props.progress.question]
-    //   : this.props.questions[this.props.progress.replay.question];
-    let question = this.props.currentQuestion;
-    // const {correctAnswer} = this.props.question;
-    const {correctAnswer} = question;
+    const {correctAnswer} = this.props.currentQuestion;
     if (voice) {
       if (
         voice.toLowerCase() === correctAnswer ||
@@ -59,11 +58,11 @@ class Pronounce extends React.Component {
     return false;
   }
 
-  _onSpeechStart = event => {
+  _onSpeechStart = () => {
     console.log('onSpeechEnd');
   };
 
-  _onSpeechEnd = event => {
+  _onSpeechEnd = () => {
     console.log('onSpeechEnd');
   };
 
@@ -79,12 +78,12 @@ class Pronounce extends React.Component {
     console.log(event.error);
   };
 
-  _onRecordVoice = () => {
+  _onRecordVoice = async () => {
     const {isRecord} = this.state;
     if (isRecord) {
-      Voice.stop();
+      await Voice.stop();
     } else {
-      Voice.start('en-US');
+      await Voice.start('en-US');
     }
     this.setState({
       isRecord: !isRecord,
@@ -92,46 +91,50 @@ class Pronounce extends React.Component {
   };
 
   render() {
-    // get question data from redux store, base on progress and questions
-    // let question = !this.props.progress.replay.start
-    //   ? this.props.questions[this.props.progress.question]
-    //   : this.props.questions[this.props.progress.replay.question];
-    let question = this.props.currentQuestion;
-    console.log('Pronounce > current question: ', question);
-    const {stage} = this.props.progress;
-    if (question == undefined) {
-      return (
-        <View>
-          <Text>question undefined...</Text>
-        </View>
-      );
-    }
-    const {questionContent, imageAsset} = question;
-    // const {
-    //   question: {questionContent, imageAsset},
-    // } = this.props;
+    const {stage} = this.props.progress.replay
+      ? this.props.progress.replay
+      : this.props.progress;
+    const {
+      questionContent,
+      imageAsset,
+      correctAnswer,
+    } = this.props.currentQuestion;
     const {
       isRecord,
       voice,
       cheers: {display, sad},
     } = this.state;
-    console.log('Pronounce >  display: ', display);
     const buttonLabel = isRecord ? 'Stop' : 'Start';
     const voiceLabel = voice
       ? voice
       : isRecord
       ? 'Say something...'
       : 'press Start button';
+    if (this.props.currentQuestion === undefined) {
+      return (
+        <View style={styles.container}>
+          <Text>ERROR PRONOUNCE COULD NOT LOAD</Text>
+        </View>
+      );
+    }
     if (display) {
       return <Cheers cheers={display} sad={sad} />;
     } else {
       return (
         <View style={styles.container}>
-          <View style={styles.imageAssetWrapper}>
-            {renderImageWrapper(stage, imageAsset, styles.image)}
+          <View
+            onPress={() => readText(correctAnswer)}
+            style={styles.imageAssetWrapper}>
+            <TouchableWithoutFeedback onPress={() => readText(correctAnswer)}>
+              {renderImageWrapper(stage, imageAsset, styles.image)}
+            </TouchableWithoutFeedback>
           </View>
           <View style={styles.questionWrapper}>
-            <Text style={styles.question}>{questionContent}</Text>
+            <Text
+              onPress={() => readText(questionContent)}
+              style={styles.question}>
+              {questionContent}
+            </Text>
             <Text style={styles.question}>{voiceLabel}</Text>
           </View>
           <View style={styles.pronounceButtonWrapper}>
@@ -144,14 +147,12 @@ class Pronounce extends React.Component {
 }
 
 Pronounce.propTypes = {
-  questions: PropTypes.array.isRequired,
-  progress: PropTypes.object.isRequired,
+  currentQuestion: object.isRequired,
+  progress: object.isRequired,
 };
 
-// export default Pronounce;
 export default connect(
   state => ({
-    questions: state.questionsContentReducer.testQuestions,
     progress: state.progressReducer,
     currentQuestion: state.questionsContentReducer.currentQuestion,
   }),

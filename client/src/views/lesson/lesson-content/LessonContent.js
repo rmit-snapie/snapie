@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {arrayOf, object} from 'prop-types';
 import {connect} from 'react-redux';
 import {Button, View, Text, StyleSheet} from 'react-native';
 import {
@@ -19,15 +19,15 @@ import PairSelection from '../../../components/pair-selection/PairSelection';
 import Pronounce from '../../../components/pronounce/Pronounce';
 import {replaceTo} from '../../../helpers/NavigateHelper';
 
-const LessonContent = ({questions, progress, navigation, ...props}) => {
-  let type = props.currentQuestion ? props.currentQuestion.type : 'unknown';
+const LessonContent = ({currentQuestion, navigation}) => {
+  const type = currentQuestion ? currentQuestion.type : 'unknown';
   switch (type) {
     case FILL_THE_BLANK:
       return <FillTheBlank />;
     case MULTIPLE_CHOICE:
-      return <MultipleChoice type={MULTIPLE_CHOICE} />;
+      return <MultipleChoice />;
     case MULTIPLE_CHOICE_IMAGES:
-      return <MultipleChoice type={MULTIPLE_CHOICE_IMAGES} />;
+      return <MultipleChoice />;
     case PAIR_SELECTION:
       return <PairSelection />;
     case SPELLING_ORDER:
@@ -57,19 +57,17 @@ const styles = StyleSheet.create({
 });
 
 LessonContent.propTypes = {
-  questions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  progress: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired,
-  currentQuestion: PropTypes.object.isRequired,
+  questions: arrayOf(object).isRequired,
+  currentQuestion: object.isRequired,
+  progress: object.isRequired,
+  navigation: object.isRequired,
 };
 
 export default connect(
   state => ({
-    // allStage: state,
-    questions: state.questionsContentReducer.testQuestions,
-    progress: state.progressReducer,
-    navigation: state.navigationReducer,
+    questions: state.questionsContentReducer.questions,
     currentQuestion: state.questionsContentReducer.currentQuestion,
+    progress: state.progressReducer,
   }),
   null,
 )(LessonContent);

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {object} from 'prop-types';
 import {
   Text,
   TouchableOpacity,
@@ -12,22 +12,9 @@ import Cheers from '../cheers/Cheers';
 import {createBlanks, renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
-const SpellingOrder = ({questions, progress, ...props}) => {
-  // get question data from redux store, base on progress and questions
-  // let question = !progress.replay.start
-  //   ? questions[progress.question]
-  //   : questions[progress.replay.question];
-  let question = props.currentQuestion;
-  const {stage} = progress;
-  console.log('SpellingOrder > current question: ', question);
-  if (question == undefined) {
-    return (
-      <View>
-        <Text>question undefined...</Text>
-      </View>
-    );
-  }
-  const {questionContent, answers, correctAnswer, imageAsset} = question;
+const SpellingOrder = ({currentQuestion, progress}) => {
+  const {stage} = progress.replay.play ? progress.replay : progress;
+  const {questionContent, answers, correctAnswer, imageAsset} = currentQuestion;
   const initialBlanks = createBlanks(correctAnswer);
   const [word, setWord] = useState([]);
   const [blanks, setBlanks] = useState([]);
@@ -38,7 +25,7 @@ const SpellingOrder = ({questions, progress, ...props}) => {
 
   useEffect(() => {
     readText(questionContent);
-  }, [question, questionContent]);
+  }, [currentQuestion, questionContent]);
 
   useEffect(() => {
     if (word.length === 0 && blanks.length === 0) {
@@ -78,6 +65,14 @@ const SpellingOrder = ({questions, progress, ...props}) => {
     }
   };
 
+  if (currentQuestion === undefined) {
+    return (
+      <View style={styles.container}>
+        <Text>ERROR SPELLING ORDER COULD NOT LOAD</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       {cheers.display && (
@@ -91,11 +86,6 @@ const SpellingOrder = ({questions, progress, ...props}) => {
         <>
           <View style={styles.mediaWrapper}>
             <TouchableWithoutFeedback onPress={() => readText(questionContent)}>
-              {/*<Image*/}
-              {/*  style={styles.image}*/}
-              {/*  onPress={() => readText(correctAnswer)}*/}
-              {/*  source={imageAsset}*/}
-              {/*/>*/}
               {renderImageWrapper(stage, imageAsset, styles.image)}
             </TouchableWithoutFeedback>
           </View>
@@ -147,14 +137,12 @@ const SpellingOrder = ({questions, progress, ...props}) => {
 };
 
 SpellingOrder.propTypes = {
-  questions: PropTypes.array.isRequired,
-  progress: PropTypes.object.isRequired,
+  currentQuestion: object.isRequired,
+  progress: object.isRequired,
 };
 
-// export default SpellingOrder;
 export default connect(
   state => ({
-    questions: state.questionsContentReducer.testQuestions,
     progress: state.progressReducer,
     currentQuestion: state.questionsContentReducer.currentQuestion,
   }),

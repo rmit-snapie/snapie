@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {object} from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStyle';
 import {View} from 'react-native';
@@ -8,17 +8,18 @@ import {View} from 'react-native';
 import LessonContent from './lesson-content/LessonContent';
 import LessonStages from './lesson-stages/LessonStages';
 
-const Lesson = ({progress: {play}}) => {
+const Lesson = ({progress: {play}, navigation}) => {
   return (
     <View style={styles.container}>
       {!play && <LessonStages />}
-      {play && <LessonContent />}
+      {play && <LessonContent navigation={navigation} />}
     </View>
   );
 };
 
 Lesson.propTypes = {
-  progress: PropTypes.object.isRequired,
+  progress: object.isRequired,
+  navigation: object.isRequired,
 };
 
 export default connect(

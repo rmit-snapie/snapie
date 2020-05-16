@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import Proptypes from 'prop-types';
+import {object} from 'prop-types';
 import {
   Text,
   TouchableOpacity,
@@ -16,10 +16,9 @@ import {
 } from '../../../environments/Routes';
 import {renderImageWrapper} from '../../helpers/QuestionHelper';
 
-const MultipleChoice = ({type, progress, questions, ...props}) => {
-  const {stage} = progress;
-  let question = props.currentQuestion;
-  const {questionContent, answers, correctAnswer, imageAsset} = question;
+const MultipleChoice = ({progress, currentQuestion}) => {
+  const {stage} = progress.replay.play ? progress.replay : progress;
+  const {questionContent, answers, correctAnswer, imageAsset} = currentQuestion;
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
     index: null,
@@ -29,7 +28,7 @@ const MultipleChoice = ({type, progress, questions, ...props}) => {
   useEffect(() => {
     resetCurrentAnswer();
     readText(questionContent);
-  }, [question, questionContent]);
+  }, [currentQuestion, questionContent]);
 
   const resetCurrentAnswer = () => {
     setCurrentAnswer({answer: null, index: null});
@@ -37,7 +36,7 @@ const MultipleChoice = ({type, progress, questions, ...props}) => {
   };
 
   const handleAnswerPressed = (index, answer) => {
-    if (type === MULTIPLE_CHOICE) {
+    if (currentQuestion.type === MULTIPLE_CHOICE) {
       if (currentAnswer.index === index) {
         resetCurrentAnswer();
       } else {
@@ -68,10 +67,10 @@ const MultipleChoice = ({type, progress, questions, ...props}) => {
     }
   };
 
-  if (question === undefined) {
+  if (currentQuestion === undefined) {
     return (
-      <View>
-        <Text>question undefined...</Text>
+      <View style={styles.container}>
+        <Text>ERROR MULTIPLE CHOICE COULD NOT LOAD</Text>
       </View>
     );
   }
@@ -87,7 +86,7 @@ const MultipleChoice = ({type, progress, questions, ...props}) => {
       )}
       {!cheers.display && (
         <>
-          {type === MULTIPLE_CHOICE && (
+          {currentQuestion.type === MULTIPLE_CHOICE && (
             <View style={styles.assetsWrapper}>
               <TouchableWithoutFeedback onPress={() => readText(correctAnswer)}>
                 {renderImageWrapper(stage, imageAsset, styles.image)}
@@ -103,11 +102,11 @@ const MultipleChoice = ({type, progress, questions, ...props}) => {
           </View>
           <View
             style={
-              type === MULTIPLE_CHOICE
+              currentQuestion.type === MULTIPLE_CHOICE
                 ? styles.answersWrapper
                 : styles.imageAnswersWrapper
             }>
-            {type === MULTIPLE_CHOICE &&
+            {currentQuestion.type === MULTIPLE_CHOICE &&
               answers.map((answer, index) => (
                 <TouchableOpacity
                   activeOpacity={0}
@@ -128,7 +127,7 @@ const MultipleChoice = ({type, progress, questions, ...props}) => {
                   </Text>
                 </TouchableOpacity>
               ))}
-            {type === MULTIPLE_CHOICE_IMAGES &&
+            {currentQuestion.type === MULTIPLE_CHOICE_IMAGES &&
               answers.map((answer, index) => (
                 <TouchableOpacity
                   key={index}
@@ -138,7 +137,6 @@ const MultipleChoice = ({type, progress, questions, ...props}) => {
                       : [styles.answerImage, styles.notChosenAnswerImage]
                   }
                   onPress={() => handleAnswerPressed(index, answer)}>
-                  {/*<Image style={styles.imageContent} source={answer.asset} />*/}
                   {renderImageWrapper(stage, answer.asset, styles.imageContent)}
                 </TouchableOpacity>
               ))}
@@ -162,16 +160,12 @@ const MultipleChoice = ({type, progress, questions, ...props}) => {
 };
 
 MultipleChoice.propTypes = {
-  questions: Proptypes.array.isRequired,
-  progress: Proptypes.object.isRequired,
-  type: Proptypes.string.isRequired,
-  currentQuestion: Proptypes.object.isRequired,
+  progress: object.isRequired,
+  currentQuestion: object.isRequired,
 };
 
-// export default MultipleChoice;
 export default connect(
   state => ({
-    questions: state.questionsContentReducer.testQuestions,
     progress: state.progressReducer,
     currentQuestion: state.questionsContentReducer.currentQuestion,
   }),

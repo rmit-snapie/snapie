@@ -31,12 +31,12 @@ export function stop() {
     dispatch({type: STOP});
   };
 }
-export function completeRelayQuestion() {
+export function replayQuestionCompleted() {
   return function(dispatch) {
     dispatch({type: COMPLETED_A_REPLAY_QUESTION});
   };
 }
-export function completeAQuestion(nextQuestion) {
+export function questionCompleted(nextQuestion) {
   return function(dispatch) {
     dispatch({type: COMPLETED_A_QUESTION, payload: nextQuestion});
   };

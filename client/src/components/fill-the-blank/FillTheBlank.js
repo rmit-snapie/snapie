@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {object} from 'prop-types';
 import {
-  Image,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -13,22 +12,9 @@ import Cheers from '../cheers/Cheers';
 import {createBlanks, renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
-const FillTheBlank = ({progress, questions, ...props}) => {
-  // get question data from redux store, base on progress and questions
-  // let question = !progress.replay.start
-  //   ? questions[progress.question]
-  //   : questions[progress.replay.question];
-  let question = props.currentQuestion;
-  console.log('FillTheBlank > current question: ', question);
-  const {stage} = progress;
-  if (question == undefined) {
-    return (
-      <View>
-        <Text>question undefined...</Text>
-      </View>
-    );
-  }
-  const {questionContent, answers, correctAnswer, imageAsset} = question;
+const FillTheBlank = ({progress, currentQuestion}) => {
+  const {stage} = progress.replay.play ? progress.replay : progress;
+  const {questionContent, answers, correctAnswer, imageAsset} = currentQuestion;
   const blanks = createBlanks(correctAnswer);
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
@@ -38,7 +24,7 @@ const FillTheBlank = ({progress, questions, ...props}) => {
 
   useEffect(() => {
     readText(questionContent);
-  }, [question, questionContent]);
+  }, [currentQuestion, questionContent]);
 
   const resetCurrentAnswer = () => {
     setCheers({display: false, sad: false});
@@ -63,6 +49,14 @@ const FillTheBlank = ({progress, questions, ...props}) => {
       setCheers({display: true, sad: false});
     }
   };
+
+  if (currentQuestion === undefined) {
+    return (
+      <View style={styles.container}>
+        <Text>ERROR FILL THE BLANK QUESTION COULD NOT LOAD</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -122,13 +116,12 @@ const FillTheBlank = ({progress, questions, ...props}) => {
 };
 
 FillTheBlank.propTypes = {
-  questions: PropTypes.array.isRequired,
-  progress: PropTypes.object.isRequired,
+  progress: object.isRequired,
+  currentQuestion: object.isRequired,
 };
 
 export default connect(
   state => ({
-    questions: state.questionsContentReducer.testQuestions,
     progress: state.progressReducer,
     currentQuestion: state.questionsContentReducer.currentQuestion,
   }),

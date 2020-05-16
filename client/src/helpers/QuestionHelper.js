@@ -2,23 +2,7 @@ import React from 'react';
 import {Image, Animated, Platform} from 'react-native';
 import {STAGE_ONE} from '../domain-models/stage-1/StageOneQuestions';
 import {STAGE_TWO} from '../domain-models/stage-2/StageTwoQuestions';
-
-export const getLocalTestQuestions = (
-  stage: number,
-  level: number,
-  test: number,
-) => {
-  // TODO this only handles two stages, from stage three and further, the import will a downloadable content
-  // TODO must adapt to this
-  switch (stage) {
-    case 0:
-      return STAGE_ONE[level][test];
-    case 1:
-      return STAGE_TWO[level][test];
-    default:
-      return [];
-  }
-};
+import RNFetchBlob from 'rn-fetch-blob';
 
 // TODO these two functions are also hard coded, have to fix
 export const getNumberOfQuestions = (
@@ -31,24 +15,17 @@ export const getNumberOfQuestions = (
   } else if (stage === 1) {
     return STAGE_TWO[level][test].length - 1;
   } else {
-    // console.log('getNumberOfQuestions > stage: ', stage, ' error, fix here');
-    // console.log('QuestionHeler > getNumberOfQuestions > metadata: ', metaData);
-    console.log('QuestionHeler > getNumberOfQuestions > questionAmount : ');
     if (level === 0) {
-      console.log(metaData.data.levelOneTestQuestionsCount[test]);
       return metaData.data.levelOneTestQuestionsCount[test] - 1;
     } else if (level === 1) {
-      console.log(metaData.data.levelTwoTestQuestionsCount[test]);
       return metaData.data.levelTwoTestQuestionsCount[test] - 1;
     } else if (level === 2) {
-      console.log(metaData.data.levelThreeTestQuestionsCount[test]);
       return metaData.data.levelThreeTestQuestionsCount[test] - 1;
     }
   }
 };
 
 export const getNumberOfTests = (stage: number, level: number) => {
-  console.log('QuestionHeler > getNumberOfTests > metadata: ', metaData);
   if (stage === 0) {
     return STAGE_ONE[level].length - 1;
   } else if (stage === 1) {
@@ -59,7 +36,6 @@ export const getNumberOfTests = (stage: number, level: number) => {
 };
 
 export const getNumberOfLevels = (stage: number) => {
-  console.log('QuestionHeler > getNumberOfLevels > metadata: ', metaData);
   if (stage === 0) {
     return STAGE_ONE.length - 1;
   } else if (stage === 1) {
@@ -92,18 +68,7 @@ export const shuffle = array => {
   return array;
 };
 
-import RNFetchBlob from 'rn-fetch-blob';
-import RNFS, {
-  // MainBundlePath,
-  // CachesDirectoryPath,
-  // LibraryDirectoryPath,
-  DocumentDirectoryPath,
-} from 'react-native-fs';
-import styles from '../components/pair-selection/PairSelectionStyle';
-
 export const dirs = RNFetchBlob.fs.dirs;
-// console.log(dirs.DocumentDir);
-// console.log('react-native-fs DocumentDirectoryPath', DocumentDirectoryPath);
 
 const imageFetchPath =
   'https://tam-terraform-state.s3-ap-southeast-1.amazonaws.com/images/';
@@ -141,7 +106,6 @@ export const fetchImage = async imageName => {
   // set default stage 1 if stageID not exist
   const fetchPath = imageFetchPath + imageFileName;
   // check path:
-  console.log('fetchImage > fech path: ', fetchPath);
   await RNFetchBlob.config({
     // will save to docDir/images/...
     path: localImagePath + imageFileName,
@@ -150,12 +114,6 @@ export const fetchImage = async imageName => {
   })
     .fetch('GET', fetchPath)
     .then(res => {
-      console.log('fetchImage > get imgage from s3: ', res);
-      let status = res.info().status;
-      console.log(status);
-      // the temp file path
-      console.log('The image file saved to ', res.path());
-      //   return the file path being saved.
       return res.path();
     })
     .catch((e, code) => console.log(e, code));
@@ -167,12 +125,9 @@ const checkImageExisted = async imageName => {
    */
   let imagePath = localImagePath + imageName;
   return RNFetchBlob.fs.exists(imagePath).then(existed => {
-    console.log(imagePath, ' existed ? ', existed);
     return existed;
   });
 };
-
-export const setOfflineImageAssets = () => {};
 
 export const setStageImagesAssets = async assetList => {
   /**
@@ -183,17 +138,13 @@ export const setStageImagesAssets = async assetList => {
    */
 
   // fetch every images....
-  assetList.forEach((image, index) => {
+  assetList.forEach(image => {
     // check in local memory:
     checkImageExisted(image).then(existed => {
       if (existed) {
-        // existed: do nothing
-        console.log(image, ' existed');
         return true;
       } else {
-        // not existed: fetch to local memory
         fetchImage(image).then(result => {
-          console.log('image fetched, result: ', result);
           return result;
         });
       }
@@ -201,25 +152,10 @@ export const setStageImagesAssets = async assetList => {
   });
 };
 
-// // // testing:
-// // export const testJsonFile = () => {
-// //   // removeJSONFile();
-// //   saveJsonFile();
-// // };
-
 export const renderImageWrapper = (stage, imageSource, style, animated) => {
-  // console.log("QuestionHelper > renderImageWrapper > params: ",stage, imageSource, style, animated)
   if (stage > 1) {
     imageSource = localImagePath + imageSource;
     if (animated) {
-      // console.log(
-      //   'QuestionHelper > renderImageWrapper > params: ',
-      //   stage,
-      //   imageSource,
-      //   style,
-      //   animated,
-      // );
-      // console.log('stage >1; animated true');
       return (
         <Animated.Image
           style={[style]}
@@ -230,14 +166,6 @@ export const renderImageWrapper = (stage, imageSource, style, animated) => {
         />
       );
     }
-    // console.log(
-    //   'QuestionHelper > renderImageWrapper > params: ',
-    //   stage,
-    //   imageSource,
-    //   style,
-    //   animated,
-    // );
-    // console.log('stage >1; animated false');
     return (
       <Image
         source={{
@@ -249,44 +177,31 @@ export const renderImageWrapper = (stage, imageSource, style, animated) => {
     );
   } else {
     if (animated) {
-      // console.log(
-      //   'QuestionHelper > renderImageWrapper > params: ',
-      //   stage,
-      //   imageSource,
-      //   style,
-      //   animated,
-      // );
-      // console.log('stage < 1; animated true');
       return <Animated.Image style={[style]} source={imageSource} />;
     }
-    // console.log(
-    //   'QuestionHelper > renderImageWrapper > params: ',
-    //   stage,
-    //   imageSource,
-    //   style,
-    //   animated,
-    // );
-    // console.log('stage  < 1; animated true');
+
     return <Image source={imageSource} style={style} />;
   }
 };
-const removeJSONFile = stageID => {
-  let path = localStagePath + stageID + '.json';
-  RNFetchBlob.fs.exists(path).then(existed => {
-    if (existed) {
-      RNFetchBlob.fs
-        .unlink(path)
-        .then(() => {
-          console.log('removed');
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      console.log('not exist');
-    }
-  });
-};
+
+//this function is for removing json file, testing and debugging only
+// const removeJSONFile = stageID => {
+//   let path = localStagePath + stageID + '.json';
+//   RNFetchBlob.fs.exists(path).then(existed => {
+//     if (existed) {
+//       RNFetchBlob.fs
+//         .unlink(path)
+//         .then(() => {
+//           console.log('removed');
+//         })
+//         .catch(err => {
+//           console.log(err);
+//         });
+//     } else {
+//       console.log('not exist');
+//     }
+//   });
+// };
 
 const fetchQuestion = async stageID => {
   /**
@@ -306,14 +221,6 @@ const fetchQuestion = async stageID => {
   })
     .fetch('GET', fetchPath)
     .then(res => {
-      console.log('response data from s3: ', res.info().status);
-      // let status = res.info().status;
-      // console.log(status);
-      // console.log(res.data);
-      // the temp file path
-      console.log('The file will save to ', res.path());
-      //   return the file path being saved.
-
       return res.info().status;
     })
     .catch((e, code) => {
@@ -329,58 +236,35 @@ export const getTestQuestions = async progress => {
    * default: stage_one.json
    */
   const {stage, level, test} = progress;
-  // console.log('getTestQuestions > progress', stage, level, test, progress);
 
-  // readJsonFile()
+  // for debugging, remove file using this readJsonFile()
+
   switch (stage) {
     case 0:
-      console.log('stage ', stage, ' level ', level, ' test ', test);
       return STAGE_ONE[level][test];
     case 1:
-      console.log('stage ', stage, ' level ', level, ' test ', test);
       return STAGE_TWO[level][test];
   }
-  console.log('stage ', stage, ' level ', level, ' test ', test);
-  // adjust to follow current files on s3.
-  // todo: maybe change file name on s3 to this style: start from 0.
-
+  // online questions:
   return checkStageFileExisted(stage + 1).then(isExisted => {
     if (!isExisted) {
       return fetchQuestion(stage + 1).then(result => {
-        console.log('getOnlineQuestions > fetchquestion result:', result);
         if (result) {
           return readJsonFile(localStagePath + (stage + 1) + '.json')
-            .then(result => {
-              console.log('fetch> read > result: ', result.levels[level][test]);
+            .then(data => {
               // fetch images:
-              const a = setStageImagesAssets(result.assetsRequired);
-              console.log('getOnlineQuestions > fetch > setImages ... ');
-              return result.levels[level][test];
+              setStageImagesAssets(data.assetsRequired);
+              return data.levels[level][test];
             })
             .catch(e => console.log(e));
-          // console.log('fetch> read > result: ', stageData.levels[level[test]]);
-          // return stageData.levels[level][test];
         } else {
-          console.log(
-            'fetch' + stage + ' > result: ',
-            result,
-            ', solution: retun stage_one',
-          );
           return STAGE_ONE;
         }
       });
     } else {
-      // const stageData = await readJsonFile(localStagePath + stage + '.json');
-      // console.log(stageData.levels[level][test]);
-      // return stageData.levels[level][test];
-
       return readJsonFile(localStagePath + (stage + 1) + '.json')
         .then(result => {
-          console.log('read from local file: ', result);
-          console.log(level, test, result.levels);
-          // fetch images:
-          const a = setStageImagesAssets(result.assetsRequired);
-          console.log('getTestQuestions > local > setImages > result: ', a);
+          setStageImagesAssets(result.assetsRequired);
           return result.levels[level][test];
         })
         .catch(e => console.log(e));
@@ -395,40 +279,26 @@ const checkStageFileExisted = async stageID => {
   let myFilePath = localStagePath + stageID + '.json';
   // console.log(myFilePath, 'my file path');
   return RNFetchBlob.fs.exists(myFilePath).then(existed => {
-    console.log(myFilePath, ' stage existed ? ', existed);
     return existed;
   });
 };
 
 export const metaData = {};
 export const readJsonFile = async filePath => {
-  console.log('readjsonfile > filepath: ', filePath);
   // filePath = filePath ? filePath : localStagePath + '1.json';
   // encoding:utf8 | base64 | ascii | uri
   return RNFetchBlob.fs
     .readFile(filePath, 'utf8')
     .then(data => {
-      console.log('read file success: ', filePath);
-      // console.log(data, typeof data);
-
       let myJsonObject = JSON.parse(data);
       try {
         metaData.data = myJsonObject.metaData;
-        console.log(myJsonObject, 'data from json cliud');
-        console.log(metaData, 'metadata from local');
       } catch (e) {
         console.log(e);
       }
-      console.log('json read: ', myJsonObject);
       return myJsonObject;
     })
     .catch(e => {
       console.log('error: ', e);
     });
 };
-// removeJSONFile(3);
-// removeJSONFile(2);
-// removeJSONFile(4);
-// readJsonFile(localStagePath + '3.json').then(() => {
-//   removeJSONFile(3);
-// });

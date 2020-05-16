@@ -20,53 +20,19 @@ import Pronounce from '../../../components/pronounce/Pronounce';
 import {replaceTo} from '../../../helpers/NavigateHelper';
 
 const LessonContent = ({questions, progress, navigation, ...props}) => {
-  // get current question from redux store based on progress and questions
-  console.log('lessonContent > props: progress :', progress);
-  console.log('lessonContent > props: questions :', questions);
-
-  // console.log('lessonContent > props: navigation :', navigation);
-  // let currentQuestion = null;
-  // if (progress.question < questions.length) {
-  //   currentQuestion = !progress.replay.start
-  //     ? questions[progress.question]
-  //     : questions[progress.replay.question];
-  // } else {
-  //   currentQuestion = questions[0];
-  // }
-
-  console.log('lessonContent > current question :', props.currentQuestion);
-  // console.log('lessonContent > allProps: ', props);
-  // console.log(
-  //   'lessonContent > current question type:',
-  //   currentQuestion.type,
-  //   typeof currentQuestion.type,
-  //   MULTIPLE_CHOICE,
-  //   typeof MULTIPLE_CHOICE,
-  //   currentQuestion.type === MULTIPLE_CHOICE,
-  // );
   let type = props.currentQuestion ? props.currentQuestion.type : 'unknown';
   switch (type) {
-    // switch ('currentQuestion.type') {
     case FILL_THE_BLANK:
-      // return <FillTheBlank question={question} />;
       return <FillTheBlank />;
     case MULTIPLE_CHOICE:
-      // return <MultipleChoice question={question} type={MULTIPLE_CHOICE} />;
       return <MultipleChoice type={MULTIPLE_CHOICE} />;
     case MULTIPLE_CHOICE_IMAGES:
-      return (
-        // <MultipleChoice question={question} type={MULTIPLE_CHOICE_IMAGES} />
-        <MultipleChoice type={MULTIPLE_CHOICE_IMAGES} />
-      );
+      return <MultipleChoice type={MULTIPLE_CHOICE_IMAGES} />;
     case PAIR_SELECTION:
-      // return <PairSelection question={question} />;
       return <PairSelection />;
     case SPELLING_ORDER:
-      // return <SpellingOrder question={question} />;
       return <SpellingOrder />;
     case PRONOUNCE_THE_WORD:
-      // return <Pronounce question={question} />;
-      // console.log('pronounce....question', question);
       return <Pronounce />;
     default:
       return (
@@ -94,6 +60,7 @@ LessonContent.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object).isRequired,
   progress: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
+  currentQuestion: PropTypes.object.isRequired,
 };
 
 export default connect(

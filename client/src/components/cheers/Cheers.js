@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {
-  questionCompleted,
   stop,
   completeRelayQuestion,
   testCompleted,
@@ -23,15 +22,7 @@ import {
   setQuestions,
   setCurrentQuestion,
 } from '../../redux/actions/QuestionsContentActions';
-const Cheers = ({
-  sad,
-  correctAnswer,
-  handleQuestionCompleted,
-  progress,
-  ...props
-}) => {
-  console.log('Cheers > props > progress', progress);
-  console.log('Cheers > props > questions ', props.questions);
+const Cheers = ({sad, correctAnswer, progress, ...props}) => {
   const {stage, level, test, question} = progress;
   const imagePath = sad
     ? require('./assets/sad.gif')
@@ -49,12 +40,8 @@ const Cheers = ({
     stopAudio();
     if (progress.replay.start) {
       if (question === getNumberOfQuestions(stage, level, test)) {
-        console.log('Cheers > handleContinue > replay true > stop ');
         props.stop();
       } else {
-        console.log(
-          'Cheers > handleContinue > replay true > completereplayquestion ',
-        );
         props.completeRelayQuestion();
       }
     } else {
@@ -71,77 +58,39 @@ const Cheers = ({
             level: 0,
             test: 0,
           }).then(data => {
-            // console.log(
-            //   'Cheers > handleContinue > stagecomplete> resutl: ',
-            //   data,
-            // );
-            console.log(
-              'Cheers > handleContinue > replay true > stageCompleted ',
-            );
-            // dispatch current question
-            // console.log('set next question: ', data[0]);
             props.setCurrentQuestion(data[0]);
             return props.prepareData(data);
           });
-        } else if (
-          test === getNumberOfTests(stage, level) &&
-          level < getNumberOfLevels(stage)
-        ) {
-          // of last test :    next level:
+        } else if (test === 2) {
           props.levelCompleted();
           getTestQuestions({
             stage: stage,
             level: level + 1,
             test: 0,
           }).then(data => {
-            // console.log(
-            //   'Cheers > handleContinue > getnextLevel > resut: ',
-            //   data,
-            // );
-            console.log(
-              'Cheers > handleContinue > replay true > levelCompleted ',
-            );
-            // dispatch current question
-            // console.log('set next question: ', data[0]);
             props.setCurrentQuestion(data[0]);
             return props.prepareData(data);
           });
-        } else if (test < getNumberOfTests(stage, level)) {
+        } else if (test < 2) {
           // next test:
           getTestQuestions({
             stage: stage,
             level: level,
             test: test + 1,
           }).then(data => {
-            // console.log(
-            //   'Cheers > handleContinue > getnextTest > resutl: ',
-            //   data,
-            // );
-            console.log(
-              'Cheers > handleContinue > replay true > testCompleted ',
-            );
-            // dispatch current question
-
-            // console.log('set next question: ', data[0]);
             props.setCurrentQuestion(data[0]);
             return props.prepareData(data);
           });
           props.testCompleted();
         }
       } else {
-        // else: there are still questions ahead: next question
-        console.log('Cheers > handleContinue > replay true > next question ');
-        // dispatch current question
         let nextQuestionIndex = question + 1;
-        if (nextQuestionIndex == getNumberOfQuestions(stage, level, test)) {
-          console.log('next question over index........', nextQuestionIndex);
+        if (
+          nextQuestionIndex ===
+          getNumberOfQuestions(stage, level, test) + 1
+        ) {
+          console.error('next question over index........', nextQuestionIndex);
         }
-
-        // console.log('set next question: ', props.quetions[nextQuestionIndex]);
-        console.log(
-          'Cheers > handleContinue > replay true > next question > next:',
-          props.questions[nextQuestionIndex],
-        );
         props.setCurrentQuestion(props.questions[nextQuestionIndex]);
         return props.completeAQuestion(nextQuestionIndex);
       }
@@ -242,9 +191,16 @@ Cheers.propTypes = {
   cheers: PropTypes.bool.isRequired,
   sad: PropTypes.bool.isRequired,
   correctAnswer: PropTypes.string,
-  handleQuestionCompleted: PropTypes.func.isRequired,
   progress: PropTypes.object.isRequired,
-  questions: PropTypes.object.isRequired,
+  questions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  completeRelayQuestion: PropTypes.func.isRequired,
+  setCurrentQuestion: PropTypes.func.isRequired,
+  stageCompleted: PropTypes.func.isRequired,
+  levelCompleted: PropTypes.func.isRequired,
+  testCompleted: PropTypes.func.isRequired,
+  completeAQuestion: PropTypes.func.isRequired,
+  prepareData: PropTypes.func.isRequired,
+  stop: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -253,7 +209,6 @@ export default connect(
     questions: state.questionsContentReducer.testQuestions,
   }),
   {
-    handleQuestionCompleted: questionCompleted,
     stop: stop,
     completeRelayQuestion: completeRelayQuestion,
     prepareData: setQuestions,

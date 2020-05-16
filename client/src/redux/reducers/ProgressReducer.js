@@ -7,12 +7,11 @@ import {
   PLAY,
   REPLAY,
   STOP,
-  SET_PROGRESS,
 } from '../types';
 
 const initialState = {
   play: false,
-  stage: 0,
+  stage: 2,
   level: 0,
   test: 0,
   question: 0,
@@ -51,9 +50,6 @@ const progressReducer = (state = initialState, action) => {
         replay: {start: false, stage: 0, level: 0, test: 0},
       };
     case COMPLETED_A_QUESTION:
-      // console.log(
-      //   'progressReducer: completed a question > increase question to: ',
-      // );
       return {...state, question: action.payload};
     case COMPLETED_A_REPLAY_QUESTION:
       return {
@@ -78,16 +74,6 @@ const progressReducer = (state = initialState, action) => {
         test: 0,
         question: 0,
         play: false,
-      };
-    case SET_PROGRESS:
-      ({stage, level, test, question} = action.payload);
-      console.log('progressreducer > setprogress > param: '.action.payload);
-      return {
-        ...state,
-        stage: stage,
-        level: level,
-        test: test,
-        question: question,
       };
     default:
       return state;

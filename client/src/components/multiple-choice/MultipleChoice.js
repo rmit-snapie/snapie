@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import Proptypes from 'prop-types';
 import {
-  Image,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -18,22 +17,8 @@ import {
 import {renderImageWrapper} from '../../helpers/QuestionHelper';
 
 const MultipleChoice = ({type, progress, questions, ...props}) => {
-  // get question data from redux store, base on progress and questions
-  // console.log('multiple choice > current params: ', type, progress, questions);
   const {stage} = progress;
-  // let question = !progress.replay.start
-  //   ? questions[progress.question]
-  //   : questions[progress.replay.question];
   let question = props.currentQuestion;
-  console.log('multiple choice > current question: ', question);
-  // console.log('multiple choice > current question type: ', type);
-  if (question == undefined) {
-    return (
-      <View>
-        <Text>question undefined...</Text>
-      </View>
-    );
-  }
   const {questionContent, answers, correctAnswer, imageAsset} = question;
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
@@ -82,6 +67,14 @@ const MultipleChoice = ({type, progress, questions, ...props}) => {
       setCheers({display: true, sad: false});
     }
   };
+
+  if (question === undefined) {
+    return (
+      <View>
+        <Text>question undefined...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -172,6 +165,7 @@ MultipleChoice.propTypes = {
   questions: Proptypes.array.isRequired,
   progress: Proptypes.object.isRequired,
   type: Proptypes.string.isRequired,
+  currentQuestion: Proptypes.object.isRequired,
 };
 
 // export default MultipleChoice;

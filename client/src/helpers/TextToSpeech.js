@@ -32,8 +32,10 @@ export const setSpeechPitch = (rate: number) => {
 };
 
 export const readText = (text: string) => {
-  Tts.stop();
-  Tts.speak(text);
+  return Tts.getInitStatus().then(() => {
+    Tts.stop();
+    Tts.speak(text);
+  });
 };
 
 // in case remove listeners is needed in the future

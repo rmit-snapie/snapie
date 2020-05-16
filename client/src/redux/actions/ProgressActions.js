@@ -8,28 +8,10 @@ import {
   REPLAY,
   STOP,
 } from '../types';
-import {
-  getNumberOfLevels,
-  getNumberOfQuestions,
-  getNumberOfTests,
-} from '../../helpers/QuestionHelper';
-import {setLocalQuestions} from './QuestionsContentActions';
-import {
-  incrementLevelCounter,
-  incrementQuestionCounter,
-  incrementStageCounter,
-  incrementTestCounter,
-} from './ProgressCounterActions';
+import {getNumberOfTests} from '../../helpers/QuestionHelper';
 
-export function play(stage: number, level: number, test: number) {
+export function play() {
   return function(dispatch) {
-    dispatch(
-      setLocalQuestions({
-        stage: stage,
-        level: level,
-        test: test,
-      }),
-    );
     dispatch({type: PLAY});
   };
 }
@@ -37,13 +19,6 @@ export function play(stage: number, level: number, test: number) {
 export function replay(stage: number, level: number) {
   const lastTest = getNumberOfTests(stage, level);
   return function(dispatch) {
-    dispatch(
-      setLocalQuestions({
-        stage: stage,
-        level: level,
-        test: lastTest,
-      }),
-    );
     dispatch({
       type: REPLAY,
       payload: {stage: stage, level: level, test: lastTest},
@@ -56,62 +31,14 @@ export function stop() {
     dispatch({type: STOP});
   };
 }
-
-export function questionCompleted(stage, level, test, question, doneReplay) {
+export function replayQuestionCompleted() {
   return function(dispatch) {
-    if (doneReplay) {
-      if (question === getNumberOfQuestions(stage, level, test)) {
-        dispatch(stop());
-      } else {
-        dispatch({type: COMPLETED_A_REPLAY_QUESTION});
-      }
-    } else {
-      dispatch(incrementQuestionCounter());
-      if (question === getNumberOfQuestions(stage, level, test)) {
-        if (
-          level === getNumberOfLevels(stage) &&
-          test === getNumberOfTests(stage, level)
-        ) {
-          console.log('stage completed', stage, level, test);
-          dispatch(stageCompleted());
-          dispatch(incrementTestCounter());
-          dispatch(incrementLevelCounter());
-          dispatch(incrementStageCounter());
-          dispatch(
-            setLocalQuestions({
-              stage: stage + 1,
-              level: 0,
-              test: 0,
-            }),
-          );
-        } else if (test === 2) {
-          console.log('level completed', stage, level, test);
-          dispatch(levelCompleted());
-          dispatch(incrementTestCounter());
-          dispatch(incrementLevelCounter());
-          dispatch(
-            setLocalQuestions({
-              stage: stage,
-              level: level + 1,
-              test: 0,
-            }),
-          );
-        } else if (test < 2) {
-          console.log('test completed', stage, level, test);
-          dispatch(testCompleted());
-          dispatch(incrementTestCounter());
-          dispatch(
-            setLocalQuestions({
-              stage: stage,
-              level: level,
-              test: test + 1,
-            }),
-          );
-        }
-      } else {
-        dispatch({type: COMPLETED_A_QUESTION});
-      }
-    }
+    dispatch({type: COMPLETED_A_REPLAY_QUESTION});
+  };
+}
+export function questionCompleted(nextQuestion) {
+  return function(dispatch) {
+    dispatch({type: COMPLETED_A_QUESTION, payload: nextQuestion});
   };
 }
 

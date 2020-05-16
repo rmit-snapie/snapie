@@ -1,12 +1,32 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-import {bool, func, object, string} from 'prop-types';
-import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
-import {questionCompleted} from '../../redux/actions/ProgressActions';
-import {playCheers, playSad, stop} from '../../helpers/AudioHelper';
-
-const Cheers = ({sad, correctAnswer, handleQuestionCompleted, progress}) => {
-  const {stage, level, test, question} = progress;
+import {func, bool, object, string, arrayOf} from 'prop-types';
+import styles from './CheersStyle';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {
+  stop,
+  replayQuestionCompleted,
+  testCompleted,
+  levelCompleted,
+  stageCompleted,
+  questionCompleted,
+} from '../../redux/actions/ProgressActions';
+import {playCheers, playSad} from '../../helpers/AudioHelper';
+import {stopAudio} from '../../helpers/AudioHelper';
+import {
+  getNumberOfTests,
+  getNumberOfQuestions,
+  getTestQuestions,
+  getNumberOfLevels,
+} from '../../helpers/QuestionHelper';
+import {
+  setQuestions,
+  setCurrentQuestion,
+} from '../../redux/actions/QuestionsContentActions';
+const Cheers = ({sad, correctAnswer, progress, ...props}) => {
+  const {stage, level, test, question} = progress.replay.play
+    ? progress.replay
+    : progress;
   const imagePath = sad
     ? require('./assets/sad.gif')
     : require('./assets/cheers.gif');
@@ -19,19 +39,65 @@ const Cheers = ({sad, correctAnswer, handleQuestionCompleted, progress}) => {
     }
   }, [sad]);
 
-  const handleContinue = () => {
-    if (progress.replay.start) {
-      handleQuestionCompleted(
-        progress.replay.stage,
-        progress.replay.level,
-        progress.replay.test,
-        progress.replay.question,
-        true,
-      );
+  const handleContinue = async () => {
+    await stopAudio();
+    if (progress.replay.play) {
+      if (question === getNumberOfQuestions(stage, level, test)) {
+        props.stop();
+      } else {
+        props.replayQuestionCompleted();
+      }
     } else {
-      handleQuestionCompleted(stage, level, test, question, false);
+      // if last question
+      if (question === getNumberOfQuestions(stage, level, test)) {
+        // of last test of last level: next stage
+        if (
+          test === getNumberOfTests(stage, level) &&
+          level === getNumberOfLevels(stage)
+        ) {
+          props.stageCompleted();
+          getTestQuestions({
+            stage: stage + 1,
+            level: 0,
+            test: 0,
+          }).then(data => {
+            props.setCurrentQuestion(data[0]);
+            return props.prepareData(data);
+          });
+        } else if (test === 2) {
+          props.levelCompleted();
+          getTestQuestions({
+            stage: stage,
+            level: level + 1,
+            test: 0,
+          }).then(data => {
+            props.setCurrentQuestion(data[0]);
+            return props.prepareData(data);
+          });
+        } else if (test < 2) {
+          // next test:
+          props.testCompleted();
+          getTestQuestions({
+            stage: stage,
+            level: level,
+            test: test + 1,
+          }).then(data => {
+            props.setCurrentQuestion(data[0]);
+            return props.prepareData(data);
+          });
+        }
+      } else {
+        let nextQuestionIndex = question + 1;
+        if (
+          nextQuestionIndex ===
+          getNumberOfQuestions(stage, level, test) + 1
+        ) {
+          console.error('next question over index........', nextQuestionIndex);
+        }
+        props.setCurrentQuestion(props.questions[nextQuestionIndex]);
+        return props.questionCompleted(nextQuestionIndex);
+      }
     }
-    return stop();
   };
 
   return (
@@ -57,69 +123,6 @@ const Cheers = ({sad, correctAnswer, handleQuestionCompleted, progress}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  gifWrapper: {
-    flex: 4,
-    justifyContent: 'flex-end',
-  },
-  image: {
-    width: 400,
-    height: 400,
-    zIndex: 2,
-  },
-  correctAnswerWrapper: {
-    flex: 2,
-    justifyContent: 'flex-start',
-    width: 300,
-  },
-  correctAnswer: {
-    lineHeight: 40,
-    textAlign: 'center',
-    fontFamily: 'Amiko-Bold',
-    fontSize: 24,
-  },
-  continueButtonWrapper: {
-    flex: 2,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  continueButton: {
-    borderBottomWidth: 5,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
-    paddingTop: 13,
-    paddingBottom: 13,
-    paddingRight: 16,
-    paddingLeft: 16,
-    height: 50,
-    width: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    borderRadius: 16,
-    borderBottomColor: '#58a700',
-    borderColor: 'rgb(229, 229, 229)',
-    shadowColor: 'rgba(120,114,120,0.64)', // IOS
-    backgroundColor: '#78c800',
-  },
-  continueTitle: {
-    fontSize: 18,
-    color: '#ffffff',
-    fontWeight: 'bold',
-    letterSpacing: 1,
-  },
-});
-
 Cheers.defaultProps = {
   correctAnswer: '',
 };
@@ -128,11 +131,31 @@ Cheers.propTypes = {
   cheers: bool.isRequired,
   sad: bool.isRequired,
   correctAnswer: string,
-  handleQuestionCompleted: func.isRequired,
   progress: object.isRequired,
+  questions: arrayOf(object).isRequired,
+  replayQuestionCompleted: func.isRequired,
+  setCurrentQuestion: func.isRequired,
+  stageCompleted: func.isRequired,
+  levelCompleted: func.isRequired,
+  testCompleted: func.isRequired,
+  questionCompleted: func.isRequired,
+  prepareData: func.isRequired,
+  stop: func.isRequired,
 };
 
 export default connect(
-  state => ({progress: state.progressReducer}),
-  {handleQuestionCompleted: questionCompleted},
+  state => ({
+    progress: state.progressReducer,
+    questions: state.questionsContentReducer.questions,
+  }),
+  {
+    stop: stop,
+    replayQuestionCompleted: replayQuestionCompleted,
+    prepareData: setQuestions,
+    testCompleted: testCompleted,
+    levelCompleted: levelCompleted,
+    stageCompleted: stageCompleted,
+    questionCompleted: questionCompleted,
+    setCurrentQuestion: setCurrentQuestion,
+  },
 )(Cheers);

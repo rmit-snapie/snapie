@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import {object} from 'prop-types';
 import styles from './HomeStyle';
 import {
   View,
@@ -15,9 +15,7 @@ import {
   PROFILE_SCREEN,
   REVIEW_SCREEN,
 } from '../../../environments/Routes';
-import {connect} from 'react-redux';
-import {setLocalQuestions} from '../../redux/actions/QuestionsContentActions';
-import DefaultAvatar from '../../shared/assets/DefaultAvatar.png';
+import DefaultAvatar from '../assets/home-screen-icons/DefaultAvatar.png';
 import HomeScreen from '../assets/home-screen-icons/HomeScreen.png';
 import LessonButton from '../assets/home-screen-icons/Lesson.png';
 import ExploreButton from '../assets/home-screen-icons/Explore.png';
@@ -60,14 +58,7 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  navigation: PropTypes.object.isRequired,
-  progress: PropTypes.object.isRequired,
-  handleSetLocalQuestions: PropTypes.func.isRequired,
+  navigation: object.isRequired,
 };
 
-export default connect(
-  state => ({
-    progress: state.progressReducer,
-  }),
-  {handleSetLocalQuestions: setLocalQuestions},
-)(Home);
+export default Home;

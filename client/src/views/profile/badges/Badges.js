@@ -11,15 +11,15 @@ const Badges = ({progressCounter: {levelsCompleted}}) => {
     const badges = [];
     for (let i = 0; i < levelsCompleted; i++) {
       badges.push(
-        <View style={styles.badgeWrapper}>
-          <Image style={styles.image} key={i} source={BADGES.color[i]} />
+        <View key={i} style={styles.badgeWrapper}>
+          <Image style={styles.image} source={BADGES.color[i]} />
         </View>,
       );
     }
     for (let i = levelsCompleted; i < 12; i++) {
       badges.push(
-        <View style={styles.badgeWrapper}>
-          <Image style={styles.image} key={i} source={BADGES.grey[i]} />
+        <View key={i} style={styles.badgeWrapper}>
+          <Image style={styles.image} source={BADGES.grey[i]} />
         </View>,
       );
     }

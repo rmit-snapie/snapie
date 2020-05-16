@@ -15,7 +15,7 @@ import {
   PROFILE_SCREEN,
   REVIEW_SCREEN,
 } from '../../../environments/Routes';
-import DefaultAvatar from '../assets/home-screen-icons/DefaultAvatar.png';
+import DefaultAvatar from '../../shared/assets/DefaultAvatar.png';
 import HomeScreen from '../assets/home-screen-icons/HomeScreen.png';
 import LessonButton from '../assets/home-screen-icons/Lesson.png';
 import ExploreButton from '../assets/home-screen-icons/Explore.png';

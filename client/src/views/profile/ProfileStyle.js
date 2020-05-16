@@ -9,7 +9,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   profileHeader: {
-    flex: 3,
+    flex: 2,
     width: windowWidth,
   },
   profileActionsWrapper: {

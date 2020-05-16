@@ -223,7 +223,7 @@ export const STAGE_ONE = [
         possibleAnswersCount: 4,
         answers: ['white', 'orange', 'green', 'yellow'],
         correctAnswer: 'orange',
-        imageAsset: ColorYellow,
+        imageAsset: ColorOrange,
         correctAnswerCount: 1,
       },
       {

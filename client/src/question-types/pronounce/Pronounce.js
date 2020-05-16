@@ -4,7 +4,7 @@ import {object} from 'prop-types';
 import styles from './PronounceStyle';
 import {View, TouchableWithoutFeedback, Button, Text} from 'react-native';
 import Voice from '@react-native-community/voice';
-import Cheers from '../cheers/Cheers';
+import Cheers from '../cheers';
 import {renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 

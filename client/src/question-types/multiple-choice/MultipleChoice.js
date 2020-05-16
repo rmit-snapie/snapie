@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import styles from './MultipleChoiceStyle';
-import Cheers from '../cheers/Cheers';
+import Cheers from '../cheers';
 import {readText} from '../../helpers/TextToSpeech';
 import {
   MULTIPLE_CHOICE,

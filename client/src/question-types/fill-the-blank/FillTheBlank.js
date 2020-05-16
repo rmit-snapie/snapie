@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import styles from './FillTheBlankStyle';
-import Cheers from '../cheers/Cheers';
+import Cheers from '../cheers';
 import {createBlanks, renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {object} from 'prop-types';
 import {View, Text, TouchableOpacity, Animated, Easing} from 'react-native';
 import styles from './PairSelectionStyle';
-import Cheers from '../cheers/Cheers';
+import Cheers from '../cheers';
 import {renderImageWrapper, shuffle} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 

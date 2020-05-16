@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {object} from 'prop-types';
 import styles from './FindTheObjectStyle';
 import {
@@ -13,12 +14,12 @@ import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
 import {LABELS_API} from '../../views/explore/constants';
 import Loading from '../../shared/components/Loading';
-import Cheers from '../cheers/Cheers';
+import Cheers from '../cheers';
 
 class FindTheObject extends Component {
   constructor(props) {
     super(props);
-    const {questionContent, correctAnswer} = props.question;
+    const {questionContent, correctAnswer} = props.currentQuestion;
     this.state = {
       questionContent: questionContent,
       correctAnswer: correctAnswer,
@@ -160,7 +161,12 @@ class FindTheObject extends Component {
 }
 
 FindTheObject.propTypes = {
-  question: object.isRequired,
+  currentQuestion: object.isRequired,
 };
 
-export default FindTheObject;
+export default connect(
+  state => ({
+    currentQuestion: state.questionsContentReducer.currentQuestion,
+  }),
+  null,
+)(FindTheObject);

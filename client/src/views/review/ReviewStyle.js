@@ -7,7 +7,7 @@ export default StyleSheet.create({
   reviewHeader: {
     flex: 2,
     justifyContent: 'flex-start',
-    backgroundColor: '#84d0f7',
+    backgroundColor: '#efc458',
     padding: 25,
   },
   actionsWrapper: {
@@ -64,19 +64,34 @@ export default StyleSheet.create({
     flex: 7,
   },
   vocabularyWrapper: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15,
-  },
-  scrollView: {
-    backgroundColor: 'pink',
-    marginHorizontal: 20,
+    padding: 15,
   },
   smallImg: {
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 70,
     borderWidth: 3,
-    borderRadius: 16,
+    borderRadius: 40,
     borderColor: '#afafaf',
+    marginRight: 15,
+  },
+  labelWrapper: {
+    flex: 1,
+    height: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: 'rgb(229, 229, 229)',
+    shadowColor: 'rgba(120,114,120,0.64)',
+    borderRadius: 16,
+  },
+  chosenLabelWrapper: {
+    borderColor: '#efc458',
   },
   sectionHeader: {
     padding: 15,
@@ -84,18 +99,21 @@ export default StyleSheet.create({
     fontFamily: 'Quicksand-Bold',
   },
   item: {
-    paddingLeft: 50,
     fontSize: 18,
-    fontFamily: 'Amiko-Bold',
+    fontFamily: 'Quicksand-Bold',
+    textAlign: 'center',
+    letterSpacing: 1,
   },
-  labelWrapper: {
-    flex: 1,
+  centeredView: {
+    justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 300,
-    backgroundColor: '#efc458',
-    borderRadius: 16,
-    padding: 4,
+    marginTop: '50%',
+  },
+  emptyMessage: {
+    fontSize: 24,
+    fontFamily: 'Quicksand-Bold',
+    textAlign: 'center',
+    letterSpacing: 1,
+    width: '80%',
   },
 });

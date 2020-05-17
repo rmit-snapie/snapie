@@ -85,7 +85,6 @@ class Explore extends Component {
       results,
       analysis: {analyzing, analyzed},
     } = this.state;
-    console.log(results);
     const {navigation} = this.props;
     const src = imageUri ? AnalyzeButton : ExploreSnapIcon;
     if (analyzing) {

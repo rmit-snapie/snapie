@@ -19,7 +19,7 @@ import {
 //Views
 import Home from './src/views/home/Home';
 import Explore from './src/views/explore/Explore';
-import Review from './src/views/review/Review';
+import Review from './src/views/review';
 import Lesson from './src/views/lesson/Lesson';
 import FindTheObject from './src/question-types/find-the-object/FindTheObject';
 import Profile from './src/views/profile/Profile';

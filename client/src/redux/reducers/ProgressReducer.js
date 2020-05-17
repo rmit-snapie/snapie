@@ -16,7 +16,7 @@ const initialState = {
   test: 0,
   question: 0,
   replay: {
-    start: true,
+    play: false,
     stage: 0,
     level: 0,
     test: 0,
@@ -29,14 +29,14 @@ let stage, level, test;
 const progressReducer = (state = initialState, action) => {
   switch (action.type) {
     case PLAY:
-      return {...state, play: true, replay: {start: false}};
+      return {...state, play: true, replay: {play: false}};
     case REPLAY:
       ({stage, level, test} = action.payload);
       return {
         ...state,
         play: true,
         replay: {
-          start: true,
+          play: true,
           stage: stage,
           level: level,
           test: test,
@@ -47,10 +47,10 @@ const progressReducer = (state = initialState, action) => {
       return {
         ...state,
         play: false,
-        replay: {start: false, stage: 0, level: 0, test: 0},
+        replay: {play: false, stage: 0, level: 0, test: 0},
       };
     case COMPLETED_A_QUESTION:
-      return {...state, question: state.question + 1};
+      return {...state, question: action.payload};
     case COMPLETED_A_REPLAY_QUESTION:
       return {
         ...state,
@@ -67,7 +67,14 @@ const progressReducer = (state = initialState, action) => {
         play: false,
       };
     case COMPLETED_A_STAGE:
-      return {...state, stage: state.stage + 1, level: 0, test: 0, question: 0};
+      return {
+        ...state,
+        stage: state.stage + 1,
+        level: 0,
+        test: 0,
+        question: 0,
+        play: false,
+      };
     default:
       return state;
   }

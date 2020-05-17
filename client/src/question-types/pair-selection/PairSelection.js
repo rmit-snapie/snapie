@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {object} from 'prop-types';
 import {View, Text, TouchableOpacity, Animated, Easing} from 'react-native';
 import styles from './PairSelectionStyle';
-import Cheers from '../cheers/Cheers';
-import {shuffle} from '../../helpers/QuestionHelper';
+import Cheers from '../cheers';
+import {renderImageWrapper, shuffle} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
 class PairSelection extends Component {
   constructor(props) {
     super(props);
-    const {questionContent, answers, imagesAsset} = props.question;
+    const {questionContent, answers, imagesAsset} = props.currentQuestion;
     this.state = {
       pictures: shuffle(imagesAsset),
       possibleAnswers: shuffle(answers),
@@ -19,10 +20,6 @@ class PairSelection extends Component {
       cheers: {display: false, sad: false},
       shakeAnimation: new Animated.Value(0),
     };
-    this.triggerShake = this.triggerShake.bind(this);
-    this.resetAnswerState = this.resetAnswerState.bind(this);
-    this.removeCorrectPair = this.removeCorrectPair.bind(this);
-    this.openCheers = this.openCheers.bind(this);
   }
 
   resetAnswerState = () => {
@@ -94,14 +91,17 @@ class PairSelection extends Component {
   }
 
   render() {
+    const {stage} = this.props.progress.replay
+      ? this.props.progress.replay
+      : this.props.progress;
     const handleAnswerPressed = (index, answer) => {
+      readText(answer);
       const {currentAnswer} = this.state;
       if (currentAnswer.index === index) {
         this.setState({
           currentAnswer: {answer: null, index: null},
         });
       } else {
-        readText(answer);
         this.setState({
           currentAnswer: {answer: answer, index: index},
         });
@@ -110,6 +110,7 @@ class PairSelection extends Component {
 
     const handlePicturePressed = (asset, index) => {
       const {currentPicture} = this.state;
+      readText(asset.name);
       if (currentPicture.index === index) {
         this.setState({
           currentPicture: {asset: null, index: null},
@@ -142,6 +143,14 @@ class PairSelection extends Component {
       possibleAnswers,
       cheers: {sad, display},
     } = this.state;
+
+    if (this.props.currentQuestion === undefined) {
+      return (
+        <View style={styles.container}>
+          <Text>ERROR PAIR SELECTION COULD NOT LOAD</Text>
+        </View>
+      );
+    }
 
     if (display) {
       return <Cheers cheers={display} sad={sad} />;
@@ -188,10 +197,7 @@ class PairSelection extends Component {
                       : [styles.answerImage, styles.notChosenAnswerImage]
                   }
                   key={index}>
-                  <Animated.Image
-                    style={[styles.asset]}
-                    source={picture.asset}
-                  />
+                  {renderImageWrapper(stage, picture.asset, styles.asset, true)}
                 </TouchableOpacity>
               ))}
             </Animated.View>
@@ -203,7 +209,14 @@ class PairSelection extends Component {
 }
 
 PairSelection.propTypes = {
-  question: PropTypes.object.isRequired,
+  currentQuestion: object.isRequired,
+  progress: object.isRequired,
 };
 
-export default PairSelection;
+export default connect(
+  state => ({
+    progress: state.progressReducer,
+    currentQuestion: state.questionsContentReducer.currentQuestion,
+  }),
+  null,
+)(PairSelection);

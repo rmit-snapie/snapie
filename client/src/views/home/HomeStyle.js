@@ -1,12 +1,15 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
   background: {
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
-    width: '100%',
-    height: '100%',
+    width: windowWidth,
+    height: windowHeight,
   },
   profileWrapper: {
     flex: 3,

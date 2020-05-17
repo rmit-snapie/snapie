@@ -1,4 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
   container: {
@@ -39,9 +41,6 @@ export default StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
   },
-  buttonWrapper: {
-    flex: 2,
-  },
   answer: {
     shadowOffset: {
       width: 0,
@@ -53,7 +52,7 @@ export default StyleSheet.create({
     padding: 5,
     marginBottom: 20,
     height: 50,
-    width: 175,
+    width: windowWidth / 2.5,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
@@ -110,6 +109,10 @@ export default StyleSheet.create({
     fontSize: 24,
     color: 'rgb(28, 176, 246)',
     fontWeight: '600',
+  },
+  buttonWrapper: {
+    flex: 2,
+    justifyContent: 'center',
   },
   confirmButton: {
     borderBottomWidth: 5,

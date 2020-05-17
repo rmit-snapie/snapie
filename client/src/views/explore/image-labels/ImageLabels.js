@@ -8,6 +8,7 @@ import {addNewVocab} from '../../../redux/actions/VocabulariesActions';
 import SnapieModal from '../../../shared/components/SnapieModal';
 const ListenButton = require('../../../shared/assets/ListenButton.png');
 const SaveButton = require('../../../shared/assets/SaveButton.png');
+const Ticked = require('../../../shared/assets/Ticked.gif');
 const ViewMoreButton = require('../../../shared/assets/ViewMoreButton.png');
 const ViewLessButton = require('../../../shared/assets/ViewLessButton.png');
 
@@ -79,6 +80,12 @@ const ImageLabels = ({results, handleAddVocabulary, vocabularies}) => {
       </View>
     );
   }
+  const saveOrTick = vocab => {
+    if (vocabularyAlreadyAdded(vocab)) {
+      return Ticked;
+    }
+    return SaveButton;
+  };
   return (
     <View style={styles.container}>
       <View style={styles.resultsWrapper}>
@@ -94,7 +101,10 @@ const ImageLabels = ({results, handleAddVocabulary, vocabularies}) => {
                   onPress={() =>
                     addVocabulary(result.description, result.urls[0])
                   }>
-                  <Image style={styles.actionButton} source={SaveButton} />
+                  <Image
+                    style={styles.actionButton}
+                    source={saveOrTick(result.description)}
+                  />
                 </TouchableOpacity>
               </View>
             </View>

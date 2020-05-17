@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {object} from 'prop-types';
 import styles from './FindTheObjectStyle';
 import {
   View,
@@ -13,13 +14,15 @@ import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
 import {LABELS_API} from '../../views/explore/constants';
 import Loading from '../../shared/components/Loading';
-import Cheers from '../cheers/Cheers';
+import Cheers from '../cheers';
 
 class FindTheObject extends Component {
   constructor(props) {
     super(props);
+    const {questionContent, correctAnswer} = props.currentQuestion;
     this.state = {
-      mockQuestion: 'Find this object',
+      questionContent: questionContent,
+      correctAnswer: correctAnswer,
       imageUri: '',
       base64encoded: '',
       results: [],
@@ -59,28 +62,33 @@ class FindTheObject extends Component {
         maxResults: 5,
       })
       .then(response => {
-        console.log(response.data);
-        this.setState({results: [...response.data]});
-      })
-      .then(() => {
-        this.setState({analyzing: false});
+        this.setState({results: [...response.data], analyzing: false});
       });
   };
 
-  openCheers = () => {
-    this.setState({cheers: {display: true, sad: false}});
+  openCheers = (display, sad) => {
+    this.setState({cheers: {display: display, sad: sad}});
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     const {results: oldResults} = prevState;
-    const {results} = this.state;
+    const {results, correctAnswer} = this.state;
     if (results !== oldResults && results.length !== 0) {
-      this.openCheers();
+      if (
+        results.some(
+          result =>
+            result.description.toLowerCase() === correctAnswer.toLowerCase(),
+        )
+      ) {
+        this.openCheers(true, false);
+      } else {
+        this.openCheers(true, true);
+      }
     }
   }
 
   render() {
-    const {mockQuestion, imageUri, loading, analyzing, cheers} = this.state;
+    const {questionContent, imageUri, loading, analyzing, cheers} = this.state;
     const src = imageUri
       ? require('../../shared/assets/CancelButton.png')
       : require('../../shared/assets/TakePictureButton.png');
@@ -93,7 +101,7 @@ class FindTheObject extends Component {
     return (
       <View style={styles.preview}>
         <View style={styles.questionWrapper}>
-          <Text style={styles.questionContent}>{mockQuestion}</Text>
+          <Text style={styles.questionContent}>{questionContent}</Text>
         </View>
         <View style={styles.cameraWrapper}>
           {!this.imageUriIsEmpty() ? (
@@ -149,4 +157,13 @@ class FindTheObject extends Component {
   }
 }
 
-export default FindTheObject;
+FindTheObject.propTypes = {
+  currentQuestion: object.isRequired,
+};
+
+export default connect(
+  state => ({
+    currentQuestion: state.questionsContentReducer.currentQuestion,
+  }),
+  null,
+)(FindTheObject);

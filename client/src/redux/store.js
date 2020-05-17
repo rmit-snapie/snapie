@@ -10,10 +10,10 @@ const persistConfig = {
   storage: AsyncStorage,
   whitelist: [''],
   blacklist: [
-    'userReducer',
     'progressReducer',
     'questionsContentReducer',
     'vocabulariesReducer',
+    'progressCounterReducer',
   ],
 };
 

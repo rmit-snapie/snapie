@@ -15,7 +15,7 @@ export default StyleSheet.create({
     fontSize: 32,
   },
   answersWrapper: {
-    flex: 4,
+    flex: 6,
     justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',

@@ -1,19 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {object} from 'prop-types';
 import {
-  View,
   Text,
   TouchableOpacity,
-  Image,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 import styles from './FillTheBlankStyle';
-import Cheers from '../cheers/Cheers';
-import {createBlanks} from '../../helpers/QuestionHelper';
+import Cheers from '../cheers';
+import {createBlanks, renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 
-const FillTheBlank = ({question}) => {
-  const {questionContent, answers, correctAnswer, imageAsset} = question;
+const FillTheBlank = ({progress, currentQuestion}) => {
+  const {stage} = progress.replay.play ? progress.replay : progress;
+  const {questionContent, answers, correctAnswer, imageAsset} = currentQuestion;
   const blanks = createBlanks(correctAnswer);
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
@@ -23,7 +24,7 @@ const FillTheBlank = ({question}) => {
 
   useEffect(() => {
     readText(questionContent);
-  }, [question, questionContent]);
+  }, [currentQuestion, questionContent]);
 
   const resetCurrentAnswer = () => {
     setCheers({display: false, sad: false});
@@ -49,6 +50,14 @@ const FillTheBlank = ({question}) => {
     }
   };
 
+  if (currentQuestion === undefined) {
+    return (
+      <View style={styles.container}>
+        <Text>ERROR FILL THE BLANK QUESTION COULD NOT LOAD</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       {cheers.display && (
@@ -61,12 +70,8 @@ const FillTheBlank = ({question}) => {
       {!cheers.display && (
         <>
           <View style={styles.mediaWrapper}>
-            <TouchableWithoutFeedback onPress={() => readText(questionContent)}>
-              <Image
-                style={styles.image}
-                onPress={() => readText(questionContent)}
-                source={imageAsset}
-              />
+            <TouchableWithoutFeedback onPress={() => readText(correctAnswer)}>
+              {renderImageWrapper(stage, imageAsset, styles.image)}
             </TouchableWithoutFeedback>
           </View>
           <View style={styles.questionWrapper}>
@@ -111,7 +116,14 @@ const FillTheBlank = ({question}) => {
 };
 
 FillTheBlank.propTypes = {
-  question: PropTypes.object,
+  progress: object.isRequired,
+  currentQuestion: object.isRequired,
 };
 
-export default FillTheBlank;
+export default connect(
+  state => ({
+    progress: state.progressReducer,
+    currentQuestion: state.questionsContentReducer.currentQuestion,
+  }),
+  null,
+)(FillTheBlank);

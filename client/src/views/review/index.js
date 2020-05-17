@@ -19,8 +19,10 @@ const ReviewWrapper = ({navigation, vocabularies, recentVocabularies}) => {
   const handleSetFeatured = item => {
     if (featured.word === '') {
       setFeatured({word: item.word, url: item.url});
-    } else {
+    } else if (featured.word === item.word) {
       setFeatured({word: '', url: ''});
+    } else {
+      setFeatured({word: item.word, url: item.url});
     }
   };
 

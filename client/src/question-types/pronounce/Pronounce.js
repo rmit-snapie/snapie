@@ -2,11 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {object} from 'prop-types';
 import styles from './PronounceStyle';
-import {View, TouchableWithoutFeedback, Button, Text} from 'react-native';
+import {View, TouchableOpacity, Image, Text} from 'react-native';
 import Voice from '@react-native-community/voice';
 import Cheers from '../cheers';
 import {renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
+import RecordButton from '../../shared/assets/RecordButton.png';
 
 class Pronounce extends React.Component {
   constructor(props) {
@@ -32,15 +33,13 @@ class Pronounce extends React.Component {
     Voice.destroy().then(Voice.removeAllListeners);
   }
 
-  openCheers = () => {
+  openCheers() {
     this.setState({
       cheers: {display: true, sad: false},
     });
-    // I have to include this to prevent an infinite loop inside componentDidUpdate
-    this.setState({isRecord: false, voice: undefined});
-  };
+  }
 
-  componentDidUpdate() {
+  handleAnswerCheck = () => {
     const {voice} = this.state;
     const {correctAnswer} = this.props.currentQuestion;
     if (voice) {
@@ -51,12 +50,13 @@ class Pronounce extends React.Component {
           .split(' ')
           .includes(correctAnswer)
       ) {
-        this.openCheers();
-        Voice.destroy().then(Voice.removeAllListeners);
+        this.setState({cheers: {display: true, sad: false}});
+      } else {
+        this.setState({cheers: {display: true, sad: true}});
       }
     }
-    return false;
-  }
+    return Voice.destroy().then(Voice.removeAllListeners);
+  };
 
   _onSpeechStart = () => {
     console.log('onSpeechEnd');
@@ -104,7 +104,6 @@ class Pronounce extends React.Component {
       voice,
       cheers: {display, sad},
     } = this.state;
-    const buttonLabel = isRecord ? 'Stop' : 'Start';
     const voiceLabel = voice
       ? voice
       : isRecord
@@ -122,12 +121,12 @@ class Pronounce extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          <View
-            onPress={() => readText(correctAnswer)}
-            style={styles.imageAssetWrapper}>
-            <TouchableWithoutFeedback onPress={() => readText(correctAnswer)}>
+          <View style={styles.imageAssetWrapper}>
+            <TouchableOpacity
+              onPress={() => readText(correctAnswer)}
+              style={styles.imageWrapper}>
               {renderImageWrapper(stage, imageAsset, styles.image)}
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </View>
           <View style={styles.questionWrapper}>
             <Text
@@ -137,8 +136,22 @@ class Pronounce extends React.Component {
             </Text>
             <Text style={styles.question}>{voiceLabel}</Text>
           </View>
-          <View style={styles.pronounceButtonWrapper}>
-            <Button onPress={this._onRecordVoice} title={buttonLabel} />
+          <View style={styles.recordButtonWrapper}>
+            <TouchableOpacity onPress={this._onRecordVoice}>
+              <Image style={styles.record} source={RecordButton} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.checkWrapper}>
+            <TouchableOpacity
+              style={
+                voice === undefined
+                  ? [styles.confirmButton, styles.disabledConfirm]
+                  : [styles.confirmButton, styles.confirmAnswer]
+              }
+              disabled={voice === undefined}
+              onPress={this.handleAnswerCheck}>
+              <Text style={styles.confirmTitle}> Confirm </Text>
+            </TouchableOpacity>
           </View>
         </View>
       );

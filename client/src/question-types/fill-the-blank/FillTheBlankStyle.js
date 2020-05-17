@@ -1,6 +1,4 @@
-import {Dimensions, StyleSheet} from 'react-native';
-
-const windowWidth = Dimensions.get('window').width;
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -13,9 +11,23 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  imageWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: 'rgb(229, 229, 229)',
+    shadowColor: 'rgba(120,114,120,0.64)',
+    padding: 20,
+    borderRadius: 16,
+    backgroundColor: '#ffffff',
+  },
   image: {
-    height: 250,
-    width: 175,
+    height: 200,
+    width: 200,
+    resizeMode: 'contain',
   },
   questionWrapper: {
     flex: 2,
@@ -39,7 +51,7 @@ export default StyleSheet.create({
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 2,
-    borderBottomWidth: 6,
+    borderBottomWidth: 4,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -65,11 +77,10 @@ export default StyleSheet.create({
     borderLeftWidth: 2,
     borderRightWidth: 2,
     borderBottomWidth: 2,
-    borderColor: '#1cb0f6',
+    borderColor: '#f7ab5f',
   },
   answerTitle: {
     fontSize: 18,
-    color: 'rgb(28, 176, 246)',
     fontWeight: '600',
   },
   confirmButtonWrapper: {
@@ -97,10 +108,10 @@ export default StyleSheet.create({
     borderRadius: 16,
   },
   confirmAnswer: {
-    borderBottomColor: '#58a700',
     borderColor: 'rgb(229, 229, 229)',
     shadowColor: 'rgba(120,114,120,0.64)', // IOS
-    backgroundColor: '#78c800',
+    backgroundColor: '#f7ab5f',
+    borderBottomColor: 'rgba(120,114,120,0.64)',
   },
   disabledConfirm: {
     borderBottomColor: 'rgba(120,114,120,0.64)',

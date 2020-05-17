@@ -1,12 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {object} from 'prop-types';
-import {
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import styles from './SpellingOrderStyle';
 import Cheers from '../cheers';
 import {createBlanks, renderImageWrapper} from '../../helpers/QuestionHelper';
@@ -85,9 +80,11 @@ const SpellingOrder = ({currentQuestion, progress}) => {
       {!cheers.display && (
         <>
           <View style={styles.mediaWrapper}>
-            <TouchableWithoutFeedback onPress={() => readText(questionContent)}>
+            <TouchableOpacity
+              style={styles.imageWrapper}
+              onPress={() => readText(questionContent)}>
               {renderImageWrapper(stage, imageAsset, styles.image)}
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </View>
           <View style={styles.questionWrapper}>
             <Text style={styles.questionContent}>{questionContent}</Text>

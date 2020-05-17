@@ -10,10 +10,26 @@ export default StyleSheet.create({
     flex: 4,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    marginTop: 20,
+    padding: 25,
+  },
+  imageWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: 'rgb(229, 229, 229)',
+    shadowColor: 'rgba(120,114,120,0.64)',
+    padding: 20,
+    borderRadius: 16,
+    backgroundColor: '#ffffff',
   },
   image: {
-    height: 260,
-    width: 175,
+    height: 200,
+    width: 200,
+    resizeMode: 'contain',
   },
   questionWrapper: {
     flex: 2,
@@ -78,7 +94,6 @@ export default StyleSheet.create({
   },
   answerTitle: {
     fontSize: 22,
-    color: 'rgb(28, 176, 246)',
     fontWeight: '600',
   },
   confirmButtonWrapper: {
@@ -106,10 +121,8 @@ export default StyleSheet.create({
     borderRadius: 16,
   },
   confirmAnswer: {
-    borderBottomColor: '#58a700',
-    borderColor: 'rgb(229, 229, 229)',
-    shadowColor: 'rgba(120,114,120,0.64)', // IOS
-    backgroundColor: '#78c800',
+    borderBottomColor: 'rgba(120,114,120,0.64)',
+    backgroundColor: '#f7ab5f',
   },
   disabledConfirm: {
     borderBottomColor: 'rgba(120,114,120,0.64)',

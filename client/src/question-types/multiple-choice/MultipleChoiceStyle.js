@@ -10,12 +10,26 @@ export default StyleSheet.create({
   },
   assetsWrapper: {
     flex: 4,
-    justifyContent: 'flex-end',
+    marginTop: 20,
+    padding: 25,
+  },
+  imageWrapper: {
+    justifyContent: 'center',
     alignItems: 'center',
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: 'rgb(229, 229, 229)',
+    shadowColor: 'rgba(120,114,120,0.64)',
+    padding: 20,
+    borderRadius: 16,
+    backgroundColor: '#ffffff',
   },
   image: {
-    height: 250,
-    width: 175,
+    height: 200,
+    width: 200,
+    resizeMode: 'contain',
   },
   questionWrapper: {
     flex: 2,
@@ -55,14 +69,13 @@ export default StyleSheet.create({
     width: windowWidth / 2.5,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
     borderRadius: 16,
   },
   notChosenAnswer: {
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 2,
-    borderBottomWidth: 6,
+    borderBottomWidth: 4,
     borderColor: 'rgb(229, 229, 229)',
     shadowColor: 'rgba(120,114,120,0.64)',
   },
@@ -71,11 +84,10 @@ export default StyleSheet.create({
     borderLeftWidth: 2,
     borderRightWidth: 2,
     borderBottomWidth: 2,
-    borderColor: '#1cb0f6',
+    borderColor: '#f7ab5f',
   },
   answerTitle: {
     fontSize: 24,
-    color: 'rgb(28, 176, 246)',
     fontWeight: '600',
   },
   answerImage: {
@@ -98,7 +110,7 @@ export default StyleSheet.create({
   },
   chosenAnswerImage: {
     borderWidth: 1,
-    borderColor: 'rgb(28, 176, 246)',
+    borderColor: '#f7ab5f',
     backgroundColor: '#ffffff',
   },
   imageContent: {
@@ -107,7 +119,6 @@ export default StyleSheet.create({
   },
   chosenAnswerTitle: {
     fontSize: 24,
-    color: 'rgb(28, 176, 246)',
     fontWeight: '600',
   },
   buttonWrapper: {
@@ -135,8 +146,8 @@ export default StyleSheet.create({
     borderRadius: 16,
   },
   confirmAnswer: {
-    borderBottomColor: '#58a700',
-    backgroundColor: '#78c800',
+    borderBottomColor: 'rgba(120,114,120,0.64)',
+    backgroundColor: '#f7ab5f',
   },
   disabledConfirm: {
     borderBottomColor: 'rgba(120,114,120,0.64)',

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import {goToFirstScreenInStack, navigateTo} from '../../helpers/NavigateHelper';
 import PropTypes from 'prop-types';
-import {FIND_THE_OBJECT, LESSON_SCREEN} from '../../../environments/Routes';
+import {FIND_THE_OBJECT} from '../../../environments/Routes';
 
 class Review extends Component {
   static propTypes = {

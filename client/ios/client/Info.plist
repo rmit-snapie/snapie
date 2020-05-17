@@ -2,16 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSCameraUsageDescription</key>
-    <string>Snapie would like to acess your camera</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Snapie would like to access your photo library</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Snapie would like to access your photo library</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Snapie would like to access your microphone</string>
-    <key>NSSpeechRecognitionUsageDescription</key>
-    <string>Snapie would like to use speech recognition</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Snapie would like to acess your camera</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Snapie would like to access your photo library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Snapie would like to access your photo library</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Snapie would like to access your microphone</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Snapie would like to use speech recognition</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -54,6 +54,11 @@
 		<string>Amiko-Bold.ttf</string>
 		<string>Amiko-Regular.ttf</string>
 		<string>Amiko-SemiBold.ttf</string>
+		<string>Quicksand-Bold.ttf</string>
+		<string>Quicksand-Light.ttf</string>
+		<string>Quicksand-Medium.ttf</string>
+		<string>Quicksand-Regular.ttf</string>
+		<string>Quicksand-SemiBold.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

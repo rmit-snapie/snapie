@@ -71,10 +71,10 @@ class Explore extends Component {
         maxResults: 5,
       })
       .then(response => {
-        this.setState({results: [...response.data]});
-      })
-      .then(() => {
-        this.setState({analysis: {analyzing: false, analyzed: true}});
+        this.setState({
+          results: [...response.data],
+          analysis: {analyzing: false, analyzed: true},
+        });
       });
   };
 
@@ -85,6 +85,7 @@ class Explore extends Component {
       results,
       analysis: {analyzing, analyzed},
     } = this.state;
+    console.log(results);
     const {navigation} = this.props;
     const src = imageUri ? AnalyzeButton : ExploreSnapIcon;
     if (analyzing) {

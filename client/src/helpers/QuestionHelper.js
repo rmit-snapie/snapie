@@ -4,7 +4,6 @@ import {STAGE_ONE} from '../domain-models/stage-1/StageOneQuestions';
 import {STAGE_TWO} from '../domain-models/stage-2/StageTwoQuestions';
 import RNFetchBlob from 'rn-fetch-blob';
 
-// TODO these two functions are also hard coded, have to fix
 export const getNumberOfQuestions = (
   stage: number,
   level: number,

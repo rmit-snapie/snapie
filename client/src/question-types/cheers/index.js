@@ -36,9 +36,10 @@ export const CheersWrapper = ({sad, correctAnswer, progress, ...props}) => {
     await stopAudio();
     if (progress.replay.play) {
       if (question === getNumberOfQuestions(stage, level, test)) {
-        props.stop();
+        return props.stop();
       } else {
-        props.replayQuestionCompleted();
+        props.setCurrentQuestion(props.questions[question + 1]);
+        return props.replayQuestionCompleted();
       }
     } else {
       props.incrementQuestionCounter();

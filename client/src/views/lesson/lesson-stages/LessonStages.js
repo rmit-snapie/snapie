@@ -30,6 +30,7 @@ const LessonStages = ({
         level: replayLevel,
         test: lastTest,
       }).then(data => {
+        console.log(data);
         props.setCurrentQuestion(data[0]);
         props.prepareData(data);
         handleReplay(replayStage, replayLevel);

@@ -62,10 +62,7 @@ class FindTheObject extends Component {
         maxResults: 5,
       })
       .then(response => {
-        this.setState({results: [...response.data]});
-      })
-      .then(() => {
-        this.setState({analyzing: false});
+        this.setState({results: [...response.data], analyzing: false});
       });
   };
 

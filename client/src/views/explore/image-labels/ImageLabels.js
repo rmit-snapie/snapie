@@ -8,6 +8,7 @@ import {addNewVocab} from '../../../redux/actions/VocabulariesActions';
 import SnapieModal from '../../../shared/components/SnapieModal';
 const ListenButton = require('../../../shared/assets/ListenButton.png');
 const SaveButton = require('../../../shared/assets/SaveButton.png');
+const Ticked = require('../../../shared/assets/Ticked.gif');
 const ViewMoreButton = require('../../../shared/assets/ViewMoreButton.png');
 const ViewLessButton = require('../../../shared/assets/ViewLessButton.png');
 
@@ -81,9 +82,9 @@ const ImageLabels = ({results, handleAddVocabulary, vocabularies}) => {
   }
   const saveOrTick = vocab => {
     if (vocabularyAlreadyAdded(vocab)) {
-      return require('../../../shared/assets/Ticked.gif');
+      return Ticked;
     }
-    return require('../../../shared/assets/SaveButton.png');
+    return SaveButton;
   };
   return (
     <View style={styles.container}>

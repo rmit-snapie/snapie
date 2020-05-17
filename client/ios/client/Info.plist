@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>NSCameraUsageDescription</key>
+	<string>Snapie would like to acess your camera</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Snapie would like to access your photo library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Snapie would like to access your photo library</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Snapie would like to access your microphone</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Snapie would like to use speech recognition</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Snapie would like to use your location</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

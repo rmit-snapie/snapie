@@ -1,72 +1,87 @@
-import { StyleSheet, Dimensions } from 'react-native';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
   },
-  text: {
-    fontSize: 35,
-    fontWeight: 'bold',
-    marginBottom: 35,
-    fontFamily: 'Amiko-Bold',
-    marginLeft: 25
+  reviewHeader: {
+    flex: 2,
+    justifyContent: 'flex-start',
+    backgroundColor: '#84d0f7',
+    padding: 25,
+  },
+  actionsWrapper: {
+    flex: 1,
+    justifyContent: 'center',
   },
   goHome: {
-    margin: 10,
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+  },
+  featuredWrapper: {
+    flex: 3,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  featuredVocab: {
+    width: '100%',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  noSelectText: {
+    fontSize: 24,
+    fontFamily: 'Quicksand-Bold',
+    letterSpacing: 1.5,
+    color: '#ffffff',
+  },
+  bigImg: {
+    width: 100,
+    height: 100,
+    borderWidth: 3,
+    borderRadius: 16,
+    borderColor: '#afafaf',
+    marginRight: 10,
+  },
+  vocabInfo: {
+    justifyContent: 'space-between',
+    height: 100,
+  },
+  listenBtn: {
     width: 40,
     height: 40,
     resizeMode: 'contain',
   },
-  listenBtn: {
-    width: 60,
-    height: 60,
-  },
-  noSelect: {
-    height: 170,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#efc458',
-  },
-  noSelectText: {
+  text: {
     fontSize: 24,
-    fontFamily: 'Amiko-Bold',
+    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
+    color: '#ffffff',
   },
-  buttonWrapper1: {
-    // justifyContent: 'space-between',
-    flexDirection: 'row',
+  vocabulariesWrapper: {
+    flex: 7,
+  },
+  vocabularyWrapper: {
     alignItems: 'center',
-    backgroundColor: '#efc458',
+    marginBottom: 15,
   },
   scrollView: {
     backgroundColor: 'pink',
     marginHorizontal: 20,
   },
-  bigImg: {
-    margin: 10,
-    marginLeft: 25,
-    width: 150,
-    height: 150,
-    borderWidth: 3,
-    borderRadius: 16,
-    borderColor: '#afafaf',
-  },
   smallImg: {
-    width: 60,
-    height: 60,
+    width: 80,
+    height: 80,
     borderWidth: 3,
     borderRadius: 16,
     borderColor: '#afafaf',
   },
   sectionHeader: {
-    paddingTop: 2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
+    padding: 15,
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
   },
   item: {
     paddingLeft: 50,
@@ -79,9 +94,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: 300,
-    backgroundColor: "#efc458",
+    backgroundColor: '#efc458',
     borderRadius: 16,
     padding: 4,
-
   },
 });

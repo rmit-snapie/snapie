@@ -71,6 +71,7 @@ export default StyleSheet.create({
     height: 135,
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 15,
     marginRight: 10,
     borderRadius: 16,
@@ -91,7 +92,8 @@ export default StyleSheet.create({
   },
   asset: {
     height: 100,
-    width: 75,
+    width: 100,
+    resizeMode: 'contain',
   },
   column2: {
     flex: 1,

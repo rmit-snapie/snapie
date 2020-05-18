@@ -50,10 +50,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 16,
-    borderBottomColor: '#58a700',
-    borderColor: 'rgb(229, 229, 229)',
+    borderBottomColor: 'rgba(120,114,120,0.64)',
+    borderColor: 'rgba(120,114,120,0.64)',
     shadowColor: 'rgba(120,114,120,0.64)', // IOS
-    backgroundColor: '#78c800',
+    backgroundColor: '#f7ab5f',
   },
   continueTitle: {
     fontSize: 18,

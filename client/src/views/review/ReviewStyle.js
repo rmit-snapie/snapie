@@ -91,7 +91,7 @@ export default StyleSheet.create({
     borderRadius: 16,
   },
   chosenLabelWrapper: {
-    borderColor: '#efc458',
+    borderColor: '#f7ab5f',
   },
   sectionHeader: {
     padding: 15,

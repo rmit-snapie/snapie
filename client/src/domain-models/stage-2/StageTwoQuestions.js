@@ -1,8 +1,27 @@
-const ColorRed = require('./assets/red.png');
-const ColorYellow = require('./assets/yellow.png');
-const ColorGreen = require('./assets/green.png');
-const ColorBlue = require('./assets/blue.png');
-const ColorOrange = require('./assets/orange.png');
+// level 4
+const Fall = require('./assets/level-4/fall.png');
+const Spring = require('./assets/level-4/spring.png');
+const Summer = require('./assets/level-4/summer.png');
+const Winter = require('./assets/level-4/winter.png');
+// level 5
+const Bag = require('./assets/level-5/bag.png');
+const Eraser = require('./assets/level-5/eraser.png');
+const Pen = require('./assets/level-5/pen.png');
+const Pencil = require('./assets/level-5/pencil.png');
+const Ruler = require('./assets/level-5/ruler.png');
+// level 6
+const Bird = require('./assets/level-6/bird.png');
+const Cat = require('./assets/level-6/cat.png');
+const Dog = require('./assets/level-6/dog.png');
+const Fish = require('./assets/level-6/fish.png');
+const Rabbit = require('./assets/level-6/rabbit.png');
+// level 7
+const ColorBlack = require('./assets/level-7/black.png');
+const ColorGrey = require('./assets/level-7/grey.png');
+const ColorBrown = require('./assets/level-7/brown.png');
+const ColorPurple = require('./assets/level-7/purple.png');
+const ColorWhite = require('./assets/level-7/white.png');
+
 import {
   FILL_THE_BLANK,
   MULTIPLE_CHOICE,
@@ -13,7 +32,7 @@ import {
 } from '../../../environments/Routes';
 
 export const STAGE_TWO = [
-  //first level
+  //fourth level
   [
     [
       {
@@ -28,7 +47,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['spring', 'summer', 'fall', 'winter'],
         correctAnswer: 'winter',
-        imageAsset: ColorRed,
+        imageAsset: Winter,
         correctAnswerCount: 1,
       },
       {
@@ -43,19 +62,19 @@ export const STAGE_TWO = [
         answers: [
           {
             name: 'winter',
-            asset: ColorRed,
+            asset: Winter,
           },
           {
             name: 'fall',
-            asset: ColorGreen,
+            asset: Fall,
           },
           {
             name: 'spring',
-            asset: ColorYellow,
+            asset: Spring,
           },
           {
             name: 'summer',
-            asset: ColorOrange,
+            asset: Summer,
           },
         ],
         correctAnswer: 'spring',
@@ -70,16 +89,16 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['winter', 'spring'],
         imagesAsset: [
           {
             name: 'winter',
-            asset: ColorYellow,
+            asset: Winter,
           },
           {
             name: 'spring',
-            asset: ColorRed,
+            asset: Spring,
           },
         ],
         correctAnswerCount: 1,
@@ -98,7 +117,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['spring', 'summer', 'winter', 'fall'],
         correctAnswer: 'fall',
-        imageAsset: ColorGreen,
+        imageAsset: Fall,
         correctAnswerCount: 1,
       },
       {
@@ -113,7 +132,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['winter', 'fall', 'summer', 'spring'],
         correctAnswer: 'fall',
-        imageAsset: ColorYellow,
+        imageAsset: Fall,
         correctAnswerCount: 1,
       },
       {
@@ -124,20 +143,20 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['spring', 'winter', 'fall'],
         imagesAsset: [
           {
             name: 'spring',
-            asset: ColorYellow,
+            asset: Spring,
           },
           {
             name: 'winter',
-            asset: ColorRed,
+            asset: Winter,
           },
           {
             name: 'fall',
-            asset: ColorGreen,
+            asset: Fall,
           },
         ],
         correctAnswerCount: 1,
@@ -150,8 +169,8 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PRONOUNCE_THE_WORD,
-        questionContent: 'Say the word fall',
-        imageAsset: ColorBlue,
+        questionContent: 'Say the word',
+        imageAsset: Fall,
         correctAnswer: 'fall',
         correctAnswerCount: 1,
       },
@@ -169,19 +188,19 @@ export const STAGE_TWO = [
         answers: [
           {
             name: 'winter',
-            asset: ColorRed,
+            asset: Winter,
           },
           {
             name: 'fall',
-            asset: ColorGreen,
+            asset: Fall,
           },
           {
             name: 'summer',
-            asset: ColorBlue,
+            asset: Summer,
           },
           {
             name: 'spring',
-            asset: ColorOrange,
+            asset: Spring,
           },
         ],
         correctAnswer: 'summer',
@@ -200,7 +219,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['m', 'm', 'u', 'e', 'r', 's'],
         correctAnswer: 'summer',
-        imageAsset: ColorBlue,
+        imageAsset: Summer,
         correctAnswerCount: 1,
       },
       {
@@ -211,20 +230,20 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['spring', 'summer', 'winter'],
         imagesAsset: [
           {
             name: 'spring',
-            asset: ColorOrange,
+            asset: Spring,
           },
           {
             name: 'summer',
-            asset: ColorRed,
+            asset: Summer,
           },
           {
             name: 'winter',
-            asset: ColorGreen,
+            asset: Winter,
           },
         ],
         correctAnswerCount: 1,
@@ -241,7 +260,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['fall', 'summer', 'winter', 'spring'],
         correctAnswer: 'summer',
-        imageAsset: ColorGreen,
+        imageAsset: Summer,
         correctAnswerCount: 1,
       },
       {
@@ -252,24 +271,24 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['spring', 'summer', 'fall', 'winter'],
         imagesAsset: [
           {
             name: 'spring',
-            asset: ColorOrange,
+            asset: Spring,
           },
           {
             name: 'summer',
-            asset: ColorRed,
+            asset: Summer,
           },
           {
             name: 'fall',
-            asset: ColorBlue,
+            asset: Fall,
           },
           {
             name: 'winter',
-            asset: ColorGreen,
+            asset: Winter,
           },
         ],
         correctAnswerCount: 1,
@@ -277,7 +296,7 @@ export const STAGE_TWO = [
     ],
   ],
 
-  //second level
+  //fifth level
   [
     [
       {
@@ -292,7 +311,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['bag', 'pen', 'pencil', 'eraser'],
         correctAnswer: 'pencil',
-        imageAsset: ColorRed,
+        imageAsset: Pencil,
         correctAnswerCount: 1,
       },
       {
@@ -307,19 +326,19 @@ export const STAGE_TWO = [
         answers: [
           {
             name: 'eraser',
-            asset: ColorRed,
+            asset: Eraser,
           },
           {
             name: 'pen',
-            asset: ColorGreen,
+            asset: Pen,
           },
           {
             name: 'bag',
-            asset: ColorYellow,
+            asset: Bag,
           },
           {
             name: 'pencil',
-            asset: ColorOrange,
+            asset: Pencil,
           },
         ],
         correctAnswer: 'eraser',
@@ -334,16 +353,16 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['pencil', 'eraser'],
         imagesAsset: [
           {
             name: 'pencil',
-            asset: ColorYellow,
+            asset: Pencil,
           },
           {
             name: 'eraser',
-            asset: ColorRed,
+            asset: Eraser,
           },
         ],
         correctAnswerCount: 1,
@@ -362,19 +381,19 @@ export const STAGE_TWO = [
         answers: [
           {
             name: 'eraser',
-            asset: ColorRed,
+            asset: Eraser,
           },
           {
             name: 'pen',
-            asset: ColorGreen,
+            asset: Pen,
           },
           {
             name: 'pencil',
-            asset: ColorYellow,
+            asset: Pencil,
           },
           {
             name: 'bag',
-            asset: ColorOrange,
+            asset: Bag,
           },
         ],
         correctAnswer: 'pen',
@@ -393,7 +412,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['pencil', 'eraser', 'pen', 'bag'],
         correctAnswer: 'bag',
-        imageAsset: ColorGreen,
+        imageAsset: Bag,
         correctAnswerCount: 1,
       },
       {
@@ -408,7 +427,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['n', 'p', 'e', 'c', 'l', 'i'],
         correctAnswer: 'pencil',
-        imageAsset: ColorBlue,
+        imageAsset: Pencil,
         correctAnswerCount: 1,
       },
       {
@@ -419,24 +438,24 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['eraser', 'pen', 'bag', 'pencil'],
         imagesAsset: [
           {
             name: 'eraser',
-            asset: ColorYellow,
+            asset: Eraser,
           },
           {
             name: 'pen',
-            asset: ColorRed,
+            asset: Pen,
           },
           {
             name: 'bag',
-            asset: ColorGreen,
+            asset: Bag,
           },
           {
             name: 'pencil',
-            asset: ColorBlue,
+            asset: Pencil,
           },
         ],
         correctAnswerCount: 1,
@@ -455,7 +474,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['ruler', 'pencil', 'eraser', 'bag'],
         correctAnswer: 'ruler',
-        imageAsset: ColorGreen,
+        imageAsset: Ruler,
         correctAnswerCount: 1,
       },
       {
@@ -470,7 +489,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['u', 'r', 'l', 'e', 'r'],
         correctAnswer: 'ruler',
-        imageAsset: ColorBlue,
+        imageAsset: Ruler,
         correctAnswerCount: 1,
       },
       {
@@ -485,7 +504,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['ruler', 'bag', 'pen', 'pencil'],
         correctAnswer: 'ruler',
-        imageAsset: ColorYellow,
+        imageAsset: Ruler,
         correctAnswerCount: 1,
       },
       {
@@ -496,8 +515,8 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PRONOUNCE_THE_WORD,
-        questionContent: 'Say the word pen',
-        imageAsset: ColorBlue,
+        questionContent: 'Say the word',
+        imageAsset: Pen,
         correctAnswer: 'pen',
         correctAnswerCount: 1,
       },
@@ -509,24 +528,24 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['pen', 'bag', 'ruler', 'eraser'],
         imagesAsset: [
           {
             name: 'pen',
-            asset: ColorOrange,
+            asset: Pen,
           },
           {
             name: 'bag',
-            asset: ColorRed,
+            asset: Bag,
           },
           {
             name: 'ruler',
-            asset: ColorGreen,
+            asset: Ruler,
           },
           {
             name: 'eraser',
-            asset: ColorBlue,
+            asset: Eraser,
           },
         ],
         correctAnswerCount: 1,
@@ -534,7 +553,7 @@ export const STAGE_TWO = [
     ],
   ],
 
-  //third level
+  //sixth level
   [
     [
       {
@@ -549,19 +568,19 @@ export const STAGE_TWO = [
         answers: [
           {
             name: 'dog',
-            asset: ColorRed,
+            asset: Dog,
           },
           {
             name: 'cat',
-            asset: ColorGreen,
+            asset: Cat,
           },
           {
             name: 'bird',
-            asset: ColorYellow,
+            asset: Bird,
           },
           {
             name: 'fish',
-            asset: ColorOrange,
+            asset: Fish,
           },
         ],
         correctAnswer: 'dog',
@@ -580,7 +599,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['dog', 'cat', 'bird', 'fish'],
         correctAnswer: 'cat',
-        imageAsset: ColorRed,
+        imageAsset: Cat,
         correctAnswerCount: 1,
       },
       {
@@ -591,16 +610,16 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['dog', 'cat'],
         imagesAsset: [
           {
             name: 'dog',
-            asset: ColorYellow,
+            asset: Dog,
           },
           {
             name: 'cat',
-            asset: ColorRed,
+            asset: Cat,
           },
         ],
         correctAnswerCount: 1,
@@ -619,7 +638,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['dog', 'cat', 'bird', 'fish'],
         correctAnswer: 'bird',
-        imageAsset: ColorGreen,
+        imageAsset: Bird,
         correctAnswerCount: 1,
       },
       {
@@ -630,8 +649,8 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PRONOUNCE_THE_WORD,
-        questionContent: 'Say the word cat',
-        imageAsset: ColorBlue,
+        questionContent: 'Say the word',
+        imageAsset: Cat,
         correctAnswer: 'cat',
         correctAnswerCount: 1,
       },
@@ -647,19 +666,19 @@ export const STAGE_TWO = [
         answers: [
           {
             name: 'dog',
-            asset: ColorRed,
+            asset: Dog,
           },
           {
             name: 'cat',
-            asset: ColorGreen,
+            asset: Cat,
           },
           {
             name: 'bird',
-            asset: ColorYellow,
+            asset: Bird,
           },
           {
             name: 'fish',
-            asset: ColorOrange,
+            asset: Fish,
           },
         ],
         correctAnswer: 'fish',
@@ -674,24 +693,24 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['bird', 'cat', 'fish', 'dog'],
         imagesAsset: [
           {
             name: 'bird',
-            asset: ColorYellow,
+            asset: Bird,
           },
           {
             name: 'cat',
-            asset: ColorRed,
+            asset: Cat,
           },
           {
             name: 'fish',
-            asset: ColorGreen,
+            asset: Fish,
           },
           {
             name: 'dog',
-            asset: ColorBlue,
+            asset: Dog,
           },
         ],
         correctAnswerCount: 1,
@@ -710,19 +729,19 @@ export const STAGE_TWO = [
         answers: [
           {
             name: 'dog',
-            asset: ColorRed,
+            asset: Dog,
           },
           {
             name: 'cat',
-            asset: ColorGreen,
+            asset: Cat,
           },
           {
             name: 'rabbit',
-            asset: ColorYellow,
+            asset: Rabbit,
           },
           {
             name: 'fish',
-            asset: ColorOrange,
+            asset: Fish,
           },
         ],
         correctAnswer: 'rabbit',
@@ -741,7 +760,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['cat', 'pig', 'dog', 'fish'],
         correctAnswer: 'fish',
-        imageAsset: ColorYellow,
+        imageAsset: Fish,
         correctAnswerCount: 1,
       },
       {
@@ -752,8 +771,8 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PRONOUNCE_THE_WORD,
-        questionContent: 'Say the word rabbit',
-        imageAsset: ColorBlue,
+        questionContent: 'Say the word',
+        imageAsset: Rabbit,
         correctAnswer: 'rabbit',
         correctAnswerCount: 1,
       },
@@ -769,7 +788,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['r', 'd', 'i', 'b'],
         correctAnswer: 'bird',
-        imageAsset: ColorBlue,
+        imageAsset: Bird,
         correctAnswerCount: 1,
       },
       {
@@ -780,24 +799,24 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['rabbit', 'fish', 'bird', 'dog'],
         imagesAsset: [
           {
             name: 'rabbit',
-            asset: ColorOrange,
+            asset: Rabbit,
           },
           {
             name: 'fish',
-            asset: ColorRed,
+            asset: Fish,
           },
           {
             name: 'bird',
-            asset: ColorGreen,
+            asset: Bird,
           },
           {
             name: 'dog',
-            asset: ColorBlue,
+            asset: Dog,
           },
         ],
         correctAnswerCount: 1,
@@ -805,7 +824,7 @@ export const STAGE_TWO = [
     ],
   ],
 
-  //Fourth Level
+  // seventh Level
   [
     [
       {
@@ -820,7 +839,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['purple', 'brown', 'black', 'white'],
         correctAnswer: 'purple',
-        imageAsset: ColorRed,
+        imageAsset: ColorPurple,
         correctAnswerCount: 1,
       },
       {
@@ -835,19 +854,19 @@ export const STAGE_TWO = [
         answers: [
           {
             name: 'purple',
-            asset: ColorRed,
+            asset: ColorPurple,
           },
           {
             name: 'brown',
-            asset: ColorGreen,
+            asset: ColorBrown,
           },
           {
             name: 'black',
-            asset: ColorYellow,
+            asset: ColorBlack,
           },
           {
             name: 'white',
-            asset: ColorOrange,
+            asset: ColorWhite,
           },
         ],
         correctAnswer: 'brown',
@@ -862,16 +881,16 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['purple', 'brown'],
         imagesAsset: [
           {
             name: 'purple',
-            asset: ColorYellow,
+            asset: ColorPurple,
           },
           {
             name: 'brown',
-            asset: ColorRed,
+            asset: ColorBrown,
           },
         ],
         correctAnswerCount: 1,
@@ -890,7 +909,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['purple', 'brown', 'black', 'white'],
         correctAnswer: 'black',
-        imageAsset: ColorGreen,
+        imageAsset: ColorBlack,
         correctAnswerCount: 1,
       },
       {
@@ -905,7 +924,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['brown', 'black', 'purple', 'blue'],
         correctAnswer: 'brown',
-        imageAsset: ColorYellow,
+        imageAsset: ColorBrown,
         correctAnswerCount: 1,
       },
       {
@@ -920,19 +939,19 @@ export const STAGE_TWO = [
         answers: [
           {
             name: 'purple',
-            asset: ColorRed,
+            asset: ColorPurple,
           },
           {
             name: 'brown',
-            asset: ColorGreen,
+            asset: ColorBrown,
           },
           {
             name: 'black',
-            asset: ColorBlue,
+            asset: ColorBlack,
           },
           {
             name: 'white',
-            asset: ColorOrange,
+            asset: ColorWhite,
           },
         ],
         correctAnswer: 'white',
@@ -947,24 +966,24 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['purple', 'brown', 'black', 'white'],
         imagesAsset: [
           {
             name: 'purple',
-            asset: ColorYellow,
+            asset: ColorPurple,
           },
           {
             name: 'brown',
-            asset: ColorRed,
+            asset: ColorBrown,
           },
           {
             name: 'black',
-            asset: ColorGreen,
+            asset: ColorBlack,
           },
           {
             name: 'white',
-            asset: ColorGreen,
+            asset: ColorWhite,
           },
         ],
         correctAnswerCount: 1,
@@ -979,26 +998,26 @@ export const STAGE_TWO = [
         createdAt: '02-05-2020',
         updatedAt: '02-05-2020',
         type: MULTIPLE_CHOICE_IMAGES,
-        questionContent: 'Choose PINK',
+        questionContent: 'Choose GREY',
         answers: [
           {
             name: 'purple',
-            asset: ColorRed,
+            asset: ColorPurple,
           },
           {
             name: 'brown',
-            asset: ColorGreen,
+            asset: ColorBrown,
           },
           {
-            name: 'pink',
-            asset: ColorBlue,
+            name: 'grey',
+            asset: ColorGrey,
           },
           {
             name: 'white',
-            asset: ColorOrange,
+            asset: ColorWhite,
           },
         ],
-        correctAnswer: 'pink',
+        correctAnswer: 'grey',
         imageAsset: null,
         correctAnswerCount: 1,
       },
@@ -1015,7 +1034,7 @@ export const STAGE_TWO = [
         possibleAnswersCount: 4,
         answers: ['white', 'orange', 'black', 'brown'],
         correctAnswer: 'white',
-        imageAsset: ColorYellow,
+        imageAsset: ColorWhite,
         correctAnswerCount: 1,
       },
       {
@@ -1026,9 +1045,9 @@ export const STAGE_TWO = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PRONOUNCE_THE_WORD,
-        questionContent: 'Say the word pink',
-        imageAsset: ColorBlue,
-        correctAnswer: 'pink',
+        questionContent: 'Say the word',
+        imageAsset: ColorGrey,
+        correctAnswer: 'grey',
         correctAnswerCount: 1,
       },
       {
@@ -1041,9 +1060,9 @@ export const STAGE_TWO = [
         type: SPELLING_ORDER,
         questionContent: 'Spell the word',
         possibleAnswersCount: 4,
-        answers: ['n', 'k', 'i', 'p'],
-        correctAnswer: 'pink',
-        imageAsset: ColorBlue,
+        answers: ['r', 'e', 'y', 'g'],
+        correctAnswer: 'grey',
+        imageAsset: ColorGrey,
         correctAnswerCount: 1,
       },
 
@@ -1056,23 +1075,23 @@ export const STAGE_TWO = [
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
         questionContent: 'Choose the pairs',
-        answers: ['pink', 'white', 'purple', 'black'],
+        answers: ['grey', 'white', 'purple', 'black'],
         imagesAsset: [
           {
-            name: 'pink',
-            asset: ColorOrange,
+            name: 'grey',
+            asset: ColorGrey,
           },
           {
             name: 'white',
-            asset: ColorRed,
+            asset: ColorWhite,
           },
           {
             name: 'purple',
-            asset: ColorBlue,
+            asset: ColorPurple,
           },
           {
             name: 'black',
-            asset: ColorGreen,
+            asset: ColorBlack,
           },
         ],
         correctAnswerCount: 1,

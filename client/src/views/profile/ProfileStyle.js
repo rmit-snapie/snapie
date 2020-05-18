@@ -58,10 +58,12 @@ export default StyleSheet.create({
   },
   tabTitle: {
     fontSize: 16,
-    fontWeight: '300',
+    fontFamily: 'Quicksand-Light',
+    fontWeight: '500',
     letterSpacing: 2,
   },
   profileBody: {
     flex: 6,
+    width: '100%',
   },
 });

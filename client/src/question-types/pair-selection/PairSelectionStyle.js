@@ -33,7 +33,10 @@ export default StyleSheet.create({
     shadowRadius: 2.62,
     elevation: 4,
     backgroundColor: '#fff',
-    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
     marginBottom: 70,
     justifyContent: 'center',
     alignItems: 'center',
@@ -44,12 +47,12 @@ export default StyleSheet.create({
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 2,
-    borderBottomWidth: 6,
+    borderBottomWidth: 4,
     borderColor: 'rgb(229, 229, 229)',
     shadowColor: 'rgba(120,114,120,0.64)', // IOS
   },
   chosenAnswer: {
-    borderColor: '#1cb0f6',
+    borderColor: '#f7ab5f',
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 2,
@@ -57,7 +60,6 @@ export default StyleSheet.create({
   },
   answerTitle: {
     fontSize: 24,
-    color: 'rgb(28, 176, 246)',
     fontWeight: '600',
   },
   chosenAnswerTitle: {
@@ -76,7 +78,7 @@ export default StyleSheet.create({
   chosenAnswerImage: {
     borderWidth: 1,
     backgroundColor: '#ffffff',
-    borderColor: 'rgb(28, 176, 246)',
+    borderColor: '#f7ab5f',
   },
   notChosenAnswerImage: {
     borderTopWidth: 2,

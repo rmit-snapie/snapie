@@ -24,8 +24,11 @@ const SnapieModal = ({
       return {backgroundColor: '#78c800'};
     } else if (type === 'error') {
       return {backgroundColor: '#ff4b4b'};
+    } else if (type === 'info') {
+      return {backgroundColor: '#1976d2'};
     }
   };
+  // TODO refactor this component, specifically, the setDisplay and manualClose
   return (
     <View style={styles.container}>
       <Modal animationType={animationType} transparent={true} visible={display}>

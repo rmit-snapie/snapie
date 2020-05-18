@@ -22,10 +22,10 @@ export default StyleSheet.create({
   },
   absoluteText: {
     position: 'absolute',
-    fontWeight: '500',
+    fontWeight: '600',
     fontFamily: 'Quicksand-Light',
     color: '#ffffff',
-    fontSize: 18,
+    fontSize: 20,
     textAlign: 'center',
     letterSpacing: 1,
   },

@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {object} from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './ProgressStyle';
-import {View, Text, Animated} from 'react-native';
+import {ImageBackground, View, Text, Animated} from 'react-native';
+import ProfileProgressBackground from '../../../shared/assets/ProfileProgressBackground.png';
 
 class Progress extends Component {
   constructor(props) {
@@ -45,9 +46,13 @@ class Progress extends Component {
     const {
       progressCounter: {testsCompleted, levelsCompleted},
     } = this.props;
-    const words = 5 * (testsCompleted / 3) + 2 * (testsCompleted % 3);
+    const words =
+      (5 * (testsCompleted - (testsCompleted % 3))) / 3 +
+      2 * (testsCompleted % 3);
     return (
-      <View style={styles.container}>
+      <ImageBackground
+        source={ProfileProgressBackground}
+        style={styles.container}>
         <View style={styles.row}>
           <View style={styles.testsWrapper}>
             <Animated.View
@@ -68,7 +73,7 @@ class Progress extends Component {
               ]}>
               <Text style={styles.absoluteText}>
                 {testsCompleted}
-                {'\n'}tests
+                {'\n'}test(s)
               </Text>
             </Animated.View>
           </View>
@@ -145,7 +150,7 @@ class Progress extends Component {
             </Animated.View>
           </View>
         </View>
-      </View>
+      </ImageBackground>
     );
   }
 }

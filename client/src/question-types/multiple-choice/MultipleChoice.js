@@ -1,12 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {object} from 'prop-types';
-import {
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import styles from './MultipleChoiceStyle';
 import Cheers from '../cheers';
 import {readText} from '../../helpers/TextToSpeech';
@@ -88,9 +83,11 @@ const MultipleChoice = ({progress, currentQuestion}) => {
         <>
           {currentQuestion.type === MULTIPLE_CHOICE && (
             <View style={styles.assetsWrapper}>
-              <TouchableWithoutFeedback onPress={() => readText(correctAnswer)}>
+              <TouchableOpacity
+                style={styles.imageWrapper}
+                onPress={() => readText(correctAnswer)}>
                 {renderImageWrapper(stage, imageAsset, styles.image)}
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
           )}
           <View style={styles.questionWrapper}>

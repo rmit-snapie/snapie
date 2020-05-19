@@ -3,6 +3,7 @@ import {Image, Animated, Platform} from 'react-native';
 import {STAGE_ONE} from '../domain-models/stage-1/StageOneQuestions';
 import {STAGE_TWO} from '../domain-models/stage-2/StageTwoQuestions';
 import RNFetchBlob from 'rn-fetch-blob';
+import Stage3 from './3.json';
 
 export const getNumberOfQuestions = (
   stage: number,
@@ -22,7 +23,7 @@ export const getNumberOfQuestions = (
       return metaData.data.levelThreeTestQuestionsCount[test] - 1;
     } else if (level === 3) {
       return metaData.data.levelFourTestQuestionsCount[test] - 1;
-    } else if (level === 3) {
+    } else if (level === 4) {
       return metaData.data.levelFiveTestQuestionsCount[test] - 1;
     }
   }
@@ -109,7 +110,7 @@ export const fetchImage = async imageName => {
   // set default stage 1 if stageID not exist
   const fetchPath = imageFetchPath + imageFileName;
   // check path:
-  await RNFetchBlob.config({
+  return RNFetchBlob.config({
     // will save to docDir/images/...
     path: localImagePath + imageFileName,
     // use wifi only, this flag will only work on API version 21 or above
@@ -141,18 +142,33 @@ export const setStageImagesAssets = async assetList => {
    */
 
   // fetch every images....
-  assetList.forEach(image => {
-    // check in local memory:
-    checkImageExisted(image).then(existed => {
-      if (existed) {
-        return true;
-      } else {
-        fetchImage(image).then(result => {
-          return result;
-        });
-      }
-    });
-  });
+  return await Promise.all(
+    assetList.map(image => {
+      // check in local memory:
+      return checkImageExisted(image).then(existed => {
+        if (existed) {
+          return true;
+        } else {
+          return fetchImage(image).then(result => {
+            return result;
+          });
+        }
+      });
+    }),
+  );
+
+  // assetList.forEach(image => {
+  //   // check in local memory:
+  //   checkImageExisted(image).then(existed => {
+  //     if (existed) {
+  //       return true;
+  //     } else {
+  //       fetchImage(image).then(result => {
+  //         return result;
+  //       });
+  //     }
+  //   });
+  // });
 };
 
 export const renderImageWrapper = (stage, imageSource, style, animated) => {
@@ -162,6 +178,59 @@ export const renderImageWrapper = (stage, imageSource, style, animated) => {
     // (typeof imageSource == typeof String && imageSource.includes('.png'))
   ) {
     imageSource = localImagePath + imageSource;
+    // let theimageSource = localImagePath + imageSource;
+    // console.log(theimageSource);
+    // checkImageExisted(imageSource).then(existed => {
+    //   if (existed) {
+    //     console.log('image existed: ', theimageSource);
+    //     if (animated) {
+    //       return (
+    //         <Animated.Image
+    //           style={[style]}
+    //           source={{
+    //             uri:
+    //               Platform.OS === 'android'
+    //                 ? 'file://' + theimageSource
+    //                 : theimageSource,
+    //           }}
+    //         />
+    //       );
+    //     }
+    //     return (
+    //       <Image
+    //         source={{
+    //           uri:
+    //             Platform.OS === 'android'
+    //               ? 'file://' + theimageSource
+    //               : theimageSource,
+    //         }}
+    //         style={style}
+    //       />
+    //     );
+    //   } else {
+    //     return fetchImage(imageSource).then(result => {
+    //       console.log('image not exist, download ... result: ', result);
+    //       if (animated) {
+    //         return (
+    //           <Animated.Image
+    //             style={[style]}
+    //             source={{
+    //               uri: Platform.OS === 'android' ? 'file://' + result : result,
+    //             }}
+    //           />
+    //         );
+    //       }
+    //       return (
+    //         <Image
+    //           source={{
+    //             uri: Platform.OS === 'android' ? 'file://' + result : result,
+    //           }}
+    //           style={style}
+    //         />
+    //       );
+    //     });
+    //   }
+    // });
     if (animated) {
       return (
         <Animated.Image
@@ -224,6 +293,7 @@ const fetchQuestion = async stageID => {
 
   // set default stage file name if stageID not exist
   const stageFileName = stageID ? stageID + '.json' : '1.json';
+
   let fetchPath = stageFetchPath + stageFileName;
   // check path:
   return RNFetchBlob.config({
@@ -256,16 +326,25 @@ export const getTestQuestions = async progress => {
     case 1:
       return STAGE_TWO[level][test];
   }
+  let stageData = [];
   // online questions:
   return checkStageFileExisted(stage + 1).then(isExisted => {
     if (!isExisted) {
       return fetchQuestion(stage + 1).then(result => {
         if (result) {
           return readJsonFile(localStagePath + (stage + 1) + '.json')
-            .then(data => {
+            .then(async data => {
+              console.log('read file result: ', data);
+              stageData = data.levels[level][test];
               // fetch images:
-              setStageImagesAssets(data.assetsRequired);
-              return data.levels[level][test];
+              const a = await setStageImagesAssets(data.assetsRequired);
+              return a;
+              // return data.levels[level][test];
+            })
+            .then(resutl => {
+              console.log('after set images ', resutl);
+              console.log(stageData);
+              return stageData;
             })
             .catch(e => console.log(e));
         } else {

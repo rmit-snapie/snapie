@@ -1,39 +1,34 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {arrayOf, object, func} from 'prop-types';
 import styles from './ImageLabelsStyle';
-import {
-  ActivityIndicator,
-  Button,
-  Image,
-  ImageBackground,
-  Text,
-  View,
-  ScrollView,
-} from 'react-native';
+import {Image, TouchableOpacity, Text, View} from 'react-native';
 import {readText} from '../../../helpers/TextToSpeech';
-import {replaceTo} from '../../../helpers/NavigateHelper';
-import {EXPLORE_SCREEN} from '../../../../environments/Routes';
+import {addNewVocab} from '../../../redux/actions/VocabulariesActions';
+import SnapieModal from '../../../shared/components/SnapieModal';
+const ListenButton = require('../../../shared/assets/ListenButton.png');
+const SaveButton = require('../../../shared/assets/SaveButton.png');
+const Ticked = require('../../../shared/assets/Ticked.gif');
+const ViewMoreButton = require('../../../shared/assets/ViewMoreButton.png');
+const ViewLessButton = require('../../../shared/assets/ViewLessButton.png');
 
-const ImageLabels = ({
-  imageUri,
-  loading,
-  results,
-  analyze,
-  analyzed,
-  navigation,
-}) => {
-  const [displayResults, setDisplayResults] = useState([]);
+const ImageLabels = ({results, handleAddVocabulary, vocabularies}) => {
+  const [displayResults, setDisplayResults] = useState(results);
   const [displayMore, setDisplayMore] = useState(false);
+  const [openModal, setOpenModal] = useState({
+    display: false,
+    type: null,
+    message: null,
+  });
+
   useEffect(() => {
     setDisplayMore(false);
     if (results.length !== 0) {
-      // display only one result if there are more than one
-      // press "see more" to see the rest of results
       setDisplayResults([results[0]]);
     }
   }, [results]);
 
-  const isEmptyResult = () => {
+  const resultIsEmpty = () => {
     return results.length === 0;
   };
 
@@ -42,68 +37,113 @@ const ImageLabels = ({
     setDisplayResults(results);
   };
 
+  const seeLess = () => {
+    setDisplayMore(false);
+    setDisplayResults([results[0]]);
+  };
+
+  const vocabularyAlreadyAdded = word => {
+    return vocabularies.some(vocab => vocab.word === word);
+  };
+
+  const addVocabulary = (vocab, url) => {
+    if (vocabularyAlreadyAdded(vocab)) {
+      setOpenModal({
+        display: true,
+        type: 'error',
+        message: 'Vocabulary is already added!',
+      });
+    } else {
+      setOpenModal({display: true, type: 'success', message: 'Success!'});
+      handleAddVocabulary({
+        word: vocab,
+        url: url,
+      });
+    }
+    setTimeout(() => {
+      setOpenModal({display: false, type: null, message: null});
+    }, 500);
+  };
+
+  const closeModal = () => {
+    setOpenModal(prevState => ({
+      ...prevState,
+      display: false,
+    }));
+  };
+  if (resultIsEmpty()) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.notFound}>
+          We did not find any results :( please try again
+        </Text>
+      </View>
+    );
+  }
+  const saveOrTick = vocab => {
+    if (vocabularyAlreadyAdded(vocab)) {
+      return Ticked;
+    }
+    return SaveButton;
+  };
   return (
-    <ImageBackground
-      blurRadius={!isEmptyResult() || loading ? 90 : 0}
-      style={styles.previewImage}
-      source={{uri: imageUri}}>
-      <View style={styles.backButtonWrapper}>
-        <Button
-          title="Back"
-          onPress={() => replaceTo(navigation, EXPLORE_SCREEN)}
-        />
-      </View>
+    <View style={styles.container}>
       <View style={styles.resultsWrapper}>
-        {loading ? (
-          <ActivityIndicator animating={loading} size="large" color="#ffffff" />
-        ) : (
-          <ScrollView>
-            {!isEmptyResult() &&
-              displayResults.map((item, index) => (
-                <View style={styles.resultWrapper} key={index}>
-                  <View key={index} style={styles.labelWrapper}>
-                    <Image style={styles.image} source={{uri: item.urls[0]}} />
-                    <Text style={styles.label}>{item.description}</Text>
-                  </View>
-                  <View style={styles.actionButtonsWrapper}>
-                    <Button
-                      onPress={() => readText(item.description)}
-                      style={styles.actionButton}
-                      title="Listen"
-                    />
-                    <Button style={styles.actionButton} title="Save" />
-                    {results.length > 1 && !displayMore && (
-                      <Button
-                        onPress={() => seeMore()}
-                        style={styles.actionButton}
-                        title="See More"
-                      />
-                    )}
-                  </View>
-                </View>
-              ))}
-            {isEmptyResult() && analyzed && (
-              <Text style={styles.noResultText}>
-                No result is found :( try again
-              </Text>
+        {displayResults.map((result, index) => (
+          <View key={index} style={styles.resultWrapper}>
+            <View style={styles.imageWrapper}>
+              <Image style={styles.image} source={{uri: result.urls[0]}} />
+              <View style={styles.actionButtonsWrapper}>
+                <TouchableOpacity onPress={() => readText(result.description)}>
+                  <Image style={styles.actionButton} source={ListenButton} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    addVocabulary(result.description, result.urls[0])
+                  }>
+                  <Image
+                    style={styles.actionButton}
+                    source={saveOrTick(result.description)}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <Text style={styles.description}>{result.description}</Text>
+            {!displayMore && (
+              <TouchableOpacity onPress={() => seeMore()}>
+                <Image style={styles.viewMore} source={ViewMoreButton} />
+              </TouchableOpacity>
             )}
-          </ScrollView>
-        )}
+          </View>
+        ))}
       </View>
-      <View style={styles.lookUpButtonWrapper}>
-        <Button title="Analyze" onPress={analyze} />
-      </View>
-    </ImageBackground>
+      {displayMore && (
+        <View style={styles.viewLessWrapper}>
+          <TouchableOpacity onPress={() => seeLess()}>
+            <Image style={styles.viewLess} source={ViewLessButton} />
+          </TouchableOpacity>
+        </View>
+      )}
+      {openModal.display && (
+        <SnapieModal
+          display={openModal.display}
+          animationType="fade"
+          message={openModal.message}
+          setDisplay={closeModal}
+          type={openModal.type}
+        />
+      )}
+    </View>
   );
 };
 
 ImageLabels.propTypes = {
-  imageUri: PropTypes.string.isRequired,
-  loading: PropTypes.bool.isRequired,
-  analyze: PropTypes.func.isRequired,
-  analyzed: PropTypes.bool.isRequired,
-  results: PropTypes.arrayOf(PropTypes.object).isRequired,
-  navigation: PropTypes.object.isRequired,
+  results: arrayOf(object).isRequired,
+  handleAddVocabulary: func.isRequired,
+  vocabularies: arrayOf(object),
 };
 
-export default ImageLabels;
+export default connect(
+  state => ({vocabularies: state.vocabulariesReducer.vocabularies}),
+  {handleAddVocabulary: addNewVocab},
+)(ImageLabels);

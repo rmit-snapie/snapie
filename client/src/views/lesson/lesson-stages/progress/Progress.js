@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {View, StyleSheet} from 'react-native';
 
 const Progress = ({testDone, maxTests, levelDone, levelLocked}) => {
-  // this function is only used for this component ONLY, so no need for a helper func
+  const testNotDone = maxTests - testDone;
+
   const generateRandomString = () => {
     return (
       Math.random()
@@ -15,16 +16,8 @@ const Progress = ({testDone, maxTests, levelDone, levelLocked}) => {
     );
   };
 
-  // there are two cases levelLocked and levelIsNotLocked
-  // if the level is locked, return all stars that are greyed
-  // otherwise, there are two more cases: levelDone and levelIsNotDone
-  // if levelDone, returns all red stars
-  // otherwise, render red stars that represents completed tests
-  // and grey stars that represents uncompleted tests
   const renderStars = () => {
     let stars = [];
-    // default tests per level is 3, but can be changed in the future
-    const testNotDone = maxTests - testDone;
     if (levelLocked) {
       for (let i = 0; i < maxTests; i++) {
         stars.push(

@@ -12,7 +12,8 @@ const persistConfig = {
   blacklist: [
     'progressReducer',
     'questionsContentReducer',
-    'navigationReducer',
+    'vocabulariesReducer',
+    'progressCounterReducer',
   ],
 };
 

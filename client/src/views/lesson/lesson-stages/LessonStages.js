@@ -5,9 +5,6 @@ import styles from './LessonStagesStyle';
 import {ScrollView, View} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
 import {play, replay} from '../../../redux/actions/ProgressActions';
-
-import ImageButton from '../../image-button/ImageButton';
-import Progress from './progress/Progress';
 import {
   setQuestions,
   setCurrentQuestion,
@@ -16,6 +13,8 @@ import {
   getTestQuestions,
   getNumberOfTests,
 } from '../../../helpers/QuestionHelper';
+import ImageButton from '../../../shared/components/image-button/ImageButton';
+import ProgressIndicator from './progress/ProgressIndicator';
 
 const LessonStages = ({
   handlePlay,
@@ -31,6 +30,7 @@ const LessonStages = ({
         level: replayLevel,
         test: lastTest,
       }).then(data => {
+        console.log(data);
         props.setCurrentQuestion(data[0]);
         props.prepareData(data);
         handleReplay(replayStage, replayLevel);
@@ -64,11 +64,12 @@ const LessonStages = ({
                   source={icon}
                   disabled={isDisabled(0, index)}
                 />
-                <Progress
+                <ProgressIndicator
                   testDone={test}
                   maxTests={3}
                   levelLocked={isDisabled(0, index)}
                   levelDone={index < level}
+                  stageDone={stage > 0}
                 />
               </View>
             ))}
@@ -91,7 +92,7 @@ const LessonStages = ({
                     source={icon}
                     disabled={isDisabled(1, index)}
                   />
-                  <Progress
+                  <ProgressIndicator
                     testDone={test}
                     maxTests={3}
                     levelLocked={isDisabled(1, index)}
@@ -111,7 +112,7 @@ const LessonStages = ({
                     source={icon}
                     disabled={isDisabled(1, index)}
                   />
-                  <Progress
+                  <ProgressIndicator
                     testDone={test}
                     maxTests={3}
                     levelLocked={isDisabled(1, index)}
@@ -140,7 +141,7 @@ const LessonStages = ({
                     source={icon}
                     disabled={isDisabled(2, index)}
                   />
-                  <Progress
+                  <ProgressIndicator
                     testDone={test}
                     maxTests={3}
                     levelLocked={isDisabled(2, index)}
@@ -160,7 +161,7 @@ const LessonStages = ({
                     source={icon}
                     disabled={isDisabled(2, index)}
                   />
-                  <Progress
+                  <ProgressIndicator
                     testDone={test}
                     maxTests={3}
                     levelLocked={isDisabled(2, index)}

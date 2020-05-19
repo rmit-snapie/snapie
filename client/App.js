@@ -10,16 +10,19 @@ import {createStackNavigator} from '@react-navigation/stack';
 //Routes
 import {
   EXPLORE_SCREEN,
+  FIND_THE_OBJECT,
   HOME_SCREEN,
   LESSON_SCREEN,
+  PROFILE_SCREEN,
   REVIEW_SCREEN,
 } from './environments/Routes';
 //Views
 import Home from './src/views/home/Home';
 import Explore from './src/views/explore/Explore';
-import Review from './src/views/review/Review';
+import Review from './src/views/review';
 import Lesson from './src/views/lesson/Lesson';
-import Pronounce from './src/components/pronounce/Pronounce';
+import FindTheObject from './src/question-types/find-the-object/FindTheObject';
+import Profile from './src/views/profile/Profile';
 
 const ApplicationStack = createStackNavigator();
 
@@ -39,7 +42,14 @@ export default function App() {
               name={EXPLORE_SCREEN}
               component={Explore}
             />
-            <ApplicationStack.Screen name="VOICE" component={Pronounce} />
+            <ApplicationStack.Screen
+              name={PROFILE_SCREEN}
+              component={Profile}
+            />
+            <ApplicationStack.Screen
+              name={FIND_THE_OBJECT}
+              component={FindTheObject}
+            />
           </ApplicationStack.Navigator>
         </NavigationContainer>
       </PersistGate>

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import styles from './LessonStyle';
 import {View} from 'react-native';
 
-//components
+//question-types
 import LessonContent from './lesson-content/LessonContent';
 import LessonStages from './lesson-stages/LessonStages';
 

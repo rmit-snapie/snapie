@@ -36,7 +36,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
-    marginBottom: 15,
+    marginBottom: 20,
     borderRadius: 16,
     backgroundColor: '#ffffff',
   },

@@ -10,13 +10,15 @@ import {
   PRONOUNCE_THE_WORD,
   SPELLING_ORDER,
   HOME_SCREEN,
+  FIND_THE_OBJECT,
 } from '../../../../environments/Routes';
-//components
-import FillTheBlank from '../../../components/fill-the-blank/FillTheBlank';
-import MultipleChoice from '../../../components/multiple-choice/MultipleChoice';
-import SpellingOrder from '../../../components/spelling-order/SpellingOrder';
-import PairSelection from '../../../components/pair-selection/PairSelection';
-import Pronounce from '../../../components/pronounce/Pronounce';
+//question-types
+import FillTheBlank from '../../../question-types/fill-the-blank/FillTheBlank';
+import MultipleChoice from '../../../question-types/multiple-choice/MultipleChoice';
+import SpellingOrder from '../../../question-types/spelling-order/SpellingOrder';
+import PairSelection from '../../../question-types/pair-selection/PairSelection';
+import Pronounce from '../../../question-types/pronounce/Pronounce';
+import FindTheObject from '../../../question-types/find-the-object/FindTheObject';
 import {replaceTo} from '../../../helpers/NavigateHelper';
 
 const LessonContent = ({currentQuestion, navigation}) => {
@@ -34,6 +36,8 @@ const LessonContent = ({currentQuestion, navigation}) => {
       return <SpellingOrder />;
     case PRONOUNCE_THE_WORD:
       return <Pronounce />;
+    case FIND_THE_OBJECT:
+      return <FindTheObject />;
     default:
       return (
         <View style={styles.container}>

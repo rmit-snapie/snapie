@@ -1,10 +1,15 @@
+//screens
 export const HOME_SCREEN = 'HOME';
 export const EXPLORE_SCREEN = 'EXPLORE';
 export const REVIEW_SCREEN = 'REVIEW';
 export const LESSON_SCREEN = 'LESSON SCREEN';
+export const PROFILE_SCREEN = 'PROFILE SCREEN';
+
+//questions
 export const MULTIPLE_CHOICE = 'MULTIPLE CHOICE';
 export const MULTIPLE_CHOICE_IMAGES = 'MULTIPLE CHOICE IMAGES';
 export const FILL_THE_BLANK = 'FILL THE BLANK';
 export const SPELLING_ORDER = 'SPELLING ORDER';
 export const PAIR_SELECTION = 'PAIR SELECTION';
 export const PRONOUNCE_THE_WORD = 'PRONOUNCE THE WORD';
+export const FIND_THE_OBJECT = 'FIND THE OBJECT';

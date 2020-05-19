@@ -1,4 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
   container: {
@@ -6,6 +8,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    padding: 5,
   },
   notFound: {
     fontSize: 32,
@@ -13,7 +16,7 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   resultsWrapper: {
-    flex: 7,
+    flex: 6,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -22,8 +25,7 @@ export default StyleSheet.create({
   resultWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    width: 180,
+    flexGrow: 2,
     marginRight: 10,
     marginBottom: 10,
   },
@@ -52,8 +54,8 @@ export default StyleSheet.create({
     marginTop: 15,
     fontSize: 18,
     fontFamily: 'Amiko-Bold',
-    textAlign: 'center',
-    color: '#f47171',
+    color:'#f47171',
+    width: 100,
   },
   viewMore: {
     width: 40,
@@ -61,7 +63,8 @@ export default StyleSheet.create({
     marginTop: 10,
   },
   viewLessWrapper: {
-    flex: 1,
+    position: 'absolute',
+    bottom: 15,
   },
   viewLess: {
     width: 40,

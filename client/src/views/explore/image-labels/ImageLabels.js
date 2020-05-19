@@ -108,7 +108,7 @@ const ImageLabels = ({results, handleAddVocabulary, vocabularies}) => {
                 </TouchableOpacity>
               </View>
             </View>
-            <Text style={styles.description}>{result.description}</Text>
+            <Text numberOfLines={1} ellipsizeMode='tail' style={styles.description}>{result.description}</Text>
             {!displayMore && (
               <TouchableOpacity onPress={() => seeMore()}>
                 <Image style={styles.viewMore} source={ViewMoreButton} />

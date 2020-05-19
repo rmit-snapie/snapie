@@ -99,6 +99,7 @@ export default StyleSheet.create({
     marginBottom: 20,
     marginRight: 10,
     borderRadius: 16,
+    resizeMode: 'contain',
   },
   notChosenAnswerImage: {
     borderTopWidth: 2,

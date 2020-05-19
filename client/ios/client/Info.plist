@@ -12,6 +12,8 @@
 	<string>Snapie would like to access your microphone</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Snapie would like to use speech recognition</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Snapie would like to use your location</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -47,8 +49,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Snapie would like to use your location</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Amiko-Bold.ttf</string>

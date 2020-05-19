@@ -20,6 +20,10 @@ export const getNumberOfQuestions = (
       return metaData.data.levelTwoTestQuestionsCount[test] - 1;
     } else if (level === 2) {
       return metaData.data.levelThreeTestQuestionsCount[test] - 1;
+    } else if (level === 3) {
+      return metaData.data.levelFourTestQuestionsCount[test] - 1;
+    } else if (level === 3) {
+      return metaData.data.levelFiveTestQuestionsCount[test] - 1;
     }
   }
 };

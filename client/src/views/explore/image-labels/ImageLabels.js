@@ -144,6 +144,6 @@ ImageLabels.propTypes = {
 };
 
 export default connect(
-  state => ({vocabularies: state.vocabulariesReducer}),
+  state => ({vocabularies: state.vocabulariesReducer.vocabularies}),
   {handleAddVocabulary: addNewVocab},
 )(ImageLabels);

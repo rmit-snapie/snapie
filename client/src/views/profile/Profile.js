@@ -6,6 +6,10 @@ import Badges from './badges/Badges';
 import Progress from './progress/Progress';
 import {goToFirstScreenInStack} from '../../helpers/NavigateHelper';
 import SnapieModal from '../../shared/components/SnapieModal';
+import LoginModal from './login-modal/LoginModal';
+const BackToHome = require('../../shared/assets/BackToHomeIconSecondary.png');
+const SettingsIcon = require('../../shared/assets/SettingsIcon.png');
+const DefaultAvatar = require('../../shared/assets/DefaultAvatar.png');
 
 const tabs = {PROGRESS: 'PROGRESS', BADGES: 'BADGES'};
 
@@ -16,6 +20,7 @@ const Profile = ({navigation}) => {
     type: null,
     message: null,
   });
+  const [openLoginModal, setOpenLoginModal] = useState(false);
 
   const renderTab = () => {
     if (tab === tabs.PROGRESS) {
@@ -40,24 +45,17 @@ const Profile = ({navigation}) => {
       <View style={styles.profileHeader}>
         <View style={styles.profileActionsWrapper}>
           <TouchableOpacity onPress={() => goToFirstScreenInStack(navigation)}>
-            <Image
-              style={styles.profileAction}
-              source={require('../../shared/assets/BackToHomeIconSecondary.png')}
-            />
+            <Image style={styles.profileAction} source={BackToHome} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => handlePressSettings()}>
-            <Image
-              style={styles.profileAction}
-              source={require('../../shared/assets/SettingsIcon.png')}
-            />
+            <Image style={styles.profileAction} source={SettingsIcon} />
           </TouchableOpacity>
         </View>
         <View style={styles.profileInfoWrapper}>
-          <Image
-            style={styles.avatar}
-            source={require('../../shared/assets/DefaultAvatar.png')}
-          />
-          <Text style={styles.name}>Jake the Dog</Text>
+          <Image style={styles.avatar} source={DefaultAvatar} />
+          <TouchableOpacity onPress={() => setOpenLoginModal(true)}>
+            <Text style={styles.name}>Jake the Dog</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.tabsWrapper}>
           <TouchableOpacity
@@ -86,6 +84,12 @@ const Profile = ({navigation}) => {
           message={openModal.message}
           setDisplay={setOpenModal}
           type={openModal.type}
+        />
+      )}
+      {openLoginModal && (
+        <LoginModal
+          display={openLoginModal}
+          closeModal={() => setOpenLoginModal(false)}
         />
       )}
     </View>

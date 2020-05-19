@@ -21,6 +21,7 @@ import LessonButton from '../assets/home-screen-icons/Lesson.png';
 import ExploreButton from '../assets/home-screen-icons/Explore.png';
 import ReviewButton from '../assets/home-screen-icons/Book.png';
 import ImageButton from '../../shared/components/image-button/ImageButton';
+import InternetIndicator from '../../shared/components/internet-indicator/InternetIndicator';
 
 class Home extends Component {
   render() {

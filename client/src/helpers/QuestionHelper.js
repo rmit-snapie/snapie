@@ -1,8 +1,11 @@
 import React from 'react';
 import {Image, Animated} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {STAGE_ONE} from '../domain-models/stage-1/StageOneQuestions';
 import {STAGE_TWO} from '../domain-models/stage-2/StageTwoQuestions';
 import RNFetchBlob from 'rn-fetch-blob';
+const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
+export const dirs = RNFetchBlob.fs.dirs;
 
 export const getNumberOfQuestions = (
   stage: number,
@@ -71,34 +74,21 @@ export const shuffle = array => {
   return array;
 };
 
-export const dirs = RNFetchBlob.fs.dirs;
-
-const stageFetchPath =
-  'https://tam-terraform-state.s3-ap-southeast-1.amazonaws.com/stages/';
-const localStagePath = dirs.DocumentDir + '/stages/';
-// make the directories:
-RNFetchBlob.fs.exists(localStagePath).then(existed => {
-  if (!existed) {
-    RNFetchBlob.fs.mkdir(localStagePath).catch(err => {
-      console.log(err);
-    });
-  }
-});
-
 export const renderImageWrapper = (stage, imageSource, style, animated) => {
   if (stage > 1) {
     if (animated) {
       return (
-        <Animated.Image
+        <AnimatedFastImage
           style={[style]}
           source={{
             uri: imageSource,
+            priority: FastImage.priority.normal,
           }}
         />
       );
     }
     return (
-      <Image
+      <FastImage
         source={{
           uri: imageSource,
         }}
@@ -112,6 +102,18 @@ export const renderImageWrapper = (stage, imageSource, style, animated) => {
     return <Image source={imageSource} style={style} />;
   }
 };
+
+const stageFetchPath =
+  'https://tam-terraform-state.s3-ap-southeast-1.amazonaws.com/stages/';
+const localStagePath = dirs.DocumentDir + '/stages/';
+// make the directories:
+RNFetchBlob.fs.exists(localStagePath).then(existed => {
+  if (!existed) {
+    RNFetchBlob.fs.mkdir(localStagePath).catch(err => {
+      console.log(err);
+    });
+  }
+});
 
 //this function is for removing json file, testing and debugging only
 // const removeJSONFile = stageID => {

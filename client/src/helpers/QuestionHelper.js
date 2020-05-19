@@ -156,7 +156,11 @@ export const setStageImagesAssets = async assetList => {
 };
 
 export const renderImageWrapper = (stage, imageSource, style, animated) => {
-  if (stage > 1) {
+  if (
+    stage > 1
+    // ||
+    // (typeof imageSource == typeof String && imageSource.includes('.png'))
+  ) {
     imageSource = localImagePath + imageSource;
     if (animated) {
       return (
@@ -179,6 +183,10 @@ export const renderImageWrapper = (stage, imageSource, style, animated) => {
       />
     );
   } else {
+    // console.log(
+    //   'QuestionHelper > renderImageWraper > imageSource: ',
+    //   imageSource,
+    // );
     if (animated) {
       return <Animated.Image style={[style]} source={imageSource} />;
     }

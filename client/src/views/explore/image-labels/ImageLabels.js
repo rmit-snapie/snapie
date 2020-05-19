@@ -62,7 +62,7 @@ const ImageLabels = ({results, handleAddVocabulary, vocabularies}) => {
     }
     setTimeout(() => {
       setOpenModal({display: false, type: null, message: null});
-    }, 500);
+    }, 1000);
   };
 
   const closeModal = () => {

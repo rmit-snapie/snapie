@@ -92,9 +92,10 @@ export default StyleSheet.create({
   },
   answerImage: {
     width: 175,
-    height: 135,
+    height: 150,
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 20,
     marginRight: 10,
     borderRadius: 16,
@@ -115,7 +116,8 @@ export default StyleSheet.create({
   },
   imageContent: {
     height: 100,
-    width: 69,
+    width: 100,
+    resizeMode: 'contain',
   },
   chosenAnswerTitle: {
     fontSize: 24,

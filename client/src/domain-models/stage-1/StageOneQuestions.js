@@ -1,8 +1,21 @@
-const ColorRed = require('./assets/red.png');
-const ColorYellow = require('./assets/yellow.png');
-const ColorGreen = require('./assets/green.png');
-const ColorBlue = require('./assets/blue.png');
-const ColorOrange = require('./assets/orange.png');
+// level 1
+const ColorRed = require('./assets/level-1/red-color.png');
+const ColorYellow = require('./assets/level-1/yellow-color.png');
+const ColorGreen = require('./assets/level-1/green-color.png');
+const ColorBlue = require('./assets/level-1/blue-color.png');
+const ColorOrange = require('./assets/level-1/orange-color.png');
+// level 2
+const Arm = require('./assets/level-2/arm.png');
+const Ear = require('./assets/level-2/ear.png');
+const Hand = require('./assets/level-2/hand.png');
+const Head = require('./assets/level-2/head.png');
+const Leg = require('./assets/level-2/leg.png');
+// level 3
+const Apple = require('./assets/level-3/apple.png');
+const Banana = require('./assets/level-3/banana.png');
+const Orange = require('./assets/level-3/orange.png');
+const Pineapple = require('./assets/level-3/pineapple.png');
+const Strawberry = require('./assets/level-3/strawberry.png');
 import {
   FILL_THE_BLANK,
   FIND_THE_OBJECT,
@@ -25,7 +38,7 @@ export const STAGE_ONE = [
         createdAt: '02-05-2020',
         updatedAt: '02-05-2020',
         type: MULTIPLE_CHOICE,
-        questionContent: 'Which color is this ?',
+        questionContent: 'What color is this ?',
         possibleAnswersCount: 4,
         answers: ['red', 'yellow', 'green', 'orange'],
         correctAnswer: 'red',
@@ -71,7 +84,7 @@ export const STAGE_ONE = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['yellow', 'red'],
         imagesAsset: [
           {
@@ -95,7 +108,7 @@ export const STAGE_ONE = [
         createdAt: '02-05-2020',
         updatedAt: '02-05-2020',
         type: MULTIPLE_CHOICE,
-        questionContent: 'Which color is this ?',
+        questionContent: 'What color is this ?',
         possibleAnswersCount: 4,
         answers: ['red', 'yellow', 'green', 'orange'],
         correctAnswer: 'green',
@@ -114,7 +127,7 @@ export const STAGE_ONE = [
         possibleAnswersCount: 4,
         answers: ['yellow', 'green', 'red', 'white'],
         correctAnswer: 'yellow',
-        imageAsset: ColorYellow,
+        imageAsset: Banana,
         correctAnswerCount: 1,
       },
       {
@@ -156,7 +169,7 @@ export const STAGE_ONE = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['yellow', 'red', 'green', 'orange'],
         imagesAsset: [
           {
@@ -223,7 +236,7 @@ export const STAGE_ONE = [
         possibleAnswersCount: 4,
         answers: ['white', 'orange', 'green', 'yellow'],
         correctAnswer: 'orange',
-        imageAsset: ColorOrange,
+        imageAsset: Orange,
         correctAnswerCount: 1,
       },
       {
@@ -262,7 +275,7 @@ export const STAGE_ONE = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['orange', 'red', 'green', 'blue'],
         imagesAsset: [
           {
@@ -298,11 +311,11 @@ export const STAGE_ONE = [
         createdAt: '02-05-2020',
         updatedAt: '02-05-2020',
         type: MULTIPLE_CHOICE,
-        questionContent: 'Which body part is this ?',
+        questionContent: 'What body part is this ?',
         possibleAnswersCount: 4,
         answers: ['head', 'hand', 'leg', 'back'],
         correctAnswer: 'head',
-        imageAsset: ColorRed,
+        imageAsset: Head,
         correctAnswerCount: 1,
       },
       {
@@ -317,19 +330,19 @@ export const STAGE_ONE = [
         answers: [
           {
             name: 'arm',
-            asset: ColorRed,
+            asset: Arm,
           },
           {
             name: 'leg',
-            asset: ColorGreen,
+            asset: Leg,
           },
           {
             name: 'head',
-            asset: ColorYellow,
+            asset: Head,
           },
           {
-            name: 'foot',
-            asset: ColorOrange,
+            name: 'ear',
+            asset: Ear,
           },
         ],
         correctAnswer: 'arm',
@@ -344,16 +357,16 @@ export const STAGE_ONE = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['head', 'arm'],
         imagesAsset: [
           {
             name: 'head',
-            asset: ColorYellow,
+            asset: Head,
           },
           {
             name: 'arm',
-            asset: ColorRed,
+            asset: Arm,
           },
         ],
         correctAnswerCount: 1,
@@ -372,19 +385,19 @@ export const STAGE_ONE = [
         answers: [
           {
             name: 'leg',
-            asset: ColorRed,
+            asset: Leg,
           },
           {
             name: 'arm',
-            asset: ColorGreen,
+            asset: Arm,
           },
           {
             name: 'head',
-            asset: ColorYellow,
+            asset: Head,
           },
           {
-            name: 'back',
-            asset: ColorOrange,
+            name: 'ear',
+            asset: Ear,
           },
         ],
         correctAnswer: 'leg',
@@ -399,11 +412,11 @@ export const STAGE_ONE = [
         createdAt: '02-05-2020',
         updatedAt: '02-05-2020',
         type: MULTIPLE_CHOICE,
-        questionContent: 'Which body part is this ?',
+        questionContent: 'What body part is this ?',
         possibleAnswersCount: 4,
         answers: ['hand', 'foot', 'leg', 'head'],
         correctAnswer: 'hand',
-        imageAsset: ColorGreen,
+        imageAsset: Hand,
         correctAnswerCount: 1,
       },
       {
@@ -418,7 +431,7 @@ export const STAGE_ONE = [
         possibleAnswersCount: 4,
         answers: ['m', 'r', 'a'],
         correctAnswer: 'arm',
-        imageAsset: ColorBlue,
+        imageAsset: Arm,
         correctAnswerCount: 1,
       },
       {
@@ -429,20 +442,20 @@ export const STAGE_ONE = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['head', 'hand', 'leg'],
         imagesAsset: [
           {
             name: 'head',
-            asset: ColorYellow,
+            asset: Head,
           },
           {
             name: 'hand',
-            asset: ColorRed,
+            asset: Hand,
           },
           {
             name: 'leg',
-            asset: ColorGreen,
+            asset: Leg,
           },
         ],
         correctAnswerCount: 1,
@@ -457,11 +470,11 @@ export const STAGE_ONE = [
         createdAt: '02-05-2020',
         updatedAt: '02-05-2020',
         type: MULTIPLE_CHOICE,
-        questionContent: 'Which body part is this ?',
+        questionContent: 'What body part is this ?',
         possibleAnswersCount: 4,
         answers: ['hand', 'head', 'leg', 'ear'],
         correctAnswer: 'ear',
-        imageAsset: ColorGreen,
+        imageAsset: Ear,
         correctAnswerCount: 1,
       },
       {
@@ -484,20 +497,20 @@ export const STAGE_ONE = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['head', 'hand', 'ear'],
         imagesAsset: [
           {
             name: 'head',
-            asset: ColorOrange,
+            asset: Head,
           },
           {
             name: 'hand',
-            asset: ColorRed,
+            asset: Hand,
           },
           {
             name: 'ear',
-            asset: ColorGreen,
+            asset: Ear,
           },
         ],
         correctAnswerCount: 1,
@@ -522,24 +535,24 @@ export const STAGE_ONE = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['arm', 'leg', 'hand', 'ear'],
         imagesAsset: [
           {
             name: 'arm',
-            asset: ColorOrange,
+            asset: Arm,
           },
           {
             name: 'leg',
-            asset: ColorRed,
+            asset: Leg,
           },
           {
             name: 'hand',
-            asset: ColorGreen,
+            asset: Hand,
           },
           {
             name: 'ear',
-            asset: ColorBlue,
+            asset: Ear,
           },
         ],
         correctAnswerCount: 1,
@@ -562,19 +575,19 @@ export const STAGE_ONE = [
         answers: [
           {
             name: 'apple',
-            asset: ColorRed,
+            asset: Apple,
           },
           {
             name: 'banana',
-            asset: ColorGreen,
+            asset: Banana,
           },
           {
             name: 'orange',
-            asset: ColorYellow,
+            asset: Orange,
           },
           {
             name: 'strawberry',
-            asset: ColorOrange,
+            asset: Strawberry,
           },
         ],
         correctAnswer: 'apple',
@@ -589,11 +602,11 @@ export const STAGE_ONE = [
         createdAt: '02-05-2020',
         updatedAt: '02-05-2020',
         type: MULTIPLE_CHOICE,
-        questionContent: 'Which fruit is this ?',
+        questionContent: 'What fruit is this ?',
         possibleAnswersCount: 4,
         answers: ['banana', 'apple', 'strawberry', 'orange'],
         correctAnswer: 'banana',
-        imageAsset: ColorRed,
+        imageAsset: Banana,
         correctAnswerCount: 1,
       },
       {
@@ -604,16 +617,16 @@ export const STAGE_ONE = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['apple', 'banana'],
         imagesAsset: [
           {
             name: 'apple',
-            asset: ColorYellow,
+            asset: Apple,
           },
           {
             name: 'banana',
-            asset: ColorRed,
+            asset: Banana,
           },
         ],
         correctAnswerCount: 1,
@@ -632,7 +645,7 @@ export const STAGE_ONE = [
         possibleAnswersCount: 4,
         answers: ['apple', 'strawberry', 'banana', 'orange'],
         correctAnswer: 'orange',
-        imageAsset: ColorGreen,
+        imageAsset: Orange,
         correctAnswerCount: 1,
       },
       {
@@ -643,8 +656,8 @@ export const STAGE_ONE = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PRONOUNCE_THE_WORD,
-        questionContent: 'Say banana',
-        imageAsset: ColorBlue,
+        questionContent: 'Say the word',
+        imageAsset: Banana,
         correctAnswer: 'banana',
         correctAnswerCount: 1,
       },
@@ -660,19 +673,19 @@ export const STAGE_ONE = [
         answers: [
           {
             name: 'strawberry',
-            asset: ColorRed,
+            asset: Strawberry,
           },
           {
             name: 'apple',
-            asset: ColorGreen,
+            asset: Apple,
           },
           {
             name: 'orange',
-            asset: ColorYellow,
+            asset: Orange,
           },
           {
             name: 'banana',
-            asset: ColorOrange,
+            asset: Banana,
           },
         ],
         correctAnswer: 'strawberry',
@@ -687,24 +700,24 @@ export const STAGE_ONE = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['orange', 'banana', 'strawberry', 'apple'],
         imagesAsset: [
           {
             name: 'orange',
-            asset: ColorYellow,
+            asset: Orange,
           },
           {
             name: 'banana',
-            asset: ColorRed,
+            asset: Banana,
           },
           {
             name: 'strawberry',
-            asset: ColorGreen,
+            asset: Strawberry,
           },
           {
             name: 'apple',
-            asset: ColorBlue,
+            asset: Apple,
           },
         ],
         correctAnswerCount: 1,
@@ -723,19 +736,19 @@ export const STAGE_ONE = [
         answers: [
           {
             name: 'apple',
-            asset: ColorRed,
+            asset: Apple,
           },
           {
             name: 'pineapple',
-            asset: ColorGreen,
+            asset: Pineapple,
           },
           {
             name: 'orange',
-            asset: ColorYellow,
+            asset: Orange,
           },
           {
             name: 'banana',
-            asset: ColorOrange,
+            asset: Banana,
           },
         ],
         correctAnswer: 'pineapple',
@@ -754,7 +767,7 @@ export const STAGE_ONE = [
         possibleAnswersCount: 4,
         answers: ['strawberry', 'pineapple', 'apple', 'orange'],
         correctAnswer: 'strawberry',
-        imageAsset: ColorYellow,
+        imageAsset: Strawberry,
         correctAnswerCount: 1,
       },
       {
@@ -765,8 +778,8 @@ export const STAGE_ONE = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PRONOUNCE_THE_WORD,
-        questionContent: 'Say the word pineapple',
-        imageAsset: ColorBlue,
+        questionContent: 'Say the word',
+        imageAsset: Pineapple,
         correctAnswer: 'pineapple',
         correctAnswerCount: 1,
       },
@@ -782,7 +795,7 @@ export const STAGE_ONE = [
         possibleAnswersCount: 4,
         answers: ['e', 'n', 'r', 'o', 'a', 'g'],
         correctAnswer: 'orange',
-        imageAsset: ColorBlue,
+        imageAsset: Orange,
         correctAnswerCount: 1,
       },
       {
@@ -793,31 +806,28 @@ export const STAGE_ONE = [
         createdAt: '14-04-2020',
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
-        questionContent: 'Choose the pairs',
+        questionContent: 'Match the pairs',
         answers: ['pineapple', 'strawberry', 'orange', 'apple'],
         imagesAsset: [
           {
             name: 'pineapple',
-            asset: ColorOrange,
+            asset: Pineapple,
           },
           {
             name: 'strawberry',
-            asset: ColorRed,
+            asset: Strawberry,
           },
           {
             name: 'orange',
-            asset: ColorGreen,
+            asset: Orange,
           },
           {
             name: 'apple',
-            asset: ColorBlue,
+            asset: Apple,
           },
         ],
         correctAnswerCount: 1,
       },
     ],
-    [[{}]],
-    [[{}]],
   ],
-  [[{}], [{}], [{}]],
 ];

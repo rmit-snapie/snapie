@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {func, object} from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStagesStyle';
@@ -15,6 +15,7 @@ import {
 } from '../../../helpers/QuestionHelper';
 import ImageButton from '../../../shared/components/image-button/ImageButton';
 import ProgressIndicator from './progress/ProgressIndicator';
+import Loading from '../../../shared/components/Loading';
 
 const LessonStages = ({
   handlePlay,
@@ -22,21 +23,36 @@ const LessonStages = ({
   progress: {stage, level, test},
   ...props
 }) => {
-  const handlePress = (replayStage, replayLevel) => {
+  const [loading, setLoading] = useState(false);
+  const handlePress = async (replayStage, replayLevel) => {
+    // loading is true to render loading screen...
+    setLoading(true);
     if (replayStage < stage || replayLevel < level) {
       const lastTest = getNumberOfTests(replayStage, replayLevel);
+
       getTestQuestions({
         stage: replayStage,
         level: replayLevel,
         test: lastTest,
       }).then(data => {
-        console.log(data);
+        if (Array.isArray(data) === false) {
+          console.log(
+            'some error: return data from getTestQuestion is not an array',
+          );
+          return;
+        }
         props.setCurrentQuestion(data[0]);
         props.prepareData(data);
         handleReplay(replayStage, replayLevel);
       });
     } else {
       getTestQuestions({stage: stage, level: level, test: test}).then(data => {
+        if (Array.isArray(data) === false) {
+          console.log(
+            'some error: return data from getTestQuestion is not an array',
+          );
+          return;
+        }
         props.setCurrentQuestion(data[0]);
         props.prepareData(data);
         handlePlay(stage, level, test);
@@ -51,6 +67,9 @@ const LessonStages = ({
     return iconStage === stage && iconLevel > level;
   };
 
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -189,7 +208,6 @@ LessonStages.propTypes = {
 export default connect(
   state => ({
     progress: state.progressReducer,
-    questions: state.questionsContentReducer.testQuestions,
   }),
   {
     handlePlay: play,

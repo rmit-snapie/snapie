@@ -91,9 +91,10 @@ class PairSelection extends Component {
   }
 
   render() {
-    const {stage} = this.props.progress.replay
+    const {stage} = this.props.progress.replay.play
       ? this.props.progress.replay
       : this.props.progress;
+
     const handleAnswerPressed = (index, answer) => {
       readText(answer);
       const {currentAnswer} = this.state;

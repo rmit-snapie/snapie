@@ -91,7 +91,7 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
   answerImage: {
-    width: 175,
+    width: windowWidth / 2.5,
     height: 150,
     display: 'flex',
     alignItems: 'center',
@@ -99,7 +99,6 @@ export default StyleSheet.create({
     marginBottom: 20,
     marginRight: 10,
     borderRadius: 16,
-    resizeMode: 'contain',
   },
   notChosenAnswerImage: {
     borderTopWidth: 2,

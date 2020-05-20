@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Animated, Platform} from 'react-native';
+import {Animated, Image, Platform} from 'react-native';
 import {STAGE_ONE} from '../domain-models/stage-1/StageOneQuestions';
 import {STAGE_TWO} from '../domain-models/stage-2/StageTwoQuestions';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -20,6 +20,10 @@ export const getNumberOfQuestions = (
       return metaData.data.levelTwoTestQuestionsCount[test] - 1;
     } else if (level === 2) {
       return metaData.data.levelThreeTestQuestionsCount[test] - 1;
+    } else if (level === 3) {
+      return metaData.data.levelFourTestQuestionsCount[test] - 1;
+    } else if (level === 4) {
+      return metaData.data.levelFiveTestQuestionsCount[test] - 1;
     }
   }
 };
@@ -40,7 +44,7 @@ export const getNumberOfLevels = (stage: number) => {
   } else if (stage === 1) {
     return STAGE_TWO.length - 1;
   } else {
-    return metaData.data.levelsCount;
+    return metaData.data.levelsCount - 1;
   }
 };
 
@@ -105,7 +109,7 @@ export const fetchImage = async imageName => {
   // set default stage 1 if stageID not exist
   const fetchPath = imageFetchPath + imageFileName;
   // check path:
-  await RNFetchBlob.config({
+  return RNFetchBlob.config({
     // will save to docDir/images/...
     path: localImagePath + imageFileName,
     // use wifi only, this flag will only work on API version 21 or above
@@ -137,18 +141,20 @@ export const setStageImagesAssets = async assetList => {
    */
 
   // fetch every images....
-  assetList.forEach(image => {
-    // check in local memory:
-    checkImageExisted(image).then(existed => {
-      if (existed) {
-        return true;
-      } else {
-        fetchImage(image).then(result => {
-          return result;
-        });
-      }
-    });
-  });
+  return await Promise.all(
+    assetList.map(image => {
+      // check in local memory:
+      return checkImageExisted(image).then(existed => {
+        if (existed) {
+          return true;
+        } else {
+          return fetchImage(image).then(result => {
+            return result;
+          });
+        }
+      });
+    }),
+  );
 };
 
 export const renderImageWrapper = (stage, imageSource, style, animated) => {
@@ -178,7 +184,6 @@ export const renderImageWrapper = (stage, imageSource, style, animated) => {
     if (animated) {
       return <Animated.Image style={[style]} source={imageSource} />;
     }
-
     return <Image source={imageSource} style={style} />;
   }
 };
@@ -212,6 +217,7 @@ const fetchQuestion = async stageID => {
 
   // set default stage file name if stageID not exist
   const stageFileName = stageID ? stageID + '.json' : '1.json';
+
   let fetchPath = stageFetchPath + stageFileName;
   // check path:
   return RNFetchBlob.config({
@@ -235,28 +241,31 @@ export const getTestQuestions = async progress => {
    * default: stage_one.json
    */
   const {stage, level, test} = progress;
-
   // for debugging, remove file using this readJsonFile()
-
   switch (stage) {
     case 0:
       return STAGE_ONE[level][test];
     case 1:
       return STAGE_TWO[level][test];
   }
+  let stageData = [];
   // online questions:
   return checkStageFileExisted(stage + 1).then(isExisted => {
     if (!isExisted) {
       return fetchQuestion(stage + 1).then(result => {
         if (result) {
           return readJsonFile(localStagePath + (stage + 1) + '.json')
-            .then(data => {
+            .then(async data => {
+              stageData = data.levels[level][test];
               // fetch images:
-              setStageImagesAssets(data.assetsRequired);
-              return data.levels[level][test];
+              return await setStageImagesAssets(data.assetsRequired);
+            })
+            .then(() => {
+              return stageData;
             })
             .catch(e => console.log(e));
         } else {
+          console.log('something went wrong in getTestsQuestion');
           return STAGE_ONE;
         }
       });
@@ -276,7 +285,6 @@ const checkStageFileExisted = async stageID => {
    * @param:  stageID (int)
    */
   let myFilePath = localStagePath + stageID + '.json';
-  // console.log(myFilePath, 'my file path');
   return RNFetchBlob.fs.exists(myFilePath).then(existed => {
     return existed;
   });
@@ -284,7 +292,6 @@ const checkStageFileExisted = async stageID => {
 
 export const metaData = {};
 export const readJsonFile = async filePath => {
-  // filePath = filePath ? filePath : localStagePath + '1.json';
   // encoding:utf8 | base64 | ascii | uri
   return RNFetchBlob.fs
     .readFile(filePath, 'utf8')

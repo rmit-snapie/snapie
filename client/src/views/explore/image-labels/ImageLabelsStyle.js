@@ -6,6 +6,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    padding: 5,
   },
   notFound: {
     fontSize: 32,
@@ -13,7 +14,7 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   resultsWrapper: {
-    flex: 7,
+    flex: 6,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -22,8 +23,7 @@ export default StyleSheet.create({
   resultWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    width: 180,
+    flexGrow: 2,
     marginRight: 10,
     marginBottom: 10,
   },

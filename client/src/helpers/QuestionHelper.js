@@ -1,9 +1,8 @@
 import React from 'react';
-import {Image, Animated, Platform} from 'react-native';
+import {Animated, Image, Platform} from 'react-native';
 import {STAGE_ONE} from '../domain-models/stage-1/StageOneQuestions';
 import {STAGE_TWO} from '../domain-models/stage-2/StageTwoQuestions';
 import RNFetchBlob from 'rn-fetch-blob';
-import Stage3 from './3.json';
 
 export const getNumberOfQuestions = (
   stage: number,
@@ -45,7 +44,7 @@ export const getNumberOfLevels = (stage: number) => {
   } else if (stage === 1) {
     return STAGE_TWO.length - 1;
   } else {
-    return metaData.data.levelsCount;
+    return metaData.data.levelsCount - 1;
   }
 };
 
@@ -337,8 +336,7 @@ export const getTestQuestions = async progress => {
               console.log('read file result: ', data);
               stageData = data.levels[level][test];
               // fetch images:
-              const a = await setStageImagesAssets(data.assetsRequired);
-              return a;
+              return await setStageImagesAssets(data.assetsRequired);
               // return data.levels[level][test];
             })
             .then(resutl => {

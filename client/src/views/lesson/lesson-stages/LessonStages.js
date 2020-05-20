@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {func, object} from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStagesStyle';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, View, ActivityIndicator} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
 import {play, replay} from '../../../redux/actions/ProgressActions';
 import {
@@ -22,24 +22,34 @@ const LessonStages = ({
   progress: {stage, level, test},
   ...props
 }) => {
-  const handlePress = (replayStage, replayLevel) => {
+  // todo: make it async, then get data, render waiting when data is not ready
+
+  const [loading, setLoading] = useState(false);
+  const handlePress = async (replayStage, replayLevel) => {
+    // loading is true to render waiting...
+    setLoading(true);
     if (replayStage < stage || replayLevel < level) {
       const lastTest = getNumberOfTests(replayStage, replayLevel);
+
       getTestQuestions({
         stage: replayStage,
         level: replayLevel,
         test: lastTest,
       }).then(data => {
-        console.log(data);
+        console.log('LessonStage > handlePress > getTestQuestion data: ', data);
         props.setCurrentQuestion(data[0]);
         props.prepareData(data);
         handleReplay(replayStage, replayLevel);
+        // set loading back to false, data is dispatching.
+        setLoading(false);
       });
     } else {
       getTestQuestions({stage: stage, level: level, test: test}).then(data => {
         props.setCurrentQuestion(data[0]);
         props.prepareData(data);
         handlePlay(stage, level, test);
+        // set loading back to false, data is dispatching.
+        setLoading(false);
       });
     }
   };
@@ -50,7 +60,9 @@ const LessonStages = ({
     }
     return iconStage === stage && iconLevel > level;
   };
-
+  // if (loading == true) {
+  //   // reder waiting:
+  // }
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -135,19 +147,25 @@ const LessonStages = ({
             <View style={styles.stageLevels}>
               {LEVELS_ICONS.stageThreeC.map((icon, index) => (
                 <View style={styles.iconWrapper} key={index}>
-                  <ImageButton
-                    key={index}
-                    handlePress={() => handlePress(2, index)}
-                    source={icon}
-                    disabled={isDisabled(2, index)}
-                  />
-                  <ProgressIndicator
-                    testDone={test}
-                    maxTests={3}
-                    levelLocked={isDisabled(2, index)}
-                    levelDone={index < level}
-                    stageDone={stage > 2}
-                  />
+                  {loading ? (
+                    <ActivityIndicator size="large" color="#0000ff" />
+                  ) : (
+                    <>
+                      <ImageButton
+                        key={index}
+                        handlePress={() => handlePress(2, index)}
+                        source={icon}
+                        disabled={isDisabled(2, index)}
+                      />
+                      <ProgressIndicator
+                        testDone={test}
+                        maxTests={3}
+                        levelLocked={isDisabled(2, index)}
+                        levelDone={index < level}
+                        stageDone={stage > 2}
+                      />
+                    </>
+                  )}
                 </View>
               ))}
             </View>

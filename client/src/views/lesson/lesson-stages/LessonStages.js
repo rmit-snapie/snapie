@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {func, object} from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStagesStyle';
@@ -38,19 +38,27 @@ const LessonStages = ({
         test: lastTest,
       }).then(data => {
         console.log('LessonStage > handlePress > getTestQuestion data: ', data);
+        if (Array.isArray(data) == false) {
+          console.log(
+            'some error: return data from getTestQuestion is not an array',
+          );
+          return;
+        }
         props.setCurrentQuestion(data[0]);
         props.prepareData(data);
         handleReplay(replayStage, replayLevel);
-        // set loading back to false, data is dispatching.
-        setLoading(false);
       });
     } else {
       getTestQuestions({stage: stage, level: level, test: test}).then(data => {
+        if (Array.isArray(data) == false) {
+          console.log(
+            'some error: return data from getTestQuestion is not an array',
+          );
+          return;
+        }
         props.setCurrentQuestion(data[0]);
         props.prepareData(data);
         handlePlay(stage, level, test);
-        // set loading back to false, data is dispatching.
-        setLoading(false);
       });
     }
   };

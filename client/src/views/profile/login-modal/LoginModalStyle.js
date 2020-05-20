@@ -69,4 +69,26 @@ export default StyleSheet.create({
     color: '#e53838',
     marginBottom: 15,
   },
+  successWrapper: {
+    width: 200,
+    height: 100,
+    backgroundColor: '#ffffff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    padding: 10,
+  },
+  success: {
+    fontFamily: 'Quicksand-Bold',
+    fontSize: 16,
+    textAlign: 'center',
+  },
 });

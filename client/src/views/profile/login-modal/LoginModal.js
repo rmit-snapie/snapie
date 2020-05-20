@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {login} from '../../../redux/actions/UserActions';
+import {usePrevious} from '../../../shared/hooks/usePrevious';
 
 const LoginModal = ({
   display,
@@ -20,21 +21,48 @@ const LoginModal = ({
 }) => {
   const [editUsername, setEditUsername] = useState('');
   const [localError, setLocalError] = useState(null);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const previousName = usePrevious(username);
+
   useEffect(() => {
     setLocalError(error);
   }, [error]);
+
+  useEffect(() => {
+    if (previousName && previousName !== username) {
+      setOpenSuccess(true);
+      setTimeout(() => {
+        setOpenSuccess(false);
+        closeModal();
+      }, 1000);
+    }
+  }, [closeModal, previousName, username]);
+
   const submit = () => {
     if (editUsername === username) {
       setLocalError(`already signed in as ${username}`);
+    } else if (editUsername === '') {
+      setLocalError('must not be empty');
     } else {
       handleLogin({username: editUsername});
       setLocalError(null);
     }
   };
+
   if (loading) {
     return (
       <View style={styles.container}>
         <ActivityIndicator animating={loading} color="#000000" />
+      </View>
+    );
+  }
+
+  if (openSuccess) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.successWrapper}>
+          <Text style={styles.success}>Success! Signed in as {username}</Text>
+        </View>
       </View>
     );
   }

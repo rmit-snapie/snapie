@@ -6,7 +6,6 @@ export const login = credentials => {
   return async function(dispatch) {
     dispatch({type: SIGNING_IN});
     try {
-      console.log(credentials);
       const signIn = await axios.post(SIGN_IN_API, credentials);
       if (signIn.data.error) {
         dispatch({type: SIGN_IN_ERROR, payload: signIn.data.error});

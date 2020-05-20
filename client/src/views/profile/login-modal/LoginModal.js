@@ -1,19 +1,43 @@
-import React, {useState} from 'react';
-import {func, bool} from 'prop-types';
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
+import {func, bool, object} from 'prop-types';
+import styles from './LoginModalStyle';
 import {
   Modal,
-  Dimensions,
   Text,
   TextInput,
   TouchableHighlight,
   View,
-  StyleSheet,
+  ActivityIndicator,
 } from 'react-native';
-const windowHeight = Dimensions.get('window').height;
-const windowWidth = Dimensions.get('window').width;
-const LoginModal = ({display, closeModal}) => {
-  const [username, setUserName] = useState('');
+import {login} from '../../../redux/actions/UserActions';
 
+const LoginModal = ({
+  display,
+  closeModal,
+  user: {loading, username, error},
+  handleLogin,
+}) => {
+  const [editUsername, setEditUsername] = useState('');
+  const [localError, setLocalError] = useState(null);
+  useEffect(() => {
+    setLocalError(error);
+  }, [error]);
+  const submit = () => {
+    if (editUsername === username) {
+      setLocalError(`already signed in as ${username}`);
+    } else {
+      handleLogin({username: editUsername});
+      setLocalError(null);
+    }
+  };
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator animating={loading} color="#000000" />
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <Modal animationType="fade" transparent={true} visible={display}>
@@ -22,13 +46,14 @@ const LoginModal = ({display, closeModal}) => {
             <Text style={styles.loginMessage}>Enter your name here: </Text>
             <TextInput
               style={styles.textInput}
-              onChangeText={text => setUserName(text)}
-              value={username}
+              onChangeText={text => setEditUsername(text)}
+              value={editUsername}
             />
+            {localError && <Text style={styles.errorText}>{localError}</Text>}
             <View style={styles.actionsWrapper}>
               <TouchableHighlight
                 style={[styles.action, styles.submit]}
-                onPress={closeModal}>
+                onPress={submit}>
                 <Text style={styles.text}>Submit</Text>
               </TouchableHighlight>
               <TouchableHighlight
@@ -44,68 +69,13 @@ const LoginModal = ({display, closeModal}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    top: windowHeight / 2,
-    width: windowWidth,
-  },
-  modalView: {
-    borderRadius: 16,
-    width: '60%',
-    padding: 10,
-    alignItems: 'center',
-    shadowColor: '#000',
-    backgroundColor: '#ffffff',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  loginMessage: {
-    fontFamily: 'Quicksand-Bold',
-    fontSize: 14,
-    marginBottom: 15,
-  },
-  textInput: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    width: '80%',
-    marginBottom: 15,
-    borderRadius: 6,
-  },
-  actionsWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    width: '100%',
-  },
-  action: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 10,
-  },
-  submit: {
-    backgroundColor: '#1cb0f6',
-  },
-  cancel: {
-    backgroundColor: '#e53838',
-  },
-  text: {
-    fontFamily: 'Quicksand-Bold',
-    fontSize: 12,
-    color: '#ffffff',
-  },
-});
-
 LoginModal.propTypes = {
   display: bool.isRequired,
   closeModal: func.isRequired,
+  user: object.isRequired,
+  handleLogin: func.isRequired,
 };
-export default LoginModal;
+export default connect(
+  state => ({user: state.userReducer}),
+  {handleLogin: login},
+)(LoginModal);

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {object} from 'prop-types';
+import {connect} from 'react-redux';
+import {object, string} from 'prop-types';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './ProfileStyle';
 import Badges from './badges/Badges';
@@ -13,7 +14,7 @@ const DefaultAvatar = require('../../shared/assets/DefaultAvatar.png');
 
 const tabs = {PROGRESS: 'PROGRESS', BADGES: 'BADGES'};
 
-const Profile = ({navigation}) => {
+const Profile = ({navigation, username}) => {
   const [tab, setTab] = useState(tabs.PROGRESS);
   const [openModal, setOpenModal] = useState({
     display: false,
@@ -54,7 +55,7 @@ const Profile = ({navigation}) => {
         <View style={styles.profileInfoWrapper}>
           <Image style={styles.avatar} source={DefaultAvatar} />
           <TouchableOpacity onPress={() => setOpenLoginModal(true)}>
-            <Text style={styles.name}>Jake the Dog</Text>
+            <Text style={styles.name}>{username}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.tabsWrapper}>
@@ -98,6 +99,10 @@ const Profile = ({navigation}) => {
 
 Profile.propTypes = {
   navigation: object.isRequired,
+  username: string.isRequired,
 };
 
-export default Profile;
+export default connect(
+  state => ({username: state.userReducer.username}),
+  null,
+)(Profile);

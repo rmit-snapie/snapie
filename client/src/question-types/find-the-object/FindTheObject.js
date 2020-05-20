@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
-import {LABELS_API} from '../../views/explore/constants';
+import {LABELS_API} from '../../../environments/constants';
 import Loading from '../../shared/components/Loading';
 import Cheers from '../cheers';
 

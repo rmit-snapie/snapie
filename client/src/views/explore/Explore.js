@@ -10,7 +10,7 @@ import {
 import styles from './ExploreStyle';
 import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
-import {LABELS_API} from './constants';
+import {LABELS_API} from '../../../environments/constants';
 import {goToFirstScreenInStack, replaceTo} from '../../helpers/NavigateHelper';
 import Loading from '../../shared/components/Loading';
 import ImageLabels from './image-labels/ImageLabels';

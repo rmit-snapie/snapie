@@ -25,6 +25,7 @@ const LessonStages = ({
   // todo: make it async, then get data, render waiting when data is not ready
 
   const [loading, setLoading] = useState(false);
+
   const handlePress = async (replayStage, replayLevel) => {
     // loading is true to render waiting...
     setLoading(true);

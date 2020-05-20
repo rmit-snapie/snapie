@@ -91,7 +91,7 @@ class Pronounce extends React.Component {
   };
 
   render() {
-    const {stage} = this.props.progress.replay
+    const {stage} = this.props.progress.replay.play
       ? this.props.progress.replay
       : this.props.progress;
     const {

@@ -1,8 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState} from 'react';
 import {func, object} from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStagesStyle';
-import {ScrollView, View, ActivityIndicator} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
 import {play, replay} from '../../../redux/actions/ProgressActions';
 import {
@@ -15,6 +15,7 @@ import {
 } from '../../../helpers/QuestionHelper';
 import ImageButton from '../../../shared/components/image-button/ImageButton';
 import ProgressIndicator from './progress/ProgressIndicator';
+import Loading from '../../../shared/components/Loading';
 
 const LessonStages = ({
   handlePlay,
@@ -22,12 +23,9 @@ const LessonStages = ({
   progress: {stage, level, test},
   ...props
 }) => {
-  // todo: make it async, then get data, render waiting when data is not ready
-
   const [loading, setLoading] = useState(false);
-
   const handlePress = async (replayStage, replayLevel) => {
-    // loading is true to render waiting...
+    // loading is true to render loading screen...
     setLoading(true);
     if (replayStage < stage || replayLevel < level) {
       const lastTest = getNumberOfTests(replayStage, replayLevel);
@@ -37,8 +35,7 @@ const LessonStages = ({
         level: replayLevel,
         test: lastTest,
       }).then(data => {
-        console.log('LessonStage > handlePress > getTestQuestion data: ', data);
-        if (Array.isArray(data) == false) {
+        if (Array.isArray(data) === false) {
           console.log(
             'some error: return data from getTestQuestion is not an array',
           );
@@ -50,7 +47,7 @@ const LessonStages = ({
       });
     } else {
       getTestQuestions({stage: stage, level: level, test: test}).then(data => {
-        if (Array.isArray(data) == false) {
+        if (Array.isArray(data) === false) {
           console.log(
             'some error: return data from getTestQuestion is not an array',
           );
@@ -69,9 +66,10 @@ const LessonStages = ({
     }
     return iconStage === stage && iconLevel > level;
   };
-  // if (loading == true) {
-  //   // reder waiting:
-  // }
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -156,25 +154,19 @@ const LessonStages = ({
             <View style={styles.stageLevels}>
               {LEVELS_ICONS.stageThreeC.map((icon, index) => (
                 <View style={styles.iconWrapper} key={index}>
-                  {loading ? (
-                    <ActivityIndicator size="large" color="#0000ff" />
-                  ) : (
-                    <>
-                      <ImageButton
-                        key={index}
-                        handlePress={() => handlePress(2, index)}
-                        source={icon}
-                        disabled={isDisabled(2, index)}
-                      />
-                      <ProgressIndicator
-                        testDone={test}
-                        maxTests={3}
-                        levelLocked={isDisabled(2, index)}
-                        levelDone={index < level}
-                        stageDone={stage > 2}
-                      />
-                    </>
-                  )}
+                  <ImageButton
+                    key={index}
+                    handlePress={() => handlePress(2, index)}
+                    source={icon}
+                    disabled={isDisabled(2, index)}
+                  />
+                  <ProgressIndicator
+                    testDone={test}
+                    maxTests={3}
+                    levelLocked={isDisabled(2, index)}
+                    levelDone={index < level}
+                    stageDone={stage > 2}
+                  />
                 </View>
               ))}
             </View>
@@ -216,7 +208,6 @@ LessonStages.propTypes = {
 export default connect(
   state => ({
     progress: state.progressReducer,
-    questions: state.questionsContentReducer.testQuestions,
   }),
   {
     handlePlay: play,

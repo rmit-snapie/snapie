@@ -155,81 +155,11 @@ export const setStageImagesAssets = async assetList => {
       });
     }),
   );
-
-  // assetList.forEach(image => {
-  //   // check in local memory:
-  //   checkImageExisted(image).then(existed => {
-  //     if (existed) {
-  //       return true;
-  //     } else {
-  //       fetchImage(image).then(result => {
-  //         return result;
-  //       });
-  //     }
-  //   });
-  // });
 };
 
 export const renderImageWrapper = (stage, imageSource, style, animated) => {
-  if (
-    stage > 1
-    // ||
-    // (typeof imageSource == typeof String && imageSource.includes('.png'))
-  ) {
+  if (stage > 1) {
     imageSource = localImagePath + imageSource;
-    // let theimageSource = localImagePath + imageSource;
-    // console.log(theimageSource);
-    // checkImageExisted(imageSource).then(existed => {
-    //   if (existed) {
-    //     console.log('image existed: ', theimageSource);
-    //     if (animated) {
-    //       return (
-    //         <Animated.Image
-    //           style={[style]}
-    //           source={{
-    //             uri:
-    //               Platform.OS === 'android'
-    //                 ? 'file://' + theimageSource
-    //                 : theimageSource,
-    //           }}
-    //         />
-    //       );
-    //     }
-    //     return (
-    //       <Image
-    //         source={{
-    //           uri:
-    //             Platform.OS === 'android'
-    //               ? 'file://' + theimageSource
-    //               : theimageSource,
-    //         }}
-    //         style={style}
-    //       />
-    //     );
-    //   } else {
-    //     return fetchImage(imageSource).then(result => {
-    //       console.log('image not exist, download ... result: ', result);
-    //       if (animated) {
-    //         return (
-    //           <Animated.Image
-    //             style={[style]}
-    //             source={{
-    //               uri: Platform.OS === 'android' ? 'file://' + result : result,
-    //             }}
-    //           />
-    //         );
-    //       }
-    //       return (
-    //         <Image
-    //           source={{
-    //             uri: Platform.OS === 'android' ? 'file://' + result : result,
-    //           }}
-    //           style={style}
-    //         />
-    //       );
-    //     });
-    //   }
-    // });
     if (animated) {
       return (
         <Animated.Image
@@ -251,14 +181,9 @@ export const renderImageWrapper = (stage, imageSource, style, animated) => {
       />
     );
   } else {
-    // console.log(
-    //   'QuestionHelper > renderImageWraper > imageSource: ',
-    //   imageSource,
-    // );
     if (animated) {
       return <Animated.Image style={[style]} source={imageSource} />;
     }
-
     return <Image source={imageSource} style={style} />;
   }
 };
@@ -316,9 +241,7 @@ export const getTestQuestions = async progress => {
    * default: stage_one.json
    */
   const {stage, level, test} = progress;
-
   // for debugging, remove file using this readJsonFile()
-
   switch (stage) {
     case 0:
       return STAGE_ONE[level][test];
@@ -333,19 +256,16 @@ export const getTestQuestions = async progress => {
         if (result) {
           return readJsonFile(localStagePath + (stage + 1) + '.json')
             .then(async data => {
-              console.log('read file result: ', data);
               stageData = data.levels[level][test];
               // fetch images:
               return await setStageImagesAssets(data.assetsRequired);
-              // return data.levels[level][test];
             })
-            .then(resutl => {
-              console.log('after set images ', resutl);
-              console.log(stageData);
+            .then(() => {
               return stageData;
             })
             .catch(e => console.log(e));
         } else {
+          console.log('something went wrong in getTestsQuestion');
           return STAGE_ONE;
         }
       });
@@ -365,7 +285,6 @@ const checkStageFileExisted = async stageID => {
    * @param:  stageID (int)
    */
   let myFilePath = localStagePath + stageID + '.json';
-  // console.log(myFilePath, 'my file path');
   return RNFetchBlob.fs.exists(myFilePath).then(existed => {
     return existed;
   });
@@ -373,7 +292,6 @@ const checkStageFileExisted = async stageID => {
 
 export const metaData = {};
 export const readJsonFile = async filePath => {
-  // filePath = filePath ? filePath : localStagePath + '1.json';
   // encoding:utf8 | base64 | ascii | uri
   return RNFetchBlob.fs
     .readFile(filePath, 'utf8')

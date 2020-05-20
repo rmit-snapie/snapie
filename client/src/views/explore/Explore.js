@@ -12,15 +12,15 @@ import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
 import {LABELS_API} from '../../../environments/constants';
 import {goToFirstScreenInStack, replaceTo} from '../../helpers/NavigateHelper';
-import Loading from '../../shared/components/Loading';
+import Loading from '../../shared/components/loading/Loading';
 import ImageLabels from './image-labels/ImageLabels';
 import {REVIEW_SCREEN} from '../../../environments/Routes';
-const AnalyzeButton = require('../../shared/assets/AnalyzeButton.png');
-const ExploreSnapIcon = require('../../shared/assets/ExploreSnapIcon.png');
-const RecaptureIcon = require('../../shared/assets/RecaptureIcon.png');
-const BackToHomeIcon = require('../../shared/assets/BackToHomeIcon.png');
-const GoToBookButton = require('../../shared/assets/GoToBookButton.png');
-const XIcon = require('../../shared/assets/XIcon.png');
+const AnalyzeButton = require('../../shared/assets/buttons/AnalyzeButton.png');
+const ExploreSnapIcon = require('../../shared/assets/icons/ExploreSnapIcon.png');
+const RecaptureIcon = require('../../shared/assets/icons/RecaptureIcon.png');
+const BackToHomeIcon = require('../../shared/assets/icons/BackToHomeIcon.png');
+const GoToBookButton = require('../../shared/assets/buttons/GoToBookButton.png');
+const XIcon = require('../../shared/assets/icons/XIcon.png');
 
 class Explore extends Component {
   constructor(props) {

@@ -1,72 +1,21 @@
-import React, {useState} from 'react';
-import {func, object} from 'prop-types';
-import {connect} from 'react-redux';
+import React from 'react';
+import {func, bool, number} from 'prop-types';
 import styles from './LessonStagesStyle';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, View, Image} from 'react-native';
 import {LEVELS_ICONS} from '../../assets/levels-icons';
-import {play, replay} from '../../../redux/actions/ProgressActions';
-import {
-  setQuestions,
-  setCurrentQuestion,
-} from '../../../redux/actions/QuestionsContentActions';
-import {
-  getTestQuestions,
-  getNumberOfTests,
-} from '../../../helpers/QuestionHelper';
+import {STAGE_ICONS} from '../../assets/stage-icons';
 import ImageButton from '../../../shared/components/image-button/ImageButton';
 import ProgressIndicator from './progress/ProgressIndicator';
-import Loading from '../../../shared/components/Loading';
+import Loading from '../../../shared/components/loading/Loading';
 
 const LessonStages = ({
-  handlePlay,
-  handleReplay,
-  progress: {stage, level, test},
-  ...props
+  loading,
+  handlePress,
+  stage,
+  level,
+  test,
+  isDisabled,
 }) => {
-  const [loading, setLoading] = useState(false);
-  const handlePress = async (replayStage, replayLevel) => {
-    // loading is true to render loading screen...
-    setLoading(true);
-    if (replayStage < stage || replayLevel < level) {
-      const lastTest = getNumberOfTests(replayStage, replayLevel);
-
-      getTestQuestions({
-        stage: replayStage,
-        level: replayLevel,
-        test: lastTest,
-      }).then(data => {
-        if (Array.isArray(data) === false) {
-          console.log(
-            'some error: return data from getTestQuestion is not an array',
-          );
-          return;
-        }
-        props.setCurrentQuestion(data[0]);
-        props.prepareData(data);
-        handleReplay(replayStage, replayLevel);
-      });
-    } else {
-      getTestQuestions({stage: stage, level: level, test: test}).then(data => {
-        if (Array.isArray(data) === false) {
-          console.log(
-            'some error: return data from getTestQuestion is not an array',
-          );
-          return;
-        }
-        props.setCurrentQuestion(data[0]);
-        props.prepareData(data);
-        handlePlay(stage, level, test);
-      });
-    }
-  };
-
-  const isDisabled = (iconStage, iconLevel) => {
-    if (iconStage > stage) {
-      return true;
-    }
-    return iconStage === stage && iconLevel > level;
-  };
-
   if (loading) {
     return <Loading />;
   }
@@ -74,6 +23,7 @@ const LessonStages = ({
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.stageWrapper}>
+          <Image style={styles.stageIcon} source={STAGE_ICONS.STAGE_ONE_ICON} />
           <View style={styles.stageLevels}>
             {LEVELS_ICONS.stageOneC.map((icon, index) => (
               <View style={styles.iconWrapper} key={index}>
@@ -101,6 +51,7 @@ const LessonStages = ({
               ? styles.stageWrapper
               : [styles.stageWrapper, styles.lockedStage]
           }>
+          <Image style={styles.stageIcon} source={STAGE_ICONS.STAGE_TWO_ICON} />
           {stage >= 1 ? (
             <View style={styles.stageLevels}>
               {LEVELS_ICONS.stageTwoC.map((icon, index) => (
@@ -150,6 +101,7 @@ const LessonStages = ({
               ? styles.stageWrapper
               : [styles.stageWrapper, styles.lockedStage]
           }>
+          <Image style={styles.stageIcon} source={STAGE_ICONS.STAGE_THREE_ICON} />
           {stage >= 2 ? (
             <View style={styles.stageLevels}>
               {LEVELS_ICONS.stageThreeC.map((icon, index) => (
@@ -198,21 +150,12 @@ const LessonStages = ({
 };
 
 LessonStages.propTypes = {
-  handlePlay: func.isRequired,
-  handleReplay: func.isRequired,
-  prepareData: func.isRequired,
-  progress: object.isRequired,
-  setCurrentQuestion: func.isRequired,
+  loading: bool.isRequired,
+  handlePress: func.isRequired,
+  stage: number.isRequired,
+  level: number.isRequired,
+  test: number.isRequired,
+  isDisabled: func.isRequired,
 };
 
-export default connect(
-  state => ({
-    progress: state.progressReducer,
-  }),
-  {
-    handlePlay: play,
-    handleReplay: replay,
-    prepareData: setQuestions,
-    setCurrentQuestion: setCurrentQuestion,
-  },
-)(LessonStages);
+export default LessonStages;

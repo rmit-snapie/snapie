@@ -11,7 +11,7 @@ import {
 
 const initialState = {
   play: false,
-  stage: 2,
+  stage: 0,
   level: 0,
   test: 0,
   question: 0,

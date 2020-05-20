@@ -6,10 +6,10 @@ import styles from './ProfileStyle';
 import Badges from './badges/Badges';
 import Progress from './progress/Progress';
 import {goToFirstScreenInStack} from '../../helpers/NavigateHelper';
-import SnapieModal from '../../shared/components/SnapieModal';
+import SnapieModal from '../../shared/components/snapie-modal/SnapieModal';
 import LoginModal from './login-modal/LoginModal';
-const BackToHome = require('../../shared/assets/BackToHomeIconSecondary.png');
-const SettingsIcon = require('../../shared/assets/SettingsIcon.png');
+const BackToHome = require('../../shared/assets/icons/BackToHomeIconSecondary.png');
+const SettingsIcon = require('../../shared/assets/icons/SettingsIcon.png');
 const DefaultAvatar = require('../../shared/assets/DefaultAvatar.png');
 
 const tabs = {PROGRESS: 'PROGRESS', BADGES: 'BADGES'};

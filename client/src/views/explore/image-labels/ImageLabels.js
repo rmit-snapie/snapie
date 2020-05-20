@@ -5,12 +5,12 @@ import styles from './ImageLabelsStyle';
 import {Image, TouchableOpacity, Text, View} from 'react-native';
 import {readText} from '../../../helpers/TextToSpeech';
 import {addNewVocab} from '../../../redux/actions/VocabulariesActions';
-import SnapieModal from '../../../shared/components/SnapieModal';
-const ListenButton = require('../../../shared/assets/ListenButton.png');
-const SaveButton = require('../../../shared/assets/SaveButton.png');
-const Ticked = require('../../../shared/assets/Ticked.gif');
-const ViewMoreButton = require('../../../shared/assets/ViewMoreButton.png');
-const ViewLessButton = require('../../../shared/assets/ViewLessButton.png');
+import SnapieModal from '../../../shared/components/snapie-modal/SnapieModal';
+const ListenButton = require('../../../shared/assets/buttons/ListenButton.png');
+const SaveButton = require('../../../shared/assets/buttons/SaveButton.png');
+const Ticked = require('../../../shared/assets/gifs/Ticked.gif');
+const ViewMoreButton = require('../../../shared/assets/buttons/ViewMoreButton.png');
+const ViewLessButton = require('../../../shared/assets/buttons/ViewLessButton.png');
 
 const ImageLabels = ({results, handleAddVocabulary, vocabularies}) => {
   const [displayResults, setDisplayResults] = useState(results);

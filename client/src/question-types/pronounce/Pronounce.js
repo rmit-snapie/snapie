@@ -7,7 +7,7 @@ import Voice from '@react-native-community/voice';
 import Cheers from '../cheers';
 import {renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
-import RecordButton from '../../shared/assets/RecordButton.png';
+import RecordButton from '../../shared/assets/buttons/RecordButton.png';
 
 class Pronounce extends React.Component {
   constructor(props) {
@@ -16,6 +16,8 @@ class Pronounce extends React.Component {
       isRecord: false,
       voice: undefined,
       cheers: {display: false, sad: false},
+      remainingSecs: 0,
+      activeTimer: false,
     };
 
     Voice.onSpeechStart = this._onSpeechStart;
@@ -56,6 +58,20 @@ class Pronounce extends React.Component {
       }
     }
     return Voice.destroy().then(Voice.removeAllListeners);
+  };
+
+  getRemainingSecs = time => {
+    const mins = Math.floor(time / 60);
+    const secs = time - mins * 60;
+    return {mins, secs};
+  };
+
+  startTimer = () => {
+    const {activeTimer} = this.state;
+    if (activeTimer) {
+
+    }
+    this.setState({activeTimer: !activeTimer});
   };
 
   _onSpeechStart = () => {

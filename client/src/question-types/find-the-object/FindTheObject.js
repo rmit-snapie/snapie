@@ -13,7 +13,7 @@ import {
 import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
 import {LABELS_API} from '../../../environments/constants';
-import Loading from '../../shared/components/Loading';
+import Loading from '../../shared/components/loading/Loading';
 import Cheers from '../cheers';
 
 class FindTheObject extends Component {
@@ -90,8 +90,8 @@ class FindTheObject extends Component {
   render() {
     const {questionContent, imageUri, loading, analyzing, cheers} = this.state;
     const src = imageUri
-      ? require('../../shared/assets/CancelButton.png')
-      : require('../../shared/assets/TakePictureButton.png');
+      ? require('../../shared/assets/buttons/CancelButton.png')
+      : require('../../shared/assets/buttons/TakePictureButton.png');
     if (analyzing) {
       return <Loading />;
     }

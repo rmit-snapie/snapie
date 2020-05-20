@@ -4,8 +4,8 @@ import {object, bool, func, arrayOf} from 'prop-types';
 import {readText} from './../../helpers/TextToSpeech';
 import styles from './ReviewStyle';
 import {goToFirstScreenInStack} from './../../helpers/NavigateHelper';
-import HomeIcon from '../../shared/assets/BackToHomeIcon.png';
-import ListenIcon from '../../shared/assets/ListenButton.png';
+import HomeIcon from '../../shared/assets/icons/BackToHomeIcon.png';
+import ListenIcon from '../../shared/assets/buttons/ListenButton.png';
 
 const Review = ({
   navigation,

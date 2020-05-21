@@ -8,10 +8,11 @@ export default StyleSheet.create({
   },
   questionWrapper: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    padding: 10,
   },
   questionContent: {
-    fontFamily: 'Amiko-Bold',
+    fontFamily: 'Quicksand-Bold',
     fontSize: 32,
   },
   answersWrapper: {

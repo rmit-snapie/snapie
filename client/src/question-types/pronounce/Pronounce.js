@@ -58,6 +58,7 @@ class Pronounce extends React.Component {
       } else {
         this.setState({cheers: {display: true, sad: true}});
       }
+      this.resetTimer();
     }
     return Voice.destroy().then(Voice.removeAllListeners);
   };

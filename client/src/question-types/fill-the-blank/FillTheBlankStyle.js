@@ -8,7 +8,8 @@ export default StyleSheet.create({
   },
   mediaWrapper: {
     flex: 4,
-    justifyContent: 'flex-end',
+    padding: 25,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   imageWrapper: {
@@ -31,16 +32,16 @@ export default StyleSheet.create({
   },
   questionWrapper: {
     flex: 2,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   questionContent: {
     fontSize: 28,
-    fontFamily: 'Amiko-bold',
+    fontFamily: 'Quicksand-Bold',
     marginBottom: 20,
     textAlign: 'center',
   },
   answersWrapper: {
-    flex: 2,
+    flex: 3,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -84,7 +85,8 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
   confirmButtonWrapper: {
-    flex: 2,
+    position: 'absolute',
+    bottom: 65,
   },
   confirmButton: {
     marginTop: 15,

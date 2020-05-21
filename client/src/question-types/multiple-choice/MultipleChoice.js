@@ -90,7 +90,12 @@ const MultipleChoice = ({progress, currentQuestion}) => {
               </TouchableOpacity>
             </View>
           )}
-          <View style={styles.questionWrapper}>
+          <View
+            style={
+              currentQuestion.type === MULTIPLE_CHOICE
+                ? styles.questionWrapper
+                : styles.multipleChoiceImageQuestionWrapper
+            }>
             <Text
               onPress={() => readText(questionContent)}
               style={styles.questionContent}>

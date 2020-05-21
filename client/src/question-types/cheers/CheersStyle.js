@@ -8,7 +8,7 @@ export default StyleSheet.create({
   },
   gifWrapper: {
     flex: 4,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   image: {
     width: 400,
@@ -16,7 +16,7 @@ export default StyleSheet.create({
     zIndex: 2,
   },
   correctAnswerWrapper: {
-    flex: 2,
+    flex: 3,
     justifyContent: 'flex-start',
     width: 300,
   },
@@ -27,9 +27,8 @@ export default StyleSheet.create({
     fontSize: 24,
   },
   continueButtonWrapper: {
-    flex: 2,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    position: 'absolute',
+    bottom: 65,
   },
   continueButton: {
     borderBottomWidth: 5,

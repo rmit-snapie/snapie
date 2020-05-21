@@ -10,8 +10,8 @@ export default StyleSheet.create({
   },
   assetsWrapper: {
     flex: 4,
-    marginTop: 20,
     padding: 25,
+    justifyContent: 'center',
   },
   imageWrapper: {
     justifyContent: 'center',
@@ -32,28 +32,34 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   questionWrapper: {
-    flex: 2,
-    justifyContent: 'center',
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  multipleChoiceImageQuestionWrapper: {
+    flex: 1,
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   questionContent: {
     fontSize: 24,
-    fontFamily: 'Amiko-Bold',
+    fontFamily: 'Quicksand-Bold',
     textAlign: 'center',
   },
   answersWrapper: {
-    flex: 2,
+    flex: 4,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     flexWrap: 'wrap',
   },
   imageAnswersWrapper: {
-    flex: 4,
+    flex: 6,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignContent: 'center',
+    alignContent: 'flex-start',
     justifyContent: 'center',
+    paddingTop: 50,
   },
   answer: {
     shadowOffset: {
@@ -124,8 +130,8 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
   buttonWrapper: {
-    flex: 2,
-    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 65,
   },
   confirmButton: {
     borderBottomWidth: 5,

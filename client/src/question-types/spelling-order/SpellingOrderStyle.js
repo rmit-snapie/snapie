@@ -8,9 +8,8 @@ export default StyleSheet.create({
   },
   mediaWrapper: {
     flex: 4,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
     padding: 25,
   },
   imageWrapper: {
@@ -33,11 +32,11 @@ export default StyleSheet.create({
   },
   questionWrapper: {
     flex: 2,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
   },
   questionContent: {
-    fontSize: 32,
-    fontFamily: 'Amiko-bold',
+    fontSize: 30,
+    fontFamily: 'Quicksand-Bold',
   },
   blanksWrapper: {
     marginTop: 40,
@@ -47,7 +46,7 @@ export default StyleSheet.create({
   },
   blanks: {
     fontSize: 28,
-    fontFamily: 'Amiko-bold',
+    fontFamily: 'Quicksand-Bold',
   },
   clear: {
     borderTopWidth: 2,
@@ -62,12 +61,11 @@ export default StyleSheet.create({
     borderRadius: 6,
   },
   answersWrapper: {
-    flex: 2,
+    flex: 3,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     flexWrap: 'wrap',
-    marginTop: 75,
   },
   answer: {
     marginTop: 20,
@@ -97,7 +95,8 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
   confirmButtonWrapper: {
-    flex: 2,
+    position: 'absolute',
+    bottom: 65,
   },
   confirmButton: {
     marginTop: 15,

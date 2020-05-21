@@ -14,7 +14,7 @@ const Leg = require('./assets/level-2/leg.png');
 const Apple = require('./assets/level-3/apple.png');
 const Banana = require('./assets/level-3/banana.png');
 const Orange = require('./assets/level-3/orange.png');
-const Pineapple = require('./assets/level-3/pineapple.png');
+const Mango = require('./assets/level-3/mango.png');
 const Strawberry = require('./assets/level-3/strawberry.png');
 import {
   FILL_THE_BLANK,
@@ -732,15 +732,15 @@ export const STAGE_ONE = [
         createdAt: '02-05-2020',
         updatedAt: '02-05-2020',
         type: MULTIPLE_CHOICE_IMAGES,
-        questionContent: 'Choose PINEAPPLE',
+        questionContent: 'Choose MANGO',
         answers: [
           {
             name: 'apple',
             asset: Apple,
           },
           {
-            name: 'pineapple',
-            asset: Pineapple,
+            name: 'mango',
+            asset: Mango,
           },
           {
             name: 'orange',
@@ -751,7 +751,7 @@ export const STAGE_ONE = [
             asset: Banana,
           },
         ],
-        correctAnswer: 'pineapple',
+        correctAnswer: 'mango',
         imageAsset: null,
         correctAnswerCount: 1,
       },
@@ -765,7 +765,7 @@ export const STAGE_ONE = [
         type: FILL_THE_BLANK,
         questionContent: 'This is a ',
         possibleAnswersCount: 4,
-        answers: ['strawberry', 'pineapple', 'apple', 'orange'],
+        answers: ['strawberry', 'mango', 'apple', 'orange'],
         correctAnswer: 'strawberry',
         imageAsset: Strawberry,
         correctAnswerCount: 1,
@@ -779,8 +779,8 @@ export const STAGE_ONE = [
         updatedAt: '14-04-2020',
         type: PRONOUNCE_THE_WORD,
         questionContent: 'Say the word',
-        imageAsset: Pineapple,
-        correctAnswer: 'pineapple',
+        imageAsset: Mango,
+        correctAnswer: 'mango',
         correctAnswerCount: 1,
       },
       {
@@ -807,11 +807,11 @@ export const STAGE_ONE = [
         updatedAt: '14-04-2020',
         type: PAIR_SELECTION,
         questionContent: 'Match the pairs',
-        answers: ['pineapple', 'strawberry', 'orange', 'apple'],
+        answers: ['mango', 'strawberry', 'orange', 'apple'],
         imagesAsset: [
           {
-            name: 'pineapple',
-            asset: Pineapple,
+            name: 'mango',
+            asset: Mango,
           },
           {
             name: 'strawberry',

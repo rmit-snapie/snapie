@@ -15,8 +15,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   goHome: {
-    width: 30,
-    height: 30,
+    width: 35,
+    height: 35,
     resizeMode: 'contain',
   },
   featuredWrapper: {

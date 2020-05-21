@@ -8,9 +8,8 @@ export default StyleSheet.create({
   },
   imageAssetWrapper: {
     flex: 3,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     marginTop: 20,
-    padding: 25,
   },
   imageWrapper: {
     justifyContent: 'center',
@@ -41,6 +40,13 @@ export default StyleSheet.create({
   },
   recordButtonWrapper: {
     flex: 2,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  timer: {
+    fontFamily: 'Quicksand-Bold',
+    fontSize: 20,
+    marginBottom: 15,
   },
   record: {
     width: 100,

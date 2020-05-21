@@ -17,14 +17,14 @@ export default StyleSheet.create({
   },
   goHome: {
     marginLeft: 20,
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
     resizeMode: 'contain',
   },
   goBack: {
     marginLeft: 20,
-    width: 50,
-    height: 50,
+    width: 35,
+    height: 35,
     resizeMode: 'contain',
   },
   cameraWrapper: {

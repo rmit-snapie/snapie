@@ -65,17 +65,18 @@ class Explore extends Component {
 
   analyze = async () => {
     this.setState({analysis: {analyzing: true}});
-    axios
-      .post(LABELS_API, {
+    try {
+      const fetchLabels = await axios.post(LABELS_API, {
         image: this.state.base64encoded,
         maxResults: 5,
-      })
-      .then(response => {
-        this.setState({
-          results: [...response.data],
-          analysis: {analyzing: false, analyzed: true},
-        });
       });
+      this.setState({
+        results: [...fetchLabels.data],
+        analysis: {analyzing: false, analyzed: true},
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   render() {

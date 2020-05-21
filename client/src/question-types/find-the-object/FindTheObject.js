@@ -56,14 +56,18 @@ class FindTheObject extends Component {
 
   analyze = async () => {
     this.setState({analyzing: true});
-    axios
-      .post(LABELS_API, {
+    try {
+      const fetchLabels = await axios.post(LABELS_API, {
         image: this.state.base64encoded,
         maxResults: 5,
-      })
-      .then(response => {
-        this.setState({results: [...response.data], analyzing: false});
       });
+      this.setState({
+        results: [...fetchLabels.data],
+        analyzing: false,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   openCheers = (display, sad) => {

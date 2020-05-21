@@ -27,6 +27,8 @@ class Pronounce extends React.Component {
     this.openCheers = this.openCheers.bind(this);
   }
 
+  _interval: any;
+
   componentDidMount() {
     readText(this.props.currentQuestion.questionContent);
   }
@@ -60,18 +62,28 @@ class Pronounce extends React.Component {
     return Voice.destroy().then(Voice.removeAllListeners);
   };
 
+  formatNumber = number => `0${number}`.slice(-2);
+
   getRemainingSecs = time => {
-    const mins = Math.floor(time / 60);
-    const secs = time - mins * 60;
-    return {mins, secs};
+    const minutes = Math.floor(time / 60);
+    const seconds = time - minutes * 60;
+    return {
+      minutes: this.formatNumber(minutes),
+      seconds: this.formatNumber(seconds),
+    };
   };
 
   startTimer = () => {
-    const {activeTimer} = this.state;
-    if (activeTimer) {
+    this.setState({activeTimer: true});
+    this._interval = setInterval(() => {
+      this.setState({remainingSecs: this.state.remainingSecs + 1});
+    }, 1000);
+  };
 
-    }
-    this.setState({activeTimer: !activeTimer});
+  resetTimer = () => {
+    this.setState({activeTimer: false});
+    this.setState({remainingSecs: 0});
+    clearInterval(this._interval);
   };
 
   _onSpeechStart = () => {
@@ -95,7 +107,12 @@ class Pronounce extends React.Component {
   };
 
   _onRecordVoice = async () => {
-    const {isRecord} = this.state;
+    const {isRecord, activeTimer} = this.state;
+    if (activeTimer) {
+      this.resetTimer();
+    } else {
+      this.startTimer();
+    }
     if (isRecord) {
       await Voice.stop();
     } else {
@@ -119,7 +136,9 @@ class Pronounce extends React.Component {
       isRecord,
       voice,
       cheers: {display, sad},
+      remainingSecs,
     } = this.state;
+    const {minutes, seconds} = this.getRemainingSecs(remainingSecs);
     const voiceLabel = voice
       ? voice
       : isRecord
@@ -153,6 +172,7 @@ class Pronounce extends React.Component {
             <Text style={styles.question}>{voiceLabel}</Text>
           </View>
           <View style={styles.recordButtonWrapper}>
+            <Text style={styles.timer}>{`${minutes} : ${seconds}`}</Text>
             <TouchableOpacity onPress={this._onRecordVoice}>
               <Image style={styles.record} source={RecordButton} />
             </TouchableOpacity>

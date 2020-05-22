@@ -5,6 +5,17 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
+  },
+  exitWrapper: {
+    position: 'absolute',
+    top: 40,
+    left: 20,
+  },
+  exit: {
+    height: 35,
+    width: 35,
+    resizeMode: 'contain',
   },
   mediaWrapper: {
     flex: 4,

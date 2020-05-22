@@ -6,6 +6,16 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  exitWrapper: {
+    position: 'absolute',
+    top: 40,
+    left: 20,
+  },
+  exit: {
+    height: 35,
+    width: 35,
+    resizeMode: 'contain',
+  },
   questionWrapper: {
     flex: 1,
     justifyContent: 'center',

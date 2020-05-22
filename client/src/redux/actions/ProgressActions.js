@@ -7,6 +7,7 @@ import {
   PLAY,
   REPLAY,
   STOP,
+  STOP_REPLAY,
 } from '../types';
 import {getNumberOfTests} from '../../helpers/QuestionHelper';
 
@@ -26,9 +27,21 @@ export function replay(stage: number, level: number) {
   };
 }
 
-export function stop() {
+export function stop(
+  stage: number,
+  level: number,
+  test: number,
+  stopReplay: boolean,
+) {
   return function(dispatch) {
-    dispatch({type: STOP});
+    if (stopReplay) {
+      dispatch({
+        type: STOP_REPLAY,
+        payload: {stage: stage, level: level, test: test},
+      });
+    } else {
+      dispatch({type: STOP, payload: {stage: stage, level: level, test: test}});
+    }
   };
 }
 export function replayQuestionCompleted() {

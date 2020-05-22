@@ -29,11 +29,11 @@ export default StyleSheet.create({
     position: 'relative',
   },
   stageIcon: {
-    height: 100,
-    width: 100,
+    height: 120,
+    width: 120,
     resizeMode: 'contain',
     position: 'absolute',
-    top: -50,
+    top: -70,
     zIndex: 1,
   },
   stageLevels: {
@@ -46,19 +46,24 @@ export default StyleSheet.create({
   iconWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 15,
     marginBottom: 20,
-    borderRadius: 16,
+    borderRadius: 25,
+    borderColor: '#dddddd',
+    borderWidth: 2,
+    borderBottomWidth: 4,
     backgroundColor: '#ffffff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-
-    elevation: 3,
+//    shadowColor: "#000",
+//    shadowOffset: {
+//    	width: 2,
+//    	height: 2,
+//    },
+//    shadowOpacity: 1.18,
+//    shadowRadius: 1.00,
+//
+//    elevation: 2,
   },
   unlockedStage: {},
   lockedStage: {

@@ -6,17 +6,18 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    backgroundColor: '#ffffff'
   },
   exitWrapper: {
-    position: 'absolute',
-    top: 40,
-    left: 20,
-  },
-  exit: {
-    height: 35,
-    width: 35,
-    resizeMode: 'contain',
-  },
+        position: 'absolute',
+        top: 40,
+        left: 20,
+      },
+      exit: {
+        height: 30,
+        width: 30,
+        resizeMode: 'contain',
+      },
   mediaWrapper: {
     flex: 4,
     padding: 25,
@@ -26,12 +27,12 @@ export default StyleSheet.create({
   imageWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 60,
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 2,
     borderBottomWidth: 4,
-    borderColor: 'rgb(229, 229, 229)',
-    shadowColor: 'rgba(120,114,120,0.64)',
+    borderColor: '#dddddd',
     padding: 20,
     borderRadius: 16,
     backgroundColor: '#ffffff',
@@ -46,10 +47,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   questionContent: {
-    fontSize: 28,
+    fontSize: 24,
     fontFamily: 'Quicksand-Bold',
+    color: '#4c4c4c',
     marginBottom: 20,
     textAlign: 'center',
+
   },
   answersWrapper: {
     flex: 3,
@@ -64,12 +67,7 @@ export default StyleSheet.create({
     borderLeftWidth: 2,
     borderRightWidth: 2,
     borderBottomWidth: 4,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowRadius: 2.62,
-    elevation: 4,
+    borderColor: "#dddddd",
     backgroundColor: '#fff',
     padding: 10,
     marginBottom: 10,
@@ -92,8 +90,11 @@ export default StyleSheet.create({
     borderColor: '#f7ab5f',
   },
   answerTitle: {
-    fontSize: 18,
+   fontSize: 18,
     fontWeight: '600',
+    fontFamily: 'Quicksand-Medium',
+    color: '#4c4c4c',
+    marginBottom: 5,
   },
   confirmButtonWrapper: {
     position: 'absolute',

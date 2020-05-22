@@ -29,7 +29,6 @@ const LoginModal = ({
   }, [error]);
 
   useEffect(() => {
-    console.log(previousName, username);
     if (username !== '' && username !== previousName) {
       setOpenSuccess(true);
       setTimeout(() => {

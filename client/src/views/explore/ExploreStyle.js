@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -31,33 +31,25 @@ export default StyleSheet.create({
     flex: 4,
     height: 500,
     width: windowWidth,
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
   camera: {
     flex: 4,
     height: 500,
     width: windowWidth,
-    // justifyContent: 'flex-end',
-    // alignItems: 'flex-end',
   },
   goToBook: {
     width: 40,
     height: 40,
-    marginRight:20,
-    // right: 20,
-    // bottom: 20,
+    marginRight: 20,
     resizeMode: 'contain',
   },
   exploreFooter: {
-    // flex: 2,
     height: 125,
     backgroundColor: '#efc458',
     width: windowWidth,
-    // position: 'relative',
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'center', 
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   captureWrapper: {
     width: windowWidth,

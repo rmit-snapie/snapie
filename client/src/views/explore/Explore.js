@@ -133,22 +133,19 @@ class Explore extends Component {
         </View>
 
         <View style={styles.exploreFooter}>
-          {/* <View> */}
-            {!this.imageUriIsEmpty() ? (
-              <TouchableOpacity
-                // style={styles.exitWrapper}
-                onPress={this.recapture.bind(this)}>
-                <Image
-                  style={styles.exit}
-                  source={XIcon} />
+          {!this.imageUriIsEmpty() ? (
+            <TouchableOpacity
+              // style={styles.exitWrapper}
+              onPress={this.recapture.bind(this)}>
+              <Image
+                style={styles.exit}
+                source={XIcon} />
+            </TouchableOpacity>
+          ) : (
+              <TouchableOpacity onPress={() => goToFirstScreenInStack(navigation)}>
+                <Image style={styles.goHome} source={BackToHomeIcon} />
               </TouchableOpacity>
-            ) : (
-                <TouchableOpacity onPress={() => goToFirstScreenInStack(navigation)}>
-                  <Image style={styles.goHome} source={BackToHomeIcon} />
-                </TouchableOpacity>
-              )}
-          {/* </View> */}
-
+            )}
 
           <View >
             <View >
@@ -173,7 +170,6 @@ class Explore extends Component {
           </TouchableOpacity>
 
         </View>
-
       </View>
     );
   }

@@ -112,6 +112,7 @@ export default StyleSheet.create({
   emptyMessage: {
     fontSize: 24,
     fontFamily: 'Quicksand-Bold',
+    color: "#4c4c4c",
     textAlign: 'center',
     letterSpacing: 1,
     width: '80%',

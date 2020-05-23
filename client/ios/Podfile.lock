@@ -245,6 +245,8 @@ PODS:
     - React
   - react-native-safe-area-context (0.7.3):
     - React
+  - react-native-splash-screen (3.2.0):
+    - React
   - react-native-track-player (1.2.3):
     - React
   - react-native-voice (1.1.4):
@@ -367,6 +369,7 @@ DEPENDENCIES:
   - react-native-camera (from `../node_modules/react-native-camera`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-track-player (from `../node_modules/react-native-track-player`)
   - "react-native-voice (from `../node_modules/@react-native-community/voice`)"
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -440,6 +443,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   react-native-track-player:
     :path: "../node_modules/react-native-track-player"
   react-native-voice:
@@ -512,6 +517,7 @@ SPEC CHECKSUMS:
   react-native-camera: 2b74be8edc1103c4c46d1f4e5f41723d9ff052cc
   react-native-netinfo: 7b3c53674ea611b26a7788821f137c6d9d3a038b
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
+  react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-track-player: 28b96dd6404dea3eee80e67b74507679235a8dfb
   react-native-voice: 5dccfb17f7086b3d4a2622b754467d7a365a981a
   React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
@@ -535,6 +541,6 @@ SPEC CHECKSUMS:
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 5ad280117d69a3d226537cd925a9b03585b85078
+PODFILE CHECKSUM: a020005284782f05850a6712ca15cdca9ccf3bec
 
 COCOAPODS: 1.9.1

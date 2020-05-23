@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import 'react-native-gesture-handler';
 //redux, redux-persist
 import {PersistGate} from 'redux-persist/integration/react';
@@ -24,9 +24,14 @@ import Lesson from './src/views/lesson/Lesson';
 import FindTheObject from './src/question-types/find-the-object/FindTheObject';
 import Profile from './src/views/profile/Profile';
 
+import SplashScreen from 'react-native-splash-screen';
+
 const ApplicationStack = createStackNavigator();
 
 export default function App() {
+  useEffect(() => {
+    SplashScreen.hide();
+  });
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

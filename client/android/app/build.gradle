@@ -204,6 +204,8 @@ dependencies {
 
     // For WebP support, without animations
     compile 'com.facebook.fresco:webpsupport:0.11.0'
+
+    implementation project(':react-native-splash-screen')
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 

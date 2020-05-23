@@ -206,7 +206,7 @@ class Pronounce extends React.Component {
               disabled={voice === undefined}
               onPress={this.handleAnswerCheck}>
               <Text style={voice === undefined
-                ? [styles.disabledConfirmTitle] : [styles.confirmTitle]}> Confirm </Text>
+                ? [styles.disabledConfirmTitle] : [styles.confirmTitle]}> CHECK </Text>
             </TouchableOpacity>
           </View>
         </View>

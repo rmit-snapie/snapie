@@ -141,7 +141,7 @@ const SpellingOrder = ({currentQuestion, progress, handleStop}) => {
               <Text style={
                 currentOrder.length === 0
                     ? [styles.disabledConfirmTitle]
-                    : [styles.confirmTitle,]}> CONFIRM </Text>
+                    : [styles.confirmTitle,]}> CHECK </Text>
             </TouchableOpacity>
           </View>
         </>

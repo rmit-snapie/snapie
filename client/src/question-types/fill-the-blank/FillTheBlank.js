@@ -126,7 +126,7 @@ const FillTheBlank = ({progress, currentQuestion, handleStop}) => {
               onPress={() => handleAnswerCheck(currentAnswer.answer)}>
               <Text style={ currentAnswer.answer === null
                                                      ? [styles.disabledConfirmTitle]
-                                                     : [styles.confirmTitle,]}> CONFIRM </Text>
+                                                     : [styles.confirmTitle,]}> CHECK </Text>
             </TouchableOpacity>
           </View>
         </>

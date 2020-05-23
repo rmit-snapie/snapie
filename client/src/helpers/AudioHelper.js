@@ -36,6 +36,6 @@ export const playSad = () => {
     .catch(e => TrackPlayer.stop());
 };
 
-// export const stopAudio = async () => {
-//   return await TrackPlayer.reset();
-// };
+export const stopAudio = () => {
+  TrackPlayer.reset();
+};

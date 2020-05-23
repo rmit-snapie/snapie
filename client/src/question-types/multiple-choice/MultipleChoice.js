@@ -11,6 +11,7 @@ import {
 } from '../../../environments/Routes';
 import {renderImageWrapper} from '../../helpers/QuestionHelper';
 import {stop} from '../../redux/actions/ProgressActions';
+import {stopAudio} from '../../helpers/AudioHelper';
 const ExitIcon = require('../../shared/assets/icons/ExitIcon.png');
 
 const MultipleChoice = ({progress, currentQuestion, handleStop}) => {
@@ -169,9 +170,15 @@ const MultipleChoice = ({progress, currentQuestion, handleStop}) => {
               }
               disabled={currentAnswer.answer === null}
               onPress={() => handleAnswerCheck()}>
-              <Text style={ currentAnswer.answer === null
-                                             ? [styles.disabledConfirmTitle]
-                                             : [styles.confirmTitle,]}> CHECK </Text>
+              <Text
+                style={
+                  currentAnswer.answer === null
+                    ? [styles.disabledConfirmTitle]
+                    : [styles.confirmTitle]
+                }>
+                {' '}
+                CHECK{' '}
+              </Text>
             </TouchableOpacity>
           </View>
         </>

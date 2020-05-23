@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {func, bool, string} from 'prop-types';
 import styles from './CheersStyle';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
-import {playCheers, playSad, stopAudio} from '../../helpers/AudioHelper';
+import {playCheers, playSad} from '../../helpers/AudioHelper';
 const Cheers = ({sad, correctAnswer, handleContinueQuestion}) => {
   const imagePath = sad
     ? require('./assets/sad.gif')
@@ -14,7 +14,6 @@ const Cheers = ({sad, correctAnswer, handleContinueQuestion}) => {
     } else {
       playCheers();
     }
-    return stopAudio();
   }, [sad]);
 
   return (

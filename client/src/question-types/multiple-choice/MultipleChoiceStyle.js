@@ -7,7 +7,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
   },
   exitWrapper: {
     position: 'absolute',
@@ -58,7 +58,6 @@ export default StyleSheet.create({
     fontFamily: 'Quicksand-Bold',
     textAlign: 'center',
     color: '#4c4c4c',
-
   },
   answersWrapper: {
     flex: 4,
@@ -78,12 +77,6 @@ export default StyleSheet.create({
     paddingTop: 50,
   },
   answer: {
-//    shadowOffset: {
-//      width: 0,
-//      height: 2,
-//    },
-//    shadowRadius: 2.62,
-//    elevation: 4,
     backgroundColor: '#fff',
     padding: 5,
     marginBottom: 10,
@@ -92,7 +85,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-
   },
   notChosenAnswer: {
     borderTopWidth: 2,
@@ -100,14 +92,13 @@ export default StyleSheet.create({
     borderRightWidth: 2,
     borderBottomWidth: 4,
     borderColor: '#dddddd',
-//    shadowColor: 'rgba(120,114,120,0.64)',
   },
   chosenAnswer: {
     borderTopWidth: 2,
-        borderLeftWidth: 2,
-        borderRightWidth: 2,
-        borderBottomWidth: 4,
-        borderColor: '#efc458',
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: '#efc458',
   },
   answerTitle: {
     fontSize: 18,
@@ -133,7 +124,6 @@ export default StyleSheet.create({
     borderRightWidth: 2,
     borderBottomWidth: 6,
     borderColor: '#dddddd',
-//    shadowColor: 'rgba(120,114,120,0.64)',
     backgroundColor: '#ffffff',
   },
   chosenAnswerImage: {
@@ -154,27 +144,14 @@ export default StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'Quicksand-Medium',
     marginBottom: 7,
-    color: '#efc458'
+    color: '#efc458',
   },
   buttonWrapper: {
     position: 'absolute',
     bottom: 45,
   },
   confirmButton: {
-//    borderBottomWidth: 4,
-//    shadowOffset: {
-//      width: 0,
-//      height: 2,
-//    },
-//    shadowOpacity: 0.23,
-//    shadowRadius: 2.62,
-//    elevation: 4,
-//    paddingTop: 13,
-//    paddingBottom: 13,
-//    paddingRight: 16,
-//    paddingLeft: 16,
-
-    width: windowWidth - 50,
+    width: windowWidth - 75,
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
@@ -182,36 +159,30 @@ export default StyleSheet.create({
     borderRadius: 16,
   },
   confirmAnswer: {
-  height: 52,
-//    borderBottomColor: 'rgba(120,114,120,0.64)',
+    height: 52,
     borderTopWidth: 1,
     borderColor: '#f7ab5f',
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
-        borderBottomWidth: 5,
-        borderBottomColor: '#c4804e',
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 5,
+    borderBottomColor: '#c4804e',
     backgroundColor: '#f7ab5f',
-
   },
   disabledConfirm: {
-
-//    borderBottomColor: 'rgba(120,114,120,0.64)',
     backgroundColor: '#cfcfcf',
-
   },
   confirmTitle: {
     fontSize: 18,
     color: '#ffffff',
     letterSpacing: 0.8,
     fontFamily: 'Quicksand-Bold',
-    marginBottom: 3
-
+    marginBottom: 3,
   },
   disabledConfirmTitle: {
     fontSize: 18,
     color: '#777777',
     letterSpacing: 0.8,
     fontFamily: 'Quicksand-Bold',
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 });

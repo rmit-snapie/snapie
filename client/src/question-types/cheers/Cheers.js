@@ -32,7 +32,7 @@ const Cheers = ({sad, correctAnswer, handleContinueQuestion}) => {
         <TouchableOpacity
           onPress={handleContinueQuestion}
           style={styles.continueButton}>
-          <Text style={styles.continueTitle}> Continue </Text>
+          <Text style={styles.continueTitle}> CONTINUE </Text>
         </TouchableOpacity>
       </View>
     </View>

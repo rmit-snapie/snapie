@@ -5,22 +5,22 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
   },
-    exitWrapper: {
-      position: 'absolute',
-      top: 40,
-      left: 20,
-    },
-    exit: {
-      height: 30,
-      width: 30,
-      resizeMode: 'contain',
-    },
+  exitWrapper: {
+    position: 'absolute',
+    top: 40,
+    left: 20,
+  },
+  exit: {
+    height: 30,
+    width: 30,
+    resizeMode: 'contain',
+  },
   questionWrapper: {
     flex: 1,
     justifyContent: 'center',
-    marginTop: 50,
+    marginTop: 40,
     padding: 10,
   },
   questionContent: {
@@ -33,6 +33,7 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
+    padding: 20,
   },
   column1: {
     flex: 1,
@@ -61,15 +62,14 @@ export default StyleSheet.create({
   chosenAnswer: {
     borderColor: '#efc458',
     borderTopWidth: 2,
-        borderLeftWidth: 2,
-        borderRightWidth: 2,
-        borderBottomWidth: 4,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 4,
   },
   answerTitle: {
-     fontSize: 18,
+    fontSize: 18,
     fontWeight: '600',
     fontFamily: 'Quicksand-Medium',
-    color: '#4c4c4c',
     marginBottom: 5,
     color: '#4c4c4c',
   },

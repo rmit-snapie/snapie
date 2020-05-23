@@ -1,7 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 
-
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -42,24 +41,21 @@ export default StyleSheet.create({
     borderBottomWidth: 5,
     borderBottomColor: '#c4804e',
     backgroundColor: '#f7ab5f',
-
     paddingTop: 13,
     paddingBottom: 13,
     paddingRight: 16,
     paddingLeft: 16,
-     width: windowWidth - 50,
-     height: 50,
+    width: windowWidth - 75,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 16,
-    backgroundColor: '#f7ab5f',
   },
   continueTitle: {
     fontSize: 18,
     color: '#ffffff',
     letterSpacing: 1,
     fontFamily: 'Quicksand-Bold',
-    marginBottom: 3
   },
 });

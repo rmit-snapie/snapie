@@ -30,7 +30,9 @@ class Home extends Component {
       <ImageBackground style={styles.background} source={HomeScreen}>
         <View style={styles.profileWrapper}>
           <Text style={styles.profileText}>Hello</Text>
-          <Text style={styles.profileText}>{username}</Text>
+          {username !== '' && (
+            <Text style={styles.profileText}>{username}</Text>
+          )}
           <TouchableOpacity
             onPress={() => navigateTo(navigation, PROFILE_SCREEN)}>
             <Image source={DefaultAvatar} style={styles.avatar} />

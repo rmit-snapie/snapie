@@ -2,7 +2,7 @@ import {SIGNING_IN, SIGN_IN_ERROR, SIGNED_IN} from '../types';
 
 const initialState = {
   loading: false,
-  username: 'Jake the Dog',
+  username: '',
   error: null,
 };
 

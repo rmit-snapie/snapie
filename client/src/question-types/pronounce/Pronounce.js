@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {object} from 'prop-types';
+import {object, func} from 'prop-types';
 import styles from './PronounceStyle';
 import {View, TouchableOpacity, Image, Text} from 'react-native';
 import Voice from '@react-native-community/voice';
@@ -8,6 +8,8 @@ import Cheers from '../cheers';
 import {renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
 import RecordButton from '../../shared/assets/buttons/RecordButton.png';
+import {stop} from '../../redux/actions/ProgressActions';
+const ExitIcon = require('../../shared/assets/icons/ExitIcon.png');
 
 class Pronounce extends React.Component {
   constructor(props) {
@@ -124,6 +126,17 @@ class Pronounce extends React.Component {
     });
   };
 
+  handleStopPlaying = () => {
+    const {stage, level, test} = this.props.progress.replay.play
+      ? this.props.progress.replay
+      : this.props.progress;
+    if (this.props.progress.replay.play) {
+      this.props.handleStop(stage, level, test, true);
+    } else {
+      this.props.handleStop(stage, level, test);
+    }
+  };
+
   render() {
     const {stage} = this.props.progress.replay.play
       ? this.props.progress.replay
@@ -157,6 +170,11 @@ class Pronounce extends React.Component {
     } else {
       return (
         <View style={styles.container}>
+          <TouchableOpacity
+            onPress={this.handleStopPlaying}
+            style={styles.exitWrapper}>
+            <Image style={styles.exit} source={ExitIcon} />
+          </TouchableOpacity>
           <View style={styles.imageAssetWrapper}>
             <TouchableOpacity
               onPress={() => readText(correctAnswer)}
@@ -199,6 +217,7 @@ class Pronounce extends React.Component {
 Pronounce.propTypes = {
   currentQuestion: object.isRequired,
   progress: object.isRequired,
+  handleStop: func.isRequired,
 };
 
 export default connect(
@@ -206,5 +225,5 @@ export default connect(
     progress: state.progressReducer,
     currentQuestion: state.questionsContentReducer.currentQuestion,
   }),
-  null,
+  {handleStop: stop},
 )(Pronounce);

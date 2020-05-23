@@ -2,6 +2,7 @@
 export const PLAY = 'PLAY';
 export const REPLAY = 'REPLAY';
 export const STOP = 'STOP';
+export const STOP_REPLAY = 'STOP_REPLAY';
 export const COMPLETED_A_QUESTION = 'COMPLETED_A_QUESTION';
 export const COMPLETED_A_REPLAY_QUESTION = 'COMPLETED_A_REPLAY_QUESTION';
 export const COMPLETED_A_TEST = 'COMPLETED_A_TEST';

@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {object} from 'prop-types';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {object, func} from 'prop-types';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import styles from './FillTheBlankStyle';
 import Cheers from '../cheers';
 import {createBlanks, renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
+import {stop} from '../../redux/actions/ProgressActions';
+const ExitIcon = require('../../shared/assets/icons/ExitIcon.png');
 
-const FillTheBlank = ({progress, currentQuestion}) => {
-  const {stage} = progress.replay.play ? progress.replay : progress;
+const FillTheBlank = ({progress, currentQuestion, handleStop}) => {
+  const {stage, test, level} = progress.replay.play
+    ? progress.replay
+    : progress;
   const {questionContent, answers, correctAnswer, imageAsset} = currentQuestion;
   const blanks = createBlanks(correctAnswer);
   const [currentAnswer, setCurrentAnswer] = useState({
@@ -45,6 +49,14 @@ const FillTheBlank = ({progress, currentQuestion}) => {
     }
   };
 
+  const handleStopPlaying = () => {
+    if (progress.replay.play) {
+      handleStop(stage, level, test, true);
+    } else {
+      handleStop(stage, level, test);
+    }
+  };
+
   if (currentQuestion === undefined) {
     return (
       <View style={styles.container}>
@@ -64,6 +76,11 @@ const FillTheBlank = ({progress, currentQuestion}) => {
       )}
       {!cheers.display && (
         <>
+          <TouchableOpacity
+            onPress={handleStopPlaying}
+            style={styles.exitWrapper}>
+            <Image style={styles.exit} source={ExitIcon} />
+          </TouchableOpacity>
           <View style={styles.mediaWrapper}>
             <TouchableOpacity
               style={styles.imageWrapper}
@@ -115,6 +132,7 @@ const FillTheBlank = ({progress, currentQuestion}) => {
 FillTheBlank.propTypes = {
   progress: object.isRequired,
   currentQuestion: object.isRequired,
+  handleStop: func.isRequired,
 };
 
 export default connect(
@@ -122,5 +140,5 @@ export default connect(
     progress: state.progressReducer,
     currentQuestion: state.questionsContentReducer.currentQuestion,
   }),
-  null,
+  {handleStop: stop},
 )(FillTheBlank);

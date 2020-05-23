@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {object} from 'prop-types';
+import {object, func} from 'prop-types';
 import styles from './FindTheObjectStyle';
 import {
   View,
@@ -15,6 +15,8 @@ import axios from 'axios';
 import {LABELS_API} from '../../../environments/constants';
 import Loading from '../../shared/components/loading/Loading';
 import Cheers from '../cheers';
+import {stop} from '../../redux/actions/ProgressActions';
+const ExitIcon = require('../../shared/assets/icons/ExitIcon.png');
 
 class FindTheObject extends Component {
   constructor(props) {
@@ -74,6 +76,17 @@ class FindTheObject extends Component {
     this.setState({cheers: {display: display, sad: sad}});
   };
 
+  handleStopPlaying = () => {
+    const {stage, level, test} = this.props.progress.replay.play
+      ? this.props.progress.replay
+      : this.props.progress;
+    if (this.props.progress.replay.play) {
+      this.props.handleStop(stage, level, test, true);
+    } else {
+      this.props.handleStop(stage, level, test);
+    }
+  };
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     const {results: oldResults} = prevState;
     const {results, correctAnswer} = this.state;
@@ -104,6 +117,11 @@ class FindTheObject extends Component {
     }
     return (
       <View style={styles.preview}>
+        <TouchableOpacity
+          onPress={this.handleStopPlaying}
+          style={styles.exitWrapper}>
+          <Image style={styles.exit} source={ExitIcon} />
+        </TouchableOpacity>
         <View style={styles.questionWrapper}>
           <Text style={styles.questionContent}>{questionContent}</Text>
         </View>
@@ -163,11 +181,14 @@ class FindTheObject extends Component {
 
 FindTheObject.propTypes = {
   currentQuestion: object.isRequired,
+  progress: object.isRequired,
+  handleStop: func.isRequired,
 };
 
 export default connect(
   state => ({
     currentQuestion: state.questionsContentReducer.currentQuestion,
+    progress: state.progressReducer,
   }),
-  null,
+  {handleStop: stop},
 )(FindTheObject);

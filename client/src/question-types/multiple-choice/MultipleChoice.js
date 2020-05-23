@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {object} from 'prop-types';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {object, func} from 'prop-types';
+import {Text, TouchableOpacity, View, Image} from 'react-native';
 import styles from './MultipleChoiceStyle';
 import Cheers from '../cheers';
 import {readText} from '../../helpers/TextToSpeech';
@@ -10,9 +10,13 @@ import {
   MULTIPLE_CHOICE_IMAGES,
 } from '../../../environments/Routes';
 import {renderImageWrapper} from '../../helpers/QuestionHelper';
+import {stop} from '../../redux/actions/ProgressActions';
+const ExitIcon = require('../../shared/assets/icons/ExitIcon.png');
 
-const MultipleChoice = ({progress, currentQuestion}) => {
-  const {stage} = progress.replay.play ? progress.replay : progress;
+const MultipleChoice = ({progress, currentQuestion, handleStop}) => {
+  const {stage, level, test} = progress.replay.play
+    ? progress.replay
+    : progress;
   const {questionContent, answers, correctAnswer, imageAsset} = currentQuestion;
   const [currentAnswer, setCurrentAnswer] = useState({
     answer: null,
@@ -62,6 +66,14 @@ const MultipleChoice = ({progress, currentQuestion}) => {
     }
   };
 
+  const handleStopPlaying = () => {
+    if (progress.replay.play) {
+      handleStop(stage, level, test, true);
+    } else {
+      handleStop(stage, level, test);
+    }
+  };
+
   if (currentQuestion === undefined) {
     return (
       <View style={styles.container}>
@@ -81,6 +93,11 @@ const MultipleChoice = ({progress, currentQuestion}) => {
       )}
       {!cheers.display && (
         <>
+          <TouchableOpacity
+            onPress={handleStopPlaying}
+            style={styles.exitWrapper}>
+            <Image style={styles.exit} source={ExitIcon} />
+          </TouchableOpacity>
           {currentQuestion.type === MULTIPLE_CHOICE && (
             <View style={styles.assetsWrapper}>
               <TouchableOpacity
@@ -164,6 +181,7 @@ const MultipleChoice = ({progress, currentQuestion}) => {
 MultipleChoice.propTypes = {
   progress: object.isRequired,
   currentQuestion: object.isRequired,
+  handleStop: func.isRequired,
 };
 
 export default connect(
@@ -171,5 +189,5 @@ export default connect(
     progress: state.progressReducer,
     currentQuestion: state.questionsContentReducer.currentQuestion,
   }),
-  null,
+  {handleStop: stop},
 )(MultipleChoice);

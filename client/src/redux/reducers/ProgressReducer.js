@@ -7,6 +7,7 @@ import {
   PLAY,
   REPLAY,
   STOP,
+  STOP_REPLAY,
 } from '../types';
 
 const initialState = {
@@ -29,7 +30,7 @@ let stage, level, test;
 const progressReducer = (state = initialState, action) => {
   switch (action.type) {
     case PLAY:
-      return {...state, play: true, replay: {play: false}};
+      return {...state, play: true};
     case REPLAY:
       ({stage, level, test} = action.payload);
       return {
@@ -44,10 +45,27 @@ const progressReducer = (state = initialState, action) => {
         },
       };
     case STOP:
+      ({stage, level, test} = action.payload);
       return {
         ...state,
         play: false,
-        replay: {play: false, stage: 0, level: 0, test: 0},
+        stage: stage,
+        level: level,
+        test: test,
+        question: 0,
+      };
+    case STOP_REPLAY:
+      ({stage, level, test} = action.payload);
+      return {
+        ...state,
+        play: false,
+        replay: {
+          play: false,
+          stage: stage,
+          level: level,
+          test: test,
+          question: 0,
+        },
       };
     case COMPLETED_A_QUESTION:
       return {...state, question: action.payload};

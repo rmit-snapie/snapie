@@ -5,11 +5,24 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
+  },
+  exitWrapper: {
+    position: 'absolute',
+    top: 40,
+    left: 0,
+    marginLeft: 20,
+  },
+  exit: {
+    height: 35,
+    width: 35,
+    resizeMode: 'contain',
   },
   imageAssetWrapper: {
     flex: 3,
     justifyContent: 'flex-end',
     marginTop: 20,
+    alignItems: 'center',
   },
   imageWrapper: {
     justifyContent: 'center',
@@ -35,7 +48,7 @@ export default StyleSheet.create({
   },
   question: {
     fontSize: 24,
-    fontFamily: 'Amiko-Bold',
+    fontFamily: 'Quicksand-Bold',
     textAlign: 'center',
   },
   recordButtonWrapper: {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {object, string} from 'prop-types';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
@@ -23,6 +23,10 @@ const Profile = ({navigation, username}) => {
   });
   const [openLoginModal, setOpenLoginModal] = useState(false);
 
+  useEffect(() => {
+    setOpenLoginModal(true);
+  }, []);
+
   const renderTab = () => {
     if (tab === tabs.PROGRESS) {
       return <Progress />;
@@ -38,7 +42,7 @@ const Profile = ({navigation, username}) => {
     });
     setTimeout(() => {
       setOpenModal({display: false, type: null, message: null});
-    }, 1000);
+    }, 500);
   };
 
   return (
@@ -55,7 +59,11 @@ const Profile = ({navigation, username}) => {
         <View style={styles.profileInfoWrapper}>
           <Image style={styles.avatar} source={DefaultAvatar} />
           <TouchableOpacity onPress={() => setOpenLoginModal(true)}>
-            <Text style={styles.name}>{username}</Text>
+            {username !== '' ? (
+              <Text style={styles.name}>{username}</Text>
+            ) : (
+              <Text style={styles.name}>Log In</Text>
+            )}
           </TouchableOpacity>
         </View>
         <View style={styles.tabsWrapper}>

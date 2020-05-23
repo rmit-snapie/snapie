@@ -29,7 +29,7 @@ const LoginModal = ({
   }, [error]);
 
   useEffect(() => {
-    if (previousName && previousName !== username) {
+    if (username !== '' && username !== previousName) {
       setOpenSuccess(true);
       setTimeout(() => {
         setOpenSuccess(false);
@@ -61,7 +61,7 @@ const LoginModal = ({
     return (
       <View style={styles.container}>
         <View style={styles.successWrapper}>
-          <Text style={styles.success}>Success! Signed in as {username}</Text>
+          <Text style={styles.success}>Signed in as {username}</Text>
         </View>
       </View>
     );

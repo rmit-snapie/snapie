@@ -7,6 +7,8 @@ import {
   Text,
   TextInput,
   TouchableHighlight,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
   View,
   ActivityIndicator,
 } from 'react-native';
@@ -52,7 +54,7 @@ const LoginModal = ({
   if (loading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator animating={loading} color="#000000" />
+        <ActivityIndicator animating={loading} color="#4c4c4c" />
       </View>
     );
   }
@@ -61,37 +63,37 @@ const LoginModal = ({
     return (
       <View style={styles.container}>
         <View style={styles.successWrapper}>
-          <Text style={styles.success}>Signed in as {username}</Text>
+          <Text style={styles.success}>Hello {username}</Text>
         </View>
       </View>
     );
   }
   return (
     <View style={styles.container}>
-      <Modal animationType="fade" transparent={true} visible={display}>
-        <View style={styles.container}>
-          <View style={styles.modalView}>
-            <Text style={styles.loginMessage}>Enter your name here: </Text>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={text => setEditUsername(text)}
-              value={editUsername}
-            />
-            {localError && <Text style={styles.errorText}>{localError}</Text>}
-            <View style={styles.actionsWrapper}>
-              <TouchableHighlight
-                style={[styles.action, styles.submit]}
-                onPress={submit}>
-                <Text style={styles.text}>Submit</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
-                style={[styles.action, styles.cancel]}
-                onPress={closeModal}>
-                <Text style={styles.text}>Cancel</Text>
-              </TouchableHighlight>
+      <Modal animationType="fade" transparent={true} visible={display} >
+            <View style={styles.modalContainer}>
+              <View style={styles.modalView}>
+                <Text style={styles.loginMessage}>What is your name? </Text>
+                <TextInput
+                  style={styles.textInput}
+                  onChangeText={text => setEditUsername(text)}
+                  value={editUsername}
+                />
+                {localError && <Text style={styles.errorText}>{localError}</Text>}
+                <View style={styles.actionsWrapper}>
+                  <TouchableOpacity
+                    style={[styles.action, styles.submit]}
+                    onPress={submit}>
+                    <Text style={styles.submitText}>OK</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.action, styles.cancel]}
+                    onPress={closeModal}>
+                    <Text style={styles.cancelText}>No, thanks</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
       </Modal>
     </View>
   );

@@ -7,7 +7,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontFamily: 'Amiko-Bold',
+    fontFamily: 'Quicksand-Bold',
     fontSize: 20,
     paddingBottom: 15,
   },

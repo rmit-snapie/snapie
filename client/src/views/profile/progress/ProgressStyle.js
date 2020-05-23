@@ -20,15 +20,43 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  absoluteText: {
+  testText: {
     position: 'absolute',
     fontWeight: '600',
-    fontFamily: 'Quicksand-Light',
+    fontFamily: 'Quicksand-Medium',
     color: '#ffffff',
-    fontSize: 20,
+    fontSize: 19,
     textAlign: 'center',
     letterSpacing: 1,
   },
+  levelText: {
+    position: 'absolute',
+    fontWeight: '600',
+    fontFamily: 'Quicksand-Medium',
+    color: '#ffffff',
+    fontSize: 24,
+    textAlign: 'center',
+    letterSpacing: 1,
+  },
+  wordText: {
+    position: 'absolute',
+    fontWeight: '600',
+    fontFamily: 'Quicksand-Medium',
+    color: '#ffffff',
+    fontSize: 24,
+    textAlign: 'center',
+    letterSpacing: 1,
+  },
+  badgeText: {
+    position: 'absolute',
+    fontWeight: '600',
+    fontFamily: 'Quicksand-Medium',
+    color: '#ffffff',
+    fontSize: 16,
+    textAlign: 'center',
+    letterSpacing: 1,
+  },
+
   testsWrapper: {
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -41,6 +69,7 @@ export default StyleSheet.create({
   },
   badgesWrapper: {
     justifyContent: 'flex-end',
+
   },
   smallerCircle: {
     width: 130,

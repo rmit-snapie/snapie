@@ -38,9 +38,9 @@ export default StyleSheet.create({
     width: windowWidth,
   },
   goToBook: {
-    width: 40,
-    height: 40,
-    marginRight: 20,
+    width: 55,
+    height: 55,
+    marginRight: 30,
     resizeMode: 'contain',
   },
   exploreFooter: {
@@ -90,8 +90,8 @@ export default StyleSheet.create({
     marginTop: 20,
   },
   lookUp: {
-    width: 100,
-    height: 100,
+    width: 90,
+    height: 90,
     resizeMode: 'contain',
   },
 });

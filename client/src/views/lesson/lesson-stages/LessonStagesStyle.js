@@ -13,12 +13,12 @@ export default StyleSheet.create({
     paddingTop: 100,
   },
   text: {
-    fontFamily: 'Amiko-Bold',
+    fontFamily: 'Quicksand-Bold',
     fontSize: 24,
     marginBottom: 50,
   },
   stageWrapper: {
-    borderColor: '#e5e5e5',
+    borderColor: '#dddddd',
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',

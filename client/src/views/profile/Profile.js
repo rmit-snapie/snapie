@@ -74,14 +74,14 @@ const Profile = ({navigation, username}) => {
                 ? [styles.tab, styles.activeTab]
                 : styles.tab
             }>
-            <Text style={styles.tabTitle}>PROGRESS</Text>
+            <Text style={tab === tabs.PROGRESS ? styles.activeTabTitle : styles.tabTitle}>PROGRESS</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setTab(tabs.BADGES)}
             style={
               tab === tabs.BADGES ? [styles.tab, styles.activeTab] : styles.tab
             }>
-            <Text style={styles.tabTitle}>BADGES</Text>
+            <Text style={  tab === tabs.BADGES ? styles.activeTabTitle : styles.tabTitle}>BADGES</Text>
           </TouchableOpacity>
         </View>
       </View>

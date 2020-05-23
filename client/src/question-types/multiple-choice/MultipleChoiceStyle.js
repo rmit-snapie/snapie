@@ -155,8 +155,6 @@ export default StyleSheet.create({
     fontFamily: 'Quicksand-Medium',
     marginBottom: 7,
     color: '#efc458'
-
-
   },
   buttonWrapper: {
     position: 'absolute',

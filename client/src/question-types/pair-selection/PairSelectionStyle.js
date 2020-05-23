@@ -24,8 +24,9 @@ export default StyleSheet.create({
     padding: 10,
   },
   questionContent: {
-    fontFamily: 'Quicksand-Bold',
     fontSize: 24,
+    fontFamily: 'Quicksand-Bold',
+    color: '#4c4c4c',
   },
   answersWrapper: {
     flex: 6,

@@ -1,4 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+const windowWidth = Dimensions.get('window').width;
+
 
 export default StyleSheet.create({
   container: {
@@ -30,7 +32,7 @@ export default StyleSheet.create({
   },
   continueButtonWrapper: {
     position: 'absolute',
-    bottom: 65,
+    bottom: 45,
   },
   continueButton: {
     borderTopWidth: 1,
@@ -45,8 +47,8 @@ export default StyleSheet.create({
     paddingBottom: 13,
     paddingRight: 16,
     paddingLeft: 16,
-    height: 50,
-    width: 200,
+     width: windowWidth - 50,
+     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',

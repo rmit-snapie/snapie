@@ -171,7 +171,9 @@ class FindTheObject extends Component {
                 : [styles.checkButton, styles.checkAnswer]
             }
             disabled={this.imageUriIsEmpty()}>
-            <Text style={styles.check}>Check</Text>
+            <Text style={this.imageUriIsEmpty()
+                                         ? [styles.disabledConfirmTitle]
+                                         : [styles.check]}>CHECK</Text>
           </TouchableOpacity>
         </View>
       </View>

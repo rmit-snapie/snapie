@@ -1,4 +1,5 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+const windowWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
   container: {
@@ -6,35 +7,35 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    backgroundColor: '#ffffff',
   },
   exitWrapper: {
     position: 'absolute',
     top: 40,
-    left: 0,
-    marginLeft: 20,
+    left: 20,
   },
   exit: {
-    height: 35,
-    width: 35,
+    height: 30,
+    width: 30,
     resizeMode: 'contain',
   },
   imageAssetWrapper: {
     flex: 3,
     justifyContent: 'flex-end',
-    marginTop: 20,
+    marginTop: 100,
     alignItems: 'center',
   },
   imageWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
+
+    padding: 20,
     borderTopWidth: 2,
     borderLeftWidth: 2,
     borderRightWidth: 2,
     borderBottomWidth: 4,
-    borderColor: 'rgb(229, 229, 229)',
-    shadowColor: 'rgba(120,114,120,0.64)',
-    padding: 20,
-    borderRadius: 16,
+    borderColor: '#dddddd',
+    borderRadius: 25,
     backgroundColor: '#ffffff',
   },
   image: {
@@ -50,57 +51,61 @@ export default StyleSheet.create({
     fontSize: 24,
     fontFamily: 'Quicksand-Bold',
     textAlign: 'center',
+    color: '#4c4c4c',
   },
   recordButtonWrapper: {
     flex: 2,
     justifyContent: 'flex-start',
     alignItems: 'center',
+    marginBottom: 90,
   },
   timer: {
     fontFamily: 'Quicksand-Bold',
     fontSize: 20,
     marginBottom: 15,
+    color: '#4c4c4c',
   },
   record: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
     resizeMode: 'contain',
   },
   checkWrapper: {
     flex: 1,
   },
   confirmButton: {
-    borderBottomWidth: 5,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
-    paddingTop: 13,
-    paddingBottom: 13,
-    paddingRight: 16,
-    paddingLeft: 16,
+    width: windowWidth - 75,
     height: 50,
-    width: 200,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 16,
   },
   confirmAnswer: {
-    borderBottomColor: 'rgba(120,114,120,0.64)',
+    height: 52,
+    borderTopWidth: 1,
+    borderColor: '#f7ab5f',
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 5,
+    borderBottomColor: '#c4804e',
     backgroundColor: '#f7ab5f',
   },
   disabledConfirm: {
-    borderBottomColor: 'rgba(120,114,120,0.64)',
-    backgroundColor: '#afafaf',
+    backgroundColor: '#cfcfcf',
   },
   confirmTitle: {
     fontSize: 18,
     color: '#ffffff',
-    fontWeight: 'bold',
-    letterSpacing: 1,
+    letterSpacing: 0.8,
+    fontFamily: 'Quicksand-Bold',
+    marginBottom: 3,
+  },
+  disabledConfirmTitle: {
+    fontSize: 18,
+    color: '#777777',
+    letterSpacing: 0.8,
+    fontFamily: 'Quicksand-Bold',
+    marginBottom: 5,
   },
 });

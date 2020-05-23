@@ -19,7 +19,6 @@ const SpellingOrder = ({currentQuestion, progress, handleStop}) => {
   const [blanks, setBlanks] = useState([]);
   const [currentOrder, setCurrentOrder] = useState([]);
   const [characters, setCharacters] = useState([]);
-
   const [cheers, setCheers] = useState({display: false, sad: false});
 
   useEffect(() => {
@@ -114,7 +113,7 @@ const SpellingOrder = ({currentQuestion, progress, handleStop}) => {
                   onPress={() => clearWord()}
                   style={styles.clear}
                   activeOpacity={0}>
-                  <Text>X</Text>
+                  <Text style={styles.clearTitle}>X</Text>
                 </TouchableOpacity>
               )}
             </View>
@@ -139,7 +138,10 @@ const SpellingOrder = ({currentQuestion, progress, handleStop}) => {
               }
               disabled={currentOrder.length === null}
               onPress={() => handleAnswerCheck()}>
-              <Text style={styles.confirmTitle}> Confirm </Text>
+              <Text style={
+                currentOrder.length === 0
+                    ? [styles.disabledConfirmTitle]
+                    : [styles.confirmTitle,]}> CHECK </Text>
             </TouchableOpacity>
           </View>
         </>

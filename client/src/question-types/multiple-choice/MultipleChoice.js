@@ -169,7 +169,9 @@ const MultipleChoice = ({progress, currentQuestion, handleStop}) => {
               }
               disabled={currentAnswer.answer === null}
               onPress={() => handleAnswerCheck()}>
-              <Text style={styles.confirmTitle}> Confirm </Text>
+              <Text style={ currentAnswer.answer === null
+                                             ? [styles.disabledConfirmTitle]
+                                             : [styles.confirmTitle,]}> CHECK </Text>
             </TouchableOpacity>
           </View>
         </>

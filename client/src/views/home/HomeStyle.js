@@ -18,18 +18,12 @@ export default StyleSheet.create({
     paddingTop: 20,
   },
   profileText: {
-    fontFamily: 'Amiko-Bold',
-    fontSize: 26,
+    fontSize: 30,
+    fontFamily: 'Quicksand-Bold',
+    color: '#4c4c4c',
     paddingBottom: 5,
     color: '#FFFFFF',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
+
   },
   avatar: {
     width: 150,

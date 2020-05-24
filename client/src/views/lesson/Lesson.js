@@ -10,7 +10,7 @@ import LessonStages from './lesson-stages';
 const Lesson = ({progress: {play}, navigation}) => {
   return (
     <View style={styles.container}>
-      {!play && <LessonStages />}
+      {!play && <LessonStages navigation={navigation} />}
       {play && <LessonContent navigation={navigation} />}
     </View>
   );

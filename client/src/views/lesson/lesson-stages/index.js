@@ -16,6 +16,7 @@ const LessonStagesWrapper = ({
   handlePlay,
   handleReplay,
   progress: {stage, level, test},
+  navigation,
   ...props
 }) => {
   const [loading, setLoading] = useState(false);
@@ -69,6 +70,7 @@ const LessonStagesWrapper = ({
       stage={stage}
       level={level}
       test={test}
+      navigation={navigation}
     />
   );
 };
@@ -79,6 +81,7 @@ LessonStagesWrapper.propTypes = {
   handleReplay: func.isRequired,
   prepareData: func.isRequired,
   setCurrentQuestion: func.isRequired,
+  navigation: object.isRequired,
 };
 
 export default connect(

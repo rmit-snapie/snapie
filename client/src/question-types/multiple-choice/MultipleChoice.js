@@ -11,7 +11,6 @@ import {
 } from '../../../environments/Routes';
 import {renderImageWrapper} from '../../helpers/QuestionHelper';
 import {stop} from '../../redux/actions/ProgressActions';
-import {stopAudio} from '../../helpers/AudioHelper';
 const ExitIcon = require('../../shared/assets/icons/ExitIcon.png');
 
 const MultipleChoice = ({progress, currentQuestion, handleStop}) => {
@@ -94,7 +93,7 @@ const MultipleChoice = ({progress, currentQuestion, handleStop}) => {
       )}
       {!cheers.display && (
         <>
-          <View style={{flex: 9}}>
+          <View style={styles.contentWrapper}>
             <TouchableOpacity
               onPress={handleStopPlaying}
               style={styles.exitWrapper}>

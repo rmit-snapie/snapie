@@ -19,6 +19,9 @@ export default StyleSheet.create({
     width: 30,
     resizeMode: 'contain',
   },
+  contentWrapper: {
+    flex: 9,
+  },
   assetsWrapper: {
     flex: 4,
     padding: 50,

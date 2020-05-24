@@ -9,7 +9,6 @@ import {
   PAIR_SELECTION,
   PRONOUNCE_THE_WORD,
   SPELLING_ORDER,
-  HOME_SCREEN,
   FIND_THE_OBJECT,
 } from '../../../../environments/Routes';
 //question-types
@@ -19,7 +18,7 @@ import SpellingOrder from '../../../question-types/spelling-order/SpellingOrder'
 import PairSelection from '../../../question-types/pair-selection/PairSelection';
 import Pronounce from '../../../question-types/pronounce/Pronounce';
 import FindTheObject from '../../../question-types/find-the-object/FindTheObject';
-import {replaceTo} from '../../../helpers/NavigateHelper';
+import {goToFirstScreenInStack} from '../../../helpers/NavigateHelper';
 
 const LessonContent = ({currentQuestion, navigation}) => {
   const type = currentQuestion ? currentQuestion.type : 'unknown';
@@ -45,7 +44,7 @@ const LessonContent = ({currentQuestion, navigation}) => {
           <Text>unknown type of : {type}</Text>
           <Button
             title="Home"
-            onPress={() => replaceTo(navigation, HOME_SCREEN)}
+            onPress={() => goToFirstScreenInStack(navigation)}
           />
         </View>
       );

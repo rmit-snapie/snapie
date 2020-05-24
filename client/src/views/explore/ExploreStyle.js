@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
   container: {
@@ -23,18 +24,18 @@ export default StyleSheet.create({
   },
   goBack: {
     marginLeft: 20,
-    width: 35,
-    height: 35,
+    width: 45,
+    height: 45,
     resizeMode: 'contain',
   },
   cameraWrapper: {
     flex: 4,
-    height: 500,
+    height: windowHeight -150,
     width: windowWidth,
   },
   camera: {
     flex: 4,
-    height: 500,
+    height: windowHeight -150,
     width: windowWidth,
   },
   goToBook: {
@@ -44,7 +45,7 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   exploreFooter: {
-    height: 125,
+    height: 175,
     backgroundColor: '#efc458',
     width: windowWidth,
     flexDirection: 'row',

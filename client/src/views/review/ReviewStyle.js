@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#ffffff"
   },
   reviewHeader: {
     flex: 2,
@@ -42,8 +43,8 @@ export default StyleSheet.create({
     height: 100,
     borderWidth: 3,
     borderRadius: 16,
-    borderColor: '#afafaf',
-    marginRight: 10,
+    borderColor: '#dddddd',
+    marginRight: 20,
   },
   vocabInfo: {
     justifyContent: 'space-between',
@@ -56,7 +57,6 @@ export default StyleSheet.create({
   },
   text: {
     fontSize: 24,
-    fontWeight: 'bold',
     fontFamily: 'Quicksand-Bold',
     color: '#ffffff',
   },
@@ -66,14 +66,18 @@ export default StyleSheet.create({
   vocabularyWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 15,
+    paddingTop: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 5,
+
   },
   smallImg: {
-    width: 70,
-    height: 70,
+    width: 80,
+    height: 80,
     borderWidth: 3,
     borderRadius: 40,
-    borderColor: '#afafaf',
+    borderColor: '#dddddd',
     marginRight: 15,
   },
   labelWrapper: {
@@ -86,9 +90,8 @@ export default StyleSheet.create({
     borderLeftWidth: 2,
     borderRightWidth: 2,
     borderBottomWidth: 4,
-    borderColor: 'rgb(229, 229, 229)',
-    shadowColor: 'rgba(120,114,120,0.64)',
-    borderRadius: 16,
+    borderColor: '#dddddd',
+    borderRadius: 20,
   },
   chosenLabelWrapper: {
     borderColor: '#f7ab5f',
@@ -97,12 +100,15 @@ export default StyleSheet.create({
     padding: 15,
     fontSize: 20,
     fontFamily: 'Quicksand-Bold',
+    color: "#f7ab5f"
   },
   item: {
     fontSize: 18,
     fontFamily: 'Quicksand-Bold',
     textAlign: 'center',
     letterSpacing: 1,
+    color: "#4c4c4c",
+
   },
   centeredView: {
     justifyContent: 'center',

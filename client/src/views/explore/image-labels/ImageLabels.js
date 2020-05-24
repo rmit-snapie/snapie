@@ -75,7 +75,7 @@ const ImageLabels = ({results, handleAddVocabulary, vocabularies}) => {
     return (
       <View style={styles.container}>
         <Text style={styles.notFound}>
-          We did not find any results :( please try again
+          Snapie cannot find any results :( please try again
         </Text>
       </View>
     );

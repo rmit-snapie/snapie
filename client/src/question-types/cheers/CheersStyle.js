@@ -3,7 +3,7 @@ const windowWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 9,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
@@ -30,8 +30,9 @@ export default StyleSheet.create({
     color: '#4c4c4c',
   },
   continueButtonWrapper: {
-    position: 'absolute',
-    bottom: 45,
+    // position: 'absolute',
+    // bottom: 45,
+    flex: 1,
   },
   continueButton: {
     borderTopWidth: 1,

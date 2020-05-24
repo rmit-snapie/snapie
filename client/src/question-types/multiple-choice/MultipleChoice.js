@@ -94,72 +94,78 @@ const MultipleChoice = ({progress, currentQuestion, handleStop}) => {
       )}
       {!cheers.display && (
         <>
-          <TouchableOpacity
-            onPress={handleStopPlaying}
-            style={styles.exitWrapper}>
-            <Image style={styles.exit} source={ExitIcon} />
-          </TouchableOpacity>
-          {currentQuestion.type === MULTIPLE_CHOICE && (
-            <View style={styles.assetsWrapper}>
-              <TouchableOpacity
-                style={styles.imageWrapper}
-                onPress={() => readText(correctAnswer)}>
-                {renderImageWrapper(stage, imageAsset, styles.image)}
-              </TouchableOpacity>
-            </View>
-          )}
-          <View
-            style={
-              currentQuestion.type === MULTIPLE_CHOICE
-                ? styles.questionWrapper
-                : styles.multipleChoiceImageQuestionWrapper
-            }>
-            <Text
-              onPress={() => readText(questionContent)}
-              style={styles.questionContent}>
-              {questionContent}
-            </Text>
-          </View>
-          <View
-            style={
-              currentQuestion.type === MULTIPLE_CHOICE
-                ? styles.answersWrapper
-                : styles.imageAnswersWrapper
-            }>
-            {currentQuestion.type === MULTIPLE_CHOICE &&
-              answers.map((answer, index) => (
+          <View style={{flex: 9}}>
+            <TouchableOpacity
+              onPress={handleStopPlaying}
+              style={styles.exitWrapper}>
+              <Image style={styles.exit} source={ExitIcon} />
+            </TouchableOpacity>
+            {currentQuestion.type === MULTIPLE_CHOICE && (
+              <View style={styles.assetsWrapper}>
                 <TouchableOpacity
-                  activeOpacity={0}
-                  onPress={() => handleAnswerPressed(index, answer)}
-                  style={
-                    currentAnswer.index === index
-                      ? [styles.answer, styles.chosenAnswer]
-                      : [styles.answer, styles.notChosenAnswer]
-                  }
-                  key={answer}>
-                  <Text
+                  style={styles.imageWrapper}
+                  onPress={() => readText(correctAnswer)}>
+                  {renderImageWrapper(stage, imageAsset, styles.image)}
+                </TouchableOpacity>
+              </View>
+            )}
+            <View
+              style={
+                currentQuestion.type === MULTIPLE_CHOICE
+                  ? styles.questionWrapper
+                  : styles.multipleChoiceImageQuestionWrapper
+              }>
+              <Text
+                onPress={() => readText(questionContent)}
+                style={styles.questionContent}>
+                {questionContent}
+              </Text>
+            </View>
+            <View
+              style={
+                currentQuestion.type === MULTIPLE_CHOICE
+                  ? styles.answersWrapper
+                  : styles.imageAnswersWrapper
+              }>
+              {currentQuestion.type === MULTIPLE_CHOICE &&
+                answers.map((answer, index) => (
+                  <TouchableOpacity
+                    activeOpacity={0}
+                    onPress={() => handleAnswerPressed(index, answer)}
                     style={
                       currentAnswer.index === index
-                        ? styles.chosenAnswerTitle
-                        : styles.answerTitle
-                    }>
-                    {answer}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            {currentQuestion.type === MULTIPLE_CHOICE_IMAGES &&
-              answers.map((answer, index) => (
-                <TouchableOpacity
-                  key={index}
-                  style={
-                    currentAnswer.index === index
-                      ? [styles.answerImage, styles.chosenAnswerImage]
-                      : [styles.answerImage, styles.notChosenAnswerImage]
-                  }
-                  onPress={() => handleAnswerPressed(index, answer)}>
-                  {renderImageWrapper(stage, answer.asset, styles.imageContent)}
-                </TouchableOpacity>
-              ))}
+                        ? [styles.answer, styles.chosenAnswer]
+                        : [styles.answer, styles.notChosenAnswer]
+                    }
+                    key={answer}>
+                    <Text
+                      style={
+                        currentAnswer.index === index
+                          ? styles.chosenAnswerTitle
+                          : styles.answerTitle
+                      }>
+                      {answer}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              {currentQuestion.type === MULTIPLE_CHOICE_IMAGES &&
+                answers.map((answer, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={
+                      currentAnswer.index === index
+                        ? [styles.answerImage, styles.chosenAnswerImage]
+                        : [styles.answerImage, styles.notChosenAnswerImage]
+                    }
+                    onPress={() => handleAnswerPressed(index, answer)}>
+                    {renderImageWrapper(
+                      stage,
+                      answer.asset,
+                      styles.imageContent,
+                    )}
+                  </TouchableOpacity>
+                ))}
+            </View>
           </View>
           <View style={styles.buttonWrapper}>
             <TouchableOpacity
@@ -176,8 +182,7 @@ const MultipleChoice = ({progress, currentQuestion, handleStop}) => {
                     ? [styles.disabledConfirmTitle]
                     : [styles.confirmTitle]
                 }>
-                {' '}
-                CHECK{' '}
+                CHECK
               </Text>
             </TouchableOpacity>
           </View>

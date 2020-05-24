@@ -147,8 +147,9 @@ export default StyleSheet.create({
     color: '#efc458',
   },
   buttonWrapper: {
-    position: 'absolute',
-    bottom: 45,
+    // position: 'absolute',
+    // bottom: 45,
+    flex: 1,
   },
   confirmButton: {
     width: windowWidth - 75,

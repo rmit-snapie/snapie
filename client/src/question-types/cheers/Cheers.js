@@ -17,16 +17,18 @@ const Cheers = ({sad, correctAnswer, handleContinueQuestion}) => {
   }, [sad]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.gifWrapper}>
-        <Image source={imagePath} style={styles.image} />
-      </View>
-      <View style={styles.correctAnswerWrapper}>
-        {sad && (
-          <Text style={styles.correctAnswer}>
-            The correct answer was {correctAnswer}
-          </Text>
-        )}
+    <View style={{flex: 1, alignItems: 'center'}}>
+      <View style={styles.container}>
+        <View style={styles.gifWrapper}>
+          <Image source={imagePath} style={styles.image} />
+        </View>
+        <View style={styles.correctAnswerWrapper}>
+          {sad && (
+            <Text style={styles.correctAnswer}>
+              The correct answer was {correctAnswer}
+            </Text>
+          )}
+        </View>
       </View>
       <View style={styles.continueButtonWrapper}>
         <TouchableOpacity

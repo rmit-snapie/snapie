@@ -8,18 +8,16 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-//    top: windowHeight / 3,
     width: '100%',
     height: '100%',
     backgroundColor: 'rgba(0,0,0,0.2)',
   },
   modalContainer: {
     justifyContent: 'center',
-      alignItems: 'center',
-      position: 'absolute',
-      top: windowHeight / 3 - 30,
-      width: windowWidth,
-
+    alignItems: 'center',
+    position: 'absolute',
+    top: windowHeight / 3 - 30,
+    width: windowWidth,
   },
   modalView: {
     borderRadius: 16,
@@ -30,27 +28,26 @@ export default StyleSheet.create({
     paddingBottom: 15,
     alignItems: 'center',
     backgroundColor: '#ffffff',
-      borderTopWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
-        borderBottomWidth: 4,
-        borderColor: '#dddddd',
-//    shadowOffset: {
-//      width: 0,
-//      height: 2,
-//    },
-//    shadowOpacity: 0.25,
-//    shadowRadius: 3.84,
-//    elevation: 5,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 4,
+    borderColor: '#dddddd',
+    //    shadowOffset: {
+    //      width: 0,
+    //      height: 2,
+    //    },
+    //    shadowOpacity: 0.25,
+    //    shadowRadius: 3.84,
+    //    elevation: 5,
   },
   loginMessage: {
     fontFamily: 'Quicksand-Bold',
     fontSize: 18,
     marginBottom: 20,
-    color: '#4c4c4c'
+    color: '#4c4c4c',
   },
   textInput: {
-    height: 40,
     borderColor: '#777777',
     borderWidth: 1,
     width: '80%',
@@ -84,26 +81,23 @@ export default StyleSheet.create({
     borderRadius: 15,
     borderBottomColor: '#c4804e',
     marginLeft: 15,
-    marginTop: 10
-
+    marginTop: 10,
   },
   cancel: {
     backgroundColor: '#ffffff',
     marginRight: 15,
-    marginTop: 8
-
+    marginTop: 8,
   },
   submitText: {
     fontFamily: 'Quicksand-Bold',
     fontSize: 15,
     color: '#ffffff',
-    marginBottom: 4
   },
   cancelText: {
-      fontFamily: 'Quicksand-Bold',
-      fontSize: 12,
-      color: '#efc458',
-    },
+    fontFamily: 'Quicksand-Bold',
+    fontSize: 12,
+    color: '#efc458',
+  },
   errorText: {
     fontFamily: 'Quicksand-Bold',
     fontSize: 10,

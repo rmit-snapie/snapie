@@ -6,8 +6,6 @@ import {
   Modal,
   Text,
   TextInput,
-  TouchableHighlight,
-  TouchableWithoutFeedback,
   TouchableOpacity,
   View,
   ActivityIndicator,
@@ -70,30 +68,30 @@ const LoginModal = ({
   }
   return (
     <View style={styles.container}>
-      <Modal animationType="fade" transparent={true} visible={display} >
-            <View style={styles.modalContainer}>
-              <View style={styles.modalView}>
-                <Text style={styles.loginMessage}>What is your name? </Text>
-                <TextInput
-                  style={styles.textInput}
-                  onChangeText={text => setEditUsername(text)}
-                  value={editUsername}
-                />
-                {localError && <Text style={styles.errorText}>{localError}</Text>}
-                <View style={styles.actionsWrapper}>
-                  <TouchableOpacity
-                    style={[styles.action, styles.submit]}
-                    onPress={submit}>
-                    <Text style={styles.submitText}>OK</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.action, styles.cancel]}
-                    onPress={closeModal}>
-                    <Text style={styles.cancelText}>No, thanks</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
+      <Modal animationType="fade" transparent={true} visible={display}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalView}>
+            <Text style={styles.loginMessage}>What is your name? </Text>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={text => setEditUsername(text)}
+              value={editUsername}
+            />
+            {localError && <Text style={styles.errorText}>{localError}</Text>}
+            <View style={styles.actionsWrapper}>
+              <TouchableOpacity
+                style={[styles.action, styles.submit]}
+                onPress={submit}>
+                <Text style={styles.submitText}>OK</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.action, styles.cancel]}
+                onPress={closeModal}>
+                <Text style={styles.cancelText}>No, thanks</Text>
+              </TouchableOpacity>
             </View>
+          </View>
+        </View>
       </Modal>
     </View>
   );

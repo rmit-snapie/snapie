@@ -48,6 +48,7 @@ class Home extends Component {
             screen
             handlePress={() => navigateTo(navigation, EXPLORE_SCREEN)}
             source={ExploreButton}
+
           />
           <ImageButton
             screen

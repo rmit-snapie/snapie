@@ -51,10 +51,10 @@ const ImageLabels = ({results, handleAddVocabulary, vocabularies}) => {
       setOpenModal({
         display: true,
         type: 'error',
-        message: 'Vocabulary is already added!',
+        message: 'Already added!',
       });
     } else {
-      setOpenModal({display: true, type: 'success', message: 'Success!'});
+      setOpenModal({display: true, type: 'success', message: 'Done!'});
       handleAddVocabulary({
         word: vocab,
         url: url,

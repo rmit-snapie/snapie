@@ -42,9 +42,10 @@ export default StyleSheet.create({
     bottom: 30
   },
   avatar: {
-    width: 150,
-    height: 150,
+    width: 90,
+    height: 90,
     resizeMode: 'contain',
+    margin: 30,
   },
   tabsWrapper: {
     flex: 1,

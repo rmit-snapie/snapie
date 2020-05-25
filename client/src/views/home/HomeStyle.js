@@ -26,8 +26,8 @@ export default StyleSheet.create({
 
   },
   avatar: {
-    width: 150,
-    height: 150,
+    width: 110,
+    height: 110,
     borderRadius: 75,
   },
   buttonsWrapper: {

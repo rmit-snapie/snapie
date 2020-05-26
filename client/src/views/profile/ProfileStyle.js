@@ -7,10 +7,13 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#ffffff',
   },
   profileHeader: {
-    flex: 2,
+    flex: 3,
     width: windowWidth,
+    backgroundColor: '#ffffff',
+
   },
   profileActionsWrapper: {
     flex: 1,
@@ -27,18 +30,22 @@ export default StyleSheet.create({
   },
   profileInfoWrapper: {
     flex: 2,
-    flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
+    bottom: 40
   },
   name: {
     fontWeight: '700',
     fontSize: 18,
+    fontFamily: 'Quicksand-Bold',
+    fontWeight: '600',
+    color: '#4c4c4c',
+    bottom: 30
   },
   avatar: {
-    width: 80,
-    height: 80,
+    width: 90,
+    height: 90,
     resizeMode: 'contain',
+    margin: 30,
   },
   tabsWrapper: {
     flex: 1,
@@ -48,22 +55,34 @@ export default StyleSheet.create({
   tab: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 2,
-    borderBottomColor: '#afafafaf',
+    borderBottomWidth: 3,
+    borderBottomColor: '#dddddd',
     width: windowWidth / 2,
+    marginBottom: 10
   },
   activeTab: {
-    borderBottomWidth: 4,
+    borderBottomWidth: 3,
     borderBottomColor: '#f7ab5f',
+    marginBottom: 10
+
   },
   tabTitle: {
-    fontSize: 16,
-    fontFamily: 'Quicksand-Light',
-    fontWeight: '500',
-    letterSpacing: 2,
+    fontSize: 15,
+    fontFamily: 'Quicksand-Medium',
+    fontWeight: '600',
+    letterSpacing: 1,
+    color: '#4c4c4c',
   },
   profileBody: {
     flex: 6,
     width: '100%',
   },
+
+  activeTabTitle: {
+    fontSize: 15,
+    fontFamily: 'Quicksand-Bold',
+    fontWeight: '600',
+    letterSpacing: 1,
+    color: '#f7ab5f',
+  }
 });

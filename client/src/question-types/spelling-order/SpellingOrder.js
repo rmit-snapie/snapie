@@ -1,21 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {object} from 'prop-types';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {object, func} from 'prop-types';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import styles from './SpellingOrderStyle';
 import Cheers from '../cheers';
 import {createBlanks, renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
+import {stop} from '../../redux/actions/ProgressActions';
+const ExitIcon = require('../../shared/assets/icons/ExitIcon.png');
 
-const SpellingOrder = ({currentQuestion, progress}) => {
-  const {stage} = progress.replay.play ? progress.replay : progress;
+const SpellingOrder = ({currentQuestion, progress, handleStop}) => {
+  const {stage, level, test} = progress.replay.play
+    ? progress.replay
+    : progress;
   const {questionContent, answers, correctAnswer, imageAsset} = currentQuestion;
   const initialBlanks = createBlanks(correctAnswer);
   const [word, setWord] = useState([]);
   const [blanks, setBlanks] = useState([]);
   const [currentOrder, setCurrentOrder] = useState([]);
   const [characters, setCharacters] = useState([]);
-
   const [cheers, setCheers] = useState({display: false, sad: false});
 
   useEffect(() => {
@@ -60,6 +63,14 @@ const SpellingOrder = ({currentQuestion, progress}) => {
     }
   };
 
+  const handleStopPlaying = () => {
+    if (progress.replay.play) {
+      handleStop(stage, level, test, true);
+    } else {
+      handleStop(stage, level, test);
+    }
+  };
+
   if (currentQuestion === undefined) {
     return (
       <View style={styles.container}>
@@ -70,6 +81,9 @@ const SpellingOrder = ({currentQuestion, progress}) => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={handleStopPlaying} style={styles.exitWrapper}>
+        <Image style={styles.exit} source={ExitIcon} />
+      </TouchableOpacity>
       {cheers.display && (
         <Cheers
           cheers={cheers.display}
@@ -99,7 +113,7 @@ const SpellingOrder = ({currentQuestion, progress}) => {
                   onPress={() => clearWord()}
                   style={styles.clear}
                   activeOpacity={0}>
-                  <Text>X</Text>
+                  <Text style={styles.clearTitle}>X</Text>
                 </TouchableOpacity>
               )}
             </View>
@@ -124,7 +138,10 @@ const SpellingOrder = ({currentQuestion, progress}) => {
               }
               disabled={currentOrder.length === null}
               onPress={() => handleAnswerCheck()}>
-              <Text style={styles.confirmTitle}> Confirm </Text>
+              <Text style={
+                currentOrder.length === 0
+                    ? [styles.disabledConfirmTitle]
+                    : [styles.confirmTitle,]}> CHECK </Text>
             </TouchableOpacity>
           </View>
         </>
@@ -136,6 +153,7 @@ const SpellingOrder = ({currentQuestion, progress}) => {
 SpellingOrder.propTypes = {
   currentQuestion: object.isRequired,
   progress: object.isRequired,
+  handleStop: func.isRequired,
 };
 
 export default connect(
@@ -143,5 +161,5 @@ export default connect(
     progress: state.progressReducer,
     currentQuestion: state.questionsContentReducer.currentQuestion,
   }),
-  null,
+  {handleStop: stop},
 )(SpellingOrder);

@@ -15,17 +15,27 @@ const happyTrack = {
 };
 
 export const playCheers = () => {
-  TrackPlayer.add([happyTrack]).then(() => {
-    return TrackPlayer.play();
-  });
+  TrackPlayer.reset()
+    .then(() => {
+      TrackPlayer.add([happyTrack]).then(() => {
+        TrackPlayer.play();
+      });
+    })
+
+    .catch(e => TrackPlayer.stop());
 };
 
 export const playSad = () => {
-  TrackPlayer.add([sadTrack]).then(() => {
-    return TrackPlayer.play();
-  });
+  TrackPlayer.reset()
+    .then(() => {
+      TrackPlayer.add([sadTrack]).then(() => {
+        TrackPlayer.play();
+      });
+    })
+
+    .catch(e => TrackPlayer.stop());
 };
 
 export const stopAudio = () => {
-  return TrackPlayer.stop();
+  TrackPlayer.reset();
 };

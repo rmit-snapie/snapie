@@ -3,15 +3,14 @@ import {object} from 'prop-types';
 import {connect} from 'react-redux';
 import styles from './LessonStyle';
 import {View} from 'react-native';
-
 //question-types
 import LessonContent from './lesson-content/LessonContent';
-import LessonStages from './lesson-stages/LessonStages';
+import LessonStages from './lesson-stages';
 
 const Lesson = ({progress: {play}, navigation}) => {
   return (
     <View style={styles.container}>
-      {!play && <LessonStages />}
+      {!play && <LessonStages navigation={navigation} />}
       {play && <LessonContent navigation={navigation} />}
     </View>
   );

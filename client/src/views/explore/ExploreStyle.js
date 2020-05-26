@@ -1,6 +1,7 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
   container: {
@@ -23,36 +24,33 @@ export default StyleSheet.create({
   },
   goBack: {
     marginLeft: 20,
-    width: 50,
-    height: 50,
+    width: 45,
+    height: 45,
     resizeMode: 'contain',
   },
   cameraWrapper: {
     flex: 4,
-    height: 500,
+    height: windowHeight -150,
     width: windowWidth,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   camera: {
-    flex: 1,
-    height: 500,
+    flex: 4,
+    height: windowHeight -150,
     width: windowWidth,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
   },
   goToBook: {
-    width: 50,
-    height: 50,
-    right: 20,
-    bottom: 20,
+    width: 55,
+    height: 55,
+    marginRight: 30,
     resizeMode: 'contain',
   },
   exploreFooter: {
-    flex: 2,
+    height: 175,
     backgroundColor: '#efc458',
     width: windowWidth,
-    position: 'relative',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   captureWrapper: {
     width: windowWidth,
@@ -77,8 +75,9 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   exit: {
-    width: 30,
-    height: 30,
+    marginLeft: 20,
+    width: 35,
+    height: 35,
     resizeMode: 'contain',
   },
   exitAnalyze: {
@@ -92,8 +91,8 @@ export default StyleSheet.create({
     marginTop: 20,
   },
   lookUp: {
-    width: 100,
-    height: 100,
+    width: 90,
+    height: 90,
     resizeMode: 'contain',
   },
 });

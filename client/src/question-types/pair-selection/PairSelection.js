@@ -1,11 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {object} from 'prop-types';
-import {View, Text, TouchableOpacity, Animated, Easing} from 'react-native';
+import {object, func} from 'prop-types';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Animated,
+  Easing,
+  Image,
+} from 'react-native';
 import styles from './PairSelectionStyle';
 import Cheers from '../cheers';
 import {renderImageWrapper, shuffle} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
+import {stop} from '../../redux/actions/ProgressActions';
+const ExitIcon = require('../../shared/assets/icons/ExitIcon.png');
 
 class PairSelection extends Component {
   constructor(props) {
@@ -66,6 +75,17 @@ class PairSelection extends Component {
     this.setState({possibleAnswers: ['lol']});
   };
 
+  handleStopPlaying = () => {
+    const {stage, level, test} = this.props.progress.replay.play
+      ? this.props.progress.replay
+      : this.props.progress;
+    if (this.props.progress.replay.play) {
+      this.props.handleStop(stage, level, test, true);
+    } else {
+      this.props.handleStop(stage, level, test);
+    }
+  };
+
   componentDidMount() {
     readText(this.state.currentQuestion);
   }
@@ -91,7 +111,7 @@ class PairSelection extends Component {
   }
 
   render() {
-    const {stage} = this.props.progress.replay
+    const {stage} = this.props.progress.replay.play
       ? this.props.progress.replay
       : this.props.progress;
     const handleAnswerPressed = (index, answer) => {
@@ -157,6 +177,11 @@ class PairSelection extends Component {
     } else {
       return (
         <View style={styles.container}>
+          <TouchableOpacity
+            onPress={this.handleStopPlaying}
+            style={styles.exitWrapper}>
+            <Image style={styles.exit} source={ExitIcon} />
+          </TouchableOpacity>
           <View style={styles.questionWrapper}>
             <Text
               onPress={() => readText(currentQuestion)}
@@ -211,6 +236,7 @@ class PairSelection extends Component {
 PairSelection.propTypes = {
   currentQuestion: object.isRequired,
   progress: object.isRequired,
+  handleStop: func.isRequired,
 };
 
 export default connect(
@@ -218,5 +244,5 @@ export default connect(
     progress: state.progressReducer,
     currentQuestion: state.questionsContentReducer.currentQuestion,
   }),
-  null,
+  {handleStop: stop},
 )(PairSelection);

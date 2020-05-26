@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {object} from 'prop-types';
+import {connect} from 'react-redux';
+import {object, string} from 'prop-types';
 import styles from './HomeStyle';
 import {
   View,
@@ -24,12 +25,14 @@ import ImageButton from '../../shared/components/image-button/ImageButton';
 
 class Home extends Component {
   render() {
-    const {navigation} = this.props;
+    const {navigation, username} = this.props;
     return (
       <ImageBackground style={styles.background} source={HomeScreen}>
         <View style={styles.profileWrapper}>
           <Text style={styles.profileText}>Hello</Text>
-          <Text style={styles.profileText}>Jake the Dog</Text>
+          {username !== '' && (
+            <Text style={styles.profileText}>{username}</Text>
+          )}
           <TouchableOpacity
             onPress={() => navigateTo(navigation, PROFILE_SCREEN)}>
             <Image source={DefaultAvatar} style={styles.avatar} />
@@ -45,6 +48,7 @@ class Home extends Component {
             screen
             handlePress={() => navigateTo(navigation, EXPLORE_SCREEN)}
             source={ExploreButton}
+
           />
           <ImageButton
             screen
@@ -59,6 +63,10 @@ class Home extends Component {
 
 Home.propTypes = {
   navigation: object.isRequired,
+  username: string.isRequired,
 };
 
-export default Home;
+export default connect(
+  state => ({username: state.userReducer.username}),
+  null,
+)(Home);

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {object} from 'prop-types';
+import {object, func} from 'prop-types';
 import styles from './FindTheObjectStyle';
 import {
   View,
@@ -12,9 +12,11 @@ import {
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
-import {LABELS_API} from '../../views/explore/constants';
-import Loading from '../../shared/components/Loading';
+import {LABELS_API} from '../../../environments/constants';
+import Loading from '../../shared/components/loading/Loading';
 import Cheers from '../cheers';
+import {stop} from '../../redux/actions/ProgressActions';
+const ExitIcon = require('../../shared/assets/icons/ExitIcon.png');
 
 class FindTheObject extends Component {
   constructor(props) {
@@ -56,18 +58,33 @@ class FindTheObject extends Component {
 
   analyze = async () => {
     this.setState({analyzing: true});
-    axios
-      .post(LABELS_API, {
+    try {
+      const fetchLabels = await axios.post(LABELS_API, {
         image: this.state.base64encoded,
         maxResults: 5,
-      })
-      .then(response => {
-        this.setState({results: [...response.data], analyzing: false});
       });
+      this.setState({
+        results: [...fetchLabels.data],
+        analyzing: false,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   openCheers = (display, sad) => {
     this.setState({cheers: {display: display, sad: sad}});
+  };
+
+  handleStopPlaying = () => {
+    const {stage, level, test} = this.props.progress.replay.play
+      ? this.props.progress.replay
+      : this.props.progress;
+    if (this.props.progress.replay.play) {
+      this.props.handleStop(stage, level, test, true);
+    } else {
+      this.props.handleStop(stage, level, test);
+    }
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -90,8 +107,8 @@ class FindTheObject extends Component {
   render() {
     const {questionContent, imageUri, loading, analyzing, cheers} = this.state;
     const src = imageUri
-      ? require('../../shared/assets/CancelButton.png')
-      : require('../../shared/assets/TakePictureButton.png');
+      ? require('../../shared/assets/buttons/CancelButton.png')
+      : require('../../shared/assets/buttons/TakePictureButton.png');
     if (analyzing) {
       return <Loading />;
     }
@@ -100,6 +117,11 @@ class FindTheObject extends Component {
     }
     return (
       <View style={styles.preview}>
+        <TouchableOpacity
+          onPress={this.handleStopPlaying}
+          style={styles.exitWrapper}>
+          <Image style={styles.exit} source={ExitIcon} />
+        </TouchableOpacity>
         <View style={styles.questionWrapper}>
           <Text style={styles.questionContent}>{questionContent}</Text>
         </View>
@@ -149,7 +171,9 @@ class FindTheObject extends Component {
                 : [styles.checkButton, styles.checkAnswer]
             }
             disabled={this.imageUriIsEmpty()}>
-            <Text style={styles.check}>Check</Text>
+            <Text style={this.imageUriIsEmpty()
+                                         ? [styles.disabledConfirmTitle]
+                                         : [styles.check]}>CHECK</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -159,11 +183,14 @@ class FindTheObject extends Component {
 
 FindTheObject.propTypes = {
   currentQuestion: object.isRequired,
+  progress: object.isRequired,
+  handleStop: func.isRequired,
 };
 
 export default connect(
   state => ({
     currentQuestion: state.questionsContentReducer.currentQuestion,
+    progress: state.progressReducer,
   }),
-  null,
+  {handleStop: stop},
 )(FindTheObject);

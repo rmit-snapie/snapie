@@ -90,8 +90,9 @@ const styles = StyleSheet.create({
   star: {
     width: 30,
     height: 30,
-    borderRadius: 15,
+    borderRadius: 10,
     padding: 5,
+    marginTop: -10,
     resizeMode: 'contain',
   },
 });

@@ -21,11 +21,11 @@ const SnapieModal = ({
 }) => {
   const colorObject = () => {
     if (type === 'success') {
-      return {backgroundColor: '#78c800'};
+      return {backgroundColor: '#acd88f'};
     } else if (type === 'error') {
-      return {backgroundColor: '#ff4b4b'};
+      return {backgroundColor: '#f47171'};
     } else if (type === 'info') {
-      return {backgroundColor: '#1976d2'};
+      return {backgroundColor: '#84d0f7'};
     }
   };
   // TODO refactor this component, specifically, the setDisplay and manualClose
@@ -63,14 +63,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 10,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
   openButton: {
     backgroundColor: '#84d0f7',
@@ -80,12 +72,13 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: 'white',
-    fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: 'Quicksand-Bold',
   },
   message: {
-    fontFamily: 'Amiko-Bold',
+    fontFamily: 'Quicksand-Bold',
     color: '#ffffff',
+    bottom: 2,
   },
 });
 

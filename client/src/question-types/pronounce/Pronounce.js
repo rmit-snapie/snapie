@@ -1,13 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {object} from 'prop-types';
+import {object, func} from 'prop-types';
 import styles from './PronounceStyle';
 import {View, TouchableOpacity, Image, Text} from 'react-native';
 import Voice from '@react-native-community/voice';
 import Cheers from '../cheers';
 import {renderImageWrapper} from '../../helpers/QuestionHelper';
 import {readText} from '../../helpers/TextToSpeech';
-import RecordButton from '../../shared/assets/RecordButton.png';
+import RecordButton from '../../shared/assets/buttons/RecordButton.png';
+import {stop} from '../../redux/actions/ProgressActions';
+const ExitIcon = require('../../shared/assets/icons/ExitIcon.png');
 
 class Pronounce extends React.Component {
   constructor(props) {
@@ -16,6 +18,8 @@ class Pronounce extends React.Component {
       isRecord: false,
       voice: undefined,
       cheers: {display: false, sad: false},
+      remainingSecs: 0,
+      activeTimer: false,
     };
 
     Voice.onSpeechStart = this._onSpeechStart;
@@ -24,6 +28,8 @@ class Pronounce extends React.Component {
     Voice.onSpeechError = this._onSpeechError;
     this.openCheers = this.openCheers.bind(this);
   }
+
+  _interval: any;
 
   componentDidMount() {
     readText(this.props.currentQuestion.questionContent);
@@ -54,8 +60,33 @@ class Pronounce extends React.Component {
       } else {
         this.setState({cheers: {display: true, sad: true}});
       }
+      this.resetTimer();
     }
     return Voice.destroy().then(Voice.removeAllListeners);
+  };
+
+  formatNumber = number => `0${number}`.slice(-2);
+
+  getRemainingSecs = time => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time - minutes * 60;
+    return {
+      minutes: this.formatNumber(minutes),
+      seconds: this.formatNumber(seconds),
+    };
+  };
+
+  startTimer = () => {
+    this.setState({activeTimer: true});
+    this._interval = setInterval(() => {
+      this.setState({remainingSecs: this.state.remainingSecs + 1});
+    }, 1000);
+  };
+
+  resetTimer = () => {
+    this.setState({activeTimer: false});
+    this.setState({remainingSecs: 0});
+    clearInterval(this._interval);
   };
 
   _onSpeechStart = () => {
@@ -79,7 +110,12 @@ class Pronounce extends React.Component {
   };
 
   _onRecordVoice = async () => {
-    const {isRecord} = this.state;
+    const {isRecord, activeTimer} = this.state;
+    if (activeTimer) {
+      this.resetTimer();
+    } else {
+      this.startTimer();
+    }
     if (isRecord) {
       await Voice.stop();
     } else {
@@ -90,8 +126,19 @@ class Pronounce extends React.Component {
     });
   };
 
+  handleStopPlaying = () => {
+    const {stage, level, test} = this.props.progress.replay.play
+      ? this.props.progress.replay
+      : this.props.progress;
+    if (this.props.progress.replay.play) {
+      this.props.handleStop(stage, level, test, true);
+    } else {
+      this.props.handleStop(stage, level, test);
+    }
+  };
+
   render() {
-    const {stage} = this.props.progress.replay
+    const {stage} = this.props.progress.replay.play
       ? this.props.progress.replay
       : this.props.progress;
     const {
@@ -103,7 +150,9 @@ class Pronounce extends React.Component {
       isRecord,
       voice,
       cheers: {display, sad},
+      remainingSecs,
     } = this.state;
+    const {minutes, seconds} = this.getRemainingSecs(remainingSecs);
     const voiceLabel = voice
       ? voice
       : isRecord
@@ -121,6 +170,11 @@ class Pronounce extends React.Component {
     } else {
       return (
         <View style={styles.container}>
+          <TouchableOpacity
+            onPress={this.handleStopPlaying}
+            style={styles.exitWrapper}>
+            <Image style={styles.exit} source={ExitIcon} />
+          </TouchableOpacity>
           <View style={styles.imageAssetWrapper}>
             <TouchableOpacity
               onPress={() => readText(correctAnswer)}
@@ -137,6 +191,7 @@ class Pronounce extends React.Component {
             <Text style={styles.question}>{voiceLabel}</Text>
           </View>
           <View style={styles.recordButtonWrapper}>
+            <Text style={styles.timer}>{`${minutes} : ${seconds}`}</Text>
             <TouchableOpacity onPress={this._onRecordVoice}>
               <Image style={styles.record} source={RecordButton} />
             </TouchableOpacity>
@@ -150,7 +205,8 @@ class Pronounce extends React.Component {
               }
               disabled={voice === undefined}
               onPress={this.handleAnswerCheck}>
-              <Text style={styles.confirmTitle}> Confirm </Text>
+              <Text style={voice === undefined
+                ? [styles.disabledConfirmTitle] : [styles.confirmTitle]}> CHECK </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -162,6 +218,7 @@ class Pronounce extends React.Component {
 Pronounce.propTypes = {
   currentQuestion: object.isRequired,
   progress: object.isRequired,
+  handleStop: func.isRequired,
 };
 
 export default connect(
@@ -169,5 +226,5 @@ export default connect(
     progress: state.progressReducer,
     currentQuestion: state.questionsContentReducer.currentQuestion,
   }),
-  null,
+  {handleStop: stop},
 )(Pronounce);

@@ -62,75 +62,75 @@ const ReviewWrapper = ({navigation, vocabularies, recentVocabularies}) => {
     },
     {
       title: 'I',
-      data: filterByLetter(vocabularies, 'J'),
+      data: filterByLetter(vocabularies, 'I'),
     },
     {
       title: 'J',
-      data: filterByLetter(vocabularies, 'K'),
+      data: filterByLetter(vocabularies, 'J'),
     },
     {
       title: 'K',
-      data: filterByLetter(vocabularies, 'L'),
+      data: filterByLetter(vocabularies, 'K'),
     },
     {
       title: 'L',
-      data: filterByLetter(vocabularies, 'M'),
+      data: filterByLetter(vocabularies, 'L'),
     },
     {
       title: 'M',
-      data: filterByLetter(vocabularies, 'N'),
+      data: filterByLetter(vocabularies, 'M'),
     },
     {
       title: 'N',
-      data: filterByLetter(vocabularies, 'O'),
+      data: filterByLetter(vocabularies, 'N'),
     },
     {
       title: 'O',
-      data: filterByLetter(vocabularies, 'P'),
+      data: filterByLetter(vocabularies, 'O'),
     },
     {
       title: 'P',
-      data: filterByLetter(vocabularies, 'Q'),
+      data: filterByLetter(vocabularies, 'P'),
     },
     {
       title: 'Q',
-      data: filterByLetter(vocabularies, 'R'),
+      data: filterByLetter(vocabularies, 'Q'),
     },
     {
       title: 'R',
-      data: filterByLetter(vocabularies, 'S'),
+      data: filterByLetter(vocabularies, 'R'),
     },
     {
       title: 'S',
-      data: filterByLetter(vocabularies, 'T'),
+      data: filterByLetter(vocabularies, 'S'),
     },
     {
       title: 'T',
-      data: filterByLetter(vocabularies, 'U'),
+      data: filterByLetter(vocabularies, 'T'),
     },
     {
       title: 'U',
-      data: filterByLetter(vocabularies, 'V'),
+      data: filterByLetter(vocabularies, 'U'),
     },
     {
       title: 'V',
-      data: filterByLetter(vocabularies, 'W'),
+      data: filterByLetter(vocabularies, 'V'),
     },
     {
       title: 'W',
-      data: filterByLetter(vocabularies, 'X'),
+      data: filterByLetter(vocabularies, 'W'),
     },
     {
       title: 'X',
-      data: filterByLetter(vocabularies, 'Y'),
+      data: filterByLetter(vocabularies, 'X'),
     },
     {
       title: 'Y',
-      data: filterByLetter(vocabularies, 'Z'),
+      data: filterByLetter(vocabularies, 'Y'),
     },
     {
       title: 'Z',
-      data: filterByLetter(vocabularies, 'E'),
+      data: filterByLetter(vocabularies, 'Z'),
     },
   ];
 

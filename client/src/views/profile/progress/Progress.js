@@ -71,7 +71,7 @@ class Progress extends Component {
                   ],
                 },
               ]}>
-              <Text style={styles.absoluteText}>
+              <Text style={styles.testText}>
                 {testsCompleted}
                 {'\n'}test(s)
               </Text>
@@ -95,7 +95,7 @@ class Progress extends Component {
                   ],
                 },
               ]}>
-              <Text style={styles.absoluteText}>
+              <Text style={styles.levelText}>
                 {levelsCompleted}
                 {'\n'}level(s)
               </Text>
@@ -120,7 +120,7 @@ class Progress extends Component {
                   ],
                 },
               ]}>
-              <Text style={styles.absoluteText}>
+              <Text style={styles.wordText}>
                 {words}
                 {'\n'}word(s)
               </Text>
@@ -143,7 +143,7 @@ class Progress extends Component {
                   ],
                 },
               ]}>
-              <Text style={styles.absoluteText}>
+              <Text style={styles.badgeText}>
                 {levelsCompleted}
                 {'\n'} badge(s)
               </Text>

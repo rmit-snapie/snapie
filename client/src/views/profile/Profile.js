@@ -1,21 +1,31 @@
-import React, {useState} from 'react';
-import {object} from 'prop-types';
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
+import {object, string} from 'prop-types';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './ProfileStyle';
 import Badges from './badges/Badges';
 import Progress from './progress/Progress';
 import {goToFirstScreenInStack} from '../../helpers/NavigateHelper';
-import SnapieModal from '../../shared/components/SnapieModal';
+import SnapieModal from '../../shared/components/snapie-modal/SnapieModal';
+import LoginModal from './login-modal/LoginModal';
+const BackToHome = require('../../shared/assets/icons/BackToHomeIconSecondary.png');
+const SettingsIcon = require('../../shared/assets/icons/SettingsIcon.png');
+const DefaultAvatar = require('../../shared/assets/DefaultAvatar.png');
 
 const tabs = {PROGRESS: 'PROGRESS', BADGES: 'BADGES'};
 
-const Profile = ({navigation}) => {
+const Profile = ({navigation, username}) => {
   const [tab, setTab] = useState(tabs.PROGRESS);
   const [openModal, setOpenModal] = useState({
     display: false,
     type: null,
     message: null,
   });
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+
+  useEffect(() => {
+    setOpenLoginModal(true);
+  }, []);
 
   const renderTab = () => {
     if (tab === tabs.PROGRESS) {
@@ -32,7 +42,7 @@ const Profile = ({navigation}) => {
     });
     setTimeout(() => {
       setOpenModal({display: false, type: null, message: null});
-    }, 1000);
+    }, 500);
   };
 
   return (
@@ -40,24 +50,21 @@ const Profile = ({navigation}) => {
       <View style={styles.profileHeader}>
         <View style={styles.profileActionsWrapper}>
           <TouchableOpacity onPress={() => goToFirstScreenInStack(navigation)}>
-            <Image
-              style={styles.profileAction}
-              source={require('../../shared/assets/BackToHomeIconSecondary.png')}
-            />
+            <Image style={styles.profileAction} source={BackToHome} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => handlePressSettings()}>
-            <Image
-              style={styles.profileAction}
-              source={require('../../shared/assets/SettingsIcon.png')}
-            />
+            <Image style={styles.profileAction} source={SettingsIcon} />
           </TouchableOpacity>
         </View>
         <View style={styles.profileInfoWrapper}>
-          <Image
-            style={styles.avatar}
-            source={require('../../shared/assets/DefaultAvatar.png')}
-          />
-          <Text style={styles.name}>Jake the Dog</Text>
+          <Image style={styles.avatar} source={DefaultAvatar} />
+          <TouchableOpacity onPress={() => setOpenLoginModal(true)}>
+            {username !== '' ? (
+              <Text style={styles.name}>{username}</Text>
+            ) : (
+              <Text style={styles.name}>Log In</Text>
+            )}
+          </TouchableOpacity>
         </View>
         <View style={styles.tabsWrapper}>
           <TouchableOpacity
@@ -67,14 +74,14 @@ const Profile = ({navigation}) => {
                 ? [styles.tab, styles.activeTab]
                 : styles.tab
             }>
-            <Text style={styles.tabTitle}>PROGRESS</Text>
+            <Text style={tab === tabs.PROGRESS ? styles.activeTabTitle : styles.tabTitle}>PROGRESS</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setTab(tabs.BADGES)}
             style={
               tab === tabs.BADGES ? [styles.tab, styles.activeTab] : styles.tab
             }>
-            <Text style={styles.tabTitle}>BADGES</Text>
+            <Text style={  tab === tabs.BADGES ? styles.activeTabTitle : styles.tabTitle}>BADGES</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -88,12 +95,22 @@ const Profile = ({navigation}) => {
           type={openModal.type}
         />
       )}
+      {openLoginModal && (
+        <LoginModal
+          display={openLoginModal}
+          closeModal={() => setOpenLoginModal(false)}
+        />
+      )}
     </View>
   );
 };
 
 Profile.propTypes = {
   navigation: object.isRequired,
+  username: string.isRequired,
 };
 
-export default Profile;
+export default connect(
+  state => ({username: state.userReducer.username}),
+  null,
+)(Profile);

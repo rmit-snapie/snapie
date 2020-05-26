@@ -6,14 +6,17 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    padding: 5,
+    backgroundColor: '#ffffff',
   },
   notFound: {
-    fontSize: 32,
-    fontFamily: 'Amiko-Bold',
+    fontSize: 24,
+    fontFamily: 'Quicksand-Bold',
+    fontWeight: '600',
     textAlign: 'center',
   },
   resultsWrapper: {
-    flex: 7,
+    flex: 6,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -22,10 +25,10 @@ export default StyleSheet.create({
   resultWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    width: 180,
-    marginRight: 10,
-    marginBottom: 10,
+    flexGrow: 2,
+    paddingBottom: 30,
+
+
   },
   imageWrapper: {
     flexDirection: 'row',
@@ -36,7 +39,7 @@ export default StyleSheet.create({
     height: 100,
     borderWidth: 3,
     borderRadius: 16,
-    borderColor: '#afafaf',
+    borderColor: '#dddddd',
   },
   actionButtonsWrapper: {
     height: 100,
@@ -49,22 +52,23 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   description: {
-    marginTop: 15,
+    marginTop: 5,
     fontSize: 18,
-    fontFamily: 'Amiko-Bold',
+    fontFamily: 'Quicksand-Bold',
+    fontWeight: '600',
     textAlign: 'center',
     color: '#f47171',
   },
   viewMore: {
-    width: 40,
-    height: 40,
-    marginTop: 10,
+    width: 45,
+    height: 45,
+    marginTop: 25,
   },
   viewLessWrapper: {
     flex: 1,
   },
   viewLess: {
-    width: 40,
-    height: 40,
+    width: 45,
+    height: 45,
   },
 });

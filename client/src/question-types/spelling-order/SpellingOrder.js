@@ -138,10 +138,15 @@ const SpellingOrder = ({currentQuestion, progress, handleStop}) => {
               }
               disabled={currentOrder.length === null}
               onPress={() => handleAnswerCheck()}>
-              <Text style={
-                currentOrder.length === 0
+              <Text
+                style={
+                  currentOrder.length === 0
                     ? [styles.disabledConfirmTitle]
-                    : [styles.confirmTitle,]}> CHECK </Text>
+                    : [styles.confirmTitle]
+                }>
+                {' '}
+                CHECK{' '}
+              </Text>
             </TouchableOpacity>
           </View>
         </>

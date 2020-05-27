@@ -107,11 +107,14 @@ const FillTheBlank = ({progress, currentQuestion, handleStop}) => {
                     ? [styles.answer, styles.chosenAnswer]
                     : [styles.answer, styles.notChosenAnswer]
                 }>
-                <Text style={
-                                            currentAnswer.index === index
-                                              ? styles.chosenAnswerTitle
-                                              : styles.answerTitle
-                                          }>{answer}</Text>
+                <Text
+                  style={
+                    currentAnswer.index === index
+                      ? styles.chosenAnswerTitle
+                      : styles.answerTitle
+                  }>
+                  {answer}
+                </Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -124,9 +127,15 @@ const FillTheBlank = ({progress, currentQuestion, handleStop}) => {
               }
               disabled={currentAnswer.answer === null}
               onPress={() => handleAnswerCheck(currentAnswer.answer)}>
-              <Text style={ currentAnswer.answer === null
-                                                     ? [styles.disabledConfirmTitle]
-                                                     : [styles.confirmTitle,]}> CHECK </Text>
+              <Text
+                style={
+                  currentAnswer.answer === null
+                    ? [styles.disabledConfirmTitle]
+                    : [styles.confirmTitle]
+                }>
+                {' '}
+                CHECK{' '}
+              </Text>
             </TouchableOpacity>
           </View>
         </>

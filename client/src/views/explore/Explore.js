@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { object } from 'prop-types';
+import React, {Component} from 'react';
+import {object} from 'prop-types';
 import {
   ImageBackground,
   TouchableOpacity,
@@ -8,13 +8,13 @@ import {
   View,
 } from 'react-native';
 import styles from './ExploreStyle';
-import { RNCamera } from 'react-native-camera';
+import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
-import { LABELS_API } from '../../../environments/constants';
-import { goToFirstScreenInStack, replaceTo } from '../../helpers/NavigateHelper';
+import {LABELS_API} from '../../../environments/constants';
+import {goToFirstScreenInStack, replaceTo} from '../../helpers/NavigateHelper';
 import Loading from '../../shared/components/loading/Loading';
 import ImageLabels from './image-labels/ImageLabels';
-import { REVIEW_SCREEN } from '../../../environments/Routes';
+import {REVIEW_SCREEN} from '../../../environments/Routes';
 const AnalyzeButton = require('../../shared/assets/buttons/AnalyzeButton.png');
 const ExploreSnapIcon = require('../../shared/assets/icons/ExploreSnapIcon.png');
 const RecaptureIcon = require('../../shared/assets/icons/RecaptureIcon.png');
@@ -30,7 +30,7 @@ class Explore extends Component {
       base64encoded: '',
       loading: false,
       results: [],
-      analysis: { analyzing: false, analyzed: false },
+      analysis: {analyzing: false, analyzed: false},
     };
   }
 
@@ -42,13 +42,13 @@ class Explore extends Component {
     if (!this.imageUriIsEmpty()) {
       this.analyze();
     } else {
-      this.setState({ loading: true });
+      this.setState({loading: true});
       if (this.camera) {
-        const options = { quality: 0.5, base64: true };
+        const options = {quality: 0.5, base64: true};
         const data = await this.camera.takePictureAsync(options);
-        this.setState({ imageUri: data.uri, base64encoded: data.base64 });
+        this.setState({imageUri: data.uri, base64encoded: data.base64});
       }
-      this.setState({ loading: false });
+      this.setState({loading: false});
     }
   };
 
@@ -58,13 +58,13 @@ class Explore extends Component {
       base64encoded: '',
       loading: false,
       analyzing: false,
-      analysis: { analyzing: false, analyzed: false },
+      analysis: {analyzing: false, analyzed: false},
       results: [],
     });
   };
 
   analyze = async () => {
-    this.setState({ analysis: { analyzing: true } });
+    this.setState({analysis: {analyzing: true}});
     try {
       const fetchLabels = await axios.post(LABELS_API, {
         image: this.state.base64encoded,
@@ -72,7 +72,7 @@ class Explore extends Component {
       });
       this.setState({
         results: [...fetchLabels.data],
-        analysis: { analyzing: false, analyzed: true },
+        analysis: {analyzing: false, analyzed: true},
       });
     } catch (e) {
       console.log(e);
@@ -84,9 +84,9 @@ class Explore extends Component {
       imageUri,
       loading,
       results,
-      analysis: { analyzing, analyzed },
+      analysis: {analyzing, analyzed},
     } = this.state;
-    const { navigation } = this.props;
+    const {navigation} = this.props;
     const src = imageUri ? AnalyzeButton : ExploreSnapIcon;
     if (analyzing) {
       return <Loading />;
@@ -107,29 +107,29 @@ class Explore extends Component {
       <View style={styles.container}>
         <View style={styles.cameraWrapper}>
           {!this.imageUriIsEmpty() ? (
-            <ImageBackground source={{ uri: imageUri }} style={styles.camera} />
+            <ImageBackground source={{uri: imageUri}} style={styles.camera} />
           ) : (
-              <RNCamera
-                ref={ref => {
-                  this.camera = ref;
-                }}
-                style={styles.camera}
-                type={RNCamera.Constants.Type.back}
-                flashMode={RNCamera.Constants.FlashMode.auto}
-                androidCameraPermissionOptions={{
-                  title: 'Permission to use camera',
-                  message: 'Snapie would like to access your camera',
-                  buttonPositive: 'Confirm',
-                  buttonNegative: 'Cancel',
-                }}
-                androidRecordAudioPermissionOptions={{
-                  title: 'Permission to use audio recording',
-                  message: 'Snapie would like to access your microphone',
-                  buttonPositive: 'Confirm',
-                  buttonNegative: 'Cancel',
-                }}>
-              </RNCamera>
-            )}
+            <RNCamera
+              ref={ref => {
+                this.camera = ref;
+              }}
+              style={styles.camera}
+              type={RNCamera.Constants.Type.back}
+              flashMode={RNCamera.Constants.FlashMode.auto}
+              androidCameraPermissionOptions={{
+                title: 'Permission to use camera',
+                message: 'Snapie would like to access your camera',
+                buttonPositive: 'Confirm',
+                buttonNegative: 'Cancel',
+              }}
+              androidRecordAudioPermissionOptions={{
+                title: 'Permission to use audio recording',
+                message: 'Snapie would like to access your microphone',
+                buttonPositive: 'Confirm',
+                buttonNegative: 'Cancel',
+              }}
+            />
+          )}
         </View>
 
         <View style={styles.exploreFooter}>
@@ -137,18 +137,17 @@ class Explore extends Component {
             <TouchableOpacity
               // style={styles.exitWrapper}
               onPress={this.recapture.bind(this)}>
-              <Image
-                style={styles.exit}
-                source={XIcon} />
+              <Image style={styles.exit} source={XIcon} />
             </TouchableOpacity>
           ) : (
-              <TouchableOpacity onPress={() => goToFirstScreenInStack(navigation)}>
-                <Image style={styles.goHome} source={BackToHomeIcon} />
-              </TouchableOpacity>
-            )}
+            <TouchableOpacity
+              onPress={() => goToFirstScreenInStack(navigation)}>
+              <Image style={styles.goHome} source={BackToHomeIcon} />
+            </TouchableOpacity>
+          )}
 
-          <View >
-            <View >
+          <View>
+            <View>
               {loading ? (
                 <ActivityIndicator
                   animating={loading}
@@ -157,10 +156,10 @@ class Explore extends Component {
                   style={styles.loading}
                 />
               ) : (
-                  <TouchableOpacity onPress={this.takePicture.bind(this)}>
-                    <Image style={styles.lookUp} source={src} />
-                  </TouchableOpacity>
-                )}
+                <TouchableOpacity onPress={this.takePicture.bind(this)}>
+                  <Image style={styles.lookUp} source={src} />
+                </TouchableOpacity>
+              )}
             </View>
           </View>
 
@@ -168,7 +167,6 @@ class Explore extends Component {
             onPress={() => replaceTo(navigation, REVIEW_SCREEN)}>
             <Image style={styles.goToBook} source={GoToBookButton} />
           </TouchableOpacity>
-
         </View>
       </View>
     );

@@ -105,7 +105,14 @@ class FindTheObject extends Component {
   }
 
   render() {
-    const {questionContent, imageUri, loading, analyzing, cheers} = this.state;
+    const {
+      questionContent,
+      correctAnswer,
+      imageUri,
+      loading,
+      analyzing,
+      cheers,
+    } = this.state;
     const src = imageUri
       ? require('../../shared/assets/buttons/CancelButton.png')
       : require('../../shared/assets/buttons/TakePictureButton.png');
@@ -113,7 +120,13 @@ class FindTheObject extends Component {
       return <Loading />;
     }
     if (cheers.display) {
-      return <Cheers cheers={cheers.display} sad={cheers.sad} />;
+      return (
+        <Cheers
+          cheers={cheers.display}
+          sad={cheers.sad}
+          correctAnswer={correctAnswer}
+        />
+      );
     }
     return (
       <View style={styles.preview}>
@@ -171,9 +184,14 @@ class FindTheObject extends Component {
                 : [styles.checkButton, styles.checkAnswer]
             }
             disabled={this.imageUriIsEmpty()}>
-            <Text style={this.imageUriIsEmpty()
-                                         ? [styles.disabledConfirmTitle]
-                                         : [styles.check]}>CHECK</Text>
+            <Text
+              style={
+                this.imageUriIsEmpty()
+                  ? [styles.disabledConfirmTitle]
+                  : [styles.check]
+              }>
+              CHECK
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

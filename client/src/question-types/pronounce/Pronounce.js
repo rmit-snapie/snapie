@@ -166,7 +166,9 @@ class Pronounce extends React.Component {
       );
     }
     if (display) {
-      return <Cheers cheers={display} sad={sad} />;
+      return (
+        <Cheers cheers={display} sad={sad} correctAnswer={correctAnswer} />
+      );
     } else {
       return (
         <View style={styles.container}>
@@ -205,8 +207,15 @@ class Pronounce extends React.Component {
               }
               disabled={voice === undefined}
               onPress={this.handleAnswerCheck}>
-              <Text style={voice === undefined
-                ? [styles.disabledConfirmTitle] : [styles.confirmTitle]}> CHECK </Text>
+              <Text
+                style={
+                  voice === undefined
+                    ? [styles.disabledConfirmTitle]
+                    : [styles.confirmTitle]
+                }>
+                {' '}
+                CHECK{' '}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

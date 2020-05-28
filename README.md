@@ -1,3 +1,3 @@
-# Software Engineering Project Management 2020A
+# Snapie - A cross platform educational mobile application
 
-React Native Application
+Created with React Native

@@ -9,21 +9,20 @@ fun and exciting environment for children to learn English.
 
 ## Features & Screenshots
 ### Lesson Mode 
-##### Diverse questions
+
 ###### Multiple choice
 <div>
-    <img alt="Lesson-Stages" width="175" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591458029/snapie/demo-pictures/iOS/Lesson-Stages.png">
-    <img alt="Question" width="175" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591458029/snapie/demo-pictures/iOS/Question.png" />
-    <img alt="Question-1" width="175" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591458652/snapie/demo-pictures/iOS/Question-1.png" />
-    <img alt="Question-2" width="175" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591458652/snapie/demo-pictures/iOS/Question-2.png" />
+    <img alt="Lesson-Stages" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591458029/snapie/demo-pictures/iOS/Lesson-Stages.png">
+    <img alt="Question" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591458029/snapie/demo-pictures/iOS/Question.png" />
+    <img alt="Question-1" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591458652/snapie/demo-pictures/iOS/Question-1.png" />
+    <img alt="Question-2" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591458652/snapie/demo-pictures/iOS/Question-2.png" />
 </div>
 
-##### Something else
+
+###### Something else
 <div>
     <img alt="Lesson-Stages" width="175" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591458029/snapie/demo-pictures/iOS/Lesson-Stages.png">
     <img alt="Question" width="175" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591458029/snapie/demo-pictures/iOS/Question.png" />
-    <img alt="Question-1" width="175" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591458652/snapie/demo-pictures/iOS/Question-1.png" />
-    <img alt="Question-2" width="175" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591458652/snapie/demo-pictures/iOS/Question-2.png" />
 </div>
 
 ## Installation & Usage

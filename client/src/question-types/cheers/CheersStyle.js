@@ -1,7 +1,9 @@
 import {Dimensions, StyleSheet} from 'react-native';
+
 const windowWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
+  cheersWrapper: {flex: 1, width: windowWidth, alignItems: 'center'},
   container: {
     flex: 9,
     justifyContent: 'center',

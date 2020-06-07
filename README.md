@@ -1,11 +1,11 @@
-# Snapie
+# ![Snapie Logo](https://res.cloudinary.com/dp6np8gta/image/upload/v1591524567/snapie/demo-pictures/FinalLogoIcon--v1.png)
 > A cross-platform educational mobile application
 
 Snapie is a educational mobile application that is available on both iOS and Android devices. Snapie aims to create a
 fun and exciting environment for children to learn English.
 
 ## Introduction
-![Snapie Poster](https://res.cloudinary.com/dp6np8gta/image/upload/v1591454645/snapie/demo-pictures/Demo-Poster.jpg)
+![Snapie Poster](https://res.cloudinary.com/dp6np8gta/image/upload/v1591524595/snapie/demo-pictures/Asset_16.png)
 
 ## Features & Screenshots
 

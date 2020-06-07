@@ -23,6 +23,8 @@ Choose from three different stages with diverse questions and attractive illustr
 </div>
 
 #### Multiple Choice
+
+----
 <div>
     <img alt="MC" style="margin-right: 20px" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591500311/snapie/demo-pictures/iOS/Multiple-Choice.png" />
     <img alt="MC-1" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591500311/snapie/demo-pictures/iOS/Multiple-Choice-1.png" />
@@ -30,6 +32,8 @@ Choose from three different stages with diverse questions and attractive illustr
 </div>
 
 #### Multiple Choice w/ Images
+
+----
 <div>
     <img alt="MCI" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591500311/snapie/demo-pictures/iOS/Multiple-Choice-Images.png" />
     <img alt="MCI-1" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591500311/snapie/demo-pictures/iOS/Multiple-Choice-Images-2.png" />
@@ -37,6 +41,8 @@ Choose from three different stages with diverse questions and attractive illustr
 </div>
 
 #### Match the Pairs
+
+----
 <div>
     <img alt="MP" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591501341/snapie/demo-pictures/iOS/Match-The-Pairs.png">
     <img alt="MP-1" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591501342/snapie/demo-pictures/iOS/Match-The-Pairs-1.png" />
@@ -44,6 +50,8 @@ Choose from three different stages with diverse questions and attractive illustr
 </div>
 
 #### Fill the Blanks
+
+----
 <div>
     <img alt="FB" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591501648/snapie/demo-pictures/iOS/Fill-The-Blank.png">
     <img alt="FB-1" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591501649/snapie/demo-pictures/iOS/Fill-The-Blank-1.png" />
@@ -51,6 +59,8 @@ Choose from three different stages with diverse questions and attractive illustr
 </div>
 
 #### Pronounce
+
+----
 <div>
     <img alt="P" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591501904/snapie/demo-pictures/iOS/Pronounce.png">
     <img alt="P-1" width="300" src="https://res.cloudinary.com/dp6np8gta/image/upload/v1591501907/snapie/demo-pictures/iOS/Pronounce-1.png" />
@@ -58,6 +68,8 @@ Choose from three different stages with diverse questions and attractive illustr
 </div>
 
 #### Find the Object
+
+----
 To be updated
 
 ### 👀 Explore Mode 

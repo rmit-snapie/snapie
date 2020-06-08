@@ -17,7 +17,7 @@ const Cheers = ({sad, correctAnswer, handleContinueQuestion}) => {
   }, [sad]);
 
   return (
-    <View style={{flex: 1, alignItems: 'center'}}>
+    <View style={styles.cheersWrapper}>
       <View style={styles.container}>
         <View style={styles.gifWrapper}>
           <Image source={imagePath} style={styles.image} />

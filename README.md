@@ -4,7 +4,7 @@ Snapie is a educational mobile application that is available on both iOS and And
 fun and exciting environment for children to learn English.
 
 ## Introduction
-![Snapie Poster](https://res.cloudinary.com/dp6np8gta/image/upload/v1591524595/snapie/demo-pictures/Asset_16.png)
+![Snapie Poster](https://res.cloudinary.com/cookiemaster/image/upload/v1591524595/snapie/demo-pictures/Asset_16.png)
 
 ## Features & Screenshots
 
